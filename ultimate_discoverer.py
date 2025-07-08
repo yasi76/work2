@@ -57,6 +57,7 @@ class UltimateURLDiscoverer:
             limit_per_host=5,
             ttl_dns_cache=300,
             use_dns_cache=True,
+            ssl=False  # Disable SSL verification for problematic sites
         )
         self.session = aiohttp.ClientSession(
             connector=connector,
