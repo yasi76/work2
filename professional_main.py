@@ -735,7 +735,7 @@ class ProfessionalDiscoveryEngine:
     
     def _create_company_record(self, result: Dict) -> CompanyRecord:
         """Convert validation result to CompanyRecord"""
-        from ultimate_main import get_ultimate_country_estimate, classify_healthcare_sector
+        from utils import get_ultimate_country_estimate, classify_healthcare_sector
         
         country = get_ultimate_country_estimate(
             result['url'],
