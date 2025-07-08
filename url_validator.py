@@ -12,9 +12,22 @@ from urllib.parse import urlparse, urljoin, parse_qs
 import validators
 import requests
 from requests.exceptions import RequestException
-import tldextract
-from robotstxt import RobotsTxtParser
 import time
+
+# Optional imports with fallbacks
+try:
+    import tldextract
+    TLDEXTRACT_AVAILABLE = True
+except ImportError:
+    TLDEXTRACT_AVAILABLE = False
+    print("Warning: tldextract not available. Basic domain extraction will be used.")
+
+try:
+    from robotstxt import RobotsTxtParser
+    ROBOTSTXT_AVAILABLE = True
+except ImportError:
+    ROBOTSTXT_AVAILABLE = False
+    print("Warning: robotstxt not available. Robots.txt checking disabled.")
 
 from config import EXCLUDED_DOMAINS, TIMEOUT, USER_AGENTS
 
@@ -28,6 +41,7 @@ class URLValidator:
     
     This class provides comprehensive URL validation, cleaning,
     and filtering functionality for the healthcare startup discovery system.
+    Gracefully handles missing dependencies with fallback implementations.
     """
     
     def __init__(self):
@@ -61,6 +75,8 @@ class URLValidator:
         ]
         
         logger.info("URLValidator initialized successfully")
+        logger.info(f"tldextract available: {TLDEXTRACT_AVAILABLE}")
+        logger.info(f"robotstxt available: {ROBOTSTXT_AVAILABLE}")
     
     def get_user_agent(self) -> str:
         """Get next user agent for rotation"""
@@ -89,7 +105,10 @@ class URLValidator:
             url = 'https://' + url
         
         # Parse URL
-        parsed = urlparse(url)
+        try:
+            parsed = urlparse(url)
+        except Exception:
+            return ""
         
         # Remove common tracking parameters
         tracking_params = {
@@ -100,17 +119,20 @@ class URLValidator:
         
         # Parse query parameters and remove tracking ones
         if parsed.query:
-            query_params = parse_qs(parsed.query)
-            cleaned_params = {
-                k: v for k, v in query_params.items() 
-                if k not in tracking_params
-            }
-            
-            # Rebuild query string
-            if cleaned_params:
-                from urllib.parse import urlencode
-                query_string = urlencode(cleaned_params, doseq=True)
-            else:
+            try:
+                query_params = parse_qs(parsed.query)
+                cleaned_params = {
+                    k: v for k, v in query_params.items() 
+                    if k not in tracking_params
+                }
+                
+                # Rebuild query string
+                if cleaned_params:
+                    from urllib.parse import urlencode
+                    query_string = urlencode(cleaned_params, doseq=True)
+                else:
+                    query_string = ""
+            except Exception:
                 query_string = ""
         else:
             query_string = ""
@@ -119,15 +141,19 @@ class URLValidator:
         fragment = ""
         
         # Rebuild URL
-        from urllib.parse import urlunparse
-        cleaned_url = urlunparse((
-            parsed.scheme,
-            parsed.netloc.lower(),  # Normalize domain to lowercase
-            parsed.path.rstrip('/'),  # Remove trailing slash from path
-            parsed.params,
-            query_string,
-            fragment
-        ))
+        try:
+            from urllib.parse import urlunparse
+            cleaned_url = urlunparse((
+                parsed.scheme,
+                parsed.netloc.lower(),  # Normalize domain to lowercase
+                parsed.path.rstrip('/'),  # Remove trailing slash from path
+                parsed.params,
+                query_string,
+                fragment
+            ))
+        except Exception:
+            # Fallback to basic cleaning
+            cleaned_url = f"{parsed.scheme}://{parsed.netloc.lower()}{parsed.path}"
         
         return cleaned_url
     
@@ -145,7 +171,10 @@ class URLValidator:
             return False
         
         # Basic URL validation
-        if not validators.url(url):
+        try:
+            if not validators.url(url):
+                return False
+        except Exception:
             return False
         
         # Parse URL
@@ -163,11 +192,19 @@ class URLValidator:
             return False
         
         # Extract domain components
-        try:
-            domain_info = tldextract.extract(url)
-            domain = f"{domain_info.domain}.{domain_info.suffix}"
-        except Exception:
-            return False
+        if TLDEXTRACT_AVAILABLE:
+            try:
+                domain_info = tldextract.extract(url)
+                domain = f"{domain_info.domain}.{domain_info.suffix}"
+            except Exception:
+                # Fallback to basic domain extraction
+                domain = parsed.netloc.lower()
+        else:
+            # Basic domain extraction
+            domain = parsed.netloc.lower()
+            # Remove port if present
+            if ':' in domain:
+                domain = domain.split(':')[0]
         
         # Check against excluded domains
         if domain.lower() in self.excluded_domains:
@@ -175,8 +212,11 @@ class URLValidator:
         
         # Check against excluded patterns
         for pattern in self.excluded_patterns:
-            if re.search(pattern, url, re.IGNORECASE):
-                return False
+            try:
+                if re.search(pattern, url, re.IGNORECASE):
+                    return False
+            except Exception:
+                continue
         
         return True
     
@@ -193,9 +233,12 @@ class URLValidator:
         if not url:
             return False
         
-        parsed = urlparse(url)
-        domain = parsed.netloc.lower()
-        path = parsed.path.lower()
+        try:
+            parsed = urlparse(url)
+            domain = parsed.netloc.lower()
+            path = parsed.path.lower()
+        except Exception:
+            return False
         
         # Check for obvious non-company indicators
         non_company_indicators = [
@@ -249,8 +292,11 @@ class URLValidator:
             user_agent: User agent to check for
             
         Returns:
-            True if allowed by robots.txt
+            True if allowed by robots.txt (or if robots.txt checking unavailable)
         """
+        if not ROBOTSTXT_AVAILABLE:
+            return True  # Default to allowed if library not available
+        
         try:
             parsed = urlparse(url)
             base_url = f"{parsed.scheme}://{parsed.netloc}"
@@ -326,14 +372,47 @@ class URLValidator:
             Dictionary with domain information
         """
         try:
-            domain_info = tldextract.extract(url)
             parsed = urlparse(url)
             
+            if TLDEXTRACT_AVAILABLE:
+                try:
+                    domain_info = tldextract.extract(url)
+                    return {
+                        'domain': domain_info.domain,
+                        'suffix': domain_info.suffix,
+                        'subdomain': domain_info.subdomain,
+                        'full_domain': f"{domain_info.domain}.{domain_info.suffix}",
+                        'netloc': parsed.netloc,
+                        'scheme': parsed.scheme,
+                        'path': parsed.path
+                    }
+                except Exception:
+                    pass
+            
+            # Fallback to basic parsing
+            netloc = parsed.netloc.lower()
+            # Remove port if present
+            if ':' in netloc:
+                netloc = netloc.split(':')[0]
+            
+            # Basic domain extraction
+            parts = netloc.split('.')
+            if len(parts) >= 2:
+                domain = parts[-2]
+                suffix = parts[-1]
+                subdomain = '.'.join(parts[:-2]) if len(parts) > 2 else ''
+                full_domain = f"{domain}.{suffix}"
+            else:
+                domain = netloc
+                suffix = ''
+                subdomain = ''
+                full_domain = netloc
+            
             return {
-                'domain': domain_info.domain,
-                'suffix': domain_info.suffix,
-                'subdomain': domain_info.subdomain,
-                'full_domain': f"{domain_info.domain}.{domain_info.suffix}",
+                'domain': domain,
+                'suffix': suffix,
+                'subdomain': subdomain,
+                'full_domain': full_domain,
                 'netloc': parsed.netloc,
                 'scheme': parsed.scheme,
                 'path': parsed.path

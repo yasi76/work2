@@ -9,14 +9,33 @@ import re
 import logging
 from typing import List, Set, Tuple, Dict
 from collections import Counter
-import nltk
-from nltk.corpus import stopwords
-from nltk.tokenize import word_tokenize, sent_tokenize
-from nltk.stem import PorterStemmer, SnowballStemmer
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.metrics.pairwise import cosine_similarity
-import numpy as np
-from langdetect import detect, LangDetectError
+
+# Essential imports
+try:
+    import nltk
+    from nltk.corpus import stopwords
+    from nltk.tokenize import word_tokenize, sent_tokenize
+    from nltk.stem import PorterStemmer, SnowballStemmer
+    NLTK_AVAILABLE = True
+except ImportError:
+    NLTK_AVAILABLE = False
+    print("Warning: NLTK not available. Basic text processing will be used.")
+
+try:
+    from sklearn.feature_extraction.text import TfidfVectorizer
+    from sklearn.metrics.pairwise import cosine_similarity
+    import numpy as np
+    SKLEARN_AVAILABLE = True
+except ImportError:
+    SKLEARN_AVAILABLE = False
+    print("Warning: scikit-learn not available. Basic similarity scoring will be used.")
+
+try:
+    from langdetect import detect, LangDetectError
+    LANGDETECT_AVAILABLE = True
+except ImportError:
+    LANGDETECT_AVAILABLE = False
+    print("Warning: langdetect not available. Language detection disabled.")
 
 from config import HEALTHCARE_KEYWORDS, STARTUP_KEYWORDS, TARGET_COUNTRIES, MIN_CONFIDENCE_SCORE, MIN_TEXT_LENGTH
 
@@ -33,56 +52,94 @@ class HealthcareNLPProcessor:
     - Calculate relevance scores
     - Extract company information from text
     - Detect geographic location mentions
+    
+    Gracefully handles missing dependencies with fallback implementations.
     """
     
     def __init__(self):
-        """Initialize the NLP processor with necessary resources"""
-        self._download_nltk_data()
-        
-        # Initialize stemmers for different languages
-        self.english_stemmer = PorterStemmer()
-        self.german_stemmer = SnowballStemmer('german')
+        """Initialize the NLP processor with available resources"""
+        # Try to download NLTK data if available
+        if NLTK_AVAILABLE:
+            self._download_nltk_data()
+            # Initialize stemmers for different languages
+            try:
+                self.english_stemmer = PorterStemmer()
+                self.german_stemmer = SnowballStemmer('german')
+                self.stemmers_available = True
+            except Exception as e:
+                logger.warning(f"Could not initialize stemmers: {e}")
+                self.stemmers_available = False
+        else:
+            self.stemmers_available = False
         
         # Prepare keyword sets for faster lookup
         self.healthcare_keywords = {kw.lower() for kw in HEALTHCARE_KEYWORDS}
         self.startup_keywords = {kw.lower() for kw in STARTUP_KEYWORDS}
         self.country_keywords = {country.lower() for country in TARGET_COUNTRIES}
         
-        # Create stemmed versions of keywords for better matching
-        self.stemmed_healthcare_keywords = self._create_stemmed_keywords(self.healthcare_keywords)
-        self.stemmed_startup_keywords = self._create_stemmed_keywords(self.startup_keywords)
+        # Create stemmed versions of keywords for better matching (if available)
+        if self.stemmers_available:
+            self.stemmed_healthcare_keywords = self._create_stemmed_keywords(self.healthcare_keywords)
+            self.stemmed_startup_keywords = self._create_stemmed_keywords(self.startup_keywords)
+        else:
+            self.stemmed_healthcare_keywords = self.healthcare_keywords
+            self.stemmed_startup_keywords = self.startup_keywords
         
-        # Initialize TF-IDF vectorizer for semantic similarity
-        self.vectorizer = TfidfVectorizer(
-            max_features=1000,
-            stop_words='english',
-            ngram_range=(1, 2),
-            min_df=1
-        )
+        # Initialize TF-IDF vectorizer for semantic similarity (if available)
+        if SKLEARN_AVAILABLE:
+            try:
+                self.vectorizer = TfidfVectorizer(
+                    max_features=1000,
+                    stop_words='english',
+                    ngram_range=(1, 2),
+                    min_df=1
+                )
+                self.sklearn_available = True
+            except Exception as e:
+                logger.warning(f"Could not initialize TF-IDF vectorizer: {e}")
+                self.sklearn_available = False
+        else:
+            self.sklearn_available = False
         
         # Healthcare reference text for similarity comparison
         self.healthcare_reference_text = " ".join(HEALTHCARE_KEYWORDS)
         
         logger.info("HealthcareNLPProcessor initialized successfully")
+        logger.info(f"NLTK available: {NLTK_AVAILABLE}")
+        logger.info(f"Sklearn available: {SKLEARN_AVAILABLE}")
+        logger.info(f"Langdetect available: {LANGDETECT_AVAILABLE}")
     
     def _download_nltk_data(self):
         """Download required NLTK data"""
+        if not NLTK_AVAILABLE:
+            return
+            
         try:
             nltk.data.find('tokenizers/punkt')
             nltk.data.find('corpora/stopwords')
         except LookupError:
             logger.info("Downloading NLTK data...")
-            nltk.download('punkt', quiet=True)
-            nltk.download('stopwords', quiet=True)
+            try:
+                nltk.download('punkt', quiet=True)
+                nltk.download('stopwords', quiet=True)
+            except Exception as e:
+                logger.warning(f"Could not download NLTK data: {e}")
     
     def _create_stemmed_keywords(self, keywords: Set[str]) -> Set[str]:
         """Create stemmed versions of keywords for better matching"""
+        if not self.stemmers_available:
+            return keywords
+            
         stemmed = set()
         for keyword in keywords:
-            # Try English stemming
-            stemmed.add(self.english_stemmer.stem(keyword))
-            # Try German stemming
-            stemmed.add(self.german_stemmer.stem(keyword))
+            try:
+                # Try English stemming
+                stemmed.add(self.english_stemmer.stem(keyword))
+                # Try German stemming
+                stemmed.add(self.german_stemmer.stem(keyword))
+            except Exception:
+                # If stemming fails, use original keyword
+                stemmed.add(keyword)
         return stemmed
     
     def detect_language(self, text: str) -> str:
@@ -95,9 +152,12 @@ class HealthcareNLPProcessor:
         Returns:
             Detected language code (e.g., 'en', 'de')
         """
+        if not LANGDETECT_AVAILABLE:
+            return 'en'  # Default to English
+            
         try:
             return detect(text)
-        except LangDetectError:
+        except:
             return 'en'  # Default to English
     
     def preprocess_text(self, text: str, language: str = 'en') -> List[str]:
@@ -118,16 +178,28 @@ class HealthcareNLPProcessor:
         text = re.sub(r'[^\w\s]', ' ', text.lower())
         text = re.sub(r'\s+', ' ', text.strip())
         
-        # Tokenize
-        tokens = word_tokenize(text)
+        # Tokenize (with or without NLTK)
+        if NLTK_AVAILABLE:
+            try:
+                tokens = word_tokenize(text)
+            except:
+                # Fallback to simple split if NLTK fails
+                tokens = text.split()
+        else:
+            tokens = text.split()
         
-        # Remove stopwords
-        try:
-            stop_words = set(stopwords.words('english'))
-            if language == 'de':
-                stop_words.update(stopwords.words('german'))
-        except LookupError:
-            stop_words = set()
+        # Remove stopwords (if NLTK available)
+        if NLTK_AVAILABLE:
+            try:
+                stop_words = set(stopwords.words('english'))
+                if language == 'de':
+                    stop_words.update(stopwords.words('german'))
+            except:
+                # Use basic stopwords if NLTK fails
+                stop_words = {'the', 'a', 'an', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for', 'of', 'with', 'by', 'is', 'are', 'was', 'were'}
+        else:
+            # Basic English stopwords
+            stop_words = {'the', 'a', 'an', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for', 'of', 'with', 'by', 'is', 'are', 'was', 'were'}
         
         # Filter tokens
         tokens = [
@@ -158,32 +230,40 @@ class HealthcareNLPProcessor:
             if keyword in text_lower:
                 matched_keywords.add(keyword)
         
-        # Stemmed keyword matching for partial matches
-        language = self.detect_language(text)
-        tokens = self.preprocess_text(text, language)
-        
-        stemmer = self.german_stemmer if language == 'de' else self.english_stemmer
-        stemmed_tokens = {stemmer.stem(token) for token in tokens}
-        
-        # Check for stemmed keyword matches
-        for stemmed_keyword in self.stemmed_healthcare_keywords:
-            if stemmed_keyword in stemmed_tokens:
-                # Find original keyword that matches this stem
-                for original_keyword in self.healthcare_keywords:
-                    if stemmer.stem(original_keyword) == stemmed_keyword:
-                        matched_keywords.add(original_keyword)
-                        break
+        # Stemmed keyword matching for partial matches (if available)
+        if self.stemmers_available:
+            language = self.detect_language(text)
+            tokens = self.preprocess_text(text, language)
+            
+            stemmer = self.german_stemmer if language == 'de' else self.english_stemmer
+            try:
+                stemmed_tokens = {stemmer.stem(token) for token in tokens}
+                
+                # Check for stemmed keyword matches
+                for stemmed_keyword in self.stemmed_healthcare_keywords:
+                    if stemmed_keyword in stemmed_tokens:
+                        # Find original keyword that matches this stem
+                        for original_keyword in self.healthcare_keywords:
+                            try:
+                                if stemmer.stem(original_keyword) == stemmed_keyword:
+                                    matched_keywords.add(original_keyword)
+                                    break
+                            except:
+                                continue
+            except Exception as e:
+                logger.debug(f"Error in stemmed matching: {e}")
         
         # Calculate relevance score based on keyword density and diversity
         if not matched_keywords:
             return matched_keywords, 0.0
         
         # Base score from keyword matches
-        keyword_score = len(matched_keywords) / len(self.healthcare_keywords)
+        keyword_score = len(matched_keywords) / max(len(self.healthcare_keywords), 10)
         
         # Density score (how often healthcare terms appear)
+        tokens = self.preprocess_text(text)
         total_words = len(tokens) if tokens else 1
-        density_score = len(matched_keywords) / total_words
+        density_score = len(matched_keywords) / max(total_words, 10)
         
         # Combine scores
         relevance_score = min(1.0, (keyword_score * 0.7) + (density_score * 0.3))
@@ -200,7 +280,7 @@ class HealthcareNLPProcessor:
         Returns:
             Similarity score (0.0 to 1.0)
         """
-        if not text or len(text) < MIN_TEXT_LENGTH:
+        if not self.sklearn_available or not text or len(text) < MIN_TEXT_LENGTH:
             return 0.0
         
         try:
@@ -293,7 +373,7 @@ class HealthcareNLPProcessor:
         # Extract healthcare keywords and get keyword-based score
         matched_keywords, keyword_score = self.extract_healthcare_keywords(text)
         
-        # Calculate semantic similarity
+        # Calculate semantic similarity (if available)
         semantic_score = self.calculate_semantic_similarity(text)
         
         # Check for startup relevance
@@ -311,14 +391,23 @@ class HealthcareNLPProcessor:
             if any(keyword in url_lower for keyword in ['health', 'medical', 'med', 'bio', 'clinic']):
                 url_score = 0.1
         
-        # Combine all scores
-        confidence_score = min(1.0, 
-            (keyword_score * 0.4) + 
-            (semantic_score * 0.3) + 
-            startup_bonus + 
-            geographic_bonus + 
-            url_score
-        )
+        # Combine all scores (adjust weights if sklearn not available)
+        if self.sklearn_available:
+            confidence_score = min(1.0, 
+                (keyword_score * 0.4) + 
+                (semantic_score * 0.3) + 
+                startup_bonus + 
+                geographic_bonus + 
+                url_score
+            )
+        else:
+            # Give more weight to keyword score if semantic similarity unavailable
+            confidence_score = min(1.0, 
+                (keyword_score * 0.7) + 
+                startup_bonus + 
+                geographic_bonus + 
+                url_score
+            )
         
         return confidence_score, matched_keywords, detected_countries
     
@@ -333,7 +422,13 @@ class HealthcareNLPProcessor:
             Extracted company name or empty string
         """
         # Simple heuristics for company name extraction
-        sentences = sent_tokenize(text)
+        if NLTK_AVAILABLE:
+            try:
+                sentences = sent_tokenize(text)
+            except:
+                sentences = text.split('.')
+        else:
+            sentences = text.split('.')
         
         # Look for patterns like "Company Name is..." or "Company Name offers..."
         company_patterns = [
