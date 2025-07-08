@@ -9,7 +9,7 @@ import time
 import requests
 from typing import List, Dict, Tuple, Optional
 from bs4 import BeautifulSoup
-import config
+import ultimate_config as config
 import utils
 
 
