@@ -1,0 +1,1 @@
+# Scrapers package for Healthcare Startup Discovery System

@@ -1,0 +1,23 @@
+# Minimal requirements for Healthcare Startup Discovery System
+# Essential dependencies only - compatible with Python 3.13+
+
+# Core HTTP and web scraping
+aiohttp>=3.9.0
+beautifulsoup4>=4.12.0
+requests>=2.31.0
+
+# Data processing
+pandas>=2.0.0
+
+# NLP basics
+nltk>=3.8.0
+
+# URL utilities
+validators>=0.22.0
+
+# Utility libraries
+python-dotenv>=1.0.0
+tqdm>=4.66.0
+
+# Windows console support
+colorama>=0.4.6
