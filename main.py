@@ -276,16 +276,47 @@ async def main():
     return unique_results
 
 
-if __name__ == "__main__":
+def run_main():
     """
-    Entry point for the script.
+    Entry point that handles event loop issues.
     """
+    def get_event_loop_policy():
+        """Check if there's already a running event loop."""
+        try:
+            loop = asyncio.get_running_loop()
+            return loop, True  # Loop is running
+        except RuntimeError:
+            return None, False  # No running loop
+    
+    loop, is_running = get_event_loop_policy()
+    
+    if is_running:
+        print("⚠️  Detected existing event loop environment.")
+        print("This commonly happens in Jupyter notebooks or some IDEs.")
+        print("URL discovery will be limited to avoid conflicts.")
+        print("For full functionality, run this script in a regular Python environment.\n")
+    
     try:
         # Run the main async function
+        if is_running:
+            # Alternative approach for environments with existing event loops
+            import warnings
+            warnings.filterwarnings("ignore", category=RuntimeWarning)
+            # We'll let the validation handle this gracefully
+        
         results = asyncio.run(main())
         
         print(f"\n🎉 Success! Processed {len(results)} URLs total.")
         
+    except RuntimeError as e:
+        if "asyncio.run() cannot be called from a running event loop" in str(e):
+            print("\n⚠️  Event loop conflict detected.")
+            print("Please run this script in a regular Python environment:")
+            print("  python main.py")
+            print("Or run from command line instead of an interactive environment.")
+        else:
+            print(f"\n❌ An error occurred: {e}")
+            print("Please check your internet connection and try again.")
     except KeyboardInterrupt:
         print("\n⚠️  Process interrupted by user.")
     except Exception as e:
@@ -293,3 +324,7 @@ if __name__ == "__main__":
         print("Please check your internet connection and try again.")
     
     print("\nThank you for using Healthcare URL Validator and Discoverer!")
+
+
+if __name__ == "__main__":
+    run_main()

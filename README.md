@@ -164,6 +164,12 @@ The script determines if a URL is healthcare-related by:
 pip install -r requirements.txt
 ```
 
+**"asyncio.run() cannot be called from a running event loop" error**
+- This happens in Jupyter notebooks, some IDEs, or interactive environments
+- **Solution 1**: Run from command line: `python main.py`
+- **Solution 2**: Use `python test_sample.py` for a quick test
+- **Solution 3**: Restart your environment and run in a fresh terminal
+
 **"Permission denied" errors**
 - Make sure you have write permissions in the folder
 - Try running with administrator/sudo privileges

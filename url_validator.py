@@ -6,6 +6,7 @@ Uses asyncio and aiohttp for fast, concurrent URL validation.
 import asyncio
 import aiohttp
 import time
+import requests
 from typing import List, Dict, Tuple, Optional
 from bs4 import BeautifulSoup
 import config
@@ -194,6 +195,128 @@ class URLValidator:
         return validated_results
 
 
+def _run_validation_sync(urls: List[str]) -> List[Dict]:
+    """
+    Synchronous fallback validation when asyncio.run() is not available.
+    Uses requests instead of aiohttp for compatibility.
+    """
+    print(f"Starting synchronous validation of {len(urls)} URLs...")
+    
+    results = []
+    
+    for i, url in enumerate(urls, 1):
+        if i % 10 == 0:  # Progress indicator
+            print(f"Processed {i}/{len(urls)} URLs...")
+        
+        result = {
+            'url': url,
+            'is_live': False,
+            'is_healthcare': False,
+            'status_code': None,
+            'title': '',
+            'description': '',
+            'error': None,
+            'response_time': None
+        }
+        
+        # Skip if URL should be excluded
+        if utils.should_exclude_url(url):
+            result['error'] = 'Excluded by filter rules'
+            results.append(result)
+            continue
+        
+        # Check URL format
+        if not utils.is_valid_url_format(url):
+            result['error'] = 'Invalid URL format'
+            results.append(result)
+            continue
+        
+        try:
+            start_time = time.time()
+            
+            # Make HTTP request with requests instead of aiohttp
+            response = requests.get(
+                url, 
+                timeout=config.REQUEST_TIMEOUT,
+                headers={'User-Agent': config.USER_AGENT},
+                allow_redirects=True
+            )
+            
+            result['status_code'] = response.status_code
+            result['response_time'] = time.time() - start_time
+            
+            # Consider URL live if status is 2xx or 3xx
+            if 200 <= response.status_code < 400:
+                result['is_live'] = True
+                
+                # Analyze page content for healthcare relevance
+                try:
+                    content = response.text
+                    analysis = _analyze_page_content_sync(content, url)
+                    result.update(analysis)
+                except Exception as e:
+                    # URL is live but we couldn't analyze content
+                    result['error'] = f'Content analysis failed: {str(e)}'
+                    # Still check URL itself for healthcare keywords
+                    result['is_healthcare'] = utils.is_healthcare_related('', url)
+            else:
+                result['error'] = f'HTTP {response.status_code}'
+                
+        except requests.exceptions.Timeout:
+            result['error'] = 'Request timeout'
+        except requests.exceptions.RequestException as e:
+            result['error'] = f'Request error: {str(e)}'
+        except Exception as e:
+            result['error'] = f'Unexpected error: {str(e)}'
+        
+        results.append(result)
+    
+    return results
+
+
+def _analyze_page_content_sync(html_content: str, url: str) -> Dict:
+    """
+    Synchronous version of page content analysis.
+    """
+    analysis = {
+        'title': '',
+        'description': '',
+        'is_healthcare': False
+    }
+    
+    try:
+        soup = BeautifulSoup(html_content, 'html.parser')
+        
+        # Extract title
+        title_tag = soup.find('title')
+        if title_tag:
+            analysis['title'] = title_tag.get_text().strip()
+        
+        # Extract meta description
+        description_tag = soup.find('meta', attrs={'name': 'description'})
+        if description_tag:
+            analysis['description'] = description_tag.get('content', '').strip()
+        
+        # If no meta description, try to get text from the page
+        if not analysis['description']:
+            # Get first paragraph or div with substantial text
+            for tag in soup.find_all(['p', 'div'], limit=10):
+                text = tag.get_text().strip()
+                if len(text) > 50:  # Only consider substantial text
+                    analysis['description'] = text[:200] + ('...' if len(text) > 200 else '')
+                    break
+        
+        # Check if content is healthcare-related
+        combined_text = f"{analysis['title']} {analysis['description']}"
+        analysis['is_healthcare'] = utils.is_healthcare_related(combined_text, url)
+        
+    except Exception as e:
+        # If parsing fails, just check URL for healthcare keywords
+        analysis['is_healthcare'] = utils.is_healthcare_related('', url)
+    
+    return analysis
+
+
 def clean_and_validate_urls(initial_urls: List[str]) -> List[Dict]:
     """
     Main function to clean and validate a list of URLs.
@@ -218,8 +341,24 @@ def clean_and_validate_urls(initial_urls: List[str]) -> List[Dict]:
         async with URLValidator() as validator:
             return await validator.validate_urls(cleaned_urls)
     
-    # Run the async validation
-    validation_results = asyncio.run(run_validation())
+    # Run the async validation - handle existing event loop
+    def get_event_loop_policy():
+        """Get appropriate event loop for the current environment."""
+        try:
+            loop = asyncio.get_running_loop()
+            return loop, True  # Loop is running
+        except RuntimeError:
+            return None, False  # No running loop
+    
+    loop, is_running = get_event_loop_policy()
+    
+    if is_running:
+        # We're in an existing event loop (like Jupyter), use different approach
+        print("Detected existing event loop, using alternative validation method...")
+        validation_results = _run_validation_sync(cleaned_urls)
+    else:
+        # No existing loop, safe to use asyncio.run()
+        validation_results = asyncio.run(run_validation())
     
     # Step 3: Filter results
     live_urls = [r for r in validation_results if r['is_live']]

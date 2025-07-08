@@ -54,4 +54,13 @@ def main():
     print("To run the full validation with all URLs and discovery, use: python main.py")
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except Exception as e:
+        if "asyncio.run() cannot be called from a running event loop" in str(e):
+            print("\n⚠️  Event loop conflict detected.")
+            print("Please run this script in a regular Python environment:")
+            print("  python test_sample.py")
+        else:
+            print(f"❌ Error: {e}")
+            print("Please check your setup and try again.")
