@@ -86,15 +86,9 @@
 ### **Quick Start:**
 ```bash
 # 1. Setup
-python -m venv healthcare_env
-source healthcare_env/bin/activate  # Linux/Mac
-# Or: healthcare_env\Scripts\activate  # Windows
 pip install -r requirements.txt
 
-# 2. Test first (recommended)
-python test_sample.py
-
-# 3. Run enhanced discovery
+# 2. Run enhanced discovery
 python enhanced_main.py
 ```
 

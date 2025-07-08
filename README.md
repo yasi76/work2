@@ -34,30 +34,14 @@ A beginner-friendly Python script that validates and cleans healthcare-related U
    cd path/to/healthcare-url-validator
    ```
 
-3. **Create a virtual environment** (recommended):
-   ```bash
-   python3 -m venv healthcare_env
-   source healthcare_env/bin/activate  # On Windows: healthcare_env\Scripts\activate
-   ```
-
-4. **Install the required packages**:
+3. **Install the required packages**:
    ```bash
    pip install -r requirements.txt
    ```
 
 ### Running the Script
 
-1. **Activate the virtual environment** (if you created one):
-   ```bash
-   source healthcare_env/bin/activate  # On Windows: healthcare_env\Scripts\activate
-   ```
-
-2. **Test with a few sample URLs first** (recommended):
-   ```bash
-   python test_sample.py
-   ```
-
-3. **Choose your discovery method**:
+1. **Choose your discovery method**:
 
    **🔥 ENHANCED DISCOVERY** (finds 500-2000+ companies):
    ```bash
@@ -85,14 +69,14 @@ Both scripts will:
 
 ```
 healthcare-url-validator/
-├── main.py              # Main script - full validation + discovery
-├── test_sample.py       # Quick test with sample URLs
-├── url_validator.py     # URL validation and cleaning logic
-├── url_discoverer.py    # URL discovery from various sources
-├── utils.py             # Common utility functions
-├── config.py            # Configuration and settings
-├── requirements.txt     # Python dependencies
-└── README.md           # This file
+├── enhanced_main.py          # Main enhanced script (USE THIS!)
+├── enhanced_config.py        # Enhanced configuration and settings
+├── enhanced_discoverer.py    # Advanced URL discovery algorithms
+├── url_validator.py          # URL validation and cleaning logic
+├── utils.py                  # Common utility functions
+├── requirements.txt          # Python dependencies
+├── README.md                 # This file
+└── COMPLETE_SOLUTION_SUMMARY.md  # Comprehensive solution guide
 ```
 
 ## 📊 Output Files
@@ -180,9 +164,8 @@ pip install -r requirements.txt
 
 **"asyncio.run() cannot be called from a running event loop" error**
 - This happens in Jupyter notebooks, some IDEs, or interactive environments
-- **Solution 1**: Run from command line: `python main.py`
-- **Solution 2**: Use `python test_sample.py` for a quick test
-- **Solution 3**: Restart your environment and run in a fresh terminal
+- **Solution**: Run from command line: `python enhanced_main.py`
+- If still having issues, restart your terminal and try again
 
 **"Permission denied" errors**
 - Make sure you have write permissions in the folder
