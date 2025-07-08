@@ -57,12 +57,26 @@ A beginner-friendly Python script that validates and cleans healthcare-related U
    python test_sample.py
    ```
 
-3. **Run the full script** (validates all URLs + discovers new ones):
+3. **Choose your discovery method**:
+
+   **🔥 ENHANCED DISCOVERY** (finds 500-2000+ companies):
+   ```bash
+   python enhanced_main.py
+   ```
+   
+   **📊 BASIC DISCOVERY** (finds ~50-100 companies):
    ```bash
    python main.py
    ```
 
-The full script will:
+The enhanced script uses:
+- 50+ comprehensive search queries (multi-language)
+- Geographic searches across 50+ European cities  
+- Sector-specific searches (13 healthcare sectors)
+- Multiple startup databases and industry sources
+- Deep crawling and better extraction methods
+
+Both scripts will:
 1. Validate the provided list of 50+ healthcare URLs
 2. Discover new URLs from various sources
 3. Save results to timestamped CSV and JSON files
