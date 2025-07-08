@@ -43,14 +43,14 @@ A beginner-friendly Python script that validates and cleans healthcare-related U
 
 1. **Choose your discovery method**:
 
-   **🔥 ENHANCED DISCOVERY** (finds 500-2000+ companies):
+   **🔥 ENHANCED DISCOVERY** (finds quality healthcare companies):
    ```bash
    python enhanced_main.py
    ```
    
-   **📊 BASIC DISCOVERY** (finds ~50-100 companies):
+   **🧪 QUICK TEST** (test with sample URLs):
    ```bash
-   python main.py
+   python test_enhanced.py
    ```
 
 The enhanced script uses:
@@ -81,26 +81,27 @@ healthcare-url-validator/
 
 ## 📊 Output Files
 
-The script generates several output files with timestamps:
+The enhanced script generates clean, healthcare-only files:
 
-### All Results
-- `healthcare_urls_all_YYYYMMDD_HHMMSS.csv` - All processed URLs
-- `healthcare_urls_all_YYYYMMDD_HHMMSS.json` - All results with metadata
+### Healthcare Companies Only
+- **`healthcare_companies_YYYYMMDD_HHMMSS.csv`** - Clean spreadsheet with verified healthcare companies
+- **`healthcare_companies_YYYYMMDD_HHMMSS.json`** - Structured data with metadata
 
-### Live Healthcare URLs Only
-- `healthcare_urls_live_YYYYMMDD_HHMMSS.csv` - Only live healthcare URLs
-- `healthcare_urls_live_YYYYMMDD_HHMMSS.json` - Live healthcare URLs with metadata
+### Clean CSV Columns (No Clutter!)
+- **`url`** - Company website URL
+- **`domain`** - Clean domain name
+- **`country_estimate`** - Precise country (Germany, France, Netherlands, United Kingdom, etc.)
+- **`title`** - Company name/title
+- **`description`** - What the company does
+- **`source`** - Discovery source (Validated list, Startup database, etc.)
 
-### CSV Columns
-- `url` - The website URL
-- `source` - Where the URL was found (e.g., "Validated list", "Google SERP")
-- `is_live` - Whether the URL is accessible (True/False)
-- `is_healthcare` - Whether the content is healthcare-related (True/False)
-- `status_code` - HTTP status code (200, 404, etc.)
-- `title` - Page title
-- `description` - Page description
-- `response_time` - How long it took to load (seconds)
-- `error` - Any error that occurred
+### What's Removed (No More Spam!)
+- ❌ Status codes (not important)
+- ❌ Google login/consent pages  
+- ❌ Social media links
+- ❌ Non-healthcare companies
+- ❌ Duplicate entries
+- ❌ Technical errors and response times
 
 ## ⚙️ Configuration
 

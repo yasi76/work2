@@ -63,12 +63,17 @@ ENHANCED_SEARCH_QUERIES = [
 # COMPREHENSIVE SOURCE URLS - European Focus
 ENHANCED_DISCOVERY_SOURCES = {
     'startup_databases': [
-        'https://www.crunchbase.com/hub/europe-health-care-startups',
         'https://www.eu-startups.com/directory/',
         'https://startup-map.eu/',
-        'https://www.f6s.com/companies/health/europe/co',
-        'https://angel.co/europe/health-care',
         'https://www.startupblink.com/startup-ecosystem-rankings-2024/europe',
+    ],
+    
+    'healthcare_directories': [
+        'https://www.medtech-europe.org/about-medtech/members/',
+        'https://www.eucomed.org/',
+        'https://www.efpia.eu/about-medicines/development-of-medicines/',
+        'https://www.ema.europa.eu/en/partners-networks/eu-partners',
+        'https://digital-strategy.ec.europa.eu/en/policies/ehealth',
     ],
     
     'healthcare_industry_sites': [

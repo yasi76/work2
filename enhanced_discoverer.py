@@ -243,6 +243,42 @@ class EnhancedURLDiscoverer:
         
         return urls
 
+    async def search_healthcare_directories(self) -> Set[str]:
+        """
+        Search healthcare-specific directories and member lists
+        """
+        urls = set()
+        
+        directories = econfig.ENHANCED_DISCOVERY_SOURCES['healthcare_directories']
+        
+        for directory in directories:
+            try:
+                print(f"Searching healthcare directory: {directory}")
+                
+                async with self.session.get(directory) as response:
+                    if response.status == 200:
+                        content = await response.text()
+                        
+                        # Extract URLs from the directory
+                        discovered_urls = utils.extract_urls_from_text(content)
+                        
+                        for url in discovered_urls:
+                            if self._is_relevant_healthcare_url(url):
+                                urls.add(url)
+                        
+                        # Deep crawling for member lists and company pages
+                        if econfig.ENHANCED_SETTINGS['ENABLE_DEEP_CRAWLING']:
+                            deep_urls = await self._deep_crawl_page(content, directory)
+                            urls.update(deep_urls)
+                
+                await asyncio.sleep(1)
+                
+            except Exception as e:
+                print(f"Error searching directory {directory}: {e}")
+                continue
+        
+        return urls
+
     async def search_investment_news(self) -> Set[str]:
         """
         Search investment and news sites for healthcare companies
@@ -276,20 +312,59 @@ class EnhancedURLDiscoverer:
 
     def _is_relevant_healthcare_url(self, url: str) -> bool:
         """
-        Enhanced relevance checking with multi-language support
+        Enhanced relevance checking with multi-language support and better filtering
         """
         if not url or utils.should_exclude_url(url):
             return False
         
-        # Check domain for healthcare terms
+        # Exclude Google URLs and other non-company sites
         domain = utils.extract_domain(url).lower()
+        excluded_domains = [
+            'google.com', 'consent.google.com', 'accounts.google.com',
+            'facebook.com', 'linkedin.com', 'twitter.com', 'instagram.com',
+            'youtube.com', 'wikipedia.org', 'crunchbase.com', 'angel.co',
+            'techcrunch.com', 'forbes.com', 'bloomberg.com'
+        ]
         
-        # Enhanced keyword matching
-        for keyword in econfig.ENHANCED_HEALTHCARE_KEYWORDS:
-            if keyword.lower() in url.lower() or keyword.lower() in domain:
-                return True
+        for excluded in excluded_domains:
+            if excluded in domain:
+                return False
         
-        return False
+        # Must be a proper company domain (not subdomains of platforms)
+        if any(platform in url.lower() for platform in [
+            'accounts.', 'consent.', 'login.', 'signin.', 'auth.',
+            'oauth.', 'api.', 'cdn.', 'mail.', 'email.'
+        ]):
+            return False
+        
+        # Enhanced keyword matching - require meaningful healthcare terms
+        healthcare_indicators = 0
+        domain_and_url = f"{domain} {url}".lower()
+        
+        # Strong healthcare indicators
+        strong_keywords = [
+            'health', 'medical', 'medicine', 'clinic', 'hospital', 'pharma',
+            'biotech', 'medtech', 'therapeutic', 'therapy', 'patient',
+            'doctor', 'physician', 'healthcare', 'telemedicine', 'telehealth',
+            'gesundheit', 'medizin', 'santé', 'gezondheid', 'salud'
+        ]
+        
+        for keyword in strong_keywords:
+            if keyword in domain_and_url:
+                healthcare_indicators += 2
+        
+        # Moderate healthcare indicators
+        moderate_keywords = [
+            'wellness', 'fitness', 'nutrition', 'care', 'treatment',
+            'diagnosis', 'diagnostic', 'clinical', 'rehabilitation'
+        ]
+        
+        for keyword in moderate_keywords:
+            if keyword in domain_and_url:
+                healthcare_indicators += 1
+        
+        # Need at least 2 points to be considered healthcare
+        return healthcare_indicators >= 2
 
     async def _deep_crawl_page(self, content: str, base_url: str) -> Set[str]:
         """
@@ -337,70 +412,34 @@ class EnhancedURLDiscoverer:
         
         all_urls = set()
         
-        # 1. Enhanced Google searches with comprehensive queries
-        print("\n1. Running enhanced Google searches...")
-        for i, query in enumerate(econfig.ENHANCED_SEARCH_QUERIES):
-            if i % 10 == 0:
-                print(f"  Progress: {i}/{len(econfig.ENHANCED_SEARCH_QUERIES)} queries")
-            
-            try:
-                urls = await self.enhanced_google_search(query)
-                all_urls.update(urls)
-                
-                # Progress update
-                if len(all_urls) % 100 == 0:
-                    print(f"  Found {len(all_urls)} URLs so far...")
-                
-            except Exception as e:
-                print(f"  Error in query '{query}': {e}")
-                continue
-        
-        print(f"Google searches found: {len(all_urls)} URLs")
-        
-        # 2. Search startup databases
-        print("\n2. Searching startup databases...")
+        # 1. Search startup databases and industry sources (better quality)
+        print("\n1. Searching startup databases and industry sources...")
         try:
             database_urls = await self.search_startup_databases()
             all_urls.update(database_urls)
-            print(f"Database searches found: {len(database_urls)} additional URLs")
+            print(f"Database searches found: {len(database_urls)} URLs")
         except Exception as e:
             print(f"Error in database search: {e}")
         
-        # 3. Geographic searches
-        print("\n3. Running geographic searches...")
+        # 2. Search healthcare directories
+        print("\n2. Searching healthcare directories...")
         try:
-            geo_urls = await self.search_by_geography()
-            all_urls.update(geo_urls)
-            print(f"Geographic searches found: {len(geo_urls)} additional URLs")
+            directory_urls = await self.search_healthcare_directories()
+            all_urls.update(directory_urls)
+            print(f"Healthcare directories found: {len(directory_urls)} additional URLs")
         except Exception as e:
-            print(f"Error in geographic search: {e}")
+            print(f"Error in directory search: {e}")
         
-        # 4. Sector-specific searches
-        print("\n4. Running sector-specific searches...")
-        try:
-            sector_urls = await self.search_by_sector()
-            all_urls.update(sector_urls)
-            print(f"Sector searches found: {len(sector_urls)} additional URLs")
-        except Exception as e:
-            print(f"Error in sector search: {e}")
-        
-        # 5. Multilingual searches
-        print("\n5. Running multilingual searches...")
-        try:
-            multilingual_urls = await self.search_multilingual()
-            all_urls.update(multilingual_urls)
-            print(f"Multilingual searches found: {len(multilingual_urls)} additional URLs")
-        except Exception as e:
-            print(f"Error in multilingual search: {e}")
-        
-        # 6. Investment and news sites
-        print("\n6. Searching investment and news sites...")
+        # 3. Search investment and news sites
+        print("\n3. Searching investment and news sites...")
         try:
             news_urls = await self.search_investment_news()
             all_urls.update(news_urls)
             print(f"News searches found: {len(news_urls)} additional URLs")
         except Exception as e:
             print(f"Error in news search: {e}")
+        
+        # Skip Google searches as they produce too much noise - focus on quality sources
         
         # Convert to result format
         results = []

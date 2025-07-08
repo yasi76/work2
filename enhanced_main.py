@@ -25,6 +25,70 @@ import enhanced_config as econfig
 import utils
 
 
+def get_precise_country_estimate(url: str) -> str:
+    """
+    Get precise country estimation based on domain, content, and location indicators
+    """
+    url_lower = url.lower()
+    domain = utils.extract_domain(url).lower()
+    
+    # Precise country detection based on domain extensions and content
+    if '.de' in domain or 'deutschland' in url_lower or 'german' in url_lower:
+        return 'Germany'
+    elif '.fr' in domain or 'france' in url_lower or 'french' in url_lower:
+        return 'France'
+    elif '.nl' in domain or 'netherlands' in url_lower or 'dutch' in url_lower or 'amsterdam' in url_lower:
+        return 'Netherlands'
+    elif '.ch' in domain or 'switzerland' in url_lower or 'swiss' in url_lower or 'zurich' in url_lower or 'geneva' in url_lower:
+        return 'Switzerland'
+    elif '.uk' in domain or '.co.uk' in domain or 'london' in url_lower or 'british' in url_lower or 'cambridge' in url_lower:
+        return 'United Kingdom'
+    elif '.se' in domain or 'sweden' in url_lower or 'stockholm' in url_lower:
+        return 'Sweden'
+    elif '.dk' in domain or 'denmark' in url_lower or 'copenhagen' in url_lower:
+        return 'Denmark'
+    elif '.fi' in domain or 'finland' in url_lower or 'helsinki' in url_lower:
+        return 'Finland'
+    elif '.no' in domain or 'norway' in url_lower or 'oslo' in url_lower:
+        return 'Norway'
+    elif '.be' in domain or 'belgium' in url_lower or 'brussels' in url_lower:
+        return 'Belgium'
+    elif '.at' in domain or 'austria' in url_lower or 'vienna' in url_lower:
+        return 'Austria'
+    elif '.it' in domain or 'italy' in url_lower or 'milan' in url_lower or 'rome' in url_lower:
+        return 'Italy'
+    elif '.es' in domain or 'spain' in url_lower or 'barcelona' in url_lower or 'madrid' in url_lower:
+        return 'Spain'
+    elif '.ie' in domain or 'ireland' in url_lower or 'dublin' in url_lower:
+        return 'Ireland'
+    elif '.pt' in domain or 'portugal' in url_lower or 'lisbon' in url_lower:
+        return 'Portugal'
+    
+    # Check for major European cities
+    european_cities = {
+        'berlin': 'Germany', 'munich': 'Germany', 'hamburg': 'Germany', 'frankfurt': 'Germany',
+        'paris': 'France', 'lyon': 'France', 'marseille': 'France',
+        'amsterdam': 'Netherlands', 'rotterdam': 'Netherlands',
+        'zurich': 'Switzerland', 'geneva': 'Switzerland', 'basel': 'Switzerland',
+        'london': 'United Kingdom', 'manchester': 'United Kingdom', 'edinburgh': 'United Kingdom',
+        'stockholm': 'Sweden', 'gothenburg': 'Sweden',
+        'copenhagen': 'Denmark', 'oslo': 'Norway', 'helsinki': 'Finland',
+        'brussels': 'Belgium', 'vienna': 'Austria', 'milan': 'Italy', 'barcelona': 'Spain'
+    }
+    
+    for city, country in european_cities.items():
+        if city in url_lower:
+            return country
+    
+    # Default based on .com/.eu domains
+    if '.eu' in domain:
+        return 'European Union'
+    elif '.com' in domain:
+        return 'International'
+    else:
+        return 'Other'
+
+
 # The provided list of healthcare URLs to validate and clean
 INITIAL_HEALTHCARE_URLS = [
     "https://www.acalta.de",
@@ -190,64 +254,50 @@ def save_enhanced_results(results: List[Dict], timestamp: str):
     
     # Add analysis columns
     df['domain'] = df['url'].apply(utils.extract_domain)
-    df['country_estimate'] = df['url'].apply(lambda x: 
-        'Germany' if '.de' in x else
-        'France' if '.fr' in x else
-        'Netherlands' if '.nl' in x else
-        'UK' if '.uk' in x or '.co.uk' in x else
-        'Switzerland' if '.ch' in x else
-        'Other EU'
-    )
+    df['country_estimate'] = df['url'].apply(get_precise_country_estimate)
     
-    # Reorder columns
-    column_order = ['url', 'domain', 'country_estimate', 'source', 'is_live', 'is_healthcare', 
-                   'status_code', 'title', 'description', 'response_time', 'error']
-    df = df[column_order]
+    # Filter for healthcare companies only
+    healthcare_only = df[(df['is_live'] == True) & (df['is_healthcare'] == True)]
     
-    # Save all results
-    df.to_csv(all_csv, index=False, encoding='utf-8')
+    if len(healthcare_only) == 0:
+        print("⚠️ No healthcare companies found!")
+        return
     
-    # Save JSON with metadata
-    output_data = {
+    # Clean output - only essential columns for healthcare companies
+    clean_columns = ['url', 'domain', 'country_estimate', 'title', 'description', 'source']
+    healthcare_clean = healthcare_only[clean_columns].copy()
+    
+    # Save clean healthcare results
+    healthcare_csv = f"healthcare_companies_{timestamp}.csv"
+    healthcare_json = f"healthcare_companies_{timestamp}.json"
+    
+    healthcare_clean.to_csv(healthcare_csv, index=False, encoding='utf-8')
+    
+    # Healthcare JSON with metadata
+    healthcare_data = {
         'metadata': {
             'generated_at': datetime.now().isoformat(),
             'discovery_method': 'Enhanced Multi-source Discovery',
             'target_regions': 'Europe (all countries)',
             'search_queries': len(econfig.ENHANCED_SEARCH_QUERIES),
             'discovery_sources': sum(len(sources) for sources in econfig.ENHANCED_DISCOVERY_SOURCES.values()),
-            'total_urls': len(results),
-            'live_urls': len([r for r in results if r['is_live']]),
-            'healthcare_urls': len([r for r in results if r.get('is_live') and r.get('is_healthcare')])
+            'healthcare_companies_found': len(healthcare_clean),
+            'description': 'Live healthcare companies only - cleaned dataset'
         },
-        'urls': results
+        'companies': healthcare_clean.to_dict('records')
     }
     
-    with open(all_json, 'w', encoding='utf-8') as f:
-        json.dump(output_data, f, indent=2, ensure_ascii=False)
+    with open(healthcare_json, 'w', encoding='utf-8') as f:
+        json.dump(healthcare_data, f, indent=2, ensure_ascii=False)
     
-    print(f"📁 All results saved to: {all_csv} and {all_json}")
+    print(f"🏥 Healthcare companies saved to: {healthcare_csv} and {healthcare_json}")
+    print(f"   📊 Found {len(healthcare_clean)} verified healthcare companies")
     
-    # Save healthcare-only results
-    healthcare_only = df[(df['is_live'] == True) & (df['is_healthcare'] == True)]
-    
-    if len(healthcare_only) > 0:
-        healthcare_csv = f"enhanced_healthcare_urls_live_{timestamp}.csv"
-        healthcare_json = f"enhanced_healthcare_urls_live_{timestamp}.json"
-        
-        healthcare_only.to_csv(healthcare_csv, index=False, encoding='utf-8')
-        
-        # Healthcare-only JSON
-        healthcare_data = {
-            'metadata': output_data['metadata'].copy(),
-            'urls': healthcare_only.to_dict('records')
-        }
-        healthcare_data['metadata']['description'] = 'Live healthcare companies only'
-        
-        with open(healthcare_json, 'w', encoding='utf-8') as f:
-            json.dump(healthcare_data, f, indent=2, ensure_ascii=False)
-        
-        print(f"🏥 Healthcare-only results saved to: {healthcare_csv} and {healthcare_json}")
-        print(f"   ({len(healthcare_only)} verified healthcare companies)")
+    # Show country breakdown
+    country_stats = healthcare_clean['country_estimate'].value_counts()
+    print(f"\n🌍 Country Distribution:")
+    for country, count in country_stats.items():
+        print(f"   {country}: {count} companies")
 
 
 async def enhanced_main():
