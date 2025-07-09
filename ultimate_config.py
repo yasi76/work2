@@ -364,3 +364,26 @@ ULTIMATE_HEALTHCARE_KEYWORDS = [
     'hälsa', 'medicinsk', 'sjukhus', 'läkare', 'sundhed', 'medicinsk',
     'sygehus', 'læge', 'helse', 'medisinsk', 'sykehus', 'lege'
 ]
+
+
+class UltimateConfig:
+    """Configuration class for Ultimate Healthcare Discovery"""
+    
+    def __init__(self):
+        # Request settings
+        self.REQUEST_TIMEOUT = REQUEST_TIMEOUT
+        self.MAX_CONCURRENT_REQUESTS = MAX_CONCURRENT_REQUESTS
+        self.USER_AGENT = USER_AGENT
+        
+        # Discovery settings
+        self.MAX_URLS_PER_SOURCE = ULTIMATE_SETTINGS['MAX_URLS_PER_SOURCE']
+        self.MAX_SEARCH_RESULTS_PER_QUERY = ULTIMATE_SETTINGS['MAX_SEARCH_RESULTS_PER_QUERY'] 
+        self.PARALLEL_SEARCHES = ULTIMATE_SETTINGS['PARALLEL_SEARCHES']
+        self.MAX_TOTAL_URLS_TARGET = ULTIMATE_SETTINGS['MAX_TOTAL_URLS_TARGET']
+        self.MIN_HEALTHCARE_SCORE = ULTIMATE_SETTINGS['MIN_HEALTHCARE_SCORE']
+        
+        # Healthcare sources
+        self.HEALTHCARE_SOURCES = ULTIMATE_HEALTHCARE_SOURCES
+        self.HEALTHCARE_KEYWORDS = ULTIMATE_HEALTHCARE_KEYWORDS
+        self.EUROPEAN_CITIES = ULTIMATE_EUROPEAN_CITIES
+        self.HEALTHCARE_SECTORS = ULTIMATE_HEALTHCARE_SECTORS

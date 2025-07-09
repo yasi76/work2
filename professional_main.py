@@ -658,7 +658,10 @@ class ProfessionalDiscoveryEngine:
                 
                 try:
                     # Run ultimate discovery
-                    discovered_results = await ultimate_discoverer.discover_ultimate_healthcare_urls()
+                    from ultimate_config import UltimateConfig
+                    config_obj = UltimateConfig()
+                    config_obj.MAX_TOTAL_URLS_TARGET = self.config.get('target_count', 100)
+                    discovered_results = await ultimate_discoverer.run_ultimate_discovery(config_obj)
                     progress.update(task2, completed=50)
                     
                     if discovered_results:

@@ -1,0 +1,44 @@
+{
+  "metadata": {
+    "generated_at": "2025-07-09T16:28:21.640019",
+    "session_id": "session_20250709_162821",
+    "discovery_system": "Professional Enterprise Healthcare Discovery v3.0",
+    "target_regions": "All European Countries",
+    "discovery_sources": 120,
+    "total_companies": 0,
+    "performance_metrics": {
+      "runtime_seconds": 0.08,
+      "runtime_formatted": "0h 0m 0s",
+      "urls_per_second": 0.0,
+      "discovery_rate": 0.0,
+      "success_rate": -100.0,
+      "cache_hit_rate": 0.0,
+      "start_time": 1752078501.5631814,
+      "urls_processed": 0,
+      "urls_discovered": 0,
+      "companies_found": 0,
+      "errors_encountered": 1,
+      "cache_hits": 0,
+      "cache_misses": 0
+    },
+    "statistics": {
+      "total_companies": 0,
+      "live_companies": 0,
+      "healthcare_companies": 0,
+      "countries": {},
+      "sectors": {},
+      "quality_distribution": {}
+    },
+    "configuration": {
+      "target_count": 50,
+      "max_workers": 3,
+      "cache_duration": 24,
+      "output_format": "all",
+      "log_level": "INFO",
+      "incremental": false,
+      "validate_only": false,
+      "export_only": false
+    }
+  },
+  "companies": []
+}
