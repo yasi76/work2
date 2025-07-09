@@ -310,20 +310,20 @@ ULTIMATE_HEALTHCARE_SECTORS = {
 
 # DISCOVERY SETTINGS
 ULTIMATE_SETTINGS = {
-    'MAX_URLS_PER_SOURCE': 10,  # Much smaller - was 500
-    'MAX_SEARCH_RESULTS_PER_QUERY': 20,  # Much smaller - was 200
-    'ENABLE_DEEP_CRAWLING': False,  # Disable deep crawling
-    'CRAWL_DEPTH': 1,  # Only surface level
-    'PARALLEL_SEARCHES': 3,  # Much fewer concurrent - was 20
-    'SEARCH_DELAY_MIN': 2,  # Longer delays
-    'SEARCH_DELAY_MAX': 5,
-    'ENABLE_MULTILINGUAL_SEARCH': False,  # Disable to reduce complexity
-    'ENABLE_SECTOR_SPECIFIC_SEARCH': False,
-    'ENABLE_GEOGRAPHIC_SEARCH': False,
-    'ENABLE_ADVANCED_FILTERING': False,
+    'MAX_URLS_PER_SOURCE': 200,  # Much higher - was 10
+    'MAX_SEARCH_RESULTS_PER_QUERY': 500,  # Much higher - was 20
+    'ENABLE_DEEP_CRAWLING': True,  # Enable deep crawling
+    'CRAWL_DEPTH': 3,  # Deeper crawling
+    'PARALLEL_SEARCHES': 10,  # More concurrent - was 3
+    'SEARCH_DELAY_MIN': 0.5,  # Shorter delays for speed
+    'SEARCH_DELAY_MAX': 1,
+    'ENABLE_MULTILINGUAL_SEARCH': True,  # Enable for European coverage
+    'ENABLE_SECTOR_SPECIFIC_SEARCH': True,
+    'ENABLE_GEOGRAPHIC_SEARCH': True,
+    'ENABLE_ADVANCED_FILTERING': True,
     'MIN_HEALTHCARE_SCORE': 0,
     'ENABLE_COMPANY_VALIDATION': True,
-    'MAX_TOTAL_URLS_TARGET': 100  # Realistic default - matches available companies
+    'MAX_TOTAL_URLS_TARGET': 1000  # HIGH VOLUME - was 100
 }
 
 # MULTI-LANGUAGE KEYWORDS (Extended)

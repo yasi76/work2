@@ -1,0 +1,714 @@
+{
+  "metadata": {
+    "generated_at": "2025-07-09T17:02:37.034710",
+    "session_id": "session_20250709_165548",
+    "discovery_system": "Professional Enterprise Healthcare Discovery v3.0",
+    "target_regions": "All European Countries",
+    "discovery_sources": 120,
+    "total_companies": 31,
+    "performance_metrics": {
+      "runtime_seconds": 408.68,
+      "runtime_formatted": "0h 6m 49s",
+      "urls_per_second": 0.4,
+      "discovery_rate": 0.0,
+      "success_rate": 100.0,
+      "cache_hit_rate": 0.0,
+      "start_time": 1752080148.3586912,
+      "urls_processed": 164,
+      "urls_discovered": 0,
+      "companies_found": 31,
+      "errors_encountered": 0,
+      "cache_hits": 0,
+      "cache_misses": 0
+    },
+    "statistics": {
+      "total_companies": 31,
+      "live_companies": 31,
+      "healthcare_companies": 31,
+      "countries": {
+        "Germany": 12,
+        "Sweden": 5,
+        "International": 4,
+        "Spain": 3,
+        "France": 3,
+        "Switzerland": 1,
+        "Netherlands": 1,
+        "Italy": 1,
+        "Austria": 1
+      },
+      "sectors": {
+        "General Healthcare": 18,
+        "Biotech": 6,
+        "Medical Devices": 4,
+        "Medical Imaging": 2,
+        "AI/ML Health": 1
+      },
+      "quality_distribution": {
+        "Basic (0-4)": 31
+      }
+    },
+    "configuration": {
+      "target_count": 200,
+      "max_workers": 3,
+      "cache_duration": 24,
+      "output_format": "all",
+      "log_level": "INFO",
+      "incremental": false,
+      "validate_only": false,
+      "export_only": false
+    }
+  },
+  "companies": [
+    {
+      "url": "https://www.fresenius.com",
+      "domain": "fresenius.com",
+      "company_name": "Home - FSE",
+      "country": "France",
+      "sector": "General Healthcare",
+      "description": "Main navigation\n\n\n\nThe Healthcare Group\n\n\nGroup Overview\n\n\nFresenius Kabi\n\n\nFresenius Helios\n\n\nManagement\n\n\nManagement Board\n\n\nSupervisory Board\n\n\nCorporate Governance\n\n\nCompliance\n\n\n\n\nFields of Work\n",
+      "discovery_source": "Validated list",
+      "quality_score": 0,
+      "is_live": true,
+      "is_healthcare": true,
+      "discovered_at": "2025-07-09 17:00:44.895005",
+      "last_validated": "2025-07-09 17:00:44.895010",
+      "validation_count": 1,
+      "error_count": 0,
+      "metadata": {
+        "session_id": "session_20250709_165548",
+        "response_time": 1.3234076499938965,
+        "status_code": 200
+      }
+    },
+    {
+      "url": "https://www.siemens-healthineers.com",
+      "domain": "siemens-healthineers.com",
+      "company_name": "Siemens Healthineers - Corporate Home",
+      "country": "Germany",
+      "sector": "General Healthcare",
+      "description": "We pioneer breakthroughs in healthcare. For everyone. Everywhere. Sustainably. Discover more about our innovative medtech and the people behind it.",
+      "discovery_source": "Validated list",
+      "quality_score": 0,
+      "is_live": true,
+      "is_healthcare": true,
+      "discovered_at": "2025-07-09 17:00:44.903653",
+      "last_validated": "2025-07-09 17:00:44.903655",
+      "validation_count": 1,
+      "error_count": 0,
+      "metadata": {
+        "session_id": "session_20250709_165548",
+        "response_time": 0.07049679756164551,
+        "status_code": 200
+      }
+    },
+    {
+      "url": "https://www.evotec.com",
+      "domain": "evotec.com",
+      "company_name": "Together for Medicines That Matter - Evotec",
+      "country": "Germany",
+      "sector": "Biotech",
+      "description": "Evotec is a global biotechnology company committed to advancing drug discovery & development together with our partners for medicines that matter.",
+      "discovery_source": "Validated list",
+      "quality_score": 0,
+      "is_live": true,
+      "is_healthcare": true,
+      "discovered_at": "2025-07-09 17:00:44.909000",
+      "last_validated": "2025-07-09 17:00:44.909002",
+      "validation_count": 1,
+      "error_count": 0,
+      "metadata": {
+        "session_id": "session_20250709_165548",
+        "response_time": 1.089660882949829,
+        "status_code": 200
+      }
+    },
+    {
+      "url": "https://www.amboss.com",
+      "domain": "amboss.com",
+      "company_name": "AMBOSS: medical knowledge platform for doctors and students",
+      "country": "Spain",
+      "sector": "General Healthcare",
+      "description": "AMBOSS: The digital medical resource that supports physicians in the hospital and students in the classroom. Ideal clinical companion & exam prep tool.",
+      "discovery_source": "Validated list",
+      "quality_score": 0,
+      "is_live": true,
+      "is_healthcare": true,
+      "discovered_at": "2025-07-09 17:00:44.915079",
+      "last_validated": "2025-07-09 17:00:44.915081",
+      "validation_count": 1,
+      "error_count": 0,
+      "metadata": {
+        "session_id": "session_20250709_165548",
+        "response_time": 0.9221024513244629,
+        "status_code": 200
+      }
+    },
+    {
+      "url": "https://www.mindpeak.ai",
+      "domain": "mindpeak.ai",
+      "company_name": "Mindpeak - Making Diagnosis Easier with Artificial Intelligence for Clinical Pathology",
+      "country": "Germany",
+      "sector": "AI/ML Health",
+      "description": "Harnessing the power of Artificial Intelligence and machine learning, Mindpeak products can help make pathology diagnosis faster and more accurate.",
+      "discovery_source": "Validated list",
+      "quality_score": 0,
+      "is_live": true,
+      "is_healthcare": true,
+      "discovered_at": "2025-07-09 17:00:44.920438",
+      "last_validated": "2025-07-09 17:00:44.920440",
+      "validation_count": 1,
+      "error_count": 0,
+      "metadata": {
+        "session_id": "session_20250709_165548",
+        "response_time": 0.20476293563842773,
+        "status_code": 200
+      }
+    },
+    {
+      "url": "https://www.b-braun.com",
+      "domain": "b-braun.com",
+      "company_name": "B. Braun is a leading medical technology company.",
+      "country": "France",
+      "sector": "General Healthcare",
+      "description": "With 64,000 employees, B. Braun is a true partner developing smart solutions and setting standards to drive advancements in health care. In 2024, the B. Braun Group recorded 9.1 billion euros in sales",
+      "discovery_source": "Validated list",
+      "quality_score": 0,
+      "is_live": true,
+      "is_healthcare": true,
+      "discovered_at": "2025-07-09 17:00:44.925807",
+      "last_validated": "2025-07-09 17:00:44.925809",
+      "validation_count": 1,
+      "error_count": 0,
+      "metadata": {
+        "session_id": "session_20250709_165548",
+        "response_time": 1.4773247241973877,
+        "status_code": 200
+      }
+    },
+    {
+      "url": "https://www.fresenius-kabi.com",
+      "domain": "fresenius-kabi.com",
+      "company_name": "Fresenius Kabi Global Website",
+      "country": "France",
+      "sector": "General Healthcare",
+      "description": "A global player in the world of healthcare: Fresenius Kabi! ▶ Learn more about our different expertise fields ✓ responsibilites ✓ career opportunities ✓",
+      "discovery_source": "Validated list",
+      "quality_score": 0,
+      "is_live": true,
+      "is_healthcare": true,
+      "discovered_at": "2025-07-09 17:00:44.930828",
+      "last_validated": "2025-07-09 17:00:44.930830",
+      "validation_count": 1,
+      "error_count": 0,
+      "metadata": {
+        "session_id": "session_20250709_165548",
+        "response_time": 0.9044361114501953,
+        "status_code": 200
+      }
+    },
+    {
+      "url": "https://www.grifols.com",
+      "domain": "grifols.com",
+      "company_name": "Biopharma & Healthcare Solutions - Grifols",
+      "country": "International",
+      "sector": "General Healthcare",
+      "description": "Explore Grifols' comprehensive, innovative and patient-centric biopharma and healthcare solutions.",
+      "discovery_source": "Validated list",
+      "quality_score": 0,
+      "is_live": true,
+      "is_healthcare": true,
+      "discovered_at": "2025-07-09 17:00:44.936011",
+      "last_validated": "2025-07-09 17:00:44.936013",
+      "validation_count": 1,
+      "error_count": 0,
+      "metadata": {
+        "session_id": "session_20250709_165548",
+        "response_time": 1.999617338180542,
+        "status_code": 200
+      }
+    },
+    {
+      "url": "https://www.mindmaze.com",
+      "domain": "mindmaze.com",
+      "company_name": "Home - MindMaze",
+      "country": "Sweden",
+      "sector": "Medical Devices",
+      "description": "Medicine\n\nMindPod\nIntento\nToap Run\n\n\nCare\n\nMindMotion GO\nMindMotion PRO\n\n\nMonitor\n\nPhysilog\nBrain Vitals\n\n\nAbout\n\nMindMaze\nClinical pipeline\nHealthcare\n\n\nMedia\nTestimonials\nCareers\nContact",
+      "discovery_source": "Validated list",
+      "quality_score": 0,
+      "is_live": true,
+      "is_healthcare": true,
+      "discovered_at": "2025-07-09 17:00:44.941092",
+      "last_validated": "2025-07-09 17:00:44.941094",
+      "validation_count": 1,
+      "error_count": 0,
+      "metadata": {
+        "session_id": "session_20250709_165548",
+        "response_time": 3.255667209625244,
+        "status_code": 200
+      }
+    },
+    {
+      "url": "https://www.aidence.com",
+      "domain": "aidence.com",
+      "company_name": "Homepage - Aidence",
+      "country": "Germany",
+      "sector": "Medical Imaging",
+      "description": "Aidence provides AI radiology solutions for the lung cancer pathway, empowering physicians to deliver better patient care. RadNet subsidiary.",
+      "discovery_source": "Validated list",
+      "quality_score": 0,
+      "is_live": true,
+      "is_healthcare": true,
+      "discovered_at": "2025-07-09 17:00:44.946311",
+      "last_validated": "2025-07-09 17:00:44.946313",
+      "validation_count": 1,
+      "error_count": 0,
+      "metadata": {
+        "session_id": "session_20250709_165548",
+        "response_time": 0.7872769832611084,
+        "status_code": 200
+      }
+    },
+    {
+      "url": "https://www.ucb.com",
+      "domain": "ucb.com",
+      "company_name": "Inspired by Patients. Driven by Science.",
+      "country": "Sweden",
+      "sector": "Biotech",
+      "description": "UCB a global biopharmaceutical leader focuses on creating valuable solutions that improve the lives of people living with neurological and autoimmune conditions",
+      "discovery_source": "Validated list",
+      "quality_score": 0,
+      "is_live": true,
+      "is_healthcare": true,
+      "discovered_at": "2025-07-09 17:00:44.951461",
+      "last_validated": "2025-07-09 17:00:44.951463",
+      "validation_count": 1,
+      "error_count": 0,
+      "metadata": {
+        "session_id": "session_20250709_165548",
+        "response_time": 0.9482669830322266,
+        "status_code": 200
+      }
+    },
+    {
+      "url": "https://www.sanofi.com",
+      "domain": "sanofi.com",
+      "company_name": "R&D-Driven and AI-Powered Biopharma Company - Sanofi",
+      "country": "Germany",
+      "sector": "General Healthcare",
+      "description": "Sanofi is a research & development-driven, AI-powered healthcare biopharma company committed to improving lives through innovative medicines & vaccines.",
+      "discovery_source": "Validated list",
+      "quality_score": 0,
+      "is_live": true,
+      "is_healthcare": true,
+      "discovered_at": "2025-07-09 17:00:44.957933",
+      "last_validated": "2025-07-09 17:00:44.957935",
+      "validation_count": 1,
+      "error_count": 0,
+      "metadata": {
+        "session_id": "session_20250709_165548",
+        "response_time": 0.33992671966552734,
+        "status_code": 200
+      }
+    },
+    {
+      "url": "https://www.philips.com/healthcare",
+      "domain": "philips.com",
+      "company_name": "Philips healthcare: Innovative medical solutions - Philips",
+      "country": "Germany",
+      "sector": "Medical Devices",
+      "description": "Improving people's health and well-being through meaningful innovation in hospital patient monitoring, diagnostic imaging, and enterprise informatics.",
+      "discovery_source": "Validated list",
+      "quality_score": 0,
+      "is_live": true,
+      "is_healthcare": true,
+      "discovered_at": "2025-07-09 17:00:44.963826",
+      "last_validated": "2025-07-09 17:00:44.963830",
+      "validation_count": 1,
+      "error_count": 0,
+      "metadata": {
+        "session_id": "session_20250709_165548",
+        "response_time": 1.2951970100402832,
+        "status_code": 200
+      }
+    },
+    {
+      "url": "https://www.astrazeneca.com",
+      "domain": "astrazeneca.com",
+      "company_name": "AstraZeneca - Research-Based BioPharmaceutical Company",
+      "country": "Sweden",
+      "sector": "Biotech",
+      "description": "AstraZeneca is a global, science-led biopharmaceutical business and our innovative medicines are used by millions of patients worldwide.",
+      "discovery_source": "Validated list",
+      "quality_score": 0,
+      "is_live": true,
+      "is_healthcare": true,
+      "discovered_at": "2025-07-09 17:00:44.969244",
+      "last_validated": "2025-07-09 17:00:44.969248",
+      "validation_count": 1,
+      "error_count": 0,
+      "metadata": {
+        "session_id": "session_20250709_165548",
+        "response_time": 0.0501711368560791,
+        "status_code": 200
+      }
+    },
+    {
+      "url": "https://www.mediktor.com",
+      "domain": "mediktor.com",
+      "company_name": "Mediktor",
+      "country": "Germany",
+      "sector": "General Healthcare",
+      "description": "Simplify patient management with an empathy-driven AI healthcare platform. Address healthcare concerns while saving time and optimizing resources.",
+      "discovery_source": "Validated list",
+      "quality_score": 0,
+      "is_live": true,
+      "is_healthcare": true,
+      "discovered_at": "2025-07-09 17:02:36.940657",
+      "last_validated": "2025-07-09 17:02:36.940661",
+      "validation_count": 1,
+      "error_count": 0,
+      "metadata": {
+        "session_id": "session_20250709_165548",
+        "response_time": 0.06327486038208008,
+        "status_code": 200
+      }
+    },
+    {
+      "url": "https://www.dacadoo.com",
+      "domain": "dacadoo.com",
+      "company_name": "Digital Health Technology Platform - dacadoo",
+      "country": "Germany",
+      "sector": "General Healthcare",
+      "description": "Award-winning digital health technology that engages your customers to drive acquisition and loyalty. Based on 400 million person-years of scientific data.",
+      "discovery_source": "Validated list",
+      "quality_score": 0,
+      "is_live": true,
+      "is_healthcare": true,
+      "discovered_at": "2025-07-09 17:02:36.946207",
+      "last_validated": "2025-07-09 17:02:36.946208",
+      "validation_count": 1,
+      "error_count": 0,
+      "metadata": {
+        "session_id": "session_20250709_165548",
+        "response_time": 1.2686967849731445,
+        "status_code": 200
+      }
+    },
+    {
+      "url": "https://www.shire.com",
+      "domain": "shire.com",
+      "company_name": "Takeda Pharmaceuticals: Global Homepage",
+      "country": "Germany",
+      "sector": "Biotech",
+      "description": "Takeda is a patient-focused, R&D-driven global biopharmaceutical company committed to bringing Better Health and a Brighter Future.",
+      "discovery_source": "Validated list",
+      "quality_score": 0,
+      "is_live": true,
+      "is_healthcare": true,
+      "discovered_at": "2025-07-09 17:02:36.951231",
+      "last_validated": "2025-07-09 17:02:36.951234",
+      "validation_count": 1,
+      "error_count": 0,
+      "metadata": {
+        "session_id": "session_20250709_165548",
+        "response_time": 0.5611279010772705,
+        "status_code": 200
+      }
+    },
+    {
+      "url": "https://www.disior.com",
+      "domain": "disior.com",
+      "company_name": "DISIOR - 3D Medical Imaging Software For Clinicians - Automated segmentation and 3D analysis of huma",
+      "country": "Germany",
+      "sector": "Medical Imaging",
+      "description": "We develop 3D medical imaging software for clinicians, that removes the burden of segmentation and provides 3D anatomical analysis in minutes.",
+      "discovery_source": "Validated list",
+      "quality_score": 0,
+      "is_live": true,
+      "is_healthcare": true,
+      "discovered_at": "2025-07-09 17:02:36.956714",
+      "last_validated": "2025-07-09 17:02:36.956716",
+      "validation_count": 1,
+      "error_count": 0,
+      "metadata": {
+        "session_id": "session_20250709_165548",
+        "response_time": 0.13805079460144043,
+        "status_code": 200
+      }
+    },
+    {
+      "url": "https://www.ablynx.com",
+      "domain": "ablynx.com",
+      "company_name": "NANOBODYÂ® Technology Platform - Sanofi",
+      "country": "Germany",
+      "sector": "General Healthcare",
+      "description": "Discover how Sanofi, through its collaboration with Ablynx, is leading the way in nanobody technology, offering revolutionary treatments in healthcare.",
+      "discovery_source": "Validated list",
+      "quality_score": 0,
+      "is_live": true,
+      "is_healthcare": true,
+      "discovered_at": "2025-07-09 17:02:36.961814",
+      "last_validated": "2025-07-09 17:02:36.961815",
+      "validation_count": 1,
+      "error_count": 0,
+      "metadata": {
+        "session_id": "session_20250709_165548",
+        "response_time": 1.3380987644195557,
+        "status_code": 200
+      }
+    },
+    {
+      "url": "https://www.ipsen.com",
+      "domain": "ipsen.com",
+      "company_name": "Ipsen Global - A Biopharmaceutical Company - Innovation for Patient Care",
+      "country": "International",
+      "sector": "Biotech",
+      "description": "Ipsen is a global biopharmaceutical company focused on innovation and specialty care to improve the lives of patients around the world.",
+      "discovery_source": "Validated list",
+      "quality_score": 0,
+      "is_live": true,
+      "is_healthcare": true,
+      "discovered_at": "2025-07-09 17:02:36.967911",
+      "last_validated": "2025-07-09 17:02:36.967912",
+      "validation_count": 1,
+      "error_count": 0,
+      "metadata": {
+        "session_id": "session_20250709_165548",
+        "response_time": 0.4740924835205078,
+        "status_code": 200
+      }
+    },
+    {
+      "url": "https://www.adheretech.com",
+      "domain": "adheretech.com",
+      "company_name": "AdhereTech: Medication Adherence Solutions for Better Health",
+      "country": "International",
+      "sector": "General Healthcare",
+      "description": "AdhereTech provides medication adherence solutions to improve patient care, reduce missed doses, and boost health outcomes with smart, patient-friendly tools.",
+      "discovery_source": "Validated list",
+      "quality_score": 0,
+      "is_live": true,
+      "is_healthcare": true,
+      "discovered_at": "2025-07-09 17:02:36.973165",
+      "last_validated": "2025-07-09 17:02:36.973167",
+      "validation_count": 1,
+      "error_count": 0,
+      "metadata": {
+        "session_id": "session_20250709_165548",
+        "response_time": 1.6438345909118652,
+        "status_code": 200
+      }
+    },
+    {
+      "url": "https://www.actelion.com",
+      "domain": "actelion.com",
+      "company_name": "Pulmonary arterial hypertension",
+      "country": "Netherlands",
+      "sector": "Medical Devices",
+      "description": "Discover J&J\n\n\n\n\n\n\nMedicines & therapies \n\n\n\n\n\n\nMedical devices & technology \n\n\n\n\n\n\n\n\n\n\n\n\nDiscover J&J\n\n\n\n\n\n\nMedicines & therapies \n\n\n\n\n\n\nMedical devices & technology \n\n\n\n\n\n\n\n\n\n\n\nNews \n\n\n\n\n\n\nInvestors",
+      "discovery_source": "Validated list",
+      "quality_score": 0,
+      "is_live": true,
+      "is_healthcare": true,
+      "discovered_at": "2025-07-09 17:02:36.978267",
+      "last_validated": "2025-07-09 17:02:36.978269",
+      "validation_count": 1,
+      "error_count": 0,
+      "metadata": {
+        "session_id": "session_20250709_165548",
+        "response_time": 1.7681231498718262,
+        "status_code": 200
+      }
+    },
+    {
+      "url": "https://www.dnalytics.com",
+      "domain": "dnalytics.com",
+      "company_name": "DNAlytics - Data-Driven Healthcare",
+      "country": "Spain",
+      "sector": "Biotech",
+      "description": "Pharma, Biotech, Medtech companies, Hospitals and Researchers boost their activity thanks to our data sciences expertise and our knowledge of their business.",
+      "discovery_source": "Validated list",
+      "quality_score": 0,
+      "is_live": true,
+      "is_healthcare": true,
+      "discovered_at": "2025-07-09 17:02:36.983518",
+      "last_validated": "2025-07-09 17:02:36.983519",
+      "validation_count": 1,
+      "error_count": 0,
+      "metadata": {
+        "session_id": "session_20250709_165548",
+        "response_time": 0.8759524822235107,
+        "status_code": 200
+      }
+    },
+    {
+      "url": "https://www.accurx.com",
+      "domain": "accurx.com",
+      "company_name": "Accurx - The simple way to communicate about patient care",
+      "country": "Sweden",
+      "sector": "General Healthcare",
+      "description": "Accurx is the easy-to-use platform where patients and healthcare professionals communicate. Our software connects people across the system to make NHS professionals happier and patients healthier. Get",
+      "discovery_source": "Validated list",
+      "quality_score": 0,
+      "is_live": true,
+      "is_healthcare": true,
+      "discovered_at": "2025-07-09 17:02:36.988765",
+      "last_validated": "2025-07-09 17:02:36.988767",
+      "validation_count": 1,
+      "error_count": 0,
+      "metadata": {
+        "session_id": "session_20250709_165548",
+        "response_time": 0.1257915496826172,
+        "status_code": 200
+      }
+    },
+    {
+      "url": "https://www.takeda.at",
+      "domain": "takeda.at",
+      "company_name": "Takeda Österreich - Better Health, Brighter Future",
+      "country": "Austria",
+      "sector": "General Healthcare",
+      "description": "Takeda ist ein patientenorientiertes, wertebasiertes globales biopharmazeutisches Unternehmen, das sich für eine bessere Gesundheit und eine bessere Zukunft von Menschen weltweit engagiert.",
+      "discovery_source": "Validated list",
+      "quality_score": 0,
+      "is_live": true,
+      "is_healthcare": true,
+      "discovered_at": "2025-07-09 17:02:36.993877",
+      "last_validated": "2025-07-09 17:02:36.993879",
+      "validation_count": 1,
+      "error_count": 0,
+      "metadata": {
+        "session_id": "session_20250709_165548",
+        "response_time": 0.6575469970703125,
+        "status_code": 200
+      }
+    },
+    {
+      "url": "https://www.huma.com",
+      "domain": "huma.com",
+      "company_name": "Huma - Longer, fuller lives",
+      "country": "Sweden",
+      "sector": "General Healthcare",
+      "description": "A global health tech company transforming healthcare and research. Get in touch to discover our leap from reactive to proactive medicine.",
+      "discovery_source": "Validated list",
+      "quality_score": 0,
+      "is_live": true,
+      "is_healthcare": true,
+      "discovered_at": "2025-07-09 17:02:36.998964",
+      "last_validated": "2025-07-09 17:02:36.998966",
+      "validation_count": 1,
+      "error_count": 0,
+      "metadata": {
+        "session_id": "session_20250709_165548",
+        "response_time": 0.14270877838134766,
+        "status_code": 200
+      }
+    },
+    {
+      "url": "https://www.medexter.com",
+      "domain": "medexter.com",
+      "company_name": "Medexter Healthcare - Home",
+      "country": "Italy",
+      "sector": "General Healthcare",
+      "description": "Medexter Healthcare develops and globally markets highly innovative clinical decision support solutions with clinically proven benefits for patients and institutions. Our portfolio includes a flexible",
+      "discovery_source": "Validated list",
+      "quality_score": 0,
+      "is_live": true,
+      "is_healthcare": true,
+      "discovered_at": "2025-07-09 17:02:37.004122",
+      "last_validated": "2025-07-09 17:02:37.004123",
+      "validation_count": 1,
+      "error_count": 0,
+      "metadata": {
+        "session_id": "session_20250709_165548",
+        "response_time": 2.5318760871887207,
+        "status_code": 200
+      }
+    },
+    {
+      "url": "https://www.roche.com",
+      "domain": "roche.com",
+      "company_name": "Roche - Doing now what patients need next",
+      "country": "Switzerland",
+      "sector": "General Healthcare",
+      "description": "As a pioneer in healthcare, we have been committed to improving lives since the company was founded in 1896 in Basel, Switzerland. Today, Roche creates innovative medicines and diagnostic tests that h",
+      "discovery_source": "Validated list",
+      "quality_score": 0,
+      "is_live": true,
+      "is_healthcare": true,
+      "discovered_at": "2025-07-09 17:02:37.010279",
+      "last_validated": "2025-07-09 17:02:37.010281",
+      "validation_count": 1,
+      "error_count": 0,
+      "metadata": {
+        "session_id": "session_20250709_165548",
+        "response_time": 2.6536803245544434,
+        "status_code": 200
+      }
+    },
+    {
+      "url": "https://www.mediq.com",
+      "domain": "mediq.com",
+      "company_name": "Healthcare and homecare partner - Mediq",
+      "country": "International",
+      "sector": "General Healthcare",
+      "description": "International company specialized in healthcare. We work with professionals, care facilities and GP’s to give patients the care and services they need.",
+      "discovery_source": "Validated list",
+      "quality_score": 0,
+      "is_live": true,
+      "is_healthcare": true,
+      "discovered_at": "2025-07-09 17:02:37.015662",
+      "last_validated": "2025-07-09 17:02:37.015663",
+      "validation_count": 1,
+      "error_count": 0,
+      "metadata": {
+        "session_id": "session_20250709_165548",
+        "response_time": 1.4171779155731201,
+        "status_code": 200
+      }
+    },
+    {
+      "url": "https://www.sleepiz.com",
+      "domain": "sleepiz.com",
+      "company_name": "Clinical Trial Monitoring - Sleepiz.com",
+      "country": "Spain",
+      "sector": "Medical Devices",
+      "description": "Up to 100x more sleep and vital data sets at reduced cost *Compared to gold standard PSG Book a Demo Class IIa, CE-marked medical device Up to 100x more sle ...",
+      "discovery_source": "Validated list",
+      "quality_score": 0,
+      "is_live": true,
+      "is_healthcare": true,
+      "discovered_at": "2025-07-09 17:02:37.020771",
+      "last_validated": "2025-07-09 17:02:37.020773",
+      "validation_count": 1,
+      "error_count": 0,
+      "metadata": {
+        "session_id": "session_20250709_165548",
+        "response_time": 10.960087537765503,
+        "status_code": 200
+      }
+    },
+    {
+      "url": "https://www.healx.io",
+      "domain": "healx.io",
+      "company_name": "Healx - AI drug discovery - Rare disease treatment",
+      "country": "Germany",
+      "sector": "General Healthcare",
+      "description": "At Healx we use AI drug discovery to develop new treatments for rare diseases. We bring treatments from prediction to patient.",
+      "discovery_source": "Validated list",
+      "quality_score": 0,
+      "is_live": true,
+      "is_healthcare": true,
+      "discovered_at": "2025-07-09 17:02:37.025739",
+      "last_validated": "2025-07-09 17:02:37.025740",
+      "validation_count": 1,
+      "error_count": 0,
+      "metadata": {
+        "session_id": "session_20250709_165548",
+        "response_time": 1.1870355606079102,
+        "status_code": 200
+      }
+    }
+  ]
+}

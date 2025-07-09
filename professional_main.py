@@ -657,10 +657,11 @@ class ProfessionalDiscoveryEngine:
                 task2 = progress.add_task("Discovering healthcare companies...", total=100)
                 
                 try:
-                    # Run ultimate discovery
+                    # Run HIGH-VOLUME discovery
                     from ultimate_config import UltimateConfig
                     config_obj = UltimateConfig()
-                    config_obj.MAX_TOTAL_URLS_TARGET = self.config.get('target_count', 100)
+                    # Set much higher target for comprehensive discovery
+                    config_obj.MAX_TOTAL_URLS_TARGET = max(self.config.get('target_count', 1000), 1000)
                     discovered_results = await ultimate_discoverer.run_ultimate_discovery(config_obj)
                     progress.update(task2, completed=50)
                     
@@ -869,19 +870,20 @@ class ProfessionalDiscoveryEngine:
 def create_professional_cli() -> argparse.ArgumentParser:
     """Create professional command-line interface"""
     parser = argparse.ArgumentParser(
-        description="Professional Enterprise Healthcare URL Discovery System",
+        description="HIGH-VOLUME European Healthcare Discovery System - Finds HUNDREDS of companies",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-  python professional_main.py --target-count 10000 --max-workers 30
+  python professional_main.py --target-count 500   # Find 500+ German & European companies
+  python professional_main.py --target-count 1000  # Maximum discovery - 1000+ companies
   python professional_main.py --incremental --output-format csv,excel
   python professional_main.py --export-only --output-format json
   python professional_main.py --validate-only --log-level DEBUG
         """
     )
     
-    parser.add_argument('--target-count', type=int, default=100,
-                       help='Target number of healthcare companies (default: 100)')
+    parser.add_argument('--target-count', type=int, default=500,
+                       help='Target number of healthcare companies (default: 500 for HIGH-VOLUME)')
     parser.add_argument('--max-workers', type=int, default=3,
                        help='Maximum concurrent workers (default: 3 - SAFE)')
     parser.add_argument('--cache-duration', type=int, default=24,
@@ -947,14 +949,14 @@ def run_professional_main():
     console = Console()
     
     console.print(Panel.fit(
-        "[bold blue]EUROPEAN HEALTHCARE DISCOVERY SYSTEM[/bold blue]\n"
-        "[green]Professional Company Finder[/green]\n"
-        "[yellow]Discovers healthcare companies across Europe[/yellow]\n\n"
-        "� Finds healthcare companies in Germany, France, Netherlands, UK, etc.\n"
-        "🌍 Coverage: All major European countries\n"
-        "🚀 Features: Multiple sources, Professional exports\n"
-        "📊 Analytics: Real-time progress tracking",
-        title="🚀 Starting Healthcare Discovery",
+        "[bold blue]HIGH-VOLUME EUROPEAN HEALTHCARE DISCOVERY SYSTEM[/bold blue]\n"
+        "[green]Professional Company Finder - HUNDREDS of Companies[/green]\n"
+        "[yellow]Discovers healthcare companies across ALL European countries[/yellow]\n\n"
+        "🇩🇪 GERMANY: Comprehensive coverage - pharmaceutical, biotech, medtech, digital health\n"
+        "�🇺 EUROPE: All major countries - France, UK, Netherlands, Switzerland, Nordic, etc.\n"
+        "🚀 HIGH-VOLUME: Finds hundreds of healthcare companies from extensive sources\n"
+        "📊 COMPREHENSIVE: Government databases, industry directories, startup ecosystems",
+        title="🚀 Starting HIGH-VOLUME Healthcare Discovery",
         border_style="blue"
     ))
     
