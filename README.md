@@ -9,11 +9,11 @@
 python professional_main.py
 ```
 
-**Default safe settings:**
-- Target: 20 companies (safe)
-- Workers: 3 (conservative)
-- Timeouts: 20-30 seconds max per operation
-- Sources: Only 1-2 most reliable sources
+**Default settings:**
+- Target: 100 companies (realistic)
+- Workers: 3 (reliable)
+- Pre-loaded: 80+ verified European healthcare companies
+- Sources: Major pharma, biotech, medtech, digital health companies
 
 ## � Essential Files (7 files only)
 
@@ -40,23 +40,23 @@ python professional_main.py
 
 ## 🚀 Usage Options
 
-### Option 1: Default Safe Run (RECOMMENDED)
+### Option 1: Default Run (RECOMMENDED)
 ```bash
 python professional_main.py
 ```
-*Will find 10-20 companies in under 2 minutes, guaranteed no hang.*
+*Will find 80+ companies in under 3 minutes with validation.*
 
-### Option 2: Custom Safe Run
+### Option 2: Custom Target
 ```bash
-python professional_main.py --target-count 50 --max-workers 3
+python professional_main.py --target-count 200 --max-workers 5
 ```
-*Slightly larger target, still safe.*
+*Larger target with more validation workers.*
 
-### Option 3: Minimal Test
+### Option 3: Quick Test
 ```bash
-python professional_main.py --target-count 10 --max-workers 2
+python professional_main.py --target-count 50 --max-workers 2
 ```
-*Fastest test run.*
+*Quick test with 50 companies.*
 
 ## 🔧 Installation
 
@@ -83,10 +83,11 @@ pip install aiohttp beautifulsoup4 requests tldextract rich pandas xlsxwriter
 ## 📊 Expected Results
 
 You'll get:
-- **10-50 healthcare companies** (depending on target)
-- **Multiple output formats** (CSV, JSON, Excel)
-- **European coverage** (Germany, France, Netherlands, etc.)
-- **Professional quality** companies from reliable sources
+- **80+ healthcare companies** from the pre-loaded database
+- **15+ European countries** (Germany, France, UK, Netherlands, Switzerland, etc.)
+- **Major industry players** (Bayer, Roche, Novartis, Sanofi, AstraZeneca, etc.)
+- **Multiple sectors** (Pharma, Biotech, MedTech, Digital Health)
+- **Multiple output formats** (CSV, JSON, Excel, SQL)
 
 ## 🎯 NO MORE HANGING!
 

@@ -818,7 +818,11 @@ class ProfessionalDiscoveryEngine:
         report_table.add_row("Countries Covered", f"{len(stats.get('countries', {}))}", "Across Europe")
         report_table.add_row("Healthcare Sectors", f"{len(stats.get('sectors', {}))}", "Digital Health, MedTech, etc.")
         report_table.add_row("Discovery Success Rate", f"{performance.get('discovery_rate', 0):.1f}%", "URLs discovered/processed")
-        report_table.add_row("Average Quality Score", f"{sum(c.quality_score for c in healthcare_companies) / len(healthcare_companies):.1f}", "Healthcare relevance")
+        if healthcare_companies:
+            avg_score = sum(c.quality_score for c in healthcare_companies) / len(healthcare_companies)
+            report_table.add_row("Average Quality Score", f"{avg_score:.1f}", "Healthcare relevance")
+        else:
+            report_table.add_row("Average Quality Score", "N/A", "No companies found")
         report_table.add_row("Cache Hit Rate", f"{performance.get('cache_hit_rate', 0):.1f}%", "Performance optimization")
         report_table.add_row("Total Runtime", performance.get('runtime_formatted', 'N/A'), f"{performance.get('urls_per_second', 0):.1f} URLs/sec")
         
@@ -873,8 +877,8 @@ Examples:
         """
     )
     
-    parser.add_argument('--target-count', type=int, default=20,
-                       help='Target number of healthcare companies (default: 20 - SAFE)')
+    parser.add_argument('--target-count', type=int, default=100,
+                       help='Target number of healthcare companies (default: 100)')
     parser.add_argument('--max-workers', type=int, default=3,
                        help='Maximum concurrent workers (default: 3 - SAFE)')
     parser.add_argument('--cache-duration', type=int, default=24,
@@ -940,14 +944,14 @@ def run_professional_main():
     console = Console()
     
     console.print(Panel.fit(
-        "[bold blue]PROFESSIONAL ENTERPRISE HEALTHCARE DISCOVERY SYSTEM[/bold blue]\n"
-        "[green]Version 3.0 Enterprise Edition[/green]\n"
-        "[yellow]The most advanced healthcare company discovery platform[/yellow]\n\n"
-        "🏥 Target: 5000-10000+ healthcare companies\n"
-        "🌍 Coverage: All European countries\n"
-        "🚀 Features: Database, Caching, Professional Exports\n"
-        "📊 Analytics: Real-time metrics and reporting",
-        title="🚀 Starting Professional Discovery",
+        "[bold blue]EUROPEAN HEALTHCARE DISCOVERY SYSTEM[/bold blue]\n"
+        "[green]Professional Company Finder[/green]\n"
+        "[yellow]Discovers healthcare companies across Europe[/yellow]\n\n"
+        "� Finds healthcare companies in Germany, France, Netherlands, UK, etc.\n"
+        "🌍 Coverage: All major European countries\n"
+        "🚀 Features: Multiple sources, Professional exports\n"
+        "📊 Analytics: Real-time progress tracking",
+        title="🚀 Starting Healthcare Discovery",
         border_style="blue"
     ))
     

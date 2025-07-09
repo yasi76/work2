@@ -323,7 +323,7 @@ ULTIMATE_SETTINGS = {
     'ENABLE_ADVANCED_FILTERING': False,
     'MIN_HEALTHCARE_SCORE': 0,
     'ENABLE_COMPANY_VALIDATION': True,
-    'MAX_TOTAL_URLS_TARGET': 20  # SAFE default - can be overridden
+    'MAX_TOTAL_URLS_TARGET': 100  # Realistic default - matches available companies
 }
 
 # MULTI-LANGUAGE KEYWORDS (Extended)
