@@ -1,0 +1,5 @@
+2025-07-09 16:40:18,025 |     INFO | HealthcareDiscovery | Professional discovery session initialized | {"session_id": "session_20250709_164018"}
+2025-07-09 16:40:49,188 |     INFO | HealthcareDiscovery | CSV export completed: professional_healthcare_companies_20250709_164049.csv | {"count": 7}
+2025-07-09 16:40:49,190 |     INFO | HealthcareDiscovery | JSON export completed: professional_healthcare_companies_20250709_164049.json | {"count": 7}
+2025-07-09 16:40:49,198 |     INFO | HealthcareDiscovery | Excel export completed: professional_healthcare_companies_20250709_164049.xlsx | {"count": 7}
+2025-07-09 16:40:49,199 |     INFO | HealthcareDiscovery | SQL export completed: professional_healthcare_companies_20250709_164049.sql | {"count": 7}
