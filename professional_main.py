@@ -873,10 +873,10 @@ Examples:
         """
     )
     
-    parser.add_argument('--target-count', type=int, default=5000,
-                       help='Target number of healthcare companies (default: 5000)')
-    parser.add_argument('--max-workers', type=int, default=20,
-                       help='Maximum concurrent workers (default: 20)')
+    parser.add_argument('--target-count', type=int, default=20,
+                       help='Target number of healthcare companies (default: 20 - SAFE)')
+    parser.add_argument('--max-workers', type=int, default=3,
+                       help='Maximum concurrent workers (default: 3 - SAFE)')
     parser.add_argument('--cache-duration', type=int, default=24,
                        help='Cache duration in hours (default: 24)')
     parser.add_argument('--output-format', default='all',

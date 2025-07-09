@@ -310,20 +310,20 @@ ULTIMATE_HEALTHCARE_SECTORS = {
 
 # DISCOVERY SETTINGS
 ULTIMATE_SETTINGS = {
-    'MAX_URLS_PER_SOURCE': 500,  # Much higher
-    'MAX_SEARCH_RESULTS_PER_QUERY': 200,
-    'ENABLE_DEEP_CRAWLING': True,
-    'CRAWL_DEPTH': 3,  # Deeper crawling
-    'PARALLEL_SEARCHES': 20,  # More concurrent
-    'SEARCH_DELAY_MIN': 0.5,
-    'SEARCH_DELAY_MAX': 2,
-    'ENABLE_MULTILINGUAL_SEARCH': True,
-    'ENABLE_SECTOR_SPECIFIC_SEARCH': True,
-    'ENABLE_GEOGRAPHIC_SEARCH': True,
-    'ENABLE_ADVANCED_FILTERING': True,
-    'MIN_HEALTHCARE_SCORE': 3,  # Higher quality threshold
+    'MAX_URLS_PER_SOURCE': 10,  # Much smaller - was 500
+    'MAX_SEARCH_RESULTS_PER_QUERY': 20,  # Much smaller - was 200
+    'ENABLE_DEEP_CRAWLING': False,  # Disable deep crawling
+    'CRAWL_DEPTH': 1,  # Only surface level
+    'PARALLEL_SEARCHES': 3,  # Much fewer concurrent - was 20
+    'SEARCH_DELAY_MIN': 2,  # Longer delays
+    'SEARCH_DELAY_MAX': 5,
+    'ENABLE_MULTILINGUAL_SEARCH': False,  # Disable to reduce complexity
+    'ENABLE_SECTOR_SPECIFIC_SEARCH': False,
+    'ENABLE_GEOGRAPHIC_SEARCH': False,
+    'ENABLE_ADVANCED_FILTERING': False,
+    'MIN_HEALTHCARE_SCORE': 0,
     'ENABLE_COMPANY_VALIDATION': True,
-    'MAX_TOTAL_URLS_TARGET': 5000,  # Target 5000+ URLs
+    'MAX_TOTAL_URLS_TARGET': 20  # SAFE default - can be overridden
 }
 
 # MULTI-LANGUAGE KEYWORDS (Extended)

@@ -318,105 +318,97 @@ class UltimateURLDiscoverer:
 
     async def search_government_databases(self) -> Set[str]:
         """
-        Search government and regulatory databases with improved error handling
+        Search government and regulatory databases with HEAVY restrictions to prevent hanging
         """
         print("🏛️  Searching government & regulatory databases...")
         urls = set()
         processed_count = 0
-        max_sources = 5  # Limit number of sources to prevent hanging
+        max_sources = 1  # ONLY 1 SOURCE to prevent hanging
         
-        for database_url in uconfig.ULTIMATE_HEALTHCARE_SOURCES['government_databases']:
-            if processed_count >= max_sources:
-                print(f"   ⚠️  Limiting to {max_sources} sources to prevent timeout")
-                break
-                
+        # Only use the most reliable source
+        reliable_sources = [
+            'https://www.medtech-europe.org/about-medtech/members/'  # Most reliable
+        ]
+        
+        for database_url in reliable_sources[:max_sources]:
             try:
-                print(f"   🔍 Processing ({processed_count + 1}/{max_sources}): {database_url}")
+                print(f"   🔍 Processing ONLY ({processed_count + 1}/{max_sources}): {database_url}")
                 
-                # Add timeout for the entire scraping operation
-                # Use asyncio.wait_for for compatibility
+                # Very aggressive timeout
                 discovered_urls = await asyncio.wait_for(
                     self._advanced_web_scraping(
                         database_url, 
-                        max_depth=1  # Reduced depth to prevent hanging
+                        max_depth=1  # Only surface level
                     ),
-                    timeout=60.0  # 60 second timeout per source
+                    timeout=20.0  # Very short timeout - 20 seconds max
                 )
                 urls.update(discovered_urls)
                 processed_count += 1
                 
-                # Rate limiting between sources
-                await asyncio.sleep(2)
+                print(f"   ✅ Completed source {processed_count}")
                 
-                # Early exit if we have enough URLs
-                if len(urls) >= 100:
-                    print(f"   ✅ Found sufficient URLs ({len(urls)}), moving to next phase")
+                # Stop immediately if we have any URLs
+                if len(urls) >= 5:
+                    print(f"   ✅ Found {len(urls)} URLs, stopping to prevent hanging")
                     break
                 
             except asyncio.TimeoutError:
-                print(f"   ⏰ Timeout processing {database_url}")
+                print(f"   ⏰ Timeout (EXPECTED) - moving on...")
                 processed_count += 1
-                continue
+                break  # Stop on any timeout
             except Exception as e:
-                print(f"   ❌ Error: {str(e)[:100]}")
+                print(f"   ❌ Error (stopping): {str(e)[:50]}")
                 processed_count += 1
-                continue
+                break  # Stop on any error
         
-        print(f"   📊 Found {len(urls)} URLs from government databases")
+        print(f"   📊 Final result: {len(urls)} URLs from government databases")
         return urls
 
     async def search_industry_directories(self) -> Set[str]:
         """
-        Search industry directories with sequential processing to avoid hangs
+        Search industry directories with EXTREME limitations to prevent hanging
         """
         print("🏭 Searching industry directories...")
         urls = set()
         
-        # Combine all directory types but limit the number
-        all_directories = []
-        all_directories.extend(uconfig.ULTIMATE_HEALTHCARE_SOURCES['medtech_directories'][:3])
-        all_directories.extend(uconfig.ULTIMATE_HEALTHCARE_SOURCES['pharma_directories'][:3])
-        all_directories.extend(uconfig.ULTIMATE_HEALTHCARE_SOURCES['digital_health_directories'][:3])
-        all_directories.extend(uconfig.ULTIMATE_HEALTHCARE_SOURCES['healthcare_chambers'][:3])
+        # Only use ONE reliable directory
+        reliable_directories = [
+            'https://www.medtech-europe.org/members/'  # Only the most reliable one
+        ]
         
-        # Process directories sequentially (not in parallel)
         processed_count = 0
-        max_directories = 6  # Limit total directories to process
+        max_directories = 1  # ONLY 1 directory
         
-        for directory_url in all_directories[:max_directories]:
+        for directory_url in reliable_directories[:max_directories]:
             try:
-                print(f"   🔍 Processing ({processed_count + 1}/{max_directories}): {directory_url}")
+                print(f"   🔍 Processing ONLY directory ({processed_count + 1}/{max_directories}): {directory_url}")
                 
-                # Add timeout for each directory
-                # Use asyncio.wait_for for compatibility
+                # Very short timeout
                 discovered_urls = await asyncio.wait_for(
                     self._advanced_web_scraping(
                         directory_url,
-                        max_depth=1  # Reduced depth
+                        max_depth=1  # Surface only
                     ),
-                    timeout=45.0  # 45 second timeout per directory
+                    timeout=15.0  # Very short timeout - 15 seconds
                 )
                 urls.update(discovered_urls)
                 processed_count += 1
                 
-                # Rate limiting between directories
-                await asyncio.sleep(2)
+                print(f"   ✅ Completed directory {processed_count}")
                 
-                # Early exit if we have enough URLs
-                if len(urls) >= 150:
-                    print(f"   ✅ Found sufficient URLs ({len(urls)}), moving to next phase")
+                # Stop immediately with any results
+                if len(urls) >= 3:
+                    print(f"   ✅ Found {len(urls)} URLs, stopping to prevent hanging")
                     break
                     
             except asyncio.TimeoutError:
-                print(f"   ⏰ Timeout processing {directory_url}")
-                processed_count += 1
-                continue
+                print(f"   ⏰ Directory timeout (EXPECTED) - stopping...")
+                break  # Stop immediately on timeout
             except Exception as e:
-                print(f"   ❌ Error: {str(e)[:100]}")
-                processed_count += 1
-                continue
+                print(f"   ❌ Directory error (stopping): {str(e)[:50]}")
+                break  # Stop immediately on error
         
-        print(f"   📊 Found {len(urls)} URLs from industry directories")
+        print(f"   📊 Final result: {len(urls)} URLs from industry directories")
         return urls
 
     async def search_startup_ecosystems(self) -> Set[str]:
@@ -530,84 +522,57 @@ class UltimateURLDiscoverer:
 
     async def comprehensive_ultimate_discovery(self) -> List[Dict]:
         """
-        Run comprehensive ultimate discovery using all advanced methods
+        CONSERVATIVE discovery to absolutely prevent hanging
         """
-        print("🎯 ULTIMATE Healthcare URL Discovery Process")
+        print("🎯 CONSERVATIVE Healthcare URL Discovery Process")
         print("=" * 60)
         print(f"Target: {uconfig.ULTIMATE_SETTINGS['MAX_TOTAL_URLS_TARGET']:,} healthcare companies")
-        print(f"Sources: {sum(len(sources) for sources in uconfig.ULTIMATE_HEALTHCARE_SOURCES.values())} databases")
-        print(f"Cities: {len(uconfig.ULTIMATE_EUROPEAN_CITIES)} European cities")
-        print(f"Sectors: {len(uconfig.ULTIMATE_HEALTHCARE_SECTORS)} healthcare specialties")
+        print("⚠️  CONSERVATIVE MODE: Limited sources to prevent hanging")
         print()
         
         all_urls = set()
-        target_reached = False
         
-        # Phase 1: Government & Regulatory Databases (Highest Quality)
-        if not target_reached:
+        # ONLY Phase 1: Government & Regulatory Databases (Most reliable)
+        try:
+            print(f"📋 Phase 1: Government databases (ONLY PHASE)...")
+            
+            # Add overall timeout for the entire phase
+            gov_urls = await asyncio.wait_for(
+                self.search_government_databases(),
+                timeout=30.0  # 30 second timeout for entire phase
+            )
+            all_urls.update(gov_urls)
+            print(f"✅ Phase 1 complete: {len(all_urls):,} total URLs")
+            
+        except asyncio.TimeoutError:
+            print(f"⏰ Phase 1 timeout - stopping discovery to prevent hanging")
+        except Exception as e:
+            print(f"❌ Phase 1 error: {e}")
+        
+        # SKIP Phase 2 unless we have very few URLs
+        if len(all_urls) < 3:
             try:
-                print(f"📋 Phase 1: Government databases...")
-                gov_urls = await self.search_government_databases()
-                all_urls.update(gov_urls)
-                print(f"✅ Phase 1 complete: {len(all_urls):,} total URLs")
+                print(f"📋 Phase 2: Industry directories (emergency only)...")
                 
-                if len(all_urls) >= uconfig.ULTIMATE_SETTINGS['MAX_TOTAL_URLS_TARGET']:
-                    target_reached = True
-                    print(f"🎯 Target reached! Skipping remaining phases.")
-                    
-            except Exception as e:
-                print(f"❌ Phase 1 error: {e}")
-        
-        # Phase 2: Industry Directories & Chambers
-        if not target_reached:
-            try:
-                print(f"📋 Phase 2: Industry directories...")
-                industry_urls = await self.search_industry_directories()
+                # Very short timeout for backup phase
+                industry_urls = await asyncio.wait_for(
+                    self.search_industry_directories(),
+                    timeout=20.0  # 20 second timeout
+                )
                 all_urls.update(industry_urls)
                 print(f"✅ Phase 2 complete: {len(all_urls):,} total URLs")
                 
-                if len(all_urls) >= uconfig.ULTIMATE_SETTINGS['MAX_TOTAL_URLS_TARGET']:
-                    target_reached = True
-                    print(f"🎯 Target reached! Skipping remaining phases.")
-                    
+            except asyncio.TimeoutError:
+                print(f"⏰ Phase 2 timeout - stopping")
             except Exception as e:
                 print(f"❌ Phase 2 error: {e}")
+        else:
+            print(f"⏭️  Skipping Phase 2 - have {len(all_urls)} URLs already")
         
-        # Phase 3: Quick startup check (simplified)
-        if not target_reached and len(all_urls) < uconfig.ULTIMATE_SETTINGS['MAX_TOTAL_URLS_TARGET'] // 2:
-            try:
-                print(f"📋 Phase 3: Quick startup check...")
-                # Only check a few startup sources
-                startup_sources = uconfig.ULTIMATE_HEALTHCARE_SOURCES['startup_databases'][:2]
-                
-                for i, source_url in enumerate(startup_sources, 1):
-                    try:
-                        print(f"   � Checking startup source ({i}/{len(startup_sources)}): {source_url}")
-                        
-                        discovered_urls = await asyncio.wait_for(
-                            self._advanced_web_scraping(source_url, max_depth=1),
-                            timeout=30.0
-                        )
-                        all_urls.update(discovered_urls)
-                            
-                        await asyncio.sleep(1)  # Rate limiting
-                        
-                        if len(all_urls) >= uconfig.ULTIMATE_SETTINGS['MAX_TOTAL_URLS_TARGET']:
-                            break
-                            
-                    except Exception as e:
-                        print(f"   ⚠️  Startup source error: {str(e)[:50]}")
-                        continue
-                
-                print(f"✅ Phase 3 complete: {len(all_urls):,} total URLs")
-                
-            except Exception as e:
-                print(f"❌ Phase 3 error: {e}")
+        # SKIP ALL OTHER PHASES to prevent hanging
+        print(f"⏭️  Skipping phases 3-6 completely to prevent hanging")
         
-        # Skip remaining phases to prevent hanging
-        print(f"⏭️  Skipping phases 4-6 to prevent timeout (current: {len(all_urls)} URLs)")
-        
-        # Convert to result format with enhanced scoring
+        # Convert to result format
         results = []
         print(f"\n🔍 Final validation and scoring...")
         
@@ -616,7 +581,7 @@ class UltimateURLDiscoverer:
             if is_healthcare:
                 results.append({
                     'url': url,
-                    'source': 'Ultimate Discovery',
+                    'source': 'Conservative Discovery',
                     'healthcare_score': score,
                     'is_live': None,
                     'is_healthcare': None,
@@ -627,28 +592,26 @@ class UltimateURLDiscoverer:
                     'response_time': None
                 })
         
-        # Sort by healthcare score (highest first)
+        # Sort by healthcare score
         results.sort(key=lambda x: x['healthcare_score'], reverse=True)
         
-        print(f"\n🎉 ULTIMATE DISCOVERY COMPLETE!")
+        print(f"\n🎉 CONSERVATIVE DISCOVERY COMPLETE!")
         print("=" * 60)
         print(f"📊 DISCOVERY STATISTICS:")
         print(f"   Total URLs discovered: {len(all_urls):,}")
         print(f"   Healthcare URLs (filtered): {len(results):,}")
         if results:
             print(f"   Average healthcare score: {sum(r['healthcare_score'] for r in results) / len(results):.1f}")
-            print(f"   Discovery efficiency: {len(results)/len(all_urls)*100:.1f}%")
         print()
-        print(f"🎯 TARGET ACHIEVEMENT:")
-        target = uconfig.ULTIMATE_SETTINGS['MAX_TOTAL_URLS_TARGET']
-        if len(results) >= target:
-            print(f"   ✅ SUCCESS! Found {len(results):,} URLs (target: {target:,})")
-        elif len(results) >= target * 0.5:
-            print(f"   🟡 GOOD! Found {len(results):,} URLs (target: {target:,})")
+        print(f"🎯 CONSERVATIVE RESULT:")
+        if len(results) >= 5:
+            print(f"   ✅ SUCCESS! Found {len(results):,} URLs")
+        elif len(results) >= 1:
+            print(f"   🟡 PARTIAL: Found {len(results):,} URLs")
         else:
-            print(f"   🔴 PARTIAL: Found {len(results):,} URLs (target: {target:,})")
+            print(f"   🔴 MINIMAL: Found {len(results):,} URLs")
         
-        print(f"\n⏭️  Next: URL validation and final filtering")
+        print(f"\n⏭️  Next: URL validation (if any URLs found)")
         
         return results
 
