@@ -8,3 +8,8 @@
 2025-07-09 17:02:37,036 |     INFO | HealthcareDiscovery | JSON export completed: professional_healthcare_companies_20250709_170237.json | {"count": 31}
 2025-07-09 17:02:37,047 |     INFO | HealthcareDiscovery | Excel export completed: professional_healthcare_companies_20250709_170237.xlsx | {"count": 31}
 2025-07-09 17:02:37,048 |     INFO | HealthcareDiscovery | SQL export completed: professional_healthcare_companies_20250709_170237.sql | {"count": 31}
+2025-07-09 17:57:01,773 |     INFO | HealthcareDiscovery | Professional discovery session initialized | {"session_id": "session_20250709_175701"}
+2025-07-09 18:07:17,425 |     INFO | HealthcareDiscovery | CSV export completed: professional_healthcare_companies_20250709_180717.csv | {"count": 64}
+2025-07-09 18:07:17,430 |     INFO | HealthcareDiscovery | JSON export completed: professional_healthcare_companies_20250709_180717.json | {"count": 64}
+2025-07-09 18:07:17,442 |     INFO | HealthcareDiscovery | Excel export completed: professional_healthcare_companies_20250709_180717.xlsx | {"count": 64}
+2025-07-09 18:07:17,444 |     INFO | HealthcareDiscovery | SQL export completed: professional_healthcare_companies_20250709_180717.sql | {"count": 64}
