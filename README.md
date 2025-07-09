@@ -15,6 +15,21 @@ python professional_main.py
 - Timeouts: 20-30 seconds max per operation
 - Sources: Only 1-2 most reliable sources
 
+## � Essential Files (7 files only)
+
+**Core System (6 files):**
+- `professional_main.py` - Main entry point with safe defaults
+- `ultimate_discoverer.py` - Discovery engine (NO-HANG version)
+- `ultimate_config.py` - Configuration (CONSERVATIVE settings)
+- `url_validator.py` - URL validation and healthcare detection
+- `utils.py` - Utility functions for processing
+- `requirements.txt` - Python dependencies
+
+**Documentation (1 file):**
+- `README.md` - This quick start guide
+
+*All redundant files removed for clarity!*
+
 ## 🛡️ ANTI-HANG FEATURES
 
 ✅ **Multiple timeout layers** - No operation runs longer than 30 seconds  
@@ -22,17 +37,6 @@ python professional_main.py
 ✅ **Circuit breakers** - Stops immediately on any timeout/error  
 ✅ **Progress monitoring** - Clear indicators of what's happening  
 ✅ **Graceful fallbacks** - System degrades gracefully, never hangs  
-
-## 📁 System Files
-
-- `professional_main.py` - Main entry point (SAFE defaults)
-- `ultimate_discoverer.py` - Discovery engine (NO-HANG version)
-- `ultimate_config.py` - Configuration (CONSERVATIVE settings)
-- `url_validator.py` - URL validation and healthcare detection
-- `utils.py` - Utility functions
-- `requirements.txt` - Dependencies
-- `safe_run.py` - Extra-safe runner script
-- `no_hang_test.py` - Test to prove no hanging
 
 ## 🚀 Usage Options
 
@@ -48,17 +52,11 @@ python professional_main.py --target-count 50 --max-workers 3
 ```
 *Slightly larger target, still safe.*
 
-### Option 3: Extra Safe Run
+### Option 3: Minimal Test
 ```bash
-python safe_run.py 30
+python professional_main.py --target-count 10 --max-workers 2
 ```
-*Uses the safest possible settings.*
-
-### Option 4: Test No Hanging
-```bash
-python no_hang_test.py
-```
-*30-second test to prove the system doesn't hang.*
+*Fastest test run.*
 
 ## 🔧 Installation
 
