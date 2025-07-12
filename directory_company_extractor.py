@@ -9,10 +9,16 @@ import time
 import re
 import json
 import csv
-from typing import List, Dict, Optional
+from typing import List, Dict, Optional, Set
 from bs4 import BeautifulSoup
-from urllib.parse import urljoin, urlparse
-from dataclasses import dataclass
+from urllib.parse import urljoin, urlparse, parse_qs
+from dataclasses import dataclass, asdict
+import logging
+from pathlib import Path
+
+# Configure logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
 
 @dataclass
 class ExtractedCompany:
@@ -24,6 +30,13 @@ class ExtractedCompany:
     source_directory: str = ""
     employees: str = ""
     funding: str = ""
+    city: str = ""
+    founded: str = ""
+    tags: List[str] = None
+    
+    def __post_init__(self):
+        if self.tags is None:
+            self.tags = []
 
 class DirectoryCompanyExtractor:
     """
@@ -33,229 +46,234 @@ class DirectoryCompanyExtractor:
     def __init__(self):
         self.session = requests.Session()
         self.session.headers.update({
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36',
             'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
-            'Accept-Language': 'en-US,en;q=0.9',
-            'Accept-Encoding': 'gzip, deflate',
+            'Accept-Language': 'en-US,en;q=0.9,de;q=0.8',
+            'Accept-Encoding': 'gzip, deflate, br',
             'Connection': 'keep-alive',
+            'Upgrade-Insecure-Requests': '1',
+            'Sec-Fetch-Dest': 'document',
+            'Sec-Fetch-Mode': 'navigate',
+            'Sec-Fetch-Site': 'none',
+            'Cache-Control': 'max-age=0'
         })
         self.extracted_companies = []
+        self.known_companies = self._load_known_companies()
         
+    def _load_known_companies(self) -> Set[str]:
+        """Load known companies to avoid duplicates"""
+        known_websites = {
+            'https://www.acalta.de',
+            'https://www.actimi.com',
+            'https://www.emmora.de',
+            'https://www.alfa-ai.com',
+            'https://www.apheris.com',
+            'https://www.aporize.com/',
+            'https://www.arztlena.com/',
+            'https://shop.getnutrio.com/',
+            'https://www.auta.health/',
+            'https://visioncheckout.com/',
+            'https://www.avayl.tech/',
+            'https://www.avimedical.com/avi-impact',
+            'https://de.becureglobal.com/',
+            'https://bellehealth.co/de/',
+            'https://www.biotx.ai/',
+            'https://www.brainjo.de/',
+            'https://brea.app/',
+            'https://breathment.com/',
+            'https://de.caona.eu/',
+            'https://www.careanimations.de/',
+            'https://sfs-healthcare.com',
+            'https://www.climedo.de/',
+            'https://www.cliniserve.de/',
+            'https://cogthera.de/#erfahren',
+            'https://www.comuny.de/',
+            'https://curecurve.de/elina-app/',
+            'https://www.cynteract.com/de/rehabilitation',
+            'https://www.healthmeapp.de/de/',
+            'https://deepeye.ai/',
+            'https://www.deepmentation.ai/',
+            'https://denton-systems.de/',
+            'https://www.derma2go.com/',
+            'https://www.dianovi.com/',
+            'http://dopavision.com/',
+            'https://www.dpv-analytics.com/',
+            'http://www.ecovery.de/',
+            'https://elixionmedical.com/',
+            'https://www.empident.de/',
+            'https://eye2you.ai/',
+            'https://www.fitwhit.de',
+            'https://www.floy.com/',
+            'https://fyzo.de/assistant/',
+            'https://www.gesund.de/app',
+            'https://www.glaice.de/',
+            'https://gleea.de/',
+            'https://www.guidecare.de/',
+            'https://www.apodienste.com/',
+            'https://www.help-app.de/',
+            'https://www.heynanny.com/',
+            'https://incontalert.de/',
+            'https://home.informme.info/',
+            'https://www.kranushealth.com/de/therapien/haeufiger-harndrang',
+            'https://www.kranushealth.com/de/therapien/inkontinenz'
+        }
+        return {self._normalize_domain(url) for url in known_websites}
+    
+    def _normalize_domain(self, url: str) -> str:
+        """Normalize domain for comparison"""
+        if not url:
+            return ""
+        try:
+            parsed = urlparse(url)
+            return f"{parsed.netloc.lower()}"
+        except:
+            return ""
+    
     def extract_from_medicalstartups_org(self) -> List[ExtractedCompany]:
         """Extract companies from medicalstartups.org Germany page"""
         companies = []
         
         try:
-            print("   🔍 Scraping medicalstartups.org (82 medical startups)...")
+            logger.info("Scraping medicalstartups.org...")
             url = "https://www.medicalstartups.org/country/Germany/"
             
-            response = self.session.get(url, timeout=15)
+            response = self.session.get(url, timeout=20)
             if response.status_code == 200:
                 soup = BeautifulSoup(response.text, 'html.parser')
                 
-                # Look for startup cards/listings
-                startup_cards = soup.find_all(['div', 'article', 'section'], class_=re.compile(r'startup|company|card|listing', re.I))
+                # Look for company listings in different structures
+                company_selectors = [
+                    'div.company-card',
+                    'div.startup-card',
+                    'div.listing-item',
+                    'article.company',
+                    'div.company-profile',
+                    '[class*="company"]',
+                    '[class*="startup"]'
+                ]
                 
-                # Also look for links that might be companies
-                company_links = soup.find_all('a', href=True)
+                for selector in company_selectors:
+                    elements = soup.select(selector)
+                    if elements:
+                        logger.info(f"Found {len(elements)} elements with selector: {selector}")
+                        for element in elements:
+                            company = self._extract_company_from_element(element, url)
+                            if company:
+                                companies.append(company)
+                        break
                 
-                for link in company_links:
-                    href = link.get('href', '')
-                    text = link.get_text(strip=True)
-                    
-                    # Skip internal navigation
-                    if any(skip in href.lower() for skip in ['#', 'javascript:', 'mailto:', '/country/', '/category/', '/about']):
-                        continue
-                    
-                    # Look for external company websites
-                    if href.startswith('http') and 'medicalstartups.org' not in href:
-                        if self._is_company_link(href, text):
-                            # Get context from parent element
-                            parent = link.parent
-                            description = ""
-                            if parent:
-                                desc_text = parent.get_text(strip=True)
-                                if len(desc_text) > len(text):
-                                    description = desc_text[:300]
-                            
-                            company = ExtractedCompany(
-                                name=text,
-                                website=href,
-                                description=description,
-                                source_directory=url,
-                                location="Germany"
-                            )
-                            companies.append(company)
-                
-                # Also look for company names in text
-                company_names = self._extract_company_names_from_text(soup.get_text())
-                for name in company_names:
-                    if len(name) > 3 and name not in [c.name for c in companies]:
-                        company = ExtractedCompany(
-                            name=name,
-                            source_directory=url,
-                            location="Germany"
-                        )
-                        companies.append(company)
-                
-                print(f"      ✅ Found {len(companies)} companies")
-                
-        except Exception as e:
-            print(f"      ❌ Error: {str(e)[:100]}")
-        
-        return companies
-    
-    def extract_from_inven_ai(self) -> List[ExtractedCompany]:
-        """Extract companies from inven.ai top healthcare companies list"""
-        companies = []
-        
-        try:
-            print("   🔍 Scraping inven.ai (top 22 healthcare companies)...")
-            url = "https://www.inven.ai/company-lists/top-22-healthcare-companies-in-germany"
-            
-            response = self.session.get(url, timeout=15)
-            if response.status_code == 200:
-                soup = BeautifulSoup(response.text, 'html.parser')
-                
-                # Look for company listings - inven.ai likely has structured data
-                company_elements = soup.find_all(['div', 'section', 'article'], class_=re.compile(r'company|item|card|list', re.I))
-                
-                for element in company_elements:
-                    # Look for company name
-                    name_element = element.find(['h1', 'h2', 'h3', 'h4', 'strong', 'b'])
-                    if name_element:
-                        name = name_element.get_text(strip=True)
+                # Fallback: look for external links
+                if not companies:
+                    external_links = soup.find_all('a', href=True)
+                    for link in external_links:
+                        href = link.get('href', '')
+                        text = link.get_text(strip=True)
                         
-                        if self._is_valid_company_name(name):
-                            # Look for website link
-                            website_link = element.find('a', href=re.compile(r'^https?://(?!.*inven\.ai)'))
-                            website = ""
-                            if website_link:
-                                website = website_link.get('href')
-                            
-                            # Get description
-                            description = element.get_text(strip=True)[:300]
-                            
-                            company = ExtractedCompany(
-                                name=name,
-                                website=website,
-                                description=description,
-                                source_directory=url,
-                                location="Germany"
-                            )
-                            companies.append(company)
-                
-                # Also look for any direct company links
-                external_links = soup.find_all('a', href=re.compile(r'^https?://(?!.*inven\.ai)'))
-                for link in external_links:
-                    href = link.get('href')
-                    text = link.get_text(strip=True)
-                    
-                    if self._is_company_link(href, text):
-                        if text not in [c.name for c in companies]:
+                        if self._is_company_link(href, text):
                             company = ExtractedCompany(
                                 name=text,
                                 website=href,
                                 source_directory=url,
-                                location="Germany"
+                                location="Germany",
+                                category="Healthcare/Medical"
                             )
                             companies.append(company)
                 
-                print(f"      ✅ Found {len(companies)} companies")
+                logger.info(f"Found {len(companies)} companies from medicalstartups.org")
                 
         except Exception as e:
-            print(f"      ❌ Error: {str(e)[:100]}")
+            logger.error(f"Error scraping medicalstartups.org: {str(e)}")
         
         return companies
     
-    def extract_from_f6s_directories(self) -> List[ExtractedCompany]:
-        """Extract companies from F6S directory pages"""
+    def extract_from_startup_directories(self) -> List[ExtractedCompany]:
+        """Extract from multiple startup directories"""
         companies = []
         
-        f6s_urls = [
-            "https://www.f6s.com/companies/health-medical/germany/co",
-            "https://www.f6s.com/companies/health/germany/co",
-            "https://www.f6s.com/companies/digital-health/germany/co"
+        directories = [
+            {
+                'url': 'https://www.rocket-internet.com/our-companies/',
+                'name': 'Rocket Internet',
+                'selectors': ['div.company-card', 'div.portfolio-item']
+            },
+            {
+                'url': 'https://www.gtec.at/portfolio/',
+                'name': 'GTEC',
+                'selectors': ['div.portfolio-item', 'div.company-card']
+            },
+            {
+                'url': 'https://www.berlin-startup-jobs.com/companies?industries=health',
+                'name': 'Berlin Startup Jobs',
+                'selectors': ['div.company-card', 'div.job-company']
+            },
+            {
+                'url': 'https://www.startup-map.de/health',
+                'name': 'Startup Map',
+                'selectors': ['div.startup-card', 'div.company-item']
+            }
         ]
         
-        for url in f6s_urls:
+        for directory in directories:
             try:
-                print(f"   🔍 Scraping F6S: {url.split('/')[-2]}...")
+                logger.info(f"Scraping {directory['name']}...")
+                response = self.session.get(directory['url'], timeout=20)
                 
-                response = self.session.get(url, timeout=15)
                 if response.status_code == 200:
                     soup = BeautifulSoup(response.text, 'html.parser')
                     
-                    # F6S has company cards
-                    company_cards = soup.find_all(['div', 'article'], class_=re.compile(r'company|startup|profile', re.I))
-                    
-                    for card in company_cards:
-                        # Get company name
-                        name_link = card.find('a', href=True)
-                        if name_link:
-                            name = name_link.get_text(strip=True)
-                            
-                            if self._is_valid_company_name(name):
-                                # Look for website link (not F6S profile link)
-                                website_links = card.find_all('a', href=re.compile(r'^https?://(?!.*f6s\.com)'))
-                                website = ""
-                                if website_links:
-                                    website = website_links[0].get('href')
-                                
-                                # Get description
-                                description = card.get_text(strip=True)[:200]
-                                
-                                company = ExtractedCompany(
-                                    name=name,
-                                    website=website,
-                                    description=description,
-                                    source_directory=url,
-                                    location="Germany"
-                                )
-                                companies.append(company)
-                    
-                    print(f"      ✅ Found {len([c for c in companies if c.source_directory == url])} companies")
-                    
-                time.sleep(2)  # Rate limiting
+                    for selector in directory['selectors']:
+                        elements = soup.select(selector)
+                        if elements:
+                            for element in elements:
+                                company = self._extract_company_from_element(element, directory['url'])
+                                if company:
+                                    companies.append(company)
+                            break
+                
+                time.sleep(3)  # Rate limiting
                 
             except Exception as e:
-                print(f"      ❌ Error with {url}: {str(e)[:100]}")
+                logger.error(f"Error scraping {directory['name']}: {str(e)}")
         
         return companies
     
-    def extract_from_startup_blogs(self) -> List[ExtractedCompany]:
-        """Extract companies from startup blog articles"""
+    def extract_from_healthtech_blogs(self) -> List[ExtractedCompany]:
+        """Extract from healthtech blog articles and lists"""
         companies = []
         
         blog_urls = [
-            "https://www.spinlab.co/blog/10-promising-ehealth-startups-from-germany",
-            "https://startuprise.co.uk/top-10-healthtech-startups-in-germany/",
-            "https://eustartup.news/15-innovative-health-care-startups-in-germany-driving-change-in-the-industry/"
+            "https://www.healthtech.de/startups/",
+            "https://www.e-health-com.de/details-news/digital-health-startups-in-deutschland/",
+            "https://www.digitale-gesundheit.de/startups/",
+            "https://www.heise.de/news/Die-vielversprechendsten-Health-Tech-Startups-in-Deutschland-6085734.html",
+            "https://www.manager-magazin.de/unternehmen/artikel/health-tech-startups-diese-unternehmen-revolutionieren-die-gesundheitsbranche-a-1289756.html",
+            "https://www.gruenderszene.de/health-tech-startups-deutschland",
+            "https://www.digital-health-startups.de/",
+            "https://www.medtech-zwo.de/nachrichten/maerkte-und-trends/startup-landscape-deutschland.html"
         ]
         
         for url in blog_urls:
             try:
-                print(f"   🔍 Scraping startup blog: {urlparse(url).netloc}...")
+                logger.info(f"Scraping healthtech blog: {urlparse(url).netloc}")
+                response = self.session.get(url, timeout=20)
                 
-                response = self.session.get(url, timeout=15)
                 if response.status_code == 200:
                     soup = BeautifulSoup(response.text, 'html.parser')
                     
-                    # Look for structured company mentions
-                    # Often in blog posts, companies are mentioned with strong/bold tags
-                    company_mentions = soup.find_all(['strong', 'b', 'h3', 'h4'])
+                    # Look for company mentions in various formats
+                    company_elements = soup.find_all(['h2', 'h3', 'h4', 'strong', 'b'])
                     
-                    for mention in company_mentions:
-                        text = mention.get_text(strip=True)
+                    for element in company_elements:
+                        text = element.get_text(strip=True)
                         
                         if self._is_valid_company_name(text):
-                            # Look for nearby links
-                            parent = mention.parent
+                            # Look for nearby links or website info
+                            parent = element.parent
                             website = ""
                             description = ""
                             
                             if parent:
-                                # Look for links in the same paragraph
+                                # Look for links in the same section
                                 links = parent.find_all('a', href=True)
                                 for link in links:
                                     href = link.get('href')
@@ -263,94 +281,200 @@ class DirectoryCompanyExtractor:
                                         website = href
                                         break
                                 
-                                # Get description from paragraph
-                                description = parent.get_text(strip=True)[:250]
+                                # Get description
+                                desc_text = parent.get_text(strip=True)
+                                if len(desc_text) > len(text):
+                                    description = desc_text[:300]
                             
                             company = ExtractedCompany(
                                 name=text,
                                 website=website,
                                 description=description,
                                 source_directory=url,
-                                location="Germany"
+                                location="Germany",
+                                category="HealthTech"
                             )
                             companies.append(company)
-                    
-                    # Also look for explicit company links
-                    external_links = soup.find_all('a', href=re.compile(r'^https?://(?!.*(' + '|'.join([
-                        'spinlab.co', 'startuprise.co.uk', 'eustartup.news', 'linkedin.com', 'twitter.com'
-                    ]) + '))'))
-                    
-                    for link in external_links:
-                        href = link.get('href')
-                        text = link.get_text(strip=True)
-                        
-                        if self._is_company_link(href, text):
-                            # Get context
-                            parent = link.parent
-                            description = ""
-                            if parent:
-                                description = parent.get_text(strip=True)[:200]
-                            
-                            company = ExtractedCompany(
-                                name=text,
-                                website=href,
-                                description=description,
-                                source_directory=url,
-                                location="Germany"
-                            )
-                            companies.append(company)
-                    
-                    print(f"      ✅ Found {len([c for c in companies if c.source_directory == url])} companies")
-                    
-                time.sleep(3)  # Rate limiting
+                
+                time.sleep(3)
                 
             except Exception as e:
-                print(f"      ❌ Error with {urlparse(url).netloc}: {str(e)[:100]}")
+                logger.error(f"Error scraping {urlparse(url).netloc}: {str(e)}")
         
         return companies
     
-    def extract_from_crunchbase_directory(self) -> List[ExtractedCompany]:
-        """Extract companies from Crunchbase Germany healthcare directory"""
+    def extract_from_accelerator_portfolios(self) -> List[ExtractedCompany]:
+        """Extract from accelerator and incubator portfolios"""
         companies = []
         
-        try:
-            print("   🔍 Scraping Crunchbase Germany healthcare directory...")
-            url = "https://www.crunchbase.com/hub/germany-health-care-companies"
-            
-            response = self.session.get(url, timeout=15)
-            if response.status_code == 200:
-                soup = BeautifulSoup(response.text, 'html.parser')
+        accelerators = [
+            {
+                'url': 'https://www.rocket-internet.com/companies/',
+                'name': 'Rocket Internet',
+                'location': 'Berlin'
+            },
+            {
+                'url': 'https://www.berlinstartupjobs.com/companies?industries=health',
+                'name': 'Berlin Startup Jobs',
+                'location': 'Berlin'
+            },
+            {
+                'url': 'https://www.high-tech-gruenderfonds.de/portfolio/',
+                'name': 'High-Tech Gründerfonds',
+                'location': 'Germany'
+            },
+            {
+                'url': 'https://www.techstars.com/portfolio?location=Berlin',
+                'name': 'Techstars Berlin',
+                'location': 'Berlin'
+            }
+        ]
+        
+        for accelerator in accelerators:
+            try:
+                logger.info(f"Scraping {accelerator['name']}...")
+                response = self.session.get(accelerator['url'], timeout=20)
                 
-                # Crunchbase has company cards/listings
-                company_elements = soup.find_all(['div', 'article'], attrs={
-                    'class': re.compile(r'card|item|company|organization', re.I)
-                })
-                
-                for element in company_elements:
-                    # Look for company name link
-                    name_links = element.find_all('a', href=re.compile(r'/organization/'))
+                if response.status_code == 200:
+                    soup = BeautifulSoup(response.text, 'html.parser')
                     
-                    for link in name_links:
-                        name = link.get_text(strip=True)
-                        
-                        if self._is_valid_company_name(name):
-                            # Get description from the card
-                            description = element.get_text(strip=True)[:200]
-                            
-                            company = ExtractedCompany(
-                                name=name,
-                                description=description,
-                                source_directory=url,
-                                location="Germany"
-                            )
+                    # Look for portfolio companies
+                    portfolio_elements = soup.find_all(['div', 'article'], class_=re.compile(r'portfolio|company|startup', re.I))
+                    
+                    for element in portfolio_elements:
+                        company = self._extract_company_from_element(element, accelerator['url'])
+                        if company:
+                            company.location = accelerator['location']
                             companies.append(company)
                 
-                print(f"      ✅ Found {len(companies)} companies")
+                time.sleep(3)
                 
-        except Exception as e:
-            print(f"      ❌ Error: {str(e)[:100]}")
+            except Exception as e:
+                logger.error(f"Error scraping {accelerator['name']}: {str(e)}")
         
         return companies
+    
+    def extract_from_funding_databases(self) -> List[ExtractedCompany]:
+        """Extract from funding and investment databases"""
+        companies = []
+        
+        funding_sources = [
+            "https://www.crunchbase.com/hub/germany-health-care-companies",
+            "https://www.dealroom.co/companies/f/company_type/anyof_startup_scaleup/locations/anyof_Germany/tags/anyof_health",
+            "https://www.pitchbook.com/profiles/company/",
+            "https://www.cbinsights.com/company/",
+            "https://www.eu-startups.com/directory/country/germany/industry/health/"
+        ]
+        
+        for url in funding_sources:
+            try:
+                logger.info(f"Scraping funding database: {urlparse(url).netloc}")
+                response = self.session.get(url, timeout=20)
+                
+                if response.status_code == 200:
+                    soup = BeautifulSoup(response.text, 'html.parser')
+                    
+                    # Look for company listings
+                    company_elements = soup.find_all(['div', 'article'], class_=re.compile(r'company|organization|startup', re.I))
+                    
+                    for element in company_elements:
+                        company = self._extract_company_from_element(element, url)
+                        if company:
+                            companies.append(company)
+                
+                time.sleep(3)
+                
+            except Exception as e:
+                logger.error(f"Error scraping {urlparse(url).netloc}: {str(e)}")
+        
+        return companies
+    
+    def _extract_company_from_element(self, element, source_url: str) -> Optional[ExtractedCompany]:
+        """Extract company information from a DOM element"""
+        try:
+            # Try to find company name
+            name_selectors = [
+                'h1', 'h2', 'h3', 'h4', 'h5',
+                '.company-name', '.startup-name', '.name',
+                'strong', 'b', 'a[href]'
+            ]
+            
+            name = ""
+            for selector in name_selectors:
+                name_element = element.select_one(selector)
+                if name_element:
+                    name = name_element.get_text(strip=True)
+                    if self._is_valid_company_name(name):
+                        break
+            
+            if not name or not self._is_valid_company_name(name):
+                return None
+            
+            # Try to find website
+            website = ""
+            website_selectors = [
+                'a[href^="http"]',
+                'a[href^="https"]',
+                '.website a',
+                '.url a'
+            ]
+            
+            for selector in website_selectors:
+                link_element = element.select_one(selector)
+                if link_element:
+                    href = link_element.get('href')
+                    if self._is_company_link(href, name):
+                        website = href
+                        break
+            
+            # Get description
+            description = ""
+            desc_selectors = [
+                '.description', '.summary', '.about',
+                'p', '.content', '.text'
+            ]
+            
+            for selector in desc_selectors:
+                desc_element = element.select_one(selector)
+                if desc_element:
+                    desc_text = desc_element.get_text(strip=True)
+                    if len(desc_text) > 20:
+                        description = desc_text[:300]
+                        break
+            
+            # Get location
+            location = "Germany"  # Default
+            location_selectors = [
+                '.location', '.city', '.address',
+                '[class*="location"]', '[class*="city"]'
+            ]
+            
+            for selector in location_selectors:
+                loc_element = element.select_one(selector)
+                if loc_element:
+                    loc_text = loc_element.get_text(strip=True)
+                    if loc_text and len(loc_text) < 50:
+                        location = loc_text
+                        break
+            
+            # Check if we already have this company
+            if website and self._normalize_domain(website) in self.known_companies:
+                return None
+            
+            company = ExtractedCompany(
+                name=name,
+                website=website,
+                description=description,
+                location=location,
+                source_directory=source_url,
+                category="Healthcare/Medical"
+            )
+            
+            return company
+            
+        except Exception as e:
+            logger.error(f"Error extracting company from element: {str(e)}")
+            return None
     
     def _is_company_link(self, url: str, text: str) -> bool:
         """Check if URL and text represent a company"""
@@ -360,20 +484,25 @@ class DirectoryCompanyExtractor:
         # Skip non-company domains
         skip_domains = [
             'google.', 'facebook.', 'twitter.', 'linkedin.', 'youtube.',
-            'github.', 'crunchbase.', 'f6s.', 'angellist.',
-            'wikipedia.', 'blog.', 'medium.', 'news.'
+            'github.', 'crunchbase.', 'f6s.', 'angellist.', 'xing.',
+            'wikipedia.', 'blog.', 'medium.', 'news.', 'reddit.',
+            'instagram.', 'pinterest.', 'tiktok.', 'snapchat.'
         ]
         
+        url_lower = url.lower()
         for skip in skip_domains:
-            if skip in url.lower():
+            if skip in url_lower:
                 return False
         
-        # Must have company indicators
-        company_indicators = ['.com', '.de', '.org', '.net', '.eu', '.co.uk']
-        has_tld = any(tld in url.lower() for tld in company_indicators)
+        # Must have company TLD
+        company_tlds = ['.com', '.de', '.org', '.net', '.eu', '.co.uk', '.co', '.io', '.ai', '.health']
+        has_tld = any(tld in url_lower for tld in company_tlds)
         
         # Text should look like a company name
-        text_valid = len(text) > 2 and text.lower() not in ['website', 'visit', 'more', 'link', 'here']
+        text_valid = len(text) > 2 and text.lower() not in [
+            'website', 'visit', 'more', 'link', 'here', 'click', 'read',
+            'learn', 'see', 'view', 'go', 'check', 'find'
+        ]
         
         return has_tld and text_valid
     
@@ -385,7 +514,9 @@ class DirectoryCompanyExtractor:
         # Skip common non-company words
         skip_words = [
             'read more', 'click here', 'learn more', 'contact', 'about',
-            'home', 'news', 'blog', 'search', 'menu', 'login', 'register'
+            'home', 'news', 'blog', 'search', 'menu', 'login', 'register',
+            'privacy', 'terms', 'imprint', 'impressum', 'datenschutz',
+            'cookie', 'newsletter', 'subscribe', 'follow', 'share'
         ]
         
         name_lower = name.lower()
@@ -394,129 +525,157 @@ class DirectoryCompanyExtractor:
                 return False
         
         # Look for company indicators
-        company_words = ['gmbh', 'ag', 'inc', 'ltd', 'corp', 'llc', 'group', 'systems', 'solutions', 'technologies']
-        has_company_word = any(word in name_lower for word in company_words)
+        company_indicators = [
+            'gmbh', 'ag', 'inc', 'ltd', 'corp', 'llc', 'group', 'systems',
+            'solutions', 'technologies', 'health', 'medical', 'care',
+            'tech', 'bio', 'pharma', 'therapeutics', 'diagnostics'
+        ]
         
-        # Or looks like a proper name (capitalized)
+        has_indicator = any(indicator in name_lower for indicator in company_indicators)
+        
+        # Or looks like a proper name (starts with capital)
         looks_proper = name[0].isupper() and not name.isupper()
         
         # Should have at least some letters
         has_letters = any(c.isalpha() for c in name)
         
-        return has_letters and (has_company_word or looks_proper)
+        # Not too many numbers
+        num_count = sum(1 for c in name if c.isdigit())
+        mostly_letters = num_count < len(name) / 2
+        
+        return has_letters and mostly_letters and (has_indicator or looks_proper)
     
-    def _extract_company_names_from_text(self, text: str) -> List[str]:
-        """Extract potential company names from free text"""
-        names = []
-        
-        # Look for patterns like "Company Name GmbH" or "Tech Solutions Inc"
-        patterns = [
-            r'\b([A-Z][a-z]+(?:\s+[A-Z][a-z]+)*)\s+(?:GmbH|AG|Inc|Ltd|Corp|LLC)\b',
-            r'\b([A-Z][a-z]+(?:\s+[A-Z][a-z]+)*)\s+(?:Systems|Solutions|Technologies|Group)\b',
-            r'\b([A-Z][a-z]+(?:\s+[A-Z][a-z]+)*Health|Medical|Care|Tech|Bio)\b'
-        ]
-        
-        for pattern in patterns:
-            matches = re.findall(pattern, text)
-            for match in matches:
-                if self._is_valid_company_name(match):
-                    names.append(match)
-        
-        return names[:20]  # Limit to avoid noise
-    
-    def enhance_companies_with_websites(self, companies: List[ExtractedCompany]) -> List[ExtractedCompany]:
-        """Try to find websites for companies that don't have them"""
+    def enhance_companies_with_validation(self, companies: List[ExtractedCompany]) -> List[ExtractedCompany]:
+        """Validate and enhance company information"""
         enhanced = []
         
-        print(f"   🔍 Enhancing {len(companies)} companies with missing websites...")
+        logger.info(f"Enhancing {len(companies)} companies...")
         
         for i, company in enumerate(companies):
-            if i % 25 == 0:
-                print(f"      📊 Enhanced {i}/{len(companies)}...")
+            if i % 50 == 0:
+                logger.info(f"Enhanced {i}/{len(companies)} companies...")
             
             enhanced_company = company
             
-            # If no website, try to find one
-            if not company.website:
-                potential_urls = [
-                    f"https://www.{company.name.lower().replace(' ', '')}.com",
-                    f"https://www.{company.name.lower().replace(' ', '')}.de",
-                    f"https://{company.name.lower().replace(' ', '')}.com",
-                    f"https://{company.name.lower().replace(' ', '')}.de"
-                ]
-                
-                for url in potential_urls:
-                    try:
-                        response = self.session.head(url, timeout=3)
-                        if response.status_code in [200, 301, 302]:
-                            enhanced_company.website = url
-                            break
-                    except:
-                        continue
+            # Validate website if present
+            if company.website:
+                if not self._validate_website(company.website):
+                    enhanced_company.website = ""
             
-            enhanced.append(enhanced_company)
+            # Try to find website if missing
+            if not enhanced_company.website:
+                found_website = self._find_company_website(company.name)
+                if found_website:
+                    enhanced_company.website = found_website
+            
+            # Clean up name
+            enhanced_company.name = self._clean_company_name(company.name)
+            
+            # Add to enhanced list if valid
+            if enhanced_company.name and len(enhanced_company.name) > 2:
+                enhanced.append(enhanced_company)
             
             # Rate limiting
-            if i % 10 == 0:
-                time.sleep(0.5)
+            if i % 20 == 0:
+                time.sleep(1)
         
         return enhanced
     
+    def _validate_website(self, url: str) -> bool:
+        """Validate if website is accessible"""
+        try:
+            response = self.session.head(url, timeout=5, allow_redirects=True)
+            return response.status_code in [200, 301, 302, 403]  # 403 might be blocking bots
+        except:
+            return False
+    
+    def _find_company_website(self, company_name: str) -> str:
+        """Try to find company website"""
+        # Generate potential URLs
+        clean_name = re.sub(r'[^a-zA-Z0-9]', '', company_name.lower())
+        
+        potential_urls = [
+            f"https://www.{clean_name}.com",
+            f"https://www.{clean_name}.de",
+            f"https://{clean_name}.com",
+            f"https://{clean_name}.de",
+            f"https://www.{clean_name}.health",
+            f"https://www.{clean_name}.io"
+        ]
+        
+        for url in potential_urls:
+            if self._validate_website(url):
+                return url
+        
+        return ""
+    
+    def _clean_company_name(self, name: str) -> str:
+        """Clean up company name"""
+        # Remove extra whitespace
+        name = re.sub(r'\s+', ' ', name.strip())
+        
+        # Remove common prefixes/suffixes that aren't part of company name
+        prefixes = ['startup:', 'company:', 'founded:', 'website:']
+        for prefix in prefixes:
+            if name.lower().startswith(prefix):
+                name = name[len(prefix):].strip()
+        
+        return name
+    
     def run_directory_extraction(self) -> List[ExtractedCompany]:
         """Run the complete directory extraction process"""
-        print("🚀 DIRECTORY COMPANY EXTRACTION")
-        print("=" * 80)
-        print("🎯 Extracting individual companies from discovered directories")
-        print("📂 Processing multiple healthcare directory sources")
-        print()
+        logger.info("🚀 STARTING DIRECTORY COMPANY EXTRACTION")
+        logger.info("=" * 80)
         
         all_companies = []
         
-        # Extract from each directory type
-        print("🔍 Phase 1: Medical Startups Directory")
-        medical_startups = self.extract_from_medicalstartups_org()
-        all_companies.extend(medical_startups)
-        print()
+        # Extract from different sources
+        extraction_methods = [
+            ("Medical Startups Directory", self.extract_from_medicalstartups_org),
+            ("Startup Directories", self.extract_from_startup_directories),
+            ("HealthTech Blogs", self.extract_from_healthtech_blogs),
+            ("Accelerator Portfolios", self.extract_from_accelerator_portfolios),
+            ("Funding Databases", self.extract_from_funding_databases)
+        ]
         
-        print("🔍 Phase 2: Inven.ai Healthcare Companies")
-        inven_companies = self.extract_from_inven_ai()
-        all_companies.extend(inven_companies)
-        print()
-        
-        print("🔍 Phase 3: F6S Startup Directories")
-        f6s_companies = self.extract_from_f6s_directories()
-        all_companies.extend(f6s_companies)
-        print()
-        
-        print("🔍 Phase 4: Startup Blog Articles")
-        blog_companies = self.extract_from_startup_blogs()
-        all_companies.extend(blog_companies)
-        print()
-        
-        print("🔍 Phase 5: Crunchbase Directory")
-        crunchbase_companies = self.extract_from_crunchbase_directory()
-        all_companies.extend(crunchbase_companies)
-        print()
+        for phase_name, method in extraction_methods:
+            logger.info(f"🔍 Phase: {phase_name}")
+            try:
+                companies = method()
+                all_companies.extend(companies)
+                logger.info(f"✅ Extracted {len(companies)} companies from {phase_name}")
+            except Exception as e:
+                logger.error(f"❌ Error in {phase_name}: {str(e)}")
+            
+            time.sleep(2)  # Rate limiting between phases
         
         # Remove duplicates
-        unique_companies = []
-        seen_names = set()
+        unique_companies = self._remove_duplicates(all_companies)
+        logger.info(f"📊 Total unique companies: {len(unique_companies)}")
         
-        for company in all_companies:
-            name_key = company.name.lower().strip()
-            if name_key not in seen_names and len(name_key) > 2:
-                seen_names.add(name_key)
-                unique_companies.append(company)
-        
-        print(f"📊 Total unique companies extracted: {len(unique_companies)}")
-        print()
-        
-        # Enhance with websites
-        print("🔍 Phase 6: Website Enhancement")
-        enhanced_companies = self.enhance_companies_with_websites(unique_companies)
-        print()
+        # Enhance companies
+        logger.info("🔍 Enhancing companies with validation...")
+        enhanced_companies = self.enhance_companies_with_validation(unique_companies)
         
         return enhanced_companies
+    
+    def _remove_duplicates(self, companies: List[ExtractedCompany]) -> List[ExtractedCompany]:
+        """Remove duplicate companies"""
+        seen = set()
+        unique = []
+        
+        for company in companies:
+            # Create a key for deduplication
+            key = (
+                company.name.lower().strip(),
+                self._normalize_domain(company.website)
+            )
+            
+            if key not in seen:
+                seen.add(key)
+                unique.append(company)
+        
+        return unique
 
 def main():
     """Main execution"""
@@ -528,41 +687,39 @@ def main():
     
     if companies:
         # Save results
-        print("💾 Saving results...")
+        logger.info("💾 Saving results...")
         
         # Convert to dict format
         company_dicts = []
         for company in companies:
-            company_dicts.append({
-                'name': company.name,
-                'website': company.website,
-                'description': company.description,
-                'location': company.location,
-                'category': company.category,
-                'source_directory': company.source_directory,
-                'employees': company.employees,
-                'funding': company.funding,
-                'domain': urlparse(company.website).netloc if company.website else ""
-            })
+            company_dict = asdict(company)
+            company_dict['domain'] = extractor._normalize_domain(company.website)
+            company_dicts.append(company_dict)
+        
+        # Save to files
+        output_dir = Path("output")
+        output_dir.mkdir(exist_ok=True)
+        
+        csv_file = output_dir / "extracted_healthcare_companies.csv"
+        json_file = output_dir / "extracted_healthcare_companies.json"
         
         # Save to CSV
-        with open('extracted_healthcare_companies.csv', 'w', newline='', encoding='utf-8') as f:
+        with open(csv_file, 'w', newline='', encoding='utf-8') as f:
             if company_dicts:
                 writer = csv.DictWriter(f, fieldnames=company_dicts[0].keys())
                 writer.writeheader()
                 writer.writerows(company_dicts)
         
         # Save to JSON
-        with open('extracted_healthcare_companies.json', 'w', encoding='utf-8') as f:
+        with open(json_file, 'w', encoding='utf-8') as f:
             json.dump(company_dicts, f, indent=2, ensure_ascii=False)
         
-        print(f"   ✅ Saved to extracted_healthcare_companies.csv")
-        print(f"   ✅ Saved to extracted_healthcare_companies.json")
-        print()
+        logger.info(f"✅ Saved to {csv_file}")
+        logger.info(f"✅ Saved to {json_file}")
         
         # Statistics
         with_websites = sum(1 for c in company_dicts if c['website'])
-        german_companies = sum(1 for c in company_dicts if c['location'] == 'Germany')
+        german_companies = sum(1 for c in company_dicts if 'germany' in c['location'].lower())
         
         # Count by source
         sources = {}
@@ -570,34 +727,30 @@ def main():
             source = urlparse(c['source_directory']).netloc
             sources[source] = sources.get(source, 0) + 1
         
-        print("🎉 DIRECTORY EXTRACTION COMPLETE!")
-        print("=" * 80)
-        print(f"📊 EXTRACTION RESULTS:")
-        print(f"   Total companies extracted: {len(companies)}")
-        print(f"   Companies with websites: {with_websites} ({with_websites/len(companies)*100:.1f}%)")
-        print(f"   German companies: {german_companies} ({german_companies/len(companies)*100:.1f}%)")
-        print(f"   Runtime: {runtime:.1f} seconds")
-        print(f"   Rate: {len(companies)/runtime:.2f} companies/second")
-        print()
-        print(f"📈 BREAKDOWN BY SOURCE:")
-        for source, count in sources.items():
-            print(f"   {source}: {count} companies")
-        print()
-        print("🏆 SUCCESS! Extracted individual companies from directories!")
+        logger.info("🎉 DIRECTORY EXTRACTION COMPLETE!")
+        logger.info("=" * 80)
+        logger.info(f"📊 RESULTS:")
+        logger.info(f"   Total companies: {len(companies)}")
+        logger.info(f"   With websites: {with_websites} ({with_websites/len(companies)*100:.1f}%)")
+        logger.info(f"   German companies: {german_companies}")
+        logger.info(f"   Runtime: {runtime:.1f} seconds")
+        logger.info(f"   Rate: {len(companies)/runtime:.2f} companies/second")
+        
+        logger.info("📈 BREAKDOWN BY SOURCE:")
+        for source, count in sorted(sources.items(), key=lambda x: x[1], reverse=True):
+            logger.info(f"   {source}: {count} companies")
         
         # Show sample companies
-        print()
-        print("🏢 SAMPLE EXTRACTED COMPANIES:")
-        for i, company in enumerate(companies[:15], 1):
-            print(f"   {i}. {company.name}")
+        logger.info("\n🏢 SAMPLE COMPANIES:")
+        for i, company in enumerate(companies[:10], 1):
+            logger.info(f"   {i}. {company.name}")
             if company.website:
-                print(f"      🌐 {company.website}")
+                logger.info(f"      🌐 {company.website}")
             if company.description:
-                print(f"      📝 {company.description[:80]}...")
-            print(f"      📂 Source: {urlparse(company.source_directory).netloc}")
-            print()
+                logger.info(f"      📝 {company.description[:80]}...")
+            logger.info(f"      📍 {company.location}")
     else:
-        print("❌ No companies extracted")
+        logger.error("❌ No companies extracted")
 
 if __name__ == "__main__":
     main()

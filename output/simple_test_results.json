@@ -1,0 +1,44 @@
+[
+  {
+    "name": "MedTech Solutions GmbH",
+    "website": "https://medtech-solutions.de",
+    "description": "Innovative medical technology solutions for healthcare providers",
+    "location": "Berlin, Germany",
+    "category": "Medical Technology",
+    "source_directory": "https://example.com/directory",
+    "tags": [
+      "Sample",
+      "Medical Device",
+      "German"
+    ],
+    "domain": "medtech-solutions.de"
+  },
+  {
+    "name": "HealthAI Systems",
+    "website": "https://healthai-systems.com",
+    "description": "AI-powered healthcare diagnostics and analytics",
+    "location": "Munich, Germany",
+    "category": "Digital Health",
+    "source_directory": "https://example.com/directory",
+    "tags": [
+      "Sample",
+      "AI",
+      "Healthcare"
+    ],
+    "domain": "healthai-systems.com"
+  },
+  {
+    "name": "BioInnovate AG",
+    "website": "https://bioinnovate.de",
+    "description": "Biotechnology research and development",
+    "location": "Hamburg, Germany",
+    "category": "Biotechnology",
+    "source_directory": "https://example.com/directory",
+    "tags": [
+      "Sample",
+      "Biotech",
+      "Research"
+    ],
+    "domain": "bioinnovate.de"
+  }
+]

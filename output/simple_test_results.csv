@@ -1,0 +1,4 @@
+name,website,description,location,category,source_directory,tags,domain
+MedTech Solutions GmbH,https://medtech-solutions.de,Innovative medical technology solutions for healthcare providers,"Berlin, Germany",Medical Technology,https://example.com/directory,"['Sample', 'Medical Device', 'German']",medtech-solutions.de
+HealthAI Systems,https://healthai-systems.com,AI-powered healthcare diagnostics and analytics,"Munich, Germany",Digital Health,https://example.com/directory,"['Sample', 'AI', 'Healthcare']",healthai-systems.com
+BioInnovate AG,https://bioinnovate.de,Biotechnology research and development,"Hamburg, Germany",Biotechnology,https://example.com/directory,"['Sample', 'Biotech', 'Research']",bioinnovate.de
