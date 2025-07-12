@@ -1,0 +1,52 @@
+2025-07-12 06:45:58,653 - INFO - Scraper initialized:
+2025-07-12 06:45:58,653 - INFO -   - Requests: Disabled
+2025-07-12 06:45:58,653 - INFO -   - Selenium: Disabled
+2025-07-12 06:45:58,653 - INFO -   - BeautifulSoup: Disabled
+2025-07-12 06:45:58,653 - INFO -   - Known companies: 52
+2025-07-12 06:45:58,653 - WARNING - No web scraping libraries available. Install 'requests' or 'selenium' for full functionality.
+2025-07-12 06:45:58,653 - INFO - 🚀 STARTING ENHANCED HEALTHCARE SCRAPER
+2025-07-12 06:45:58,653 - INFO - ============================================================
+2025-07-12 06:45:58,653 - INFO - Configuration:
+2025-07-12 06:45:58,653 - INFO -   - Requests: Disabled
+2025-07-12 06:45:58,653 - INFO -   - Selenium: Disabled
+2025-07-12 06:45:58,653 - INFO -   - BeautifulSoup: Disabled
+2025-07-12 06:45:58,653 - INFO -   - Output directory: output
+2025-07-12 06:45:58,653 - INFO -   - Max companies: 3
+2025-07-12 06:45:58,653 - INFO -   - Sources: All
+2025-07-12 06:45:58,653 - INFO - ============================================================
+2025-07-12 06:45:58,653 - INFO - 🚀 STARTING ENHANCED HEALTHCARE DIRECTORY EXTRACTION
+2025-07-12 06:45:58,653 - INFO - ================================================================================
+2025-07-12 06:45:58,653 - WARNING - ⚠️  No web scraping libraries available!
+2025-07-12 06:45:58,653 - WARNING -    Install 'requests' and 'beautifulsoup4' for basic functionality
+2025-07-12 06:45:58,653 - WARNING -    Install 'selenium' for JavaScript-heavy sites
+2025-07-12 06:45:58,653 - WARNING -    Returning sample data for demonstration...
+2025-07-12 06:45:58,653 - INFO - Generated 3 sample companies for demonstration
+2025-07-12 06:45:58,654 - INFO - ✅ Results saved to output/healthcare_companies.csv and output/healthcare_companies.json
+2025-07-12 06:45:58,654 - INFO - 🎉 EXTRACTION COMPLETE!
+2025-07-12 06:45:58,654 - INFO - ============================================================
+2025-07-12 06:45:58,654 - INFO - 📊 FINAL RESULTS:
+2025-07-12 06:45:58,654 - INFO -    Total companies: 3
+2025-07-12 06:45:58,654 - INFO -    With websites: 3 (100.0%)
+2025-07-12 06:45:58,654 - INFO -    German companies: 3
+2025-07-12 06:45:58,654 - INFO -    Runtime: 0.0 seconds
+2025-07-12 06:45:58,654 - INFO -    Rate: 5161.16 companies/second
+2025-07-12 06:45:58,654 - INFO - 📈 BREAKDOWN BY SOURCE:
+2025-07-12 06:45:58,654 - INFO -    demonstration: 3 companies
+2025-07-12 06:45:58,654 - INFO - 
+🏢 SAMPLE COMPANIES:
+2025-07-12 06:45:58,654 - INFO -    1. Sample MedTech GmbH
+2025-07-12 06:45:58,654 - INFO -       🌐 https://sample-medtech.de
+2025-07-12 06:45:58,654 - INFO -       📍 Berlin, Germany
+2025-07-12 06:45:58,654 - INFO -       🏷️  Medical Technology
+2025-07-12 06:45:58,654 - INFO - 
+2025-07-12 06:45:58,654 - INFO -    2. Demo Healthcare Systems
+2025-07-12 06:45:58,654 - INFO -       🌐 https://demo-healthcare.com
+2025-07-12 06:45:58,654 - INFO -       📍 Munich, Germany
+2025-07-12 06:45:58,654 - INFO -       🏷️  Healthcare Systems
+2025-07-12 06:45:58,654 - INFO - 
+2025-07-12 06:45:58,654 - INFO -    3. Test Biotech AG
+2025-07-12 06:45:58,654 - INFO -       🌐 https://test-biotech.de
+2025-07-12 06:45:58,654 - INFO -       📍 Hamburg, Germany
+2025-07-12 06:45:58,654 - INFO -       🏷️  Biotechnology
+2025-07-12 06:45:58,654 - INFO - 
+2025-07-12 06:45:58,654 - INFO - ✅ Results saved successfully!

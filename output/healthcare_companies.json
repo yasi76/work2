@@ -1,0 +1,62 @@
+[
+  {
+    "name": "Sample MedTech GmbH",
+    "website": "https://sample-medtech.de",
+    "description": "Sample medical technology company (generated for demonstration)",
+    "location": "Berlin, Germany",
+    "category": "Medical Technology",
+    "source_directory": "sample://demonstration",
+    "employees": "",
+    "funding": "",
+    "city": "",
+    "founded": "",
+    "phone": "",
+    "email": "",
+    "tags": [
+      "Sample",
+      "Demo",
+      "Medical Technology"
+    ],
+    "domain": "sample-medtech.de"
+  },
+  {
+    "name": "Demo Healthcare Systems",
+    "website": "https://demo-healthcare.com",
+    "description": "Demo healthcare company (generated for demonstration)",
+    "location": "Munich, Germany",
+    "category": "Healthcare Systems",
+    "source_directory": "sample://demonstration",
+    "employees": "",
+    "funding": "",
+    "city": "",
+    "founded": "",
+    "phone": "",
+    "email": "",
+    "tags": [
+      "Sample",
+      "Demo",
+      "Healthcare"
+    ],
+    "domain": "demo-healthcare.com"
+  },
+  {
+    "name": "Test Biotech AG",
+    "website": "https://test-biotech.de",
+    "description": "Test biotechnology company (generated for demonstration)",
+    "location": "Hamburg, Germany",
+    "category": "Biotechnology",
+    "source_directory": "sample://demonstration",
+    "employees": "",
+    "funding": "",
+    "city": "",
+    "founded": "",
+    "phone": "",
+    "email": "",
+    "tags": [
+      "Sample",
+      "Demo",
+      "Biotech"
+    ],
+    "domain": "test-biotech.de"
+  }
+]

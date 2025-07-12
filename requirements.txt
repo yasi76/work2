@@ -1,15 +1,22 @@
-requests==2.31.0
-beautifulsoup4==4.12.2
-selenium==4.16.0
-lxml==4.9.3
-urllib3==2.1.0
-dataclasses==0.8
-pathlib==1.0.1
-webdriver-manager==4.0.1
-pandas==2.1.4
-numpy==1.24.3
-openpyxl==3.1.2
-fake-useragent==1.4.0
-retry==0.9.2
-tqdm==4.66.1
-python-dotenv==1.0.0
+# Enhanced Healthcare Company Directory Scraper - Dependencies
+# ============================================================
+
+# Core HTTP library for web requests
+requests>=2.28.0
+
+# HTML parsing library for extracting data from web pages
+beautifulsoup4>=4.11.0
+
+# Fast XML/HTML parser (improves BeautifulSoup performance)
+lxml>=4.9.0
+
+# Optional: Selenium for JavaScript-heavy websites
+# Comment out if you don't need Selenium support
+selenium>=4.15.0
+
+# Optional: Automatically manages ChromeDriver installation
+# Only needed if using Selenium
+webdriver-manager>=4.0.0
+
+# Note: The scraper will work without these optional dependencies
+# Use --no-selenium flag if you don't install Selenium packages
