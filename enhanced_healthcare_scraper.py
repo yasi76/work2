@@ -30,6 +30,9 @@ import csv
 import argparse
 import sys
 import logging
+import urllib.request
+import urllib.parse
+import urllib.error
 from typing import List, Dict, Optional, Set
 from urllib.parse import urljoin, urlparse, parse_qs
 from dataclasses import dataclass, asdict
@@ -974,47 +977,77 @@ class EnhancedHealthcareScraper:
         logger.info("🚀 STARTING ENHANCED HEALTHCARE DIRECTORY EXTRACTION")
         logger.info("=" * 80)
         
-        # Warn if no web capabilities
-        if not self.use_requests and not self.use_selenium:
-            logger.warning("⚠️  No web scraping libraries available!")
-            logger.warning("   Install 'requests' and 'beautifulsoup4' for basic functionality")
-            logger.warning("   Install 'selenium' for JavaScript-heavy sites")
-            logger.warning("   Returning sample data for demonstration...")
-            return self._generate_sample_companies()
-        
         all_companies = []
         
-        # Define all available extraction methods
-        extraction_methods = [
-            ("BVMed - Medical Technology Association", "bvmed", self.extract_from_bvmed),
-            ("SPECTARIS - Industry Association", "spectaris", self.extract_from_spectaris),
-            ("Digital Health Hub Berlin", "digital_health_hub", self.extract_from_digital_health_hub),
-            ("BioM - Bavaria Biotech Cluster", "biom", self.extract_from_biom_cluster),
-            ("eHealth Initiative Germany", "ehealth", self.extract_from_ehealth_initiative),
-            ("Healthcare Startup Blogs", "blogs", self.extract_from_healthcare_blogs)
-        ]
-        
-        # Filter methods based on requested sources
-        if sources:
-            extraction_methods = [
-                (name, code, method) for name, code, method in extraction_methods 
-                if code in sources
-            ]
-        
-        # Execute extractions with error handling
-        for phase_name, _, method in extraction_methods:
-            logger.info(f"🔍 Phase: {phase_name}")
-            try:
-                companies = method()
-                all_companies.extend(companies)
-                logger.info(f"✅ Extracted {len(companies)} companies from {phase_name}")
-            except Exception as e:
-                logger.error(f"❌ Error in {phase_name}: {str(e)}")
-                # Continue with other sources even if one fails
-                continue
+        # If no web libraries available, use urllib-based extraction
+        if not self.use_requests and not self.use_selenium and not self.use_beautifulsoup:
+            logger.warning("⚠️  No external web scraping libraries available!")
+            logger.warning("   Using urllib (standard library) for basic extraction...")
+            logger.warning("   Install 'requests' and 'beautifulsoup4' for better results")
             
-            # Rate limiting between phases
-            time.sleep(5)
+            # Define sources that work well with basic urllib extraction
+            urllib_sources = [
+                ("BVMed Members", "https://www.bvmed.de/de/unternehmen/mitgliedsunternehmen", "Medical Technology"),
+                ("SPECTARIS Directory", "https://www.spectaris.de/mitglieder/", "Medical Technology"),
+                ("Berlin Startup Directory", "https://www.berlin-startup-directory.com/startups/health/", "Digital Health"),
+                ("Health Innovation Hub", "https://hih-2025.de/startups/", "Health Innovation"),
+                ("German Biotech Companies", "https://www.biotechnologie.de/branche/biotech-branche/biotech-unternehmen", "Biotechnology")
+            ]
+            
+            # Filter sources if specified
+            if sources:
+                source_mapping = {
+                    'bvmed': ("BVMed Medical Directory", "https://www.bvmed.de/de/unternehmen/mitgliedsunternehmen", "Medical Technology"),
+                    'spectaris': ("SPECTARIS Members", "https://www.spectaris.de/mitglieder/", "Medical Technology"),
+                    'digital_health_hub': ("Digital Health Hub", "https://digitalhealthhub.de/startups/", "Digital Health"),
+                    'biom': ("BioM Cluster", "https://www.bio-m.org/de/unternehmen/", "Biotechnology"),
+                    'ehealth': ("eHealth Initiative", "https://www.ehealth-initiative.de/mitglieder/", "eHealth"),
+                    'blogs': urllib_sources[0:2]  # Use first 2 blog sources
+                }
+                
+                urllib_sources = []
+                for source in sources:
+                    if source in source_mapping:
+                        if source == 'blogs':
+                            urllib_sources.extend(source_mapping[source])
+                        else:
+                            urllib_sources.append(source_mapping[source])
+            
+            # Extract using urllib
+            all_companies = self.extract_companies_with_urllib(urllib_sources)
+            
+        else:
+            # Use full-featured extraction with external libraries
+            extraction_methods = [
+                ("BVMed - Medical Technology Association", "bvmed", self.extract_from_bvmed),
+                ("SPECTARIS - Industry Association", "spectaris", self.extract_from_spectaris),
+                ("Digital Health Hub Berlin", "digital_health_hub", self.extract_from_digital_health_hub),
+                ("BioM - Bavaria Biotech Cluster", "biom", self.extract_from_biom_cluster),
+                ("eHealth Initiative Germany", "ehealth", self.extract_from_ehealth_initiative),
+                ("Healthcare Startup Blogs", "blogs", self.extract_from_healthcare_blogs)
+            ]
+            
+            # Filter methods based on requested sources
+            if sources:
+                extraction_methods = [
+                    (name, code, method) for name, code, method in extraction_methods 
+                    if code in sources
+                ]
+            
+            # Execute extractions with error handling
+            for phase_name, _, method in extraction_methods:
+                logger.info(f"🔍 Phase: {phase_name}")
+                try:
+                    companies = method()
+                    all_companies.extend(companies)
+                    logger.info(f"✅ Extracted {len(companies)} companies from {phase_name}")
+                except Exception as e:
+                    logger.error(f"❌ Error in {phase_name}: {str(e)}")
+                    # Continue with other sources even if one fails
+                    continue
+                
+                # Rate limiting between phases
+                time.sleep(5)
         
         # Remove duplicates
         unique_companies = self._remove_duplicates(all_companies)
@@ -1025,46 +1058,6 @@ class EnhancedHealthcareScraper:
         enhanced_companies = self.enhance_companies_with_details(unique_companies)
         
         return enhanced_companies
-    
-    def _generate_sample_companies(self) -> List[HealthcareCompany]:
-        """
-        Generate sample companies for demonstration when no web libraries available.
-        
-        Returns:
-            List of sample HealthcareCompany objects
-        """
-        sample_companies = [
-            HealthcareCompany(
-                name="Sample MedTech GmbH",
-                website="https://sample-medtech.de",
-                description="Sample medical technology company (generated for demonstration)",
-                location="Berlin, Germany",
-                category="Medical Technology",
-                source_directory="sample://demonstration",
-                tags=["Sample", "Demo", "Medical Technology"]
-            ),
-            HealthcareCompany(
-                name="Demo Healthcare Systems",
-                website="https://demo-healthcare.com",
-                description="Demo healthcare company (generated for demonstration)",
-                location="Munich, Germany",
-                category="Healthcare Systems",
-                source_directory="sample://demonstration",
-                tags=["Sample", "Demo", "Healthcare"]
-            ),
-            HealthcareCompany(
-                name="Test Biotech AG",
-                website="https://test-biotech.de",
-                description="Test biotechnology company (generated for demonstration)",
-                location="Hamburg, Germany",
-                category="Biotechnology",
-                source_directory="sample://demonstration",
-                tags=["Sample", "Demo", "Biotech"]
-            )
-        ]
-        
-        logger.info("Generated 3 sample companies for demonstration")
-        return sample_companies
     
     def _remove_duplicates(self, companies: List[HealthcareCompany]) -> List[HealthcareCompany]:
         """
@@ -1134,6 +1127,194 @@ class EnhancedHealthcareScraper:
         """Cleanup Selenium driver when scraper is destroyed."""
         if self.driver:
             self.driver.quit()
+
+    def _fetch_with_urllib(self, url: str) -> Optional[str]:
+        """
+        Fetch webpage content using urllib (standard library).
+        
+        Args:
+            url: URL to fetch
+            
+        Returns:
+            HTML content as string or None if failed
+        """
+        try:
+            headers = {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36'
+            }
+            
+            req = urllib.request.Request(url, headers=headers)
+            with urllib.request.urlopen(req, timeout=20) as response:
+                # Try to decode with UTF-8, fallback to latin-1
+                try:
+                    return response.read().decode('utf-8')
+                except UnicodeDecodeError:
+                    return response.read().decode('latin-1', errors='ignore')
+                    
+        except Exception as e:
+            logger.debug(f"Failed to fetch {url} with urllib: {e}")
+            return None
+    
+    def _extract_companies_from_html(self, html: str, source_url: str, category: str = "Healthcare") -> List[HealthcareCompany]:
+        """
+        Extract companies from HTML using basic string parsing (no BeautifulSoup).
+        
+        Args:
+            html: HTML content to parse
+            source_url: Source URL for reference
+            category: Category to assign to companies
+            
+        Returns:
+            List of extracted companies
+        """
+        companies = []
+        
+        if not html:
+            return companies
+        
+        try:
+            # Pattern 1: Look for links to company websites
+            url_pattern = r'href=["\']([https?://][^"\']*(?:\.com|\.de|\.org|\.net|\.eu|\.health|\.io)[^"\']*)["\'][^>]*>([^<]{3,50})</a>'
+            url_matches = re.findall(url_pattern, html, re.IGNORECASE)
+            
+            for url, name in url_matches:
+                name = re.sub(r'<[^>]+>', '', name).strip()  # Remove any HTML tags
+                
+                # Filter out non-healthcare companies
+                if any(skip in name.lower() for skip in ['domain', 'marktplatz', 'verkaufen', 'elite', 'cookie', 'datenschutz', 'impressum']):
+                    continue
+                
+                # Look for healthcare keywords in name
+                healthcare_keywords = ['health', 'medical', 'medtech', 'biotech', 'pharma', 'diagnostics', 'therapeutics', 'care', 'clinic', 'hospital', 'gmbh', 'ag', 'systems', 'solutions', 'technologies']
+                if any(keyword in name.lower() for keyword in healthcare_keywords):
+                    if self._is_valid_company_name(name) and self._is_company_website(url):
+                        if self._is_new_company(url):
+                            company = HealthcareCompany(
+                                name=name,
+                                website=url,
+                                source_directory=source_url,
+                                location="Germany",
+                                category=category
+                            )
+                            companies.append(company)
+            
+            # Pattern 2: Look for company names with GmbH, AG, etc.
+            company_pattern = r'\b([A-Z][a-zA-Z\s&-]{2,40}(?:GmbH|AG|Inc|Ltd|Corp|LLC|Systems|Technologies|Solutions|Health|Medical|Care|Tech|Bio|Pharma|Diagnostics|Therapeutics))\b'
+            company_matches = re.findall(company_pattern, html)
+            
+            for name in company_matches:
+                name = name.strip()
+                
+                # Filter out non-healthcare companies
+                if any(skip in name.lower() for skip in ['domain', 'marktplatz', 'verkaufen', 'elite']):
+                    continue
+                
+                if self._is_valid_company_name(name) and len(name) > 5:
+                    # Try to find associated website
+                    website = self._find_nearby_website(html, name)
+                    
+                    if self._is_new_company(website):
+                        company = HealthcareCompany(
+                            name=name,
+                            website=website,
+                            source_directory=source_url,
+                            location="Germany",
+                            category=category
+                        )
+                        companies.append(company)
+            
+            # Pattern 3: Look for email domains that might be companies
+            email_pattern = r'[a-zA-Z0-9._%+-]+@([a-zA-Z0-9.-]+\.(?:com|de|org|net|eu|health|io))'
+            email_matches = re.findall(email_pattern, html)
+            
+            for domain in email_matches:
+                if not any(skip in domain.lower() for skip in ['gmail', 'yahoo', 'outlook', 'hotmail', 'web.de']):
+                    url = f"https://www.{domain}"
+                    name = domain.split('.')[0].title() + " " + category
+                    
+                    if self._is_new_company(url) and len(companies) < 20:  # Limit email-derived companies
+                        company = HealthcareCompany(
+                            name=name,
+                            website=url,
+                            source_directory=source_url,
+                            location="Germany",
+                            category=category,
+                            tags=["Email-derived"]
+                        )
+                        companies.append(company)
+            
+        except Exception as e:
+            logger.debug(f"Error extracting companies from HTML: {e}")
+        
+        return companies
+    
+    def _find_nearby_website(self, html: str, company_name: str) -> str:
+        """
+        Try to find a website URL near a company name in HTML.
+        
+        Args:
+            html: HTML content
+            company_name: Company name to search near
+            
+        Returns:
+            Found website URL or empty string
+        """
+        try:
+            # Find the position of the company name
+            name_pos = html.find(company_name)
+            if name_pos == -1:
+                return ""
+            
+            # Look for URLs in a 1000 character window around the company name
+            window_start = max(0, name_pos - 500)
+            window_end = min(len(html), name_pos + 500)
+            window = html[window_start:window_end]
+            
+            # Find URLs in this window
+            url_pattern = r'https?://[a-zA-Z0-9.-]+\.(?:com|de|org|net|eu|health|io)(?:[^\s<>"\']*)?'
+            urls = re.findall(url_pattern, window)
+            
+            for url in urls:
+                if self._is_company_website(url):
+                    return url
+                    
+        except Exception as e:
+            logger.debug(f"Error finding nearby website: {e}")
+        
+        return ""
+    
+    def extract_companies_with_urllib(self, sources_info: List[tuple]) -> List[HealthcareCompany]:
+        """
+        Extract companies using only urllib (no external dependencies).
+        
+        Args:
+            sources_info: List of (name, url, category) tuples
+            
+        Returns:
+            List of extracted companies
+        """
+        all_companies = []
+        
+        for source_name, url, category in sources_info:
+            logger.info(f"Scraping {source_name} with urllib...")
+            
+            try:
+                html = self._fetch_with_urllib(url)
+                if html:
+                    companies = self._extract_companies_from_html(html, url, category)
+                    all_companies.extend(companies)
+                    logger.info(f"✅ Found {len(companies)} companies from {source_name}")
+                else:
+                    logger.warning(f"❌ Failed to fetch {source_name}")
+                
+                # Rate limiting
+                time.sleep(3)
+                
+            except Exception as e:
+                logger.error(f"Error scraping {source_name}: {e}")
+                continue
+        
+        return all_companies
 
 def main():
     """

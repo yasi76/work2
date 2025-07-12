@@ -1,62 +1,50 @@
 [
   {
-    "name": "Sample MedTech GmbH",
-    "website": "https://sample-medtech.de",
-    "description": "Sample medical technology company (generated for demonstration)",
-    "location": "Berlin, Germany",
-    "category": "Medical Technology",
-    "source_directory": "sample://demonstration",
+    "name": "Verifiziert durch ELITEDOMAINS",
+    "website": "https://elitedomains.de",
+    "description": "",
+    "location": "Germany",
+    "category": "HealthTech",
+    "source_directory": "https://www.healthtech.de/startups/",
     "employees": "",
     "funding": "",
-    "city": "",
+    "city": "Germany",
     "founded": "",
     "phone": "",
     "email": "",
-    "tags": [
-      "Sample",
-      "Demo",
-      "Medical Technology"
-    ],
-    "domain": "sample-medtech.de"
+    "tags": [],
+    "domain": "elitedomains.de"
   },
   {
-    "name": "Demo Healthcare Systems",
-    "website": "https://demo-healthcare.com",
-    "description": "Demo healthcare company (generated for demonstration)",
-    "location": "Munich, Germany",
-    "category": "Healthcare Systems",
-    "source_directory": "sample://demonstration",
+    "name": "Domain Marktplatz",
+    "website": "https://elitedomains.de/marktplatz",
+    "description": "",
+    "location": "Germany",
+    "category": "HealthTech",
+    "source_directory": "https://www.healthtech.de/startups/",
     "employees": "",
     "funding": "",
-    "city": "",
+    "city": "Germany",
     "founded": "",
     "phone": "",
     "email": "",
-    "tags": [
-      "Sample",
-      "Demo",
-      "Healthcare"
-    ],
-    "domain": "demo-healthcare.com"
+    "tags": [],
+    "domain": "elitedomains.de"
   },
   {
-    "name": "Test Biotech AG",
-    "website": "https://test-biotech.de",
-    "description": "Test biotechnology company (generated for demonstration)",
-    "location": "Hamburg, Germany",
-    "category": "Biotechnology",
-    "source_directory": "sample://demonstration",
+    "name": "Domains verkaufen",
+    "website": "https://elitedomains.de/domains-verkaufen",
+    "description": "",
+    "location": "Germany",
+    "category": "HealthTech",
+    "source_directory": "https://www.healthtech.de/startups/",
     "employees": "",
     "funding": "",
-    "city": "",
+    "city": "Germany",
     "founded": "",
     "phone": "",
     "email": "",
-    "tags": [
-      "Sample",
-      "Demo",
-      "Biotech"
-    ],
-    "domain": "test-biotech.de"
+    "tags": [],
+    "domain": "elitedomains.de"
   }
 ]
