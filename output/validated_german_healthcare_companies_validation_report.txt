@@ -1,0 +1,30 @@
+GERMAN HEALTHCARE COMPANIES VALIDATION REPORT
+==================================================
+
+Total URLs checked: 53
+Valid companies found: 3
+Failed URLs: 3
+Extraction errors: 0
+
+VALIDATED COMPANIES:
+--------------------
+• Aporize
+  Website: https://www.aporize.com/
+  Category: Healthcare AI
+  Location: Trier, Germany
+
+• Animierte Informationsvideos | Careanimations
+  Website: https://www.careanimations.de/
+  Category: Healthcare AI
+  Location: Deutschland, Germany
+
+• Menü ein-/ausklappen
+  Website: https://cogthera.de/#erfahren
+  Category: Medical Devices
+  Location: Bonn, Germany
+
+FAILED URLS:
+------------
+• https://www.cynteract.com/de/rehabilitation
+• https://de.caona.eu/
+• https://www.arztlena.com/
