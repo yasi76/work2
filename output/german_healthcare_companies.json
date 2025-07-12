@@ -1,5 +1,235 @@
 [
   {
+    "name": "Johnson & Johnson Deutschland GmbH",
+    "website": "https://www.johnson.de",
+    "description": "Johnson & Johnson Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
+    "location": "Germany",
+    "category": "Healthcare Services",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
+    "name": "KfH Kuratorium für Dialyse",
+    "website": "https://www.kfhkuratoriumfrdialyse.de",
+    "description": "KfH Kuratorium für Dialyse provides dialysis services and renal care solutions for patients with kidney diseases, operating dialysis centers and manufacturing related medical equipment.",
+    "location": "Germany",
+    "category": "Dialysis & Renal Care",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
+    "name": "Nephrocare Deutschland GmbH",
+    "website": "https://www.nephrocaredeutschland.de",
+    "description": "Nephrocare Deutschland GmbH provides dialysis services and renal care solutions for patients with kidney diseases, operating dialysis centers and manufacturing related medical equipment.",
+    "location": "Germany",
+    "category": "Dialysis & Renal Care",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
+    "name": "Guerbet Deutschland GmbH",
+    "website": "https://www.guerbetdeutschland.de",
+    "description": "Guerbet Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
+    "location": "Germany",
+    "category": "Healthcare Services",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
+    "name": "Gilead Sciences Deutschland GmbH",
+    "website": "https://www.gileadsciencesdeutschland.de",
+    "description": "Gilead Sciences Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
+    "location": "Germany",
+    "category": "Healthcare Services",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
+    "name": "Siemens Healthcare Diagnostics GmbH",
+    "website": "https://www.siemenshealthcarediagnostics.de",
+    "description": "Siemens Healthcare Diagnostics GmbH is a medical technology company that develops and manufactures medical devices, diagnostic equipment, and healthcare solutions for hospitals and healthcare providers.",
+    "location": "Munich, Germany",
+    "category": "Medical Technology",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
+    "name": "Carl Zeiss Meditec AG",
+    "website": "https://www.carlzeissmeditec.de",
+    "description": "Carl Zeiss Meditec AG is a medical technology company that develops and manufactures medical devices, diagnostic equipment, and healthcare solutions for hospitals and healthcare providers.",
+    "location": "Jena, Germany",
+    "category": "Medical Technology",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
+    "name": "UCB Deutschland GmbH",
+    "website": "https://www.ucbdeutschland.de",
+    "description": "UCB Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
+    "location": "Germany",
+    "category": "Healthcare Services",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
+    "name": "Celgene Deutschland GmbH",
+    "website": "https://www.celgenedeutschland.de",
+    "description": "Celgene Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
+    "location": "Germany",
+    "category": "Healthcare Services",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
+    "name": "Carl Zeiss AG",
+    "website": "https://www.carlzeiss.de",
+    "description": "Carl Zeiss AG is a medical technology company that develops and manufactures medical devices, diagnostic equipment, and healthcare solutions for hospitals and healthcare providers.",
+    "location": "Jena, Germany",
+    "category": "Medical Technology",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
+    "name": "Beckman Coulter Deutschland GmbH",
+    "website": "https://www.beckmancoulterdeutschland.de",
+    "description": "Beckman Coulter Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
+    "location": "Germany",
+    "category": "Healthcare Services",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
+    "name": "Diaverum Deutschland GmbH",
+    "website": "https://www.diaverumdeutschland.de",
+    "description": "Diaverum Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
+    "location": "Germany",
+    "category": "Healthcare Services",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
+    "name": "Hexal AG",
+    "website": "https://www.hexal.de",
+    "description": "Hexal AG provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
+    "location": "Holzkirchen, Germany",
+    "category": "Healthcare Services",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
+    "name": "Vertex Pharmaceuticals Deutschland GmbH",
+    "website": "https://www.vertexpharmaceuticalsdeutschland.de",
+    "description": "Vertex Pharmaceuticals Deutschland GmbH is a pharmaceutical company specializing in the development, manufacturing, and distribution of prescription medications and healthcare products in Germany and internationally.",
+    "location": "Germany",
+    "category": "Pharmaceuticals",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
+    "name": "Fresenius Medical Care AG",
+    "website": "https://www.freseniusmedicalcare.de",
+    "description": "Fresenius Medical Care AG is a medical technology company that develops and manufactures medical devices, diagnostic equipment, and healthcare solutions for hospitals and healthcare providers.",
+    "location": "Bad Homburg, Germany",
+    "category": "Medical Technology",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
+    "name": "Sanofi Deutschland GmbH",
+    "website": "https://www.sanofideutschland.de",
+    "description": "Sanofi Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
+    "location": "Germany",
+    "category": "Healthcare Services",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
+    "name": "MorphoSys AG",
+    "website": "https://www.morphosys.de",
+    "description": "MorphoSys AG is a biotechnology company focused on developing innovative therapeutic solutions through advanced biotechnology platforms and research capabilities.",
+    "location": "Martinsried, Germany",
+    "category": "Biotechnology",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
+    "name": "Biotronik SE & Co. KG",
+    "website": "https://www.biotronik.de",
+    "description": "Biotronik SE & Co. KG is a biotechnology company focused on developing innovative therapeutic solutions through advanced biotechnology platforms and research capabilities.",
+    "location": "Berlin, Germany",
+    "category": "Biotechnology",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
+    "name": "Biogen Deutschland GmbH",
+    "website": "https://www.biogendeutschland.de",
+    "description": "Biogen Deutschland GmbH is a biotechnology company focused on developing innovative therapeutic solutions through advanced biotechnology platforms and research capabilities.",
+    "location": "Germany",
+    "category": "Biotechnology",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
+    "name": "Heraeus Medical GmbH",
+    "website": "https://www.heraeusmedical.de",
+    "description": "Heraeus Medical GmbH is a medical technology company that develops and manufactures medical devices, diagnostic equipment, and healthcare solutions for hospitals and healthcare providers.",
+    "location": "Hanau, Germany",
+    "category": "Medical Technology",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
+    "name": "Schering AG",
+    "website": "https://www.schering.de",
+    "description": "Schering AG provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
+    "location": "Germany",
+    "category": "Healthcare Services",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
+    "name": "Roche Diagnostics Deutschland GmbH",
+    "website": "https://www.rochediagnosticsdeutschland.de",
+    "description": "Roche Diagnostics Deutschland GmbH is a pharmaceutical company specializing in the development, manufacturing, and distribution of prescription medications and healthcare products in Germany and internationally.",
+    "location": "Germany",
+    "category": "Pharmaceuticals",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
+    "name": "Roche Deutschland GmbH",
+    "website": "https://www.rochedeutschland.de",
+    "description": "Roche Deutschland GmbH is a pharmaceutical company specializing in the development, manufacturing, and distribution of prescription medications and healthcare products in Germany and internationally.",
+    "location": "Germany",
+    "category": "Pharmaceuticals",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
     "name": "AbbVie Deutschland GmbH",
     "website": "https://www.abbviedeutschland.de",
     "description": "AbbVie Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
@@ -10,9 +240,379 @@
     "source": "Curated German Healthcare Database"
   },
   {
+    "name": "Nikkiso Deutschland GmbH",
+    "website": "https://www.nikkisodeutschland.de",
+    "description": "Nikkiso Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
+    "location": "Germany",
+    "category": "Healthcare Services",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
+    "name": "Ortho Clinical Diagnostics Deutschland GmbH",
+    "website": "https://www.orthoclinicaldiagnosticsdeutschland.de",
+    "description": "Ortho Clinical Diagnostics Deutschland GmbH is a medical technology company that develops and manufactures medical devices, diagnostic equipment, and healthcare solutions for hospitals and healthcare providers.",
+    "location": "Germany",
+    "category": "Medical Technology",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
+    "name": "Grünenthal GmbH",
+    "website": "https://www.grnenthal.de",
+    "description": "Grünenthal GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
+    "location": "Germany",
+    "category": "Healthcare Services",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
+    "name": "Abbott Deutschland GmbH",
+    "website": "https://www.abbottdeutschland.de",
+    "description": "Abbott Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
+    "location": "Germany",
+    "category": "Healthcare Services",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
+    "name": "Philips Deutschland GmbH",
+    "website": "https://www.philipsdeutschland.de",
+    "description": "Philips Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
+    "location": "Germany",
+    "category": "Healthcare Services",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
+    "name": "Fresenius Kabi Deutschland GmbH",
+    "website": "https://www.freseniuskabideutschland.de",
+    "description": "Fresenius Kabi Deutschland GmbH provides dialysis services and renal care solutions for patients with kidney diseases, operating dialysis centers and manufacturing related medical equipment.",
+    "location": "Bad Homburg, Germany",
+    "category": "Dialysis & Renal Care",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
+    "name": "Zimmer Biomet Deutschland GmbH",
+    "website": "https://www.zimmerbiometdeutschland.de",
+    "description": "Zimmer Biomet Deutschland GmbH is a biotechnology company focused on developing innovative therapeutic solutions through advanced biotechnology platforms and research capabilities.",
+    "location": "Germany",
+    "category": "Biotechnology",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
+    "name": "Drägerwerk AG",
+    "website": "https://www.drgerwerk.de",
+    "description": "Drägerwerk AG provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
+    "location": "Germany",
+    "category": "Healthcare Services",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
+    "name": "PHV Dialysezentren",
+    "website": "https://www.phvdialysezentren.de",
+    "description": "PHV Dialysezentren provides dialysis services and renal care solutions for patients with kidney diseases, operating dialysis centers and manufacturing related medical equipment.",
+    "location": "Germany",
+    "category": "Dialysis & Renal Care",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
+    "name": "Grifols Deutschland GmbH",
+    "website": "https://www.grifolsdeutschland.de",
+    "description": "Grifols Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
+    "location": "Germany",
+    "category": "Healthcare Services",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
+    "name": "Lohmann & Rauscher GmbH",
+    "website": "https://www.lohmann.de",
+    "description": "Lohmann & Rauscher GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
+    "location": "Germany",
+    "category": "Healthcare Services",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
+    "name": "Nova Biomedical Deutschland GmbH",
+    "website": "https://www.novabiomedicaldeutschland.de",
+    "description": "Nova Biomedical Deutschland GmbH is a medical technology company that develops and manufactures medical devices, diagnostic equipment, and healthcare solutions for hospitals and healthcare providers.",
+    "location": "Germany",
+    "category": "Medical Technology",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
+    "name": "Merck KGaA",
+    "website": "https://www.merck.de",
+    "description": "Merck KGaA is a pharmaceutical company specializing in the development, manufacturing, and distribution of prescription medications and healthcare products in Germany and internationally.",
+    "location": "Darmstadt, Germany",
+    "category": "Pharmaceuticals",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
     "name": "Werfen Deutschland GmbH",
     "website": "https://www.werfendeutschland.de",
     "description": "Werfen Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
+    "location": "Germany",
+    "category": "Healthcare Services",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
+    "name": "CSL Behring Deutschland GmbH",
+    "website": "https://www.cslbehringdeutschland.de",
+    "description": "CSL Behring Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
+    "location": "Germany",
+    "category": "Healthcare Services",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
+    "name": "Qiagen N.V.",
+    "website": "https://www.qiagennv.de",
+    "description": "Qiagen N.V. is a biotechnology company focused on developing innovative therapeutic solutions through advanced biotechnology platforms and research capabilities.",
+    "location": "Hilden, Germany",
+    "category": "Biotechnology",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
+    "name": "Genzyme Deutschland GmbH",
+    "website": "https://www.genzymedeutschland.de",
+    "description": "Genzyme Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
+    "location": "Germany",
+    "category": "Healthcare Services",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
+    "name": "Kedrion Deutschland GmbH",
+    "website": "https://www.kedriondeutschland.de",
+    "description": "Kedrion Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
+    "location": "Germany",
+    "category": "Healthcare Services",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
+    "name": "DiaSorin Deutschland GmbH",
+    "website": "https://www.diasorindeutschland.de",
+    "description": "DiaSorin Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
+    "location": "Germany",
+    "category": "Healthcare Services",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
+    "name": "Bio-Rad Laboratories Deutschland GmbH",
+    "website": "https://www.bioradlaboratoriesdeutschland.de",
+    "description": "Bio-Rad Laboratories Deutschland GmbH is a biotechnology company focused on developing innovative therapeutic solutions through advanced biotechnology platforms and research capabilities.",
+    "location": "Germany",
+    "category": "Biotechnology",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
+    "name": "Baxter Deutschland GmbH",
+    "website": "https://www.baxterdeutschland.de",
+    "description": "Baxter Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
+    "location": "Germany",
+    "category": "Healthcare Services",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
+    "name": "Integra LifeSciences Deutschland GmbH",
+    "website": "https://www.integralifesciencesdeutschland.de",
+    "description": "Integra LifeSciences Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
+    "location": "Germany",
+    "category": "Healthcare Services",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
+    "name": "Quidel Deutschland GmbH",
+    "website": "https://www.quideldeutschland.de",
+    "description": "Quidel Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
+    "location": "Germany",
+    "category": "Healthcare Services",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
+    "name": "Urgo Deutschland GmbH",
+    "website": "https://www.urgodeutschland.de",
+    "description": "Urgo Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
+    "location": "Germany",
+    "category": "Healthcare Services",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
+    "name": "EKF Diagnostics Deutschland GmbH",
+    "website": "https://www.ekfdiagnosticsdeutschland.de",
+    "description": "EKF Diagnostics Deutschland GmbH is a medical technology company that develops and manufactures medical devices, diagnostic equipment, and healthcare solutions for hospitals and healthcare providers.",
+    "location": "Germany",
+    "category": "Medical Technology",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
+    "name": "LIFSE",
+    "website": "https://www.lifse.de",
+    "description": "LIFSE provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
+    "location": "Germany",
+    "category": "Healthcare Services",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
+    "name": "Covidien Deutschland GmbH",
+    "website": "https://www.covidiendeutschland.de",
+    "description": "Covidien Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
+    "location": "Germany",
+    "category": "Healthcare Services",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
+    "name": "Biolife Deutschland GmbH",
+    "website": "https://www.biolifedeutschland.de",
+    "description": "Biolife Deutschland GmbH is a biotechnology company focused on developing innovative therapeutic solutions through advanced biotechnology platforms and research capabilities.",
+    "location": "Germany",
+    "category": "Biotechnology",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
+    "name": "B. Braun Melsungen AG",
+    "website": "https://www.bbraunmelsungen.de",
+    "description": "B. Braun Melsungen AG manufactures and distributes medical devices, surgical instruments, and healthcare products for medical professionals and healthcare institutions.",
+    "location": "Melsungen, Germany",
+    "category": "Medical Devices",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
+    "name": "DaVita Deutschland GmbH",
+    "website": "https://www.davitadeutschland.de",
+    "description": "DaVita Deutschland GmbH provides dialysis services and renal care solutions for patients with kidney diseases, operating dialysis centers and manufacturing related medical equipment.",
+    "location": "Germany",
+    "category": "Dialysis & Renal Care",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
+    "name": "Mindray Deutschland GmbH",
+    "website": "https://www.mindraydeutschland.de",
+    "description": "Mindray Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
+    "location": "Germany",
+    "category": "Healthcare Services",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
+    "name": "Agilent Technologies Deutschland GmbH",
+    "website": "https://www.agilenttechnologiesdeutschland.de",
+    "description": "Agilent Technologies Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
+    "location": "Germany",
+    "category": "Healthcare Services",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
+    "name": "Sysmex Deutschland GmbH",
+    "website": "https://www.sysmexdeutschland.de",
+    "description": "Sysmex Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
+    "location": "Germany",
+    "category": "Healthcare Services",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
+    "name": "Shire Deutschland GmbH",
+    "website": "https://www.shiredeutschland.de",
+    "description": "Shire Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
+    "location": "Germany",
+    "category": "Healthcare Services",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
+    "name": "Amgen Deutschland GmbH",
+    "website": "https://www.amgendeutschland.de",
+    "description": "Amgen Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
+    "location": "Germany",
+    "category": "Healthcare Services",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
+    "name": "SEPPIC",
+    "website": "https://www.seppic.de",
+    "description": "SEPPIC provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
+    "location": "Germany",
+    "category": "Healthcare Services",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
+    "name": "Bayer AG",
+    "website": "https://www.bayer.de",
+    "description": "Bayer AG is a pharmaceutical company specializing in the development, manufacturing, and distribution of prescription medications and healthcare products in Germany and internationally.",
+    "location": "Leverkusen, Germany",
+    "category": "Pharmaceuticals",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
+    "name": "PerkinElmer Deutschland GmbH",
+    "website": "https://www.perkinelmerdeutschland.de",
+    "description": "PerkinElmer Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
     "location": "Germany",
     "category": "Healthcare Services",
     "founded_year": "",
@@ -40,539 +640,9 @@
     "source": "Curated German Healthcare Database"
   },
   {
-    "name": "Illumina Deutschland GmbH",
-    "website": "https://www.illuminadeutschland.de",
-    "description": "Illumina Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
-    "location": "Germany",
-    "category": "Healthcare Services",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
-    "name": "Gilead Sciences Deutschland GmbH",
-    "website": "https://www.gileadsciencesdeutschland.de",
-    "description": "Gilead Sciences Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
-    "location": "Germany",
-    "category": "Healthcare Services",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
-    "name": "Bayer AG",
-    "website": "https://www.bayer.de",
-    "description": "Bayer AG is a pharmaceutical company specializing in the development, manufacturing, and distribution of prescription medications and healthcare products in Germany and internationally.",
-    "location": "Leverkusen, Germany",
-    "category": "Pharmaceuticals",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
-    "name": "Fenwal Deutschland GmbH",
-    "website": "https://www.fenwaldeutschland.de",
-    "description": "Fenwal Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
-    "location": "Germany",
-    "category": "Healthcare Services",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
-    "name": "Siemens Healthineers AG",
-    "website": "https://www.siemenshealthineers.de",
-    "description": "Siemens Healthineers AG is a medical technology company that develops and manufactures medical devices, diagnostic equipment, and healthcare solutions for hospitals and healthcare providers.",
-    "location": "Munich, Germany",
-    "category": "Medical Technology",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
-    "name": "Hexal AG",
-    "website": "https://www.hexal.de",
-    "description": "Hexal AG provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
-    "location": "Holzkirchen, Germany",
-    "category": "Healthcare Services",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
-    "name": "EKF Diagnostics Deutschland GmbH",
-    "website": "https://www.ekfdiagnosticsdeutschland.de",
-    "description": "EKF Diagnostics Deutschland GmbH is a medical technology company that develops and manufactures medical devices, diagnostic equipment, and healthcare solutions for hospitals and healthcare providers.",
-    "location": "Germany",
-    "category": "Medical Technology",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
-    "name": "Hologic Deutschland GmbH",
-    "website": "https://www.hologicdeutschland.de",
-    "description": "Hologic Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
-    "location": "Germany",
-    "category": "Healthcare Services",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
     "name": "Takeda Deutschland GmbH",
     "website": "https://www.takedadeutschland.de",
     "description": "Takeda Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
-    "location": "Germany",
-    "category": "Healthcare Services",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
-    "name": "Diaverum Deutschland GmbH",
-    "website": "https://www.diaverumdeutschland.de",
-    "description": "Diaverum Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
-    "location": "Germany",
-    "category": "Healthcare Services",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
-    "name": "SEPPIC",
-    "website": "https://www.seppic.de",
-    "description": "SEPPIC provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
-    "location": "Germany",
-    "category": "Healthcare Services",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
-    "name": "Abbott Diagnostics Deutschland GmbH",
-    "website": "https://www.abbottdiagnosticsdeutschland.de",
-    "description": "Abbott Diagnostics Deutschland GmbH is a medical technology company that develops and manufactures medical devices, diagnostic equipment, and healthcare solutions for hospitals and healthcare providers.",
-    "location": "Germany",
-    "category": "Medical Technology",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
-    "name": "Drägerwerk AG",
-    "website": "https://www.drgerwerk.de",
-    "description": "Drägerwerk AG provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
-    "location": "Germany",
-    "category": "Healthcare Services",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
-    "name": "Roche Diagnostics Deutschland GmbH",
-    "website": "https://www.rochediagnosticsdeutschland.de",
-    "description": "Roche Diagnostics Deutschland GmbH is a pharmaceutical company specializing in the development, manufacturing, and distribution of prescription medications and healthcare products in Germany and internationally.",
-    "location": "Germany",
-    "category": "Pharmaceuticals",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
-    "name": "Regeneron Deutschland GmbH",
-    "website": "https://www.regenerondeutschland.de",
-    "description": "Regeneron Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
-    "location": "Germany",
-    "category": "Healthcare Services",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
-    "name": "B. Braun Avitum AG",
-    "website": "https://www.bbraunavitum.de",
-    "description": "B. Braun Avitum AG manufactures and distributes medical devices, surgical instruments, and healthcare products for medical professionals and healthcare institutions.",
-    "location": "Melsungen, Germany",
-    "category": "Medical Devices",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
-    "name": "Mölnlycke Health Care GmbH",
-    "website": "https://www.mlnlyckehealthcare.de",
-    "description": "Mölnlycke Health Care GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
-    "location": "Germany",
-    "category": "Healthcare Services",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
-    "name": "Beckman Coulter Deutschland GmbH",
-    "website": "https://www.beckmancoulterdeutschland.de",
-    "description": "Beckman Coulter Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
-    "location": "Germany",
-    "category": "Healthcare Services",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
-    "name": "Radiometer Deutschland GmbH",
-    "website": "https://www.radiometerdeutschland.de",
-    "description": "Radiometer Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
-    "location": "Germany",
-    "category": "Healthcare Services",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
-    "name": "Alexion Deutschland GmbH",
-    "website": "https://www.alexiondeutschland.de",
-    "description": "Alexion Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
-    "location": "Germany",
-    "category": "Healthcare Services",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
-    "name": "KfH Kuratorium für Dialyse",
-    "website": "https://www.kfhkuratoriumfrdialyse.de",
-    "description": "KfH Kuratorium für Dialyse provides dialysis services and renal care solutions for patients with kidney diseases, operating dialysis centers and manufacturing related medical equipment.",
-    "location": "Germany",
-    "category": "Dialysis & Renal Care",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
-    "name": "Janssen Deutschland GmbH",
-    "website": "https://www.janssendeutschland.de",
-    "description": "Janssen Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
-    "location": "Germany",
-    "category": "Healthcare Services",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
-    "name": "Bracco Imaging Deutschland GmbH",
-    "website": "https://www.braccoimagingdeutschland.de",
-    "description": "Bracco Imaging Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
-    "location": "Germany",
-    "category": "Healthcare Services",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
-    "name": "Olympus Deutschland GmbH",
-    "website": "https://www.olympusdeutschland.de",
-    "description": "Olympus Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
-    "location": "Germany",
-    "category": "Healthcare Services",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
-    "name": "Fresenius Medical Care AG",
-    "website": "https://www.freseniusmedicalcare.de",
-    "description": "Fresenius Medical Care AG is a medical technology company that develops and manufactures medical devices, diagnostic equipment, and healthcare solutions for hospitals and healthcare providers.",
-    "location": "Bad Homburg, Germany",
-    "category": "Medical Technology",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
-    "name": "Evotec SE",
-    "website": "https://www.evotec.de",
-    "description": "Evotec SE is a biotechnology company focused on developing innovative therapeutic solutions through advanced biotechnology platforms and research capabilities.",
-    "location": "Hamburg, Germany",
-    "category": "Biotechnology",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
-    "name": "Sysmex Deutschland GmbH",
-    "website": "https://www.sysmexdeutschland.de",
-    "description": "Sysmex Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
-    "location": "Germany",
-    "category": "Healthcare Services",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
-    "name": "Biotronik SE & Co. KG",
-    "website": "https://www.biotronik.de",
-    "description": "Biotronik SE & Co. KG is a biotechnology company focused on developing innovative therapeutic solutions through advanced biotechnology platforms and research capabilities.",
-    "location": "Berlin, Germany",
-    "category": "Biotechnology",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
-    "name": "Siemens Healthcare Diagnostics GmbH",
-    "website": "https://www.siemenshealthcarediagnostics.de",
-    "description": "Siemens Healthcare Diagnostics GmbH is a medical technology company that develops and manufactures medical devices, diagnostic equipment, and healthcare solutions for hospitals and healthcare providers.",
-    "location": "Munich, Germany",
-    "category": "Medical Technology",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
-    "name": "Stryker Deutschland GmbH",
-    "website": "https://www.strykerdeutschland.de",
-    "description": "Stryker Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
-    "location": "Germany",
-    "category": "Healthcare Services",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
-    "name": "Guerbet Deutschland GmbH",
-    "website": "https://www.guerbetdeutschland.de",
-    "description": "Guerbet Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
-    "location": "Germany",
-    "category": "Healthcare Services",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
-    "name": "Qiagen N.V.",
-    "website": "https://www.qiagennv.de",
-    "description": "Qiagen N.V. is a biotechnology company focused on developing innovative therapeutic solutions through advanced biotechnology platforms and research capabilities.",
-    "location": "Hilden, Germany",
-    "category": "Biotechnology",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
-    "name": "Sanofi Deutschland GmbH",
-    "website": "https://www.sanofideutschland.de",
-    "description": "Sanofi Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
-    "location": "Germany",
-    "category": "Healthcare Services",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
-    "name": "Biogen Deutschland GmbH",
-    "website": "https://www.biogendeutschland.de",
-    "description": "Biogen Deutschland GmbH is a biotechnology company focused on developing innovative therapeutic solutions through advanced biotechnology platforms and research capabilities.",
-    "location": "Germany",
-    "category": "Biotechnology",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
-    "name": "Bellco Deutschland GmbH",
-    "website": "https://www.bellcodeutschland.de",
-    "description": "Bellco Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
-    "location": "Germany",
-    "category": "Healthcare Services",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
-    "name": "Baxter Deutschland GmbH",
-    "website": "https://www.baxterdeutschland.de",
-    "description": "Baxter Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
-    "location": "Germany",
-    "category": "Healthcare Services",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
-    "name": "Zimmer Biomet Deutschland GmbH",
-    "website": "https://www.zimmerbiometdeutschland.de",
-    "description": "Zimmer Biomet Deutschland GmbH is a biotechnology company focused on developing innovative therapeutic solutions through advanced biotechnology platforms and research capabilities.",
-    "location": "Germany",
-    "category": "Biotechnology",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
-    "name": "Grünenthal GmbH",
-    "website": "https://www.grnenthal.de",
-    "description": "Grünenthal GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
-    "location": "Germany",
-    "category": "Healthcare Services",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
-    "name": "UCB Deutschland GmbH",
-    "website": "https://www.ucbdeutschland.de",
-    "description": "UCB Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
-    "location": "Germany",
-    "category": "Healthcare Services",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
-    "name": "Paul Hartmann AG",
-    "website": "https://www.paulhartmann.de",
-    "description": "Paul Hartmann AG manufactures and distributes medical devices, surgical instruments, and healthcare products for medical professionals and healthcare institutions.",
-    "location": "Heidenheim, Germany",
-    "category": "Medical Devices",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
-    "name": "Immucor Deutschland GmbH",
-    "website": "https://www.immucordeutschland.de",
-    "description": "Immucor Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
-    "location": "Germany",
-    "category": "Healthcare Services",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
-    "name": "AMAG",
-    "website": "https://www.amag.de",
-    "description": "AMAG provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
-    "location": "Germany",
-    "category": "Healthcare Services",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
-    "name": "Vertex Pharmaceuticals Deutschland GmbH",
-    "website": "https://www.vertexpharmaceuticalsdeutschland.de",
-    "description": "Vertex Pharmaceuticals Deutschland GmbH is a pharmaceutical company specializing in the development, manufacturing, and distribution of prescription medications and healthcare products in Germany and internationally.",
-    "location": "Germany",
-    "category": "Pharmaceuticals",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
-    "name": "Sartorius AG",
-    "website": "https://www.sartorius.de",
-    "description": "Sartorius AG provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
-    "location": "Göttingen, Germany",
-    "category": "Healthcare Services",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
-    "name": "3M Deutschland GmbH",
-    "website": "https://www.3mdeutschland.de",
-    "description": "3M Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
-    "location": "Germany",
-    "category": "Healthcare Services",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
-    "name": "Medtronic Deutschland GmbH",
-    "website": "https://www.medtronicdeutschland.de",
-    "description": "Medtronic Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
-    "location": "Germany",
-    "category": "Healthcare Services",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
-    "name": "DaVita Deutschland GmbH",
-    "website": "https://www.davitadeutschland.de",
-    "description": "DaVita Deutschland GmbH provides dialysis services and renal care solutions for patients with kidney diseases, operating dialysis centers and manufacturing related medical equipment.",
-    "location": "Germany",
-    "category": "Dialysis & Renal Care",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
-    "name": "PHV Dialysezentren",
-    "website": "https://www.phvdialysezentren.de",
-    "description": "PHV Dialysezentren provides dialysis services and renal care solutions for patients with kidney diseases, operating dialysis centers and manufacturing related medical equipment.",
-    "location": "Germany",
-    "category": "Dialysis & Renal Care",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
-    "name": "Thermo Fisher Scientific Deutschland GmbH",
-    "website": "https://www.thermofisherscientificdeutschland.de",
-    "description": "Thermo Fisher Scientific Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
-    "location": "Germany",
-    "category": "Healthcare Services",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
-    "name": "DiaSorin Deutschland GmbH",
-    "website": "https://www.diasorindeutschland.de",
-    "description": "DiaSorin Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
-    "location": "Germany",
-    "category": "Healthcare Services",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
-    "name": "Philips Deutschland GmbH",
-    "website": "https://www.philipsdeutschland.de",
-    "description": "Philips Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
-    "location": "Germany",
-    "category": "Healthcare Services",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
-    "name": "Johnson & Johnson Deutschland GmbH",
-    "website": "https://www.johnson.de",
-    "description": "Johnson & Johnson Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
-    "location": "Germany",
-    "category": "Healthcare Services",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
-    "name": "Integra LifeSciences Deutschland GmbH",
-    "website": "https://www.integralifesciencesdeutschland.de",
-    "description": "Integra LifeSciences Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
-    "location": "Germany",
-    "category": "Healthcare Services",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
-    "name": "Becton Dickinson Deutschland GmbH",
-    "website": "https://www.bectondickinsondeutschland.de",
-    "description": "Becton Dickinson Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
     "location": "Germany",
     "category": "Healthcare Services",
     "founded_year": "",
@@ -590,19 +660,19 @@
     "source": "Curated German Healthcare Database"
   },
   {
-    "name": "Octapharma Deutschland GmbH",
-    "website": "https://www.octapharmadeutschland.de",
-    "description": "Octapharma Deutschland GmbH is a pharmaceutical company specializing in the development, manufacturing, and distribution of prescription medications and healthcare products in Germany and internationally.",
-    "location": "Germany",
-    "category": "Pharmaceuticals",
+    "name": "Biotest AG",
+    "website": "https://www.biotest.de",
+    "description": "Biotest AG is a biotechnology company focused on developing innovative therapeutic solutions through advanced biotechnology platforms and research capabilities.",
+    "location": "Dreieich, Germany",
+    "category": "Biotechnology",
     "founded_year": "",
     "employees": "",
     "source": "Curated German Healthcare Database"
   },
   {
-    "name": "Quidel Deutschland GmbH",
-    "website": "https://www.quideldeutschland.de",
-    "description": "Quidel Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
+    "name": "3M Deutschland GmbH",
+    "website": "https://www.3mdeutschland.de",
+    "description": "3M Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
     "location": "Germany",
     "category": "Healthcare Services",
     "founded_year": "",
@@ -620,9 +690,9 @@
     "source": "Curated German Healthcare Database"
   },
   {
-    "name": "PerkinElmer Deutschland GmbH",
-    "website": "https://www.perkinelmerdeutschland.de",
-    "description": "PerkinElmer Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
+    "name": "Becton Dickinson Deutschland GmbH",
+    "website": "https://www.bectondickinsondeutschland.de",
+    "description": "Becton Dickinson Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
     "location": "Germany",
     "category": "Healthcare Services",
     "founded_year": "",
@@ -630,9 +700,9 @@
     "source": "Curated German Healthcare Database"
   },
   {
-    "name": "Cardinal Health Deutschland GmbH",
-    "website": "https://www.cardinalhealthdeutschland.de",
-    "description": "Cardinal Health Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
+    "name": "Fenwal Deutschland GmbH",
+    "website": "https://www.fenwaldeutschland.de",
+    "description": "Fenwal Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
     "location": "Germany",
     "category": "Healthcare Services",
     "founded_year": "",
@@ -640,11 +710,11 @@
     "source": "Curated German Healthcare Database"
   },
   {
-    "name": "Biotest AG",
-    "website": "https://www.biotest.de",
-    "description": "Biotest AG is a biotechnology company focused on developing innovative therapeutic solutions through advanced biotechnology platforms and research capabilities.",
-    "location": "Dreieich, Germany",
-    "category": "Biotechnology",
+    "name": "Bayer Vital GmbH",
+    "website": "https://www.bayervital.de",
+    "description": "Bayer Vital GmbH is a pharmaceutical company specializing in the development, manufacturing, and distribution of prescription medications and healthcare products in Germany and internationally.",
+    "location": "Leverkusen, Germany",
+    "category": "Pharmaceuticals",
     "founded_year": "",
     "employees": "",
     "source": "Curated German Healthcare Database"
@@ -660,180 +730,10 @@
     "source": "Curated German Healthcare Database"
   },
   {
-    "name": "Carl Zeiss Meditec AG",
-    "website": "https://www.carlzeissmeditec.de",
-    "description": "Carl Zeiss Meditec AG is a medical technology company that develops and manufactures medical devices, diagnostic equipment, and healthcare solutions for hospitals and healthcare providers.",
-    "location": "Jena, Germany",
-    "category": "Medical Technology",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
-    "name": "Merck KGaA",
-    "website": "https://www.merck.de",
-    "description": "Merck KGaA is a pharmaceutical company specializing in the development, manufacturing, and distribution of prescription medications and healthcare products in Germany and internationally.",
-    "location": "Darmstadt, Germany",
-    "category": "Pharmaceuticals",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
-    "name": "Grifols Deutschland GmbH",
-    "website": "https://www.grifolsdeutschland.de",
-    "description": "Grifols Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
-    "location": "Germany",
-    "category": "Healthcare Services",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
-    "name": "Shire Deutschland GmbH",
-    "website": "https://www.shiredeutschland.de",
-    "description": "Shire Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
-    "location": "Germany",
-    "category": "Healthcare Services",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
-    "name": "MorphoSys AG",
-    "website": "https://www.morphosys.de",
-    "description": "MorphoSys AG is a biotechnology company focused on developing innovative therapeutic solutions through advanced biotechnology platforms and research capabilities.",
-    "location": "Martinsried, Germany",
-    "category": "Biotechnology",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
-    "name": "Fresenius Kabi Deutschland GmbH",
-    "website": "https://www.freseniuskabideutschland.de",
-    "description": "Fresenius Kabi Deutschland GmbH provides dialysis services and renal care solutions for patients with kidney diseases, operating dialysis centers and manufacturing related medical equipment.",
-    "location": "Bad Homburg, Germany",
-    "category": "Dialysis & Renal Care",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
-    "name": "Celgene Deutschland GmbH",
-    "website": "https://www.celgenedeutschland.de",
-    "description": "Celgene Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
-    "location": "Germany",
-    "category": "Healthcare Services",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
-    "name": "Amgen Deutschland GmbH",
-    "website": "https://www.amgendeutschland.de",
-    "description": "Amgen Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
-    "location": "Germany",
-    "category": "Healthcare Services",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
-    "name": "Pfizer Deutschland GmbH",
-    "website": "https://www.pfizerdeutschland.de",
-    "description": "Pfizer Deutschland GmbH is a pharmaceutical company specializing in the development, manufacturing, and distribution of prescription medications and healthcare products in Germany and internationally.",
-    "location": "Germany",
-    "category": "Pharmaceuticals",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
-    "name": "Biolife Deutschland GmbH",
-    "website": "https://www.biolifedeutschland.de",
-    "description": "Biolife Deutschland GmbH is a biotechnology company focused on developing innovative therapeutic solutions through advanced biotechnology platforms and research capabilities.",
-    "location": "Germany",
-    "category": "Biotechnology",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
-    "name": "Covidien Deutschland GmbH",
-    "website": "https://www.covidiendeutschland.de",
-    "description": "Covidien Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
-    "location": "Germany",
-    "category": "Healthcare Services",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
-    "name": "Terumo Deutschland GmbH",
-    "website": "https://www.terumodeutschland.de",
-    "description": "Terumo Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
-    "location": "Germany",
-    "category": "Healthcare Services",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
-    "name": "CSL Behring Deutschland GmbH",
-    "website": "https://www.cslbehringdeutschland.de",
-    "description": "CSL Behring Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
-    "location": "Germany",
-    "category": "Healthcare Services",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
-    "name": "Stada Arzneimittel AG",
-    "website": "https://www.stadaarzneimittel.de",
-    "description": "Stada Arzneimittel AG is a pharmaceutical company specializing in the development, manufacturing, and distribution of prescription medications and healthcare products in Germany and internationally.",
-    "location": "Bad Vilbel, Germany",
-    "category": "Pharmaceuticals",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
-    "name": "Heraeus Medical GmbH",
-    "website": "https://www.heraeusmedical.de",
-    "description": "Heraeus Medical GmbH is a medical technology company that develops and manufactures medical devices, diagnostic equipment, and healthcare solutions for hospitals and healthcare providers.",
-    "location": "Hanau, Germany",
-    "category": "Medical Technology",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
-    "name": "Nephrocare Deutschland GmbH",
-    "website": "https://www.nephrocaredeutschland.de",
-    "description": "Nephrocare Deutschland GmbH provides dialysis services and renal care solutions for patients with kidney diseases, operating dialysis centers and manufacturing related medical equipment.",
-    "location": "Germany",
-    "category": "Dialysis & Renal Care",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
-    "name": "Genzyme Deutschland GmbH",
-    "website": "https://www.genzymedeutschland.de",
-    "description": "Genzyme Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
-    "location": "Germany",
-    "category": "Healthcare Services",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
-    "name": "Nikkiso Deutschland GmbH",
-    "website": "https://www.nikkisodeutschland.de",
-    "description": "Nikkiso Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
-    "location": "Germany",
+    "name": "Sartorius AG",
+    "website": "https://www.sartorius.de",
+    "description": "Sartorius AG provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
+    "location": "Göttingen, Germany",
     "category": "Healthcare Services",
     "founded_year": "",
     "employees": "",
@@ -843,46 +743,6 @@
     "name": "GE Healthcare Deutschland GmbH",
     "website": "https://www.gehealthcaredeutschland.de",
     "description": "GE Healthcare Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
-    "location": "Germany",
-    "category": "Healthcare Services",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
-    "name": "Medline Deutschland GmbH",
-    "website": "https://www.medlinedeutschland.de",
-    "description": "Medline Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
-    "location": "Germany",
-    "category": "Healthcare Services",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
-    "name": "Carl Zeiss AG",
-    "website": "https://www.carlzeiss.de",
-    "description": "Carl Zeiss AG is a medical technology company that develops and manufactures medical devices, diagnostic equipment, and healthcare solutions for hospitals and healthcare providers.",
-    "location": "Jena, Germany",
-    "category": "Medical Technology",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
-    "name": "Agilent Technologies Deutschland GmbH",
-    "website": "https://www.agilenttechnologiesdeutschland.de",
-    "description": "Agilent Technologies Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
-    "location": "Germany",
-    "category": "Healthcare Services",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
-    "name": "Smith & Nephew Deutschland GmbH",
-    "website": "https://www.smith.de",
-    "description": "Smith & Nephew Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
     "location": "Germany",
     "category": "Healthcare Services",
     "founded_year": "",
@@ -900,79 +760,19 @@
     "source": "Curated German Healthcare Database"
   },
   {
-    "name": "Seca GmbH",
-    "website": "https://www.seca.de",
-    "description": "Seca GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
+    "name": "Octapharma Deutschland GmbH",
+    "website": "https://www.octapharmadeutschland.de",
+    "description": "Octapharma Deutschland GmbH is a pharmaceutical company specializing in the development, manufacturing, and distribution of prescription medications and healthcare products in Germany and internationally.",
     "location": "Germany",
-    "category": "Healthcare Services",
+    "category": "Pharmaceuticals",
     "founded_year": "",
     "employees": "",
     "source": "Curated German Healthcare Database"
   },
   {
-    "name": "Lohmann & Rauscher GmbH",
-    "website": "https://www.lohmann.de",
-    "description": "Lohmann & Rauscher GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
-    "location": "Germany",
-    "category": "Healthcare Services",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
-    "name": "Urgo Deutschland GmbH",
-    "website": "https://www.urgodeutschland.de",
-    "description": "Urgo Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
-    "location": "Germany",
-    "category": "Healthcare Services",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
-    "name": "Haemonetics Deutschland GmbH",
-    "website": "https://www.haemoneticsdeutschland.de",
-    "description": "Haemonetics Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
-    "location": "Germany",
-    "category": "Healthcare Services",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
-    "name": "Kedrion Deutschland GmbH",
-    "website": "https://www.kedriondeutschland.de",
-    "description": "Kedrion Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
-    "location": "Germany",
-    "category": "Healthcare Services",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
-    "name": "Nipro Deutschland GmbH",
-    "website": "https://www.niprodeutschland.de",
-    "description": "Nipro Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
-    "location": "Germany",
-    "category": "Healthcare Services",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
-    "name": "Mindray Deutschland GmbH",
-    "website": "https://www.mindraydeutschland.de",
-    "description": "Mindray Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
-    "location": "Germany",
-    "category": "Healthcare Services",
-    "founded_year": "",
-    "employees": "",
-    "source": "Curated German Healthcare Database"
-  },
-  {
-    "name": "Schering AG",
-    "website": "https://www.schering.de",
-    "description": "Schering AG provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
+    "name": "Medline Deutschland GmbH",
+    "website": "https://www.medlinedeutschland.de",
+    "description": "Medline Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
     "location": "Germany",
     "category": "Healthcare Services",
     "founded_year": "",
@@ -990,19 +790,19 @@
     "source": "Curated German Healthcare Database"
   },
   {
-    "name": "LIFSE",
-    "website": "https://www.lifse.de",
-    "description": "LIFSE provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
-    "location": "Germany",
-    "category": "Healthcare Services",
+    "name": "Evotec SE",
+    "website": "https://www.evotec.de",
+    "description": "Evotec SE is a biotechnology company focused on developing innovative therapeutic solutions through advanced biotechnology platforms and research capabilities.",
+    "location": "Hamburg, Germany",
+    "category": "Biotechnology",
     "founded_year": "",
     "employees": "",
     "source": "Curated German Healthcare Database"
   },
   {
-    "name": "Roche Deutschland GmbH",
-    "website": "https://www.rochedeutschland.de",
-    "description": "Roche Deutschland GmbH is a pharmaceutical company specializing in the development, manufacturing, and distribution of prescription medications and healthcare products in Germany and internationally.",
+    "name": "Pfizer Deutschland GmbH",
+    "website": "https://www.pfizerdeutschland.de",
+    "description": "Pfizer Deutschland GmbH is a pharmaceutical company specializing in the development, manufacturing, and distribution of prescription medications and healthcare products in Germany and internationally.",
     "location": "Germany",
     "category": "Pharmaceuticals",
     "founded_year": "",
@@ -1010,9 +810,109 @@
     "source": "Curated German Healthcare Database"
   },
   {
-    "name": "Ortho Clinical Diagnostics Deutschland GmbH",
-    "website": "https://www.orthoclinicaldiagnosticsdeutschland.de",
-    "description": "Ortho Clinical Diagnostics Deutschland GmbH is a medical technology company that develops and manufactures medical devices, diagnostic equipment, and healthcare solutions for hospitals and healthcare providers.",
+    "name": "Olympus Deutschland GmbH",
+    "website": "https://www.olympusdeutschland.de",
+    "description": "Olympus Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
+    "location": "Germany",
+    "category": "Healthcare Services",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
+    "name": "Thermo Fisher Scientific Deutschland GmbH",
+    "website": "https://www.thermofisherscientificdeutschland.de",
+    "description": "Thermo Fisher Scientific Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
+    "location": "Germany",
+    "category": "Healthcare Services",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
+    "name": "Bracco Imaging Deutschland GmbH",
+    "website": "https://www.braccoimagingdeutschland.de",
+    "description": "Bracco Imaging Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
+    "location": "Germany",
+    "category": "Healthcare Services",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
+    "name": "Alexion Deutschland GmbH",
+    "website": "https://www.alexiondeutschland.de",
+    "description": "Alexion Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
+    "location": "Germany",
+    "category": "Healthcare Services",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
+    "name": "Stada Arzneimittel AG",
+    "website": "https://www.stadaarzneimittel.de",
+    "description": "Stada Arzneimittel AG is a pharmaceutical company specializing in the development, manufacturing, and distribution of prescription medications and healthcare products in Germany and internationally.",
+    "location": "Bad Vilbel, Germany",
+    "category": "Pharmaceuticals",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
+    "name": "Cardinal Health Deutschland GmbH",
+    "website": "https://www.cardinalhealthdeutschland.de",
+    "description": "Cardinal Health Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
+    "location": "Germany",
+    "category": "Healthcare Services",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
+    "name": "Hologic Deutschland GmbH",
+    "website": "https://www.hologicdeutschland.de",
+    "description": "Hologic Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
+    "location": "Germany",
+    "category": "Healthcare Services",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
+    "name": "Illumina Deutschland GmbH",
+    "website": "https://www.illuminadeutschland.de",
+    "description": "Illumina Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
+    "location": "Germany",
+    "category": "Healthcare Services",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
+    "name": "Janssen Deutschland GmbH",
+    "website": "https://www.janssendeutschland.de",
+    "description": "Janssen Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
+    "location": "Germany",
+    "category": "Healthcare Services",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
+    "name": "Seca GmbH",
+    "website": "https://www.seca.de",
+    "description": "Seca GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
+    "location": "Germany",
+    "category": "Healthcare Services",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
+    "name": "Abbott Diagnostics Deutschland GmbH",
+    "website": "https://www.abbottdiagnosticsdeutschland.de",
+    "description": "Abbott Diagnostics Deutschland GmbH is a medical technology company that develops and manufactures medical devices, diagnostic equipment, and healthcare solutions for hospitals and healthcare providers.",
     "location": "Germany",
     "category": "Medical Technology",
     "founded_year": "",
@@ -1020,9 +920,59 @@
     "source": "Curated German Healthcare Database"
   },
   {
-    "name": "Abbott Deutschland GmbH",
-    "website": "https://www.abbottdeutschland.de",
-    "description": "Abbott Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
+    "name": "Terumo Deutschland GmbH",
+    "website": "https://www.terumodeutschland.de",
+    "description": "Terumo Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
+    "location": "Germany",
+    "category": "Healthcare Services",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
+    "name": "B. Braun Avitum AG",
+    "website": "https://www.bbraunavitum.de",
+    "description": "B. Braun Avitum AG manufactures and distributes medical devices, surgical instruments, and healthcare products for medical professionals and healthcare institutions.",
+    "location": "Melsungen, Germany",
+    "category": "Medical Devices",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
+    "name": "AMAG",
+    "website": "https://www.amag.de",
+    "description": "AMAG provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
+    "location": "Germany",
+    "category": "Healthcare Services",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
+    "name": "Medtronic Deutschland GmbH",
+    "website": "https://www.medtronicdeutschland.de",
+    "description": "Medtronic Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
+    "location": "Germany",
+    "category": "Healthcare Services",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
+    "name": "Mölnlycke Health Care GmbH",
+    "website": "https://www.mlnlyckehealthcare.de",
+    "description": "Mölnlycke Health Care GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
+    "location": "Germany",
+    "category": "Healthcare Services",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
+    "name": "Bellco Deutschland GmbH",
+    "website": "https://www.bellcodeutschland.de",
+    "description": "Bellco Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
     "location": "Germany",
     "category": "Healthcare Services",
     "founded_year": "",
@@ -1040,41 +990,91 @@
     "source": "Curated German Healthcare Database"
   },
   {
-    "name": "Bayer Vital GmbH",
-    "website": "https://www.bayervital.de",
-    "description": "Bayer Vital GmbH is a pharmaceutical company specializing in the development, manufacturing, and distribution of prescription medications and healthcare products in Germany and internationally.",
-    "location": "Leverkusen, Germany",
-    "category": "Pharmaceuticals",
+    "name": "Regeneron Deutschland GmbH",
+    "website": "https://www.regenerondeutschland.de",
+    "description": "Regeneron Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
+    "location": "Germany",
+    "category": "Healthcare Services",
     "founded_year": "",
     "employees": "",
     "source": "Curated German Healthcare Database"
   },
   {
-    "name": "Nova Biomedical Deutschland GmbH",
-    "website": "https://www.novabiomedicaldeutschland.de",
-    "description": "Nova Biomedical Deutschland GmbH is a medical technology company that develops and manufactures medical devices, diagnostic equipment, and healthcare solutions for hospitals and healthcare providers.",
+    "name": "Immucor Deutschland GmbH",
+    "website": "https://www.immucordeutschland.de",
+    "description": "Immucor Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
     "location": "Germany",
+    "category": "Healthcare Services",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
+    "name": "Nipro Deutschland GmbH",
+    "website": "https://www.niprodeutschland.de",
+    "description": "Nipro Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
+    "location": "Germany",
+    "category": "Healthcare Services",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
+    "name": "Paul Hartmann AG",
+    "website": "https://www.paulhartmann.de",
+    "description": "Paul Hartmann AG manufactures and distributes medical devices, surgical instruments, and healthcare products for medical professionals and healthcare institutions.",
+    "location": "Heidenheim, Germany",
+    "category": "Medical Devices",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
+    "name": "Stryker Deutschland GmbH",
+    "website": "https://www.strykerdeutschland.de",
+    "description": "Stryker Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
+    "location": "Germany",
+    "category": "Healthcare Services",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
+    "name": "Haemonetics Deutschland GmbH",
+    "website": "https://www.haemoneticsdeutschland.de",
+    "description": "Haemonetics Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
+    "location": "Germany",
+    "category": "Healthcare Services",
+    "founded_year": "",
+    "employees": "",
+    "source": "Curated German Healthcare Database"
+  },
+  {
+    "name": "Siemens Healthineers AG",
+    "website": "https://www.siemenshealthineers.de",
+    "description": "Siemens Healthineers AG is a medical technology company that develops and manufactures medical devices, diagnostic equipment, and healthcare solutions for hospitals and healthcare providers.",
+    "location": "Munich, Germany",
     "category": "Medical Technology",
     "founded_year": "",
     "employees": "",
     "source": "Curated German Healthcare Database"
   },
   {
-    "name": "Bio-Rad Laboratories Deutschland GmbH",
-    "website": "https://www.bioradlaboratoriesdeutschland.de",
-    "description": "Bio-Rad Laboratories Deutschland GmbH is a biotechnology company focused on developing innovative therapeutic solutions through advanced biotechnology platforms and research capabilities.",
+    "name": "Radiometer Deutschland GmbH",
+    "website": "https://www.radiometerdeutschland.de",
+    "description": "Radiometer Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
     "location": "Germany",
-    "category": "Biotechnology",
+    "category": "Healthcare Services",
     "founded_year": "",
     "employees": "",
     "source": "Curated German Healthcare Database"
   },
   {
-    "name": "B. Braun Melsungen AG",
-    "website": "https://www.bbraunmelsungen.de",
-    "description": "B. Braun Melsungen AG manufactures and distributes medical devices, surgical instruments, and healthcare products for medical professionals and healthcare institutions.",
-    "location": "Melsungen, Germany",
-    "category": "Medical Devices",
+    "name": "Smith & Nephew Deutschland GmbH",
+    "website": "https://www.smith.de",
+    "description": "Smith & Nephew Deutschland GmbH provides comprehensive healthcare services and solutions to support the German healthcare system and improve patient outcomes.",
+    "location": "Germany",
+    "category": "Healthcare Services",
     "founded_year": "",
     "employees": "",
     "source": "Curated German Healthcare Database"
