@@ -31,6 +31,9 @@ from datetime import datetime, timedelta
 import ssl
 import hashlib
 
+# Import comprehensive URL list
+from comprehensive_url_list import get_all_healthcare_urls, get_german_healthcare_urls
+
 @dataclass
 class SuperHealthcareCompany:
     """Comprehensive data class for European healthcare companies with extensive business intelligence."""
@@ -129,1239 +132,1234 @@ class SuperHealthcareCompany:
             self.press_mentions = []
 
 class FocusedSuperScraper:
-    """
-    Focused super healthcare scraper with comprehensive improvements but practical runtime.
-    """
+    """Enhanced healthcare company scraper with comprehensive data extraction capabilities."""
     
     def __init__(self):
-        """Initialize the focused super scraper."""
         self.companies = []
-        self.company_urls = set()
+        self.failed_urls = []
         self.processed_urls = set()
-        self.failed_urls = set()
         
-        # Enhanced headers with rotation
-        self.headers_list = [
-            {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'},
-            {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'},
-            {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'},
-        ]
-        
-        # Comprehensive healthcare categories
-        self.healthcare_categories = {
-            'Digital Health': ['digital health', 'ehealth', 'mhealth', 'telehealth', 'telemedicine', 'digital therapeutics'],
-            'MedTech': ['medical technology', 'medical devices', 'medtech', 'medical equipment', 'diagnostic devices'],
-            'Pharmaceuticals': ['pharmaceuticals', 'pharma', 'drug development', 'medication', 'therapeutics'],
-            'Biotechnology': ['biotechnology', 'biotech', 'biopharmaceuticals', 'biologics', 'gene therapy'],
-            'Healthcare IT': ['healthcare it', 'health information', 'ehr', 'emr', 'his', 'healthcare software'],
-            'Wellness': ['wellness', 'fitness', 'nutrition', 'mental health', 'preventive care'],
-            'Healthcare Services': ['healthcare services', 'medical services', 'clinical services', 'home healthcare'],
-            'Diagnostics': ['diagnostics', 'medical testing', 'laboratory', 'imaging', 'pathology'],
-            'Artificial Intelligence': ['ai healthcare', 'machine learning', 'deep learning', 'healthcare ai'],
-            'Robotics': ['medical robotics', 'surgical robots', 'healthcare robotics', 'robotic surgery'],
-            'Genomics': ['genomics', 'genetic testing', 'personalized medicine', 'precision medicine'],
-            'Wearables': ['wearable devices', 'fitness trackers', 'health monitoring', 'medical wearables'],
-            'Surgery': ['surgical technology', 'minimally invasive', 'surgical instruments', 'operating room'],
-            'Cardiology': ['cardiology', 'cardiac devices', 'heart health', 'cardiovascular'],
-            'Oncology': ['oncology', 'cancer treatment', 'cancer diagnostics', 'tumor analysis'],
-            'Neurology': ['neurology', 'brain health', 'neurological disorders', 'neurotechnology'],
-            'Orthopedics': ['orthopedics', 'bone health', 'joint replacement', 'musculoskeletal'],
-            'Dermatology': ['dermatology', 'skin health', 'cosmetic medicine', 'dermatological devices'],
-            'Ophthalmology': ['ophthalmology', 'eye health', 'vision care', 'optical devices'],
-            'Dental': ['dental technology', 'oral health', 'dental devices', 'orthodontics'],
-            'Pediatrics': ['pediatric healthcare', 'child health', 'pediatric devices', 'baby care'],
-            'Geriatrics': ['geriatric care', 'elderly care', 'aging', 'senior health'],
-            'Women\'s Health': ['women\'s health', 'maternal health', 'reproductive health', 'gynecology'],
-            'Mental Health': ['mental health', 'psychology', 'psychiatry', 'behavioral health'],
-            'Pharmacy': ['pharmacy', 'pharmaceutical services', 'drug delivery', 'medication management']
-        }
-        
-        # Quality scoring weights
-        self.quality_weights = {
-            'name': 10,
-            'website': 10,
-            'description': 15,
-            'location': 8,
-            'category': 8,
-            'contact_info': 12,
-            'financial_info': 15,
-            'leadership': 10,
-            'products': 12,
-            'certifications': 8,
-            'partnerships': 5,
-            'press_mentions': 3,
-            'data_freshness': 4
-        }
-        
-        # Initialize SSL context
+        # SSL context for HTTPS requests
         self.ssl_context = ssl.create_default_context()
         self.ssl_context.check_hostname = False
         self.ssl_context.verify_mode = ssl.CERT_NONE
         
-        print("🚀 Focused Super Enhanced Healthcare Scraper initialized!")
-        print(f"📊 Targeting {len(self.healthcare_categories)} healthcare categories")
-        print(f"🎯 Comprehensive data extraction with 25+ data points per company")
-        print(f"📈 Advanced quality scoring and validation")
-        print(f"🔍 Intelligent related company discovery")
-        
+        print("🚀 FOCUSED SUPER ENHANCED HEALTHCARE SCRAPER")
+        print("=" * 70)
+        print("🎯 Comprehensive European Healthcare Company Intelligence")
+        print("📊 25+ Data Points per Company | AI-Powered Analysis")
+        print("=" * 70)
+
     def get_headers(self) -> Dict[str, str]:
-        """Get random headers for requests."""
-        return random.choice(self.headers_list)
-    
+        """Get rotating headers to avoid blocking."""
+        user_agents = [
+            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+            'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+            'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:89.0) Gecko/20100101 Firefox/89.0',
+            'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.1 Safari/605.1.15'
+        ]
+        
+        return {
+            'User-Agent': random.choice(user_agents),
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+            'Accept-Language': 'en-US,en;q=0.9,de;q=0.8,fr;q=0.7',
+            'Accept-Encoding': 'gzip, deflate, br',
+            'Connection': 'keep-alive',
+            'Upgrade-Insecure-Requests': '1',
+        }
+
     def fetch_url(self, url: str, timeout: int = 30) -> str:
-        """Enhanced URL fetching with better error handling and retry logic."""
+        """Fetch URL content with enhanced error handling."""
         try:
-            # Clean and validate URL
-            if not url.startswith(('http://', 'https://')):
-                url = 'https://' + url
+            headers = self.get_headers()
+            req = urllib.request.Request(url, headers=headers)
             
-            # Create request with random headers
-            req = urllib.request.Request(url, headers=self.get_headers())
-            
-            # Fetch with SSL context
             with urllib.request.urlopen(req, timeout=timeout, context=self.ssl_context) as response:
                 content = response.read()
-                
-                # Handle different encodings
+                # Try to decode with utf-8, fallback to latin-1
                 try:
                     return content.decode('utf-8')
                 except UnicodeDecodeError:
                     try:
-                        return content.decode('latin-1')
-                    except UnicodeDecodeError:
+                        return content.decode('latin-1', errors='ignore')
+                    except:
                         return content.decode('utf-8', errors='ignore')
                         
-        except urllib.error.HTTPError as e:
-            if e.code == 403:
-                print(f"⚠️ Access denied to {url}")
-            elif e.code == 404:
-                print(f"❌ URL not found: {url}")
-            else:
-                print(f"🔴 HTTP error {e.code} for {url}")
-            return ""
-        except urllib.error.URLError as e:
-            print(f"🔴 URL error for {url}: {e}")
-            return ""
         except Exception as e:
-            print(f"🔴 Unexpected error for {url}: {e}")
+            print(f"    ❌ Error fetching {url}: {str(e)}")
             return ""
-    
+
     def extract_company_info(self, html: str, url: str) -> SuperHealthcareCompany:
-        """Enhanced company information extraction with comprehensive data collection."""
+        """Extract comprehensive company information with 25+ data points."""
         
-        # Initialize company with basic info
-        company = SuperHealthcareCompany(
-            name=self.extract_company_name(html, url),
-            website=url,
-            source=url,
-            last_updated=datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        )
+        # Extract company name
+        name = self.extract_company_name(html, url)
         
-        # Extract comprehensive information
-        company.description = self.extract_description(html)
-        company.location = self.extract_location(html)
-        company.country = self.extract_country(html)
-        company.city = self.extract_city(html)
+        # Extract basic information
+        description = self.extract_description(html)
+        location = self.extract_location(html)
+        country = self.extract_country(html, url)
+        city = self.extract_city(html)
         
         # Business classification
-        company.category = self.categorize_company(html)
-        company.subcategory = self.extract_subcategory(html, company.category)
-        company.industry_tags = self.extract_industry_tags(html)
-        company.business_model = self.extract_business_model(html)
-        company.target_market = self.extract_target_market(html)
+        category = self.categorize_company(html)
+        subcategory = self.extract_subcategory(html, category)
+        industry_tags = self.extract_industry_tags(html)
+        business_model = self.extract_business_model(html)
+        target_market = self.extract_target_market(html)
         
         # Financial information
-        company.founded_year = self.extract_founded_year(html)
-        company.employees = self.extract_employees(html)
-        company.funding_amount = self.extract_funding(html)
-        company.funding_stage = self.extract_funding_stage(html)
-        company.revenue = self.extract_revenue(html)
-        company.valuation = self.extract_valuation(html)
-        company.investor_list = self.extract_investors(html)
+        founded_year = self.extract_founded_year(html)
+        employees = self.extract_employees(html)
+        funding_amount = self.extract_funding(html)
+        funding_stage = self.extract_funding_stage(html)
+        revenue = self.extract_revenue(html)
+        valuation = self.extract_valuation(html)
+        investor_list = self.extract_investors(html)
         
         # Leadership
-        company.ceo = self.extract_ceo(html)
-        company.founders = self.extract_founders(html)
-        company.key_executives = self.extract_executives(html)
+        ceo = self.extract_ceo(html)
+        founders = self.extract_founders(html)
+        key_executives = self.extract_executives(html)
         
         # Contact information
-        company.email = self.extract_email(html)
-        company.phone = self.extract_phone(html)
-        company.linkedin = self.extract_linkedin(html)
-        company.twitter = self.extract_twitter(html)
-        company.crunchbase = self.extract_crunchbase(html)
+        email = self.extract_email(html)
+        phone = self.extract_phone(html)
+        linkedin = self.extract_linkedin(html)
+        twitter = self.extract_twitter(html)
+        crunchbase = self.extract_crunchbase(html)
         
         # Products and technology
-        company.products = self.extract_products(html)
-        company.technology_stack = self.extract_technology_stack(html)
-        company.patents = self.extract_patents(html)
-        company.certifications = self.extract_certifications(html)
+        products = self.extract_products(html)
+        technology_stack = self.extract_technology_stack(html)
+        patents = self.extract_patents(html)
+        certifications = self.extract_certifications(html)
         
         # Business intelligence
-        company.partnerships = self.extract_partnerships(html)
-        company.customers = self.extract_customers(html)
-        company.competitors = self.extract_competitors(html)
-        company.awards = self.extract_awards(html)
-        company.press_mentions = self.extract_press_mentions(html)
+        partnerships = self.extract_partnerships(html)
+        customers = self.extract_customers(html)
+        competitors = self.extract_competitors(html)
+        awards = self.extract_awards(html)
+        press_mentions = self.extract_press_mentions(html)
         
         # Market intelligence
-        company.market_size = self.extract_market_size(html)
-        company.growth_rate = self.extract_growth_rate(html)
-        company.market_share = self.extract_market_share(html)
-        company.regulatory_status = self.extract_regulatory_status(html)
+        market_size = self.extract_market_size(html)
+        growth_rate = self.extract_growth_rate(html)
+        market_share = self.extract_market_share(html)
+        regulatory_status = self.extract_regulatory_status(html)
+        
+        # Create company object
+        company = SuperHealthcareCompany(
+            name=name,
+            website=url,
+            description=description,
+            location=location,
+            country=country,
+            city=city,
+            category=category,
+            subcategory=subcategory,
+            industry_tags=industry_tags,
+            business_model=business_model,
+            target_market=target_market,
+            founded_year=founded_year,
+            employees=employees,
+            funding_amount=funding_amount,
+            funding_stage=funding_stage,
+            revenue=revenue,
+            valuation=valuation,
+            investor_list=investor_list,
+            ceo=ceo,
+            founders=founders,
+            key_executives=key_executives,
+            email=email,
+            phone=phone,
+            linkedin=linkedin,
+            twitter=twitter,
+            crunchbase=crunchbase,
+            products=products,
+            technology_stack=technology_stack,
+            patents=patents,
+            certifications=certifications,
+            partnerships=partnerships,
+            customers=customers,
+            competitors=competitors,
+            awards=awards,
+            press_mentions=press_mentions,
+            market_size=market_size,
+            growth_rate=growth_rate,
+            market_share=market_share,
+            regulatory_status=regulatory_status,
+            last_updated=datetime.now().isoformat(),
+            source=url,
+            validation_status="pending"
+        )
         
         # Calculate quality scores
         company.data_quality_score = self.calculate_data_quality_score(company)
         company.completeness_score = self.calculate_completeness_score(company)
         company.confidence_score = self.calculate_confidence_score(company)
-        company.validation_status = "validated" if company.data_quality_score >= 50 else "pending"
         
         return company
-    
+
     def extract_company_name(self, html: str, url: str) -> str:
-        """Extract company name with improved accuracy."""
-        # Try multiple approaches
+        """Extract company name with multiple fallback methods."""
         name_patterns = [
-            r'<title>([^<]+)</title>',
-            r'<h1[^>]*>([^<]+)</h1>',
+            r'<title>([^<|]+)(?:\s*[\|\-].*)?</title>',
             r'<meta property="og:title" content="([^"]+)"',
             r'<meta name="title" content="([^"]+)"',
+            r'<h1[^>]*class="[^"]*(?:company|brand|logo)[^"]*"[^>]*>([^<]+)</h1>',
+            r'<h1[^>]*>([^<]+)</h1>',
             r'<meta property="og:site_name" content="([^"]+)"',
-            r'<span class="company-name"[^>]*>([^<]+)</span>',
-            r'<div class="company-name"[^>]*>([^<]+)</div>'
         ]
         
         for pattern in name_patterns:
-            matches = re.findall(pattern, html, re.IGNORECASE)
-            if matches:
-                name = matches[0].strip()
+            match = re.search(pattern, html, re.IGNORECASE | re.DOTALL)
+            if match:
+                name = match.group(1).strip()
                 # Clean up common suffixes
-                name = re.sub(r'\s*[-|]\s*.*$', '', name)
-                name = re.sub(r'\s*\|\s*.*$', '', name)
-                if len(name) > 3 and len(name) < 100:
+                name = re.sub(r'\s*(?:\|\s*.*|\-\s*.*)$', '', name)
+                name = re.sub(r'\s*(?:GmbH|AG|Inc\.|LLC|Ltd\.|Limited|Corp\.|Corporation|SA|SAS|BV|AB)\.?\s*$', '', name, flags=re.IGNORECASE)
+                if len(name) > 2 and not any(x in name.lower() for x in ['error', '404', 'not found', 'page']):
                     return name
         
         # Fallback to domain name
-        domain_match = re.search(r'https?://(?:www\.)?([^/]+)', url)
-        if domain_match:
-            domain = domain_match.group(1)
-            return domain.replace('.', ' ').title()
-        
-        return "Unknown Company"
-    
+        domain = url.split('//')[1].split('/')[0].replace('www.', '')
+        return domain.split('.')[0].replace('-', ' ').title()
+
     def extract_description(self, html: str) -> str:
-        """Extract comprehensive company description."""
+        """Extract company description from multiple sources."""
         desc_patterns = [
             r'<meta name="description" content="([^"]+)"',
             r'<meta property="og:description" content="([^"]+)"',
-            r'<p class="description"[^>]*>([^<]+)</p>',
-            r'<div class="about"[^>]*>([^<]+)</div>',
-            r'<section class="company-overview"[^>]*>([^<]+)</section>'
+            r'<meta name="twitter:description" content="([^"]+)"',
+            r'<p[^>]*class="[^"]*(?:description|about|summary|intro)[^"]*"[^>]*>([^<]+)</p>',
+            r'<div[^>]*class="[^"]*(?:description|about|summary|intro)[^"]*"[^>]*>.*?<p[^>]*>([^<]+)</p>',
         ]
         
         for pattern in desc_patterns:
-            matches = re.findall(pattern, html, re.IGNORECASE | re.DOTALL)
-            if matches:
-                desc = matches[0].strip()
-                # Clean HTML entities
-                desc = re.sub(r'&[^;]+;', ' ', desc)
-                desc = re.sub(r'\s+', ' ', desc)
-                if len(desc) > 20:
-                    return desc[:500] + "..." if len(desc) > 500 else desc
+            match = re.search(pattern, html, re.IGNORECASE | re.DOTALL)
+            if match:
+                desc = match.group(1).strip()
+                if len(desc) > 20 and not any(x in desc.lower() for x in ['error', '404', 'not found']):
+                    return desc[:500]  # Limit length
         
-        # Extract from first paragraph
-        p_matches = re.findall(r'<p[^>]*>([^<]+)</p>', html, re.IGNORECASE)
-        if p_matches:
-            for p in p_matches:
-                if len(p) > 50:
-                    return p[:500] + "..." if len(p) > 500 else p
-        
-        return "Healthcare technology company providing innovative solutions"
-    
+        return ""
+
     def extract_location(self, html: str) -> str:
-        """Extract company location with enhanced accuracy."""
+        """Extract company location information."""
         location_patterns = [
-            r'<span class="location"[^>]*>([^<]+)</span>',
-            r'<div class="address"[^>]*>([^<]+)</div>',
-            r'<meta name="geo.region" content="([^"]+)"',
-            r'Address[^>]*>([^<]+)<',
-            r'Location[^>]*>([^<]+)<',
-            r'Based in ([^<\n]+)',
-            r'Headquartered in ([^<\n]+)'
+            r'(?:address|location|headquarters|based\s+in)[:\s]*([A-Za-z\s,.-]+?)(?:\s*[<\n]|$)',
+            r'<span[^>]*class="[^"]*(?:location|address)[^"]*"[^>]*>([^<]+)</span>',
+            r'<div[^>]*class="[^"]*(?:location|address)[^"]*"[^>]*>([^<]+)</div>',
+            r'([A-Za-z\s]+,\s*(?:Germany|Deutschland|UK|France|Switzerland|Netherlands|Belgium|Spain|Italy|Austria))',
         ]
         
         for pattern in location_patterns:
-            matches = re.findall(pattern, html, re.IGNORECASE)
-            if matches:
-                location = matches[0].strip()
-                if len(location) > 3:
+            match = re.search(pattern, html, re.IGNORECASE)
+            if match:
+                location = match.group(1).strip()
+                if len(location) > 2 and len(location) < 100:
                     return location
         
-        return "Europe"
-    
-    def extract_country(self, html: str) -> str:
-        """Extract company country."""
-        countries = ['Germany', 'France', 'Italy', 'Spain', 'UK', 'United Kingdom', 'Netherlands', 'Sweden', 'Denmark', 'Norway', 'Finland', 'Switzerland', 'Austria', 'Belgium', 'Poland', 'Ireland', 'Greece', 'Portugal', 'Czech Republic', 'Hungary', 'Romania', 'Bulgaria', 'Croatia', 'Slovenia', 'Slovakia', 'Lithuania', 'Latvia', 'Estonia', 'Luxembourg', 'Malta', 'Cyprus']
+        return ""
+
+    def extract_country(self, html: str, url: str) -> str:
+        """Determine company country from multiple indicators."""
+        content = (html + " " + url).lower()
         
-        for country in countries:
-            if country.lower() in html.lower():
+        country_indicators = {
+            'Germany': ['germany', 'deutschland', 'german', 'berlin', 'munich', 'hamburg', 'frankfurt', 'cologne', '.de/'],
+            'UK': ['united kingdom', 'britain', 'british', 'england', 'london', 'manchester', 'edinburgh', '.co.uk/', '.uk/'],
+            'France': ['france', 'french', 'paris', 'lyon', 'marseille', '.fr/'],
+            'Switzerland': ['switzerland', 'swiss', 'zurich', 'geneva', '.ch/'],
+            'Netherlands': ['netherlands', 'dutch', 'amsterdam', 'rotterdam', '.nl/'],
+            'Belgium': ['belgium', 'belgian', 'brussels', 'antwerp', '.be/'],
+            'Spain': ['spain', 'spanish', 'madrid', 'barcelona', '.es/'],
+            'Italy': ['italy', 'italian', 'rome', 'milan', '.it/'],
+            'Austria': ['austria', 'austrian', 'vienna', '.at/'],
+            'Sweden': ['sweden', 'swedish', 'stockholm', '.se/'],
+            'Denmark': ['denmark', 'danish', 'copenhagen', '.dk/'],
+            'Norway': ['norway', 'norwegian', 'oslo', '.no/'],
+            'Finland': ['finland', 'finnish', 'helsinki', '.fi/']
+        }
+        
+        for country, indicators in country_indicators.items():
+            if any(indicator in content for indicator in indicators):
                 return country
         
-        return "Europe"
-    
+        return ""
+
     def extract_city(self, html: str) -> str:
-        """Extract company city."""
-        cities = ['Berlin', 'Munich', 'Hamburg', 'Frankfurt', 'Cologne', 'Stuttgart', 'Paris', 'Lyon', 'Marseille', 'Rome', 'Milan', 'Turin', 'Madrid', 'Barcelona', 'Valencia', 'London', 'Manchester', 'Edinburgh', 'Amsterdam', 'Rotterdam', 'The Hague', 'Stockholm', 'Gothenburg', 'Copenhagen', 'Oslo', 'Helsinki', 'Zurich', 'Geneva', 'Vienna', 'Brussels', 'Warsaw', 'Dublin', 'Athens', 'Lisbon', 'Prague', 'Budapest', 'Bucharest', 'Sofia', 'Zagreb', 'Ljubljana', 'Bratislava', 'Vilnius', 'Riga', 'Tallinn']
+        """Extract city information."""
+        city_patterns = [
+            r'(?:city|location)[:\s]*([A-Za-z\s]+?)(?:,|\s*[<\n]|$)',
+            r'([A-Za-z]+)(?:,\s*(?:Germany|Deutschland|UK|France|Switzerland))',
+        ]
         
-        for city in cities:
-            if city.lower() in html.lower():
-                return city
+        for pattern in city_patterns:
+            match = re.search(pattern, html, re.IGNORECASE)
+            if match:
+                city = match.group(1).strip()
+                if len(city) > 2 and len(city) < 50:
+                    return city
         
         return ""
-    
+
     def categorize_company(self, html: str) -> str:
-        """Intelligent company categorization using AI-powered analysis."""
-        html_lower = html.lower()
+        """Categorize company based on content analysis."""
+        content = html.lower()
         
-        # Score each category
-        category_scores = {}
-        for category, keywords in self.healthcare_categories.items():
-            score = 0
-            for keyword in keywords:
-                score += html_lower.count(keyword) * (len(keyword) / 10)  # Weight by keyword length
-            category_scores[category] = score
+        # Enhanced healthcare categorization
+        categories = {
+            'Telemedicine': ['telemedicine', 'telehealth', 'remote consultation', 'virtual doctor', 'online consultation', 'digital consultation'],
+            'Medical Devices': ['medical device', 'medical equipment', 'diagnostic device', 'imaging', 'scanner', 'monitor', 'surgical'],
+            'Pharmaceuticals': ['pharmaceutical', 'drug development', 'medicine', 'therapy', 'treatment', 'clinical trial'],
+            'Biotechnology': ['biotech', 'biotechnology', 'genetics', 'genomics', 'bioinformatics', 'molecular', 'protein'],
+            'Digital Health': ['digital health', 'health app', 'mobile health', 'mhealth', 'health platform', 'wellness app'],
+            'AI/ML Healthcare': ['artificial intelligence', 'machine learning', 'ai health', 'predictive analytics', 'deep learning'],
+            'Healthcare Services': ['hospital', 'clinic', 'healthcare provider', 'medical center', 'health system'],
+            'Health Insurance': ['health insurance', 'medical insurance', 'insurance', 'coverage'],
+            'Mental Health': ['mental health', 'psychology', 'therapy', 'counseling', 'psychiatric', 'wellness'],
+            'Diagnostics': ['diagnostic', 'laboratory', 'testing', 'screening', 'analysis', 'pathology'],
+            'Medical Software': ['medical software', 'ehr', 'emr', 'practice management', 'hospital software'],
+            'Wearables/IoT': ['wearable', 'fitness tracker', 'health monitor', 'iot', 'sensor', 'smart device']
+        }
         
-        # Return the highest scoring category
-        if category_scores:
-            best_category = max(category_scores, key=category_scores.get)
-            if category_scores[best_category] > 0:
-                return best_category
+        for category, keywords in categories.items():
+            if any(keyword in content for keyword in keywords):
+                return category
         
-        return "Digital Health"  # Default fallback
-    
+        return "Healthcare IT"
+
     def extract_subcategory(self, html: str, category: str) -> str:
-        """Extract more specific subcategory."""
+        """Extract more specific subcategory based on main category."""
+        content = html.lower()
+        
         subcategories = {
-            'Digital Health': ['Telemedicine', 'Digital Therapeutics', 'Health Apps', 'Remote Monitoring', 'AI Diagnostics'],
-            'MedTech': ['Medical Devices', 'Surgical Instruments', 'Diagnostic Equipment', 'Imaging Systems', 'Monitoring Devices'],
-            'Pharmaceuticals': ['Drug Discovery', 'Clinical Trials', 'Therapeutics', 'Vaccines', 'Rare Diseases'],
-            'Biotechnology': ['Gene Therapy', 'Cell Therapy', 'Protein Engineering', 'Bioinformatics', 'Synthetic Biology'],
-            'Healthcare IT': ['EHR Systems', 'Practice Management', 'Healthcare Analytics', 'Interoperability', 'Cloud Healthcare'],
-            'Wellness': ['Fitness', 'Nutrition', 'Mental Health', 'Preventive Care', 'Lifestyle Medicine'],
-            'Healthcare Services': ['Home Healthcare', 'Ambulatory Care', 'Specialist Services', 'Emergency Care', 'Chronic Care'],
-            'Diagnostics': ['Laboratory Testing', 'Point-of-Care', 'Molecular Diagnostics', 'Imaging', 'Pathology']
+            'Telemedicine': {
+                'Video Consultation': ['video call', 'video consultation', 'webcam'],
+                'Chat/Messaging': ['chat', 'messaging', 'text consultation'],
+                'Remote Monitoring': ['remote monitoring', 'patient monitoring', 'vital signs']
+            },
+            'Digital Health': {
+                'Fitness Apps': ['fitness', 'workout', 'exercise', 'training'],
+                'Nutrition Apps': ['nutrition', 'diet', 'food', 'calorie'],
+                'Chronic Disease Management': ['diabetes', 'hypertension', 'chronic', 'disease management']
+            }
         }
         
         if category in subcategories:
-            html_lower = html.lower()
-            for subcategory in subcategories[category]:
-                if subcategory.lower() in html_lower:
-                    return subcategory
+            for subcat, keywords in subcategories[category].items():
+                if any(keyword in content for keyword in keywords):
+                    return subcat
         
         return ""
-    
+
     def extract_industry_tags(self, html: str) -> List[str]:
-        """Extract industry tags and keywords."""
-        tags = []
-        common_tags = ['AI', 'ML', 'IoT', 'blockchain', 'cloud', 'mobile', 'SaaS', 'API', 'analytics', 'big data', 'machine learning', 'artificial intelligence', 'deep learning', 'natural language processing', 'computer vision', 'robotics', 'automation', 'digital transformation', 'innovation', 'technology', 'platform', 'software', 'hardware', 'device', 'sensor', 'wearable', 'connected', 'smart', 'digital', 'virtual', 'augmented', 'reality', 'VR', 'AR', 'telemedicine', 'telehealth', 'remote', 'monitoring', 'diagnostic', 'therapeutic', 'clinical', 'medical', 'healthcare', 'health', 'wellness', 'fitness', 'nutrition', 'mental', 'physical', 'rehabilitation', 'therapy', 'treatment', 'care', 'patient', 'provider', 'hospital', 'clinic', 'pharmacy', 'pharmaceutical', 'biotech', 'medtech', 'healthtech', 'digital health', 'ehealth', 'mhealth']
+        """Extract relevant industry tags and keywords."""
+        content = html.lower()
         
-        html_lower = html.lower()
-        for tag in common_tags:
-            if tag.lower() in html_lower:
+        tags = []
+        tag_keywords = {
+            'AI': ['artificial intelligence', 'machine learning', 'ai'],
+            'Cloud': ['cloud', 'saas', 'software as a service'],
+            'Mobile': ['mobile app', 'ios', 'android', 'smartphone'],
+            'B2B': ['b2b', 'business to business', 'enterprise'],
+            'B2C': ['b2c', 'consumer', 'patient'],
+            'SaaS': ['saas', 'software as a service', 'subscription'],
+            'Startup': ['startup', 'founded', 'early stage'],
+            'Enterprise': ['enterprise', 'large scale', 'hospital system']
+        }
+        
+        for tag, keywords in tag_keywords.items():
+            if any(keyword in content for keyword in keywords):
                 tags.append(tag)
         
-        return tags[:10]  # Limit to top 10 tags
-    
+        return tags[:5]  # Limit to top 5 tags
+
     def extract_business_model(self, html: str) -> str:
-        """Extract business model information."""
-        models = ['B2B', 'B2C', 'B2B2C', 'SaaS', 'Marketplace', 'Platform', 'Subscription', 'Freemium', 'Enterprise', 'SME', 'Consumer']
+        """Identify business model from content."""
+        content = html.lower()
         
-        html_lower = html.lower()
-        for model in models:
-            if model.lower() in html_lower:
+        models = {
+            'SaaS': ['subscription', 'monthly', 'saas', 'software as a service'],
+            'Marketplace': ['marketplace', 'platform', 'connect', 'directory'],
+            'Freemium': ['free', 'premium', 'freemium', 'upgrade'],
+            'B2B': ['business', 'enterprise', 'hospital', 'clinic'],
+            'B2C': ['patient', 'consumer', 'individual', 'personal'],
+            'B2B2C': ['partner', 'white label', 'through']
+        }
+        
+        for model, keywords in models.items():
+            if any(keyword in content for keyword in keywords):
                 return model
         
         return ""
-    
+
     def extract_target_market(self, html: str) -> str:
-        """Extract target market information."""
-        markets = ['Hospitals', 'Clinics', 'Patients', 'Healthcare Providers', 'Pharmaceutical Companies', 'Insurance Companies', 'Consumers', 'Doctors', 'Nurses', 'Researchers', 'Government', 'Payers', 'Life Sciences', 'Biotechnology']
+        """Identify target market from content."""
+        content = html.lower()
         
-        html_lower = html.lower()
-        for market in markets:
-            if market.lower() in html_lower:
+        markets = {
+            'Patients': ['patient', 'individual', 'consumer', 'personal health'],
+            'Healthcare Providers': ['doctor', 'physician', 'hospital', 'clinic', 'healthcare provider'],
+            'Enterprises': ['enterprise', 'corporate', 'employee', 'workplace'],
+            'Payers': ['insurance', 'payer', 'health plan'],
+            'Pharma': ['pharmaceutical', 'pharma', 'drug company'],
+            'Researchers': ['research', 'clinical trial', 'academic']
+        }
+        
+        for market, keywords in markets.items():
+            if any(keyword in content for keyword in keywords):
                 return market
         
         return ""
-    
+
     def extract_founded_year(self, html: str) -> str:
-        """Extract company founding year."""
+        """Extract founding year."""
         year_patterns = [
-            r'founded[^0-9]*([0-9]{4})',
-            r'established[^0-9]*([0-9]{4})',
-            r'since[^0-9]*([0-9]{4})',
-            r'©[^0-9]*([0-9]{4})'
+            r'(?:founded|established|since|started)(?:\s+in)?\s+(\d{4})',
+            r'(\d{4})(?:\s*-\s*present|\s*-\s*now)',
+            r'copyright\s+(?:©\s*)?(\d{4})',
         ]
         
         for pattern in year_patterns:
-            matches = re.findall(pattern, html, re.IGNORECASE)
-            if matches:
-                year = matches[0]
-                if 1990 <= int(year) <= 2024:
-                    return year
+            match = re.search(pattern, html, re.IGNORECASE)
+            if match:
+                year = int(match.group(1))
+                if 1990 <= year <= datetime.now().year:
+                    return str(year)
         
         return ""
-    
+
     def extract_employees(self, html: str) -> str:
         """Extract employee count information."""
         employee_patterns = [
-            r'([0-9,]+)\s*employees',
-            r'team of ([0-9,]+)',
-            r'([0-9,]+)\s*people',
-            r'([0-9,]+)\s*staff'
+            r'(\d+(?:,\d+)?)\s*(?:employees|workers|staff|team members)',
+            r'team\s+of\s+(\d+(?:,\d+)?)',
+            r'(\d+(?:,\d+)?)\s*people',
         ]
         
         for pattern in employee_patterns:
-            matches = re.findall(pattern, html, re.IGNORECASE)
-            if matches:
-                return matches[0]
+            match = re.search(pattern, html, re.IGNORECASE)
+            if match:
+                return match.group(1)
         
         return ""
-    
+
     def extract_funding(self, html: str) -> str:
-        """Extract funding information."""
+        """Extract funding amount information."""
         funding_patterns = [
-            r'raised\s*([€$£]\s*[0-9,]+[KkMmBb]?)',
-            r'funding\s*([€$£]\s*[0-9,]+[KkMmBb]?)',
-            r'investment\s*([€$£]\s*[0-9,]+[KkMmBb]?)',
-            r'([€$£]\s*[0-9,]+[KkMmBb]?)\s*series',
-            r'([€$£]\s*[0-9,]+[KkMmBb]?)\s*round'
+            r'raised\s+\$?([\d,.]+(?:\s*(?:million|billion|k|m|b))?)',
+            r'funding\s+of\s+\$?([\d,.]+(?:\s*(?:million|billion|k|m|b))?)',
+            r'\$?([\d,.]+(?:\s*(?:million|billion))?)\s+(?:in\s+)?funding',
         ]
         
         for pattern in funding_patterns:
-            matches = re.findall(pattern, html, re.IGNORECASE)
-            if matches:
-                return matches[0]
+            match = re.search(pattern, html, re.IGNORECASE)
+            if match:
+                return match.group(1)
         
         return ""
-    
+
     def extract_funding_stage(self, html: str) -> str:
         """Extract funding stage information."""
-        stages = ['Pre-seed', 'Seed', 'Series A', 'Series B', 'Series C', 'Series D', 'Series E', 'IPO', 'Acquisition', 'Private Equity', 'Venture Capital', 'Angel']
+        content = html.lower()
         
-        html_lower = html.lower()
+        stages = ['pre-seed', 'seed', 'series a', 'series b', 'series c', 'series d', 'ipo', 'acquired']
+        
         for stage in stages:
-            if stage.lower() in html_lower:
-                return stage
+            if stage in content:
+                return stage.title()
         
         return ""
-    
+
     def extract_revenue(self, html: str) -> str:
         """Extract revenue information."""
         revenue_patterns = [
-            r'revenue\s*([€$£]\s*[0-9,]+[KkMmBb]?)',
-            r'sales\s*([€$£]\s*[0-9,]+[KkMmBb]?)',
-            r'turnover\s*([€$£]\s*[0-9,]+[KkMmBb]?)'
+            r'revenue\s+of\s+\$?([\d,.]+(?:\s*(?:million|billion|k|m|b))?)',
+            r'\$?([\d,.]+(?:\s*(?:million|billion))?)\s+(?:in\s+)?revenue',
         ]
         
         for pattern in revenue_patterns:
-            matches = re.findall(pattern, html, re.IGNORECASE)
-            if matches:
-                return matches[0]
+            match = re.search(pattern, html, re.IGNORECASE)
+            if match:
+                return match.group(1)
         
         return ""
-    
+
     def extract_valuation(self, html: str) -> str:
         """Extract company valuation."""
         valuation_patterns = [
-            r'valued at\s*([€$£]\s*[0-9,]+[KkMmBb]?)',
-            r'valuation\s*([€$£]\s*[0-9,]+[KkMmBb]?)',
-            r'worth\s*([€$£]\s*[0-9,]+[KkMmBb]?)'
+            r'valued\s+at\s+\$?([\d,.]+(?:\s*(?:million|billion|k|m|b))?)',
+            r'valuation\s+of\s+\$?([\d,.]+(?:\s*(?:million|billion|k|m|b))?)',
         ]
         
         for pattern in valuation_patterns:
-            matches = re.findall(pattern, html, re.IGNORECASE)
-            if matches:
-                return matches[0]
+            match = re.search(pattern, html, re.IGNORECASE)
+            if match:
+                return match.group(1)
         
         return ""
-    
+
     def extract_investors(self, html: str) -> List[str]:
         """Extract investor information."""
         investor_patterns = [
-            r'investors?[^a-zA-Z]*([A-Z][a-zA-Z\s&]+)',
-            r'backed by ([A-Z][a-zA-Z\s&]+)',
-            r'funded by ([A-Z][a-zA-Z\s&]+)'
+            r'(?:investor|backed by|funded by)[s]?[:\s]*([A-Za-z\s,&]+?)(?:\.|<|$)',
+            r'([A-Z][a-z]+\s+(?:Capital|Ventures|Partners|Fund|Investments?))',
         ]
         
         investors = []
         for pattern in investor_patterns:
-            matches = re.findall(pattern, html)
-            investors.extend(matches)
+            matches = re.finditer(pattern, html, re.IGNORECASE)
+            for match in matches:
+                investor = match.group(1).strip()
+                if len(investor) > 3 and len(investor) < 50:
+                    investors.append(investor)
         
-        return investors[:5]  # Limit to top 5 investors
-    
+        return investors[:5]
+
     def extract_ceo(self, html: str) -> str:
         """Extract CEO information."""
         ceo_patterns = [
-            r'CEO[^a-zA-Z]*([A-Z][a-zA-Z\s]+)',
-            r'Chief Executive Officer[^a-zA-Z]*([A-Z][a-zA-Z\s]+)',
-            r'Founder[^a-zA-Z]*([A-Z][a-zA-Z\s]+)'
+            r'(?:ceo|chief executive officer)[:\s]*([A-Za-z\s]+?)(?:\.|<|,|$)',
+            r'([A-Za-z\s]+),?\s*(?:ceo|chief executive officer)',
         ]
         
         for pattern in ceo_patterns:
-            matches = re.findall(pattern, html)
-            if matches:
-                return matches[0].strip()
+            match = re.search(pattern, html, re.IGNORECASE)
+            if match:
+                ceo = match.group(1).strip()
+                if len(ceo) > 3 and len(ceo) < 50:
+                    return ceo
         
         return ""
-    
+
     def extract_founders(self, html: str) -> List[str]:
         """Extract founder information."""
         founder_patterns = [
-            r'founders?[^a-zA-Z]*([A-Z][a-zA-Z\s]+)',
-            r'co-founders?[^a-zA-Z]*([A-Z][a-zA-Z\s]+)',
-            r'started by ([A-Z][a-zA-Z\s]+)'
+            r'(?:founder|co-founder)[s]?[:\s]*([A-Za-z\s,&]+?)(?:\.|<|$)',
+            r'founded\s+by\s+([A-Za-z\s,&]+?)(?:\.|<|$)',
         ]
         
         founders = []
         for pattern in founder_patterns:
-            matches = re.findall(pattern, html)
-            founders.extend(matches)
+            match = re.search(pattern, html, re.IGNORECASE)
+            if match:
+                founder_text = match.group(1).strip()
+                # Split by common separators
+                for founder in re.split(r'[,&]|\sand\s', founder_text):
+                    founder = founder.strip()
+                    if len(founder) > 3 and len(founder) < 50:
+                        founders.append(founder)
         
-        return founders[:3]  # Limit to top 3 founders
-    
+        return founders[:3]
+
     def extract_executives(self, html: str) -> List[str]:
         """Extract key executive information."""
         exec_patterns = [
-            r'CTO[^a-zA-Z]*([A-Z][a-zA-Z\s]+)',
-            r'CFO[^a-zA-Z]*([A-Z][a-zA-Z\s]+)',
-            r'COO[^a-zA-Z]*([A-Z][a-zA-Z\s]+)',
-            r'VP[^a-zA-Z]*([A-Z][a-zA-Z\s]+)',
-            r'Director[^a-zA-Z]*([A-Z][a-zA-Z\s]+)'
+            r'([A-Za-z\s]+),?\s*(?:cto|cfo|coo|vp|vice president|director)',
+            r'(?:cto|cfo|coo|vp|vice president|director)[:\s]*([A-Za-z\s]+?)(?:\.|<|,|$)',
         ]
         
         executives = []
         for pattern in exec_patterns:
-            matches = re.findall(pattern, html)
-            executives.extend(matches)
+            matches = re.finditer(pattern, html, re.IGNORECASE)
+            for match in matches:
+                exec_name = match.group(1).strip()
+                if len(exec_name) > 3 and len(exec_name) < 50:
+                    executives.append(exec_name)
         
-        return executives[:5]  # Limit to top 5 executives
-    
+        return executives[:5]
+
     def extract_email(self, html: str) -> str:
-        """Extract email address."""
+        """Extract contact email."""
         email_patterns = [
+            r'mailto:([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})',
             r'([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})',
-            r'mailto:([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})'
         ]
         
         for pattern in email_patterns:
-            matches = re.findall(pattern, html)
-            if matches:
-                email = matches[0]
-                if 'noreply' not in email and 'no-reply' not in email:
+            match = re.search(pattern, html)
+            if match:
+                email = match.group(1)
+                # Filter out common false positives
+                if not any(x in email.lower() for x in ['example', 'test', 'noreply', 'donotreply']):
                     return email
         
         return ""
-    
+
     def extract_phone(self, html: str) -> str:
         """Extract phone number."""
         phone_patterns = [
-            r'(\+?[0-9]{1,3}[-.\s]?[0-9]{1,3}[-.\s]?[0-9]{3,4}[-.\s]?[0-9]{3,4})',
-            r'tel:([0-9+\-\s()]+)'
+            r'(?:tel:|phone:|call:)\s*([\+\d\s\-\(\)]{10,})',
+            r'([\+\d\s\-\(\)]{10,})',
         ]
         
         for pattern in phone_patterns:
-            matches = re.findall(pattern, html)
-            if matches:
-                return matches[0]
+            match = re.search(pattern, html)
+            if match:
+                phone = match.group(1).strip()
+                # Basic validation
+                digits = re.sub(r'[^\d]', '', phone)
+                if 10 <= len(digits) <= 15:
+                    return phone
         
         return ""
-    
+
     def extract_linkedin(self, html: str) -> str:
         """Extract LinkedIn profile."""
         linkedin_patterns = [
-            r'linkedin\.com/company/([^/"]+)',
-            r'linkedin\.com/in/([^/"]+)'
+            r'linkedin\.com/company/([a-zA-Z0-9\-]+)',
+            r'linkedin\.com/in/([a-zA-Z0-9\-]+)',
         ]
         
         for pattern in linkedin_patterns:
-            matches = re.findall(pattern, html)
-            if matches:
-                return f"https://www.linkedin.com/company/{matches[0]}"
+            match = re.search(pattern, html, re.IGNORECASE)
+            if match:
+                return f"https://linkedin.com/company/{match.group(1)}"
         
         return ""
-    
+
     def extract_twitter(self, html: str) -> str:
         """Extract Twitter profile."""
         twitter_patterns = [
-            r'twitter\.com/([^/"]+)',
-            r'x\.com/([^/"]+)'
+            r'twitter\.com/([a-zA-Z0-9_]+)',
+            r'@([a-zA-Z0-9_]+)',
         ]
         
         for pattern in twitter_patterns:
-            matches = re.findall(pattern, html)
-            if matches:
-                return f"https://twitter.com/{matches[0]}"
+            match = re.search(pattern, html, re.IGNORECASE)
+            if match:
+                username = match.group(1)
+                if len(username) > 2:
+                    return f"https://twitter.com/{username}"
         
         return ""
-    
+
     def extract_crunchbase(self, html: str) -> str:
         """Extract Crunchbase profile."""
-        crunchbase_patterns = [
-            r'crunchbase\.com/organization/([^/"]+)'
-        ]
-        
-        for pattern in crunchbase_patterns:
-            matches = re.findall(pattern, html)
-            if matches:
-                return f"https://www.crunchbase.com/organization/{matches[0]}"
-        
+        crunchbase_pattern = r'crunchbase\.com/organization/([a-zA-Z0-9\-]+)'
+        match = re.search(crunchbase_pattern, html, re.IGNORECASE)
+        if match:
+            return f"https://crunchbase.com/organization/{match.group(1)}"
         return ""
-    
+
     def extract_products(self, html: str) -> List[str]:
         """Extract product information."""
         product_patterns = [
-            r'products?[^a-zA-Z]*([A-Z][a-zA-Z\s]+)',
-            r'solutions?[^a-zA-Z]*([A-Z][a-zA-Z\s]+)',
-            r'services?[^a-zA-Z]*([A-Z][a-zA-Z\s]+)'
+            r'(?:product|solution|service)[s]?[:\s]*([A-Za-z\s,]+?)(?:\.|<|$)',
+            r'([A-Z][a-z]+(?:\s+[A-Z][a-z]+)*)\s*(?:platform|app|software|solution)',
         ]
         
         products = []
         for pattern in product_patterns:
-            matches = re.findall(pattern, html)
-            products.extend(matches)
+            matches = re.finditer(pattern, html, re.IGNORECASE)
+            for match in matches:
+                product = match.group(1).strip()
+                if len(product) > 3 and len(product) < 100:
+                    products.append(product)
         
-        return products[:5]  # Limit to top 5 products
-    
+        return products[:5]
+
     def extract_technology_stack(self, html: str) -> List[str]:
         """Extract technology stack information."""
-        tech_keywords = ['python', 'java', 'javascript', 'react', 'angular', 'vue', 'node.js', 'express', 'django', 'flask', 'spring', 'aws', 'azure', 'gcp', 'docker', 'kubernetes', 'tensorflow', 'pytorch', 'mongodb', 'postgresql', 'mysql', 'redis', 'elasticsearch', 'kafka', 'rabbitmq', 'microservices', 'api', 'rest', 'graphql', 'ml', 'ai', 'blockchain', 'iot', 'cloud', 'mobile', 'ios', 'android', 'swift', 'kotlin', 'flutter', 'react native']
+        content = html.lower()
         
-        html_lower = html.lower()
-        found_tech = []
+        technologies = []
+        tech_keywords = {
+            'AI': ['artificial intelligence', 'machine learning', 'ai', 'ml'],
+            'Cloud': ['aws', 'azure', 'google cloud', 'cloud'],
+            'Mobile': ['ios', 'android', 'mobile app', 'react native'],
+            'Web': ['javascript', 'react', 'angular', 'vue', 'node.js'],
+            'Database': ['mongodb', 'postgresql', 'mysql', 'database'],
+            'Analytics': ['analytics', 'data science', 'big data'],
+            'API': ['api', 'rest', 'graphql', 'microservices'],
+            'Security': ['security', 'encryption', 'gdpr', 'hipaa']
+        }
         
-        for tech in tech_keywords:
-            if tech in html_lower:
-                found_tech.append(tech)
+        for tech, keywords in tech_keywords.items():
+            if any(keyword in content for keyword in keywords):
+                technologies.append(tech)
         
-        return found_tech[:10]  # Limit to top 10 technologies
-    
+        return technologies
+
     def extract_patents(self, html: str) -> List[str]:
         """Extract patent information."""
         patent_patterns = [
-            r'patent[^a-zA-Z]*([A-Z0-9-]+)',
-            r'US[0-9,]+',
-            r'EP[0-9,]+',
-            r'WO[0-9,]+'
+            r'patent[s]?\s*(?:no\.?)?\s*([A-Z0-9,\s]+)',
+            r'(?:us|ep|wo)\s*(\d+)',
         ]
         
         patents = []
         for pattern in patent_patterns:
-            matches = re.findall(pattern, html)
-            patents.extend(matches)
+            matches = re.finditer(pattern, html, re.IGNORECASE)
+            for match in matches:
+                patent = match.group(1).strip()
+                if len(patent) > 3:
+                    patents.append(patent)
         
-        return patents[:5]  # Limit to top 5 patents
-    
+        return patents[:3]
+
     def extract_certifications(self, html: str) -> List[str]:
         """Extract certification information."""
-        cert_keywords = ['ISO', 'CE', 'FDA', 'GDPR', 'HIPAA', 'SOC2', 'ISO 27001', 'ISO 13485', 'IEC 62304', 'MDR', 'IVDR', 'GMP', 'GLP', 'GCP', 'CLIA', 'CAP', 'AAMI', 'ASTM', 'IEC', 'EN', 'NIST', 'OWASP', 'PCI DSS', 'FIPS', 'Common Criteria']
+        content = html.lower()
         
-        html_lower = html.lower()
-        found_certs = []
+        cert_keywords = ['iso', 'fda', 'ce mark', 'hipaa', 'gdpr', 'sox', 'medical device', 'certification']
+        certifications = []
         
-        for cert in cert_keywords:
-            if cert.lower() in html_lower:
-                found_certs.append(cert)
+        for keyword in cert_keywords:
+            if keyword in content:
+                certifications.append(keyword.upper())
         
-        return found_certs[:5]  # Limit to top 5 certifications
-    
+        return certifications
+
     def extract_partnerships(self, html: str) -> List[str]:
         """Extract partnership information."""
         partnership_patterns = [
-            r'partners?[^a-zA-Z]*([A-Z][a-zA-Z\s&]+)',
-            r'collaboration[^a-zA-Z]*([A-Z][a-zA-Z\s&]+)',
-            r'alliance[^a-zA-Z]*([A-Z][a-zA-Z\s&]+)'
+            r'(?:partner|partnership)[s]?\s+(?:with\s+)?([A-Za-z\s,&]+?)(?:\.|<|$)',
+            r'([A-Z][a-z]+(?:\s+[A-Z][a-z]+)*)\s*(?:partner|partnership)',
         ]
         
         partnerships = []
         for pattern in partnership_patterns:
-            matches = re.findall(pattern, html)
-            partnerships.extend(matches)
+            matches = re.finditer(pattern, html, re.IGNORECASE)
+            for match in matches:
+                partner = match.group(1).strip()
+                if len(partner) > 3 and len(partner) < 50:
+                    partnerships.append(partner)
         
-        return partnerships[:5]  # Limit to top 5 partnerships
-    
+        return partnerships[:5]
+
     def extract_customers(self, html: str) -> List[str]:
         """Extract customer information."""
         customer_patterns = [
-            r'customers?[^a-zA-Z]*([A-Z][a-zA-Z\s&]+)',
-            r'clients?[^a-zA-Z]*([A-Z][a-zA-Z\s&]+)',
-            r'used by ([A-Z][a-zA-Z\s&]+)'
+            r'(?:customer|client)[s]?\s*(?:include\s+)?([A-Za-z\s,&]+?)(?:\.|<|$)',
+            r'used\s+by\s+([A-Za-z\s,&]+?)(?:\.|<|$)',
         ]
         
         customers = []
         for pattern in customer_patterns:
-            matches = re.findall(pattern, html)
-            customers.extend(matches)
+            matches = re.finditer(pattern, html, re.IGNORECASE)
+            for match in matches:
+                customer = match.group(1).strip()
+                if len(customer) > 3 and len(customer) < 50:
+                    customers.append(customer)
         
-        return customers[:5]  # Limit to top 5 customers
-    
+        return customers[:5]
+
     def extract_competitors(self, html: str) -> List[str]:
         """Extract competitor information."""
         competitor_patterns = [
-            r'competitors?[^a-zA-Z]*([A-Z][a-zA-Z\s&]+)',
-            r'vs\.?\s*([A-Z][a-zA-Z\s&]+)',
-            r'compared to ([A-Z][a-zA-Z\s&]+)'
+            r'(?:competitor|vs\.|versus|compared to)\s+([A-Za-z\s,&]+?)(?:\.|<|$)',
+            r'alternative\s+to\s+([A-Za-z\s,&]+?)(?:\.|<|$)',
         ]
         
         competitors = []
         for pattern in competitor_patterns:
-            matches = re.findall(pattern, html)
-            competitors.extend(matches)
+            matches = re.finditer(pattern, html, re.IGNORECASE)
+            for match in matches:
+                competitor = match.group(1).strip()
+                if len(competitor) > 3 and len(competitor) < 50:
+                    competitors.append(competitor)
         
-        return competitors[:3]  # Limit to top 3 competitors
-    
+        return competitors[:3]
+
     def extract_awards(self, html: str) -> List[str]:
-        """Extract award information."""
+        """Extract awards and recognition."""
         award_patterns = [
-            r'awards?[^a-zA-Z]*([A-Z][a-zA-Z\s&]+)',
-            r'winner[^a-zA-Z]*([A-Z][a-zA-Z\s&]+)',
-            r'recognized by ([A-Z][a-zA-Z\s&]+)'
+            r'(?:award|recognition|winner|finalist)[s]?\s*([A-Za-z\s\d]+?)(?:\.|<|$)',
+            r'([A-Za-z\s\d]+?)\s*(?:award|prize)',
         ]
         
         awards = []
         for pattern in award_patterns:
-            matches = re.findall(pattern, html)
-            awards.extend(matches)
+            matches = re.finditer(pattern, html, re.IGNORECASE)
+            for match in matches:
+                award = match.group(1).strip()
+                if len(award) > 5 and len(award) < 100:
+                    awards.append(award)
         
-        return awards[:3]  # Limit to top 3 awards
-    
+        return awards[:3]
+
     def extract_press_mentions(self, html: str) -> List[str]:
-        """Extract press mention information."""
+        """Extract press mentions."""
         press_patterns = [
-            r'featured in ([A-Z][a-zA-Z\s&]+)',
-            r'mentioned in ([A-Z][a-zA-Z\s&]+)',
-            r'covered by ([A-Z][a-zA-Z\s&]+)'
+            r'(?:featured in|mentioned in|covered by)\s+([A-Za-z\s,&]+?)(?:\.|<|$)',
+            r'(?:forbes|techcrunch|wired|bloomberg|reuters)',
         ]
         
-        press = []
+        mentions = []
         for pattern in press_patterns:
-            matches = re.findall(pattern, html)
-            press.extend(matches)
+            matches = re.finditer(pattern, html, re.IGNORECASE)
+            for match in matches:
+                mention = match.group(1).strip() if match.groups() else match.group(0)
+                if len(mention) > 3:
+                    mentions.append(mention)
         
-        return press[:3]  # Limit to top 3 press mentions
-    
+        return mentions[:3]
+
     def extract_market_size(self, html: str) -> str:
         """Extract market size information."""
         market_patterns = [
-            r'market size[^0-9]*([€$£]\s*[0-9,]+[KkMmBb]?)',
-            r'market value[^0-9]*([€$£]\s*[0-9,]+[KkMmBb]?)'
+            r'market\s+(?:size\s+)?(?:of\s+)?\$?([\d,.]+(?:\s*(?:billion|million|b|m))?)',
+            r'\$?([\d,.]+(?:\s*(?:billion|million))?)\s+market',
         ]
         
         for pattern in market_patterns:
-            matches = re.findall(pattern, html, re.IGNORECASE)
-            if matches:
-                return matches[0]
+            match = re.search(pattern, html, re.IGNORECASE)
+            if match:
+                return match.group(1)
         
         return ""
-    
+
     def extract_growth_rate(self, html: str) -> str:
         """Extract growth rate information."""
         growth_patterns = [
-            r'growth rate[^0-9]*([0-9]+%)',
-            r'growing at ([0-9]+%)',
-            r'([0-9]+%)\s*growth'
+            r'(?:growth|growing)\s+(?:at\s+)?(\d+%)',
+            r'(\d+%)\s+(?:growth|annually)',
         ]
         
         for pattern in growth_patterns:
-            matches = re.findall(pattern, html, re.IGNORECASE)
-            if matches:
-                return matches[0]
+            match = re.search(pattern, html, re.IGNORECASE)
+            if match:
+                return match.group(1)
         
         return ""
-    
+
     def extract_market_share(self, html: str) -> str:
         """Extract market share information."""
         share_patterns = [
-            r'market share[^0-9]*([0-9]+%)',
-            r'([0-9]+%)\s*market share'
+            r'market\s+share\s+(?:of\s+)?(\d+%)',
+            r'(\d+%)\s+(?:of\s+the\s+)?market',
         ]
         
         for pattern in share_patterns:
-            matches = re.findall(pattern, html, re.IGNORECASE)
-            if matches:
-                return matches[0]
+            match = re.search(pattern, html, re.IGNORECASE)
+            if match:
+                return match.group(1)
         
         return ""
-    
+
     def extract_regulatory_status(self, html: str) -> str:
         """Extract regulatory status information."""
-        regulatory_keywords = ['FDA approved', 'CE marked', 'ISO certified', 'HIPAA compliant', 'GDPR compliant', 'MDR compliant', 'clinical trials', 'regulatory approval', 'compliance', 'certification']
+        content = html.lower()
         
-        html_lower = html.lower()
-        for keyword in regulatory_keywords:
-            if keyword.lower() in html_lower:
-                return keyword
-        
-        return ""
-    
-    def calculate_data_quality_score(self, company: SuperHealthcareCompany) -> float:
-        """Calculate comprehensive data quality score using weighted scoring system."""
-        
-        score = 0
-        total_weight = sum(self.quality_weights.values())
-        
-        # Score each field based on its weight and completeness
-        fields_scores = {
-            'name': 100 if company.name and company.name != "Unknown Company" else 0,
-            'website': 100 if company.website and company.website.startswith('http') else 0,
-            'description': min(100, len(company.description) * 2) if company.description else 0,
-            'location': 100 if company.location and company.location != "Europe" else 50,
-            'category': 100 if company.category and company.category != "Digital Health" else 50,
-            'contact_info': (50 if company.email else 0) + (50 if company.phone else 0),
-            'financial_info': (25 if company.founded_year else 0) + (25 if company.employees else 0) + (25 if company.funding_amount else 0) + (25 if company.revenue else 0),
-            'leadership': (50 if company.ceo else 0) + (50 if company.founders else 0),
-            'products': min(100, len(company.products) * 20) if company.products else 0,
-            'certifications': min(100, len(company.certifications) * 20) if company.certifications else 0,
-            'partnerships': min(100, len(company.partnerships) * 20) if company.partnerships else 0,
-            'press_mentions': min(100, len(company.press_mentions) * 33) if company.press_mentions else 0,
-            'data_freshness': 100  # Always fresh since we just scraped it
+        regulatory_terms = {
+            'FDA Approved': ['fda approved', 'fda clearance'],
+            'CE Marked': ['ce mark', 'ce marked'],
+            'Clinical Trial': ['clinical trial', 'clinical study'],
+            'Regulatory Pending': ['regulatory pending', 'awaiting approval'],
+            'Medical Device': ['medical device class', 'device classification']
         }
         
-        # Calculate weighted score
-        for field, weight in self.quality_weights.items():
-            if field in fields_scores:
-                score += (fields_scores[field] * weight) / total_weight
+        for status, terms in regulatory_terms.items():
+            if any(term in content for term in terms):
+                return status
         
-        return round(score, 1)
-    
-    def calculate_completeness_score(self, company: SuperHealthcareCompany) -> float:
-        """Calculate data completeness score."""
-        
+        return ""
+
+    def calculate_data_quality_score(self, company: SuperHealthcareCompany) -> float:
+        """Calculate data quality score based on completeness and accuracy."""
+        score = 0.0
         total_fields = 0
-        completed_fields = 0
         
-        # Check core fields
-        core_fields = ['name', 'website', 'description', 'location', 'category']
-        for field in core_fields:
+        # Core fields (higher weight)
+        core_fields = [
+            (company.name, 3),
+            (company.description, 2),
+            (company.category, 2),
+            (company.country, 2),
+            (company.website, 1)
+        ]
+        
+        for field_value, weight in core_fields:
+            total_fields += weight
+            if field_value and len(str(field_value)) > 2:
+                score += weight
+        
+        # Optional fields (lower weight)
+        optional_fields = [
+            company.email, company.phone, company.linkedin,
+            company.founded_year, company.employees, company.ceo
+        ]
+        
+        for field_value in optional_fields:
             total_fields += 1
-            if getattr(company, field):
-                completed_fields += 1
+            if field_value and len(str(field_value)) > 2:
+                score += 1
         
-        # Check list fields
-        list_fields = ['products', 'technology_stack', 'certifications', 'partnerships']
-        for field in list_fields:
-            total_fields += 1
-            if getattr(company, field):
-                completed_fields += 1
+        return (score / total_fields) * 100 if total_fields > 0 else 0.0
+
+    def calculate_completeness_score(self, company: SuperHealthcareCompany) -> float:
+        """Calculate completeness score based on filled fields."""
+        all_fields = [
+            company.name, company.description, company.location, company.country,
+            company.category, company.subcategory, company.business_model,
+            company.founded_year, company.employees, company.ceo,
+            company.email, company.phone, company.linkedin,
+        ]
         
-        # Check optional fields
-        optional_fields = ['founded_year', 'employees', 'funding_amount', 'ceo', 'email', 'phone']
-        for field in optional_fields:
-            total_fields += 1
-            if getattr(company, field):
-                completed_fields += 1
-        
-        return round((completed_fields / total_fields) * 100, 1) if total_fields > 0 else 0
-    
+        filled_fields = sum(1 for field in all_fields if field and len(str(field)) > 2)
+        return (filled_fields / len(all_fields)) * 100
+
     def calculate_confidence_score(self, company: SuperHealthcareCompany) -> float:
         """Calculate confidence score based on data reliability indicators."""
+        score = 70.0  # Base score
         
-        confidence = 0
+        # Boost for verified contact info
+        if company.email and '@' in company.email:
+            score += 10
+        if company.linkedin and 'linkedin.com' in company.linkedin:
+            score += 10
+        if company.phone:
+            score += 5
         
-        # Website accessibility
-        if company.website and company.website.startswith('https'):
-            confidence += 20
+        # Boost for business info
+        if company.founded_year and company.founded_year.isdigit():
+            score += 5
+        if company.employees:
+            score += 5
         
-        # Healthcare relevance
-        if company.category in self.healthcare_categories:
-            confidence += 30
-        
-        # Data richness
-        if company.description and len(company.description) > 100:
-            confidence += 20
-        
-        # Contact information
-        if company.email or company.phone:
-            confidence += 15
-        
-        # Business information
-        if company.founded_year or company.employees or company.funding_amount:
-            confidence += 15
-        
-        return round(confidence, 1)
-    
+        return min(score, 100.0)
+
     def discover_intelligent_related_companies(self, company: SuperHealthcareCompany) -> List[str]:
-        """Discover related companies through intelligent analysis."""
-        
+        """Intelligently discover related companies based on partnerships, competitors, etc."""
         related_urls = []
         
-        # Extract URLs from company website
-        if company.website:
-            html = self.fetch_url(company.website)
-            if html:
-                # Find partner/customer pages
-                partner_patterns = [
-                    r'<a[^>]+href="([^"]+)"[^>]*>.*?partners?.*?</a>',
-                    r'<a[^>]+href="([^"]+)"[^>]*>.*?customers?.*?</a>',
-                    r'<a[^>]+href="([^"]+)"[^>]*>.*?clients?.*?</a>'
-                ]
-                
-                for pattern in partner_patterns:
-                    matches = re.findall(pattern, html, re.IGNORECASE | re.DOTALL)
-                    related_urls.extend(matches)
+        # Extract company names from various fields
+        related_names = []
+        if company.competitors:
+            related_names.extend(company.competitors)
+        if company.partnerships:
+            related_names.extend(company.partnerships)
+        if company.customers:
+            related_names.extend(company.customers)
         
-        # Remove duplicates and validate URLs
-        unique_urls = []
-        for url in related_urls:
-            if url not in unique_urls and url not in self.processed_urls:
-                if url.startswith('http') and any(tld in url for tld in ['.com', '.de', '.co.uk', '.fr', '.it', '.es', '.nl', '.se', '.dk', '.no', '.fi', '.ch', '.at', '.be', '.pl', '.ie', '.gr', '.pt', '.cz', '.hu', '.ro', '.bg', '.hr', '.si', '.sk', '.lt', '.lv', '.ee', '.lu', '.mt', '.cy']):
-                    unique_urls.append(url)
+        # Convert names to potential URLs
+        for name in related_names[:5]:  # Limit to avoid too many requests
+            # Simple URL construction
+            clean_name = re.sub(r'[^a-zA-Z0-9]', '', name.lower())
+            potential_urls = [
+                f"https://www.{clean_name}.com",
+                f"https://www.{clean_name}.de",
+                f"https://www.{clean_name}.co.uk"
+            ]
+            related_urls.extend(potential_urls)
         
-        return unique_urls[:5]  # Limit to top 5 related companies
-    
+        return related_urls[:10]  # Limit discovered URLs
+
     def process_company_urls(self, urls: List[str]) -> None:
-        """Process a list of company URLs with enhanced error handling and progress tracking."""
-        
+        """Process a list of company URLs with enhanced error handling and reporting."""
         total_urls = len(urls)
-        processed_count = 0
-        success_count = 0
+        successful_extractions = 0
         
-        print(f"🚀 Processing {total_urls} company URLs...")
+        print(f"\n📊 PROCESSING {total_urls} HEALTHCARE COMPANIES")
+        print("=" * 70)
         
         for i, url in enumerate(urls, 1):
+            if url in self.processed_urls:
+                continue
+                
+            print(f"\n[{i:3d}/{total_urls}] Processing: {url}")
+            
             try:
-                # Skip if already processed
-                if url in self.processed_urls:
-                    continue
-                
-                print(f"📊 Processing {i}/{total_urls}: {url}")
-                
-                # Fetch website content
                 html = self.fetch_url(url)
                 if not html:
-                    print(f"❌ Failed to fetch content from {url}")
-                    self.failed_urls.add(url)
+                    self.failed_urls.append(url)
+                    print(f"    ❌ Failed to fetch content")
                     continue
                 
-                # Extract company information
                 company = self.extract_company_info(html, url)
                 
-                # Validate company
+                # Validate company data
                 if self.validate_company(company):
                     self.companies.append(company)
-                    self.company_urls.add(url)
-                    success_count += 1
-                    print(f"✅ Successfully extracted: {company.name} (Quality: {company.data_quality_score}%)")
-                    
-                    # Discover related companies (limited to avoid infinite loops)
-                    if len(self.companies) < 200:  # Only discover more if we have less than 200 companies
-                        related_urls = self.discover_intelligent_related_companies(company)
-                        for related_url in related_urls:
-                            if related_url not in self.processed_urls and related_url not in urls:
-                                urls.append(related_url)  # Add to processing queue
+                    successful_extractions += 1
+                    print(f"    ✅ {company.name} ({company.country}) - {company.category}")
+                    print(f"       Quality: {company.data_quality_score:.1f}% | Completeness: {company.completeness_score:.1f}%")
                 else:
-                    print(f"⚠️ Company validation failed for {url}")
+                    self.failed_urls.append(url)
+                    print(f"    ⚠️  Validation failed")
                 
                 self.processed_urls.add(url)
-                processed_count += 1
                 
-                # Add delay to be respectful to servers
-                time.sleep(random.uniform(1, 2))
-                
-                # Progress update
-                if processed_count % 10 == 0:
-                    print(f"📈 Progress: {processed_count}/{total_urls} processed, {success_count} successful")
+                # Rate limiting
+                time.sleep(0.5)
                 
             except Exception as e:
-                print(f"🔴 Error processing {url}: {e}")
-                self.failed_urls.add(url)
-                continue
+                print(f"    ❌ Error processing {url}: {str(e)}")
+                self.failed_urls.append(url)
         
-        print(f"🎉 Processing complete: {success_count}/{processed_count} companies successfully extracted")
-    
+        print(f"\n📈 EXTRACTION SUMMARY:")
+        print(f"   Successful: {successful_extractions}/{total_urls} ({(successful_extractions/total_urls)*100:.1f}%)")
+        print(f"   Failed: {len(self.failed_urls)}")
+
     def validate_company(self, company: SuperHealthcareCompany) -> bool:
-        """Enhanced company validation with configurable criteria."""
-        
-        # Basic validation criteria
-        if not company.name or company.name == "Unknown Company":
+        """Validate extracted company data."""
+        # Must have name and basic info
+        if not company.name or len(company.name) < 2:
             return False
         
-        if not company.website or not company.website.startswith('http'):
+        # Filter out obvious errors
+        if any(term in company.name.lower() for term in ['error', '404', 'not found', 'page not found']):
             return False
         
-        # Healthcare relevance validation
-        if not company.category:
-            return False
+        # Must be healthcare related
+        healthcare_keywords = [
+            'health', 'medical', 'clinic', 'hospital', 'pharma', 'biotech',
+            'medicine', 'therapy', 'diagnostic', 'care', 'wellness'
+        ]
         
-        # Quality threshold (lenient)
-        if company.data_quality_score < 25:
-            return False
-        
-        # Check for duplicate names
-        existing_names = [c.name.lower() for c in self.companies]
-        if company.name.lower() in existing_names:
+        content_to_check = f"{company.name} {company.description} {company.category}".lower()
+        if not any(keyword in content_to_check for keyword in healthcare_keywords):
             return False
         
         return True
-    
+
     def remove_duplicates(self) -> None:
-        """Remove duplicate companies based on multiple criteria."""
-        
-        print("🔄 Removing duplicate companies...")
-        
-        # Create unique company tracking
+        """Remove duplicate companies based on name and website similarity."""
         unique_companies = []
         seen_names = set()
-        seen_websites = set()
+        seen_domains = set()
         
         for company in self.companies:
-            # Check for duplicates
-            name_key = company.name.lower().strip()
-            website_key = company.website.lower().strip()
+            # Normalize name for comparison
+            normalized_name = re.sub(r'[^a-zA-Z0-9]', '', company.name.lower())
             
-            if name_key not in seen_names and website_key not in seen_websites:
+            # Extract domain from website
+            domain = company.website.split('//')[1].split('/')[0].lower()
+            
+            if normalized_name not in seen_names and domain not in seen_domains:
                 unique_companies.append(company)
-                seen_names.add(name_key)
-                seen_websites.add(website_key)
+                seen_names.add(normalized_name)
+                seen_domains.add(domain)
         
-        duplicates_removed = len(self.companies) - len(unique_companies)
+        removed_count = len(self.companies) - len(unique_companies)
         self.companies = unique_companies
         
-        print(f"✅ Removed {duplicates_removed} duplicate companies")
-    
+        if removed_count > 0:
+            print(f"\n🔄 Removed {removed_count} duplicate companies")
+
     def enrich_company_data(self) -> None:
-        """Enrich company data with additional information."""
+        """Enrich company data with additional intelligence."""
+        print("\n🔬 ENRICHING COMPANY DATA...")
         
-        print("📈 Enriching company data with additional information...")
-        
-        for i, company in enumerate(self.companies):
-            if i % 10 == 0:
-                print(f"📊 Enriching {i+1}/{len(self.companies)} companies...")
-            
-            # Update quality scores after potential enrichment
-            company.data_quality_score = self.calculate_data_quality_score(company)
-            company.completeness_score = self.calculate_completeness_score(company)
-            company.confidence_score = self.calculate_confidence_score(company)
+        for company in self.companies:
+            # Discover related companies
+            related_urls = self.discover_intelligent_related_companies(company)
             
             # Update validation status
-            company.validation_status = "validated" if company.data_quality_score >= 50 else "pending"
-    
+            company.validation_status = "validated" if company.data_quality_score > 50 else "needs_review"
+            company.last_verified = datetime.now().isoformat()
+
     def generate_analytics_report(self) -> str:
         """Generate comprehensive analytics report."""
+        if not self.companies:
+            return "No companies to analyze."
         
-        report = []
-        report.append("# Focused Super Enhanced European Healthcare Companies - Analytics Report")
-        report.append("=" * 80)
-        report.append("")
+        total_companies = len(self.companies)
+        avg_quality = sum(c.data_quality_score for c in self.companies) / total_companies
+        avg_completeness = sum(c.completeness_score for c in self.companies) / total_companies
+        avg_confidence = sum(c.confidence_score for c in self.companies) / total_companies
         
-        # Basic statistics
-        report.append(f"**Total companies:** {len(self.companies)}")
-        report.append(f"**Average quality score:** {sum(c.data_quality_score for c in self.companies) / len(self.companies):.1f}%")
-        report.append(f"**Average completeness score:** {sum(c.completeness_score for c in self.companies) / len(self.companies):.1f}%")
-        report.append(f"**Average confidence score:** {sum(c.confidence_score for c in self.companies) / len(self.companies):.1f}%")
-        report.append("")
+        # Geographic distribution
+        countries = Counter(c.country for c in self.companies if c.country)
+        categories = Counter(c.category for c in self.companies if c.category)
         
         # Quality distribution
-        high_quality = len([c for c in self.companies if c.data_quality_score >= 70])
-        medium_quality = len([c for c in self.companies if 40 <= c.data_quality_score < 70])
-        low_quality = len([c for c in self.companies if c.data_quality_score < 40])
+        high_quality = sum(1 for c in self.companies if c.data_quality_score >= 70)
+        medium_quality = sum(1 for c in self.companies if 40 <= c.data_quality_score < 70)
+        low_quality = sum(1 for c in self.companies if c.data_quality_score < 40)
         
-        report.append("## Quality Distribution")
-        report.append(f"- High quality (70%+): {high_quality}")
-        report.append(f"- Medium quality (40-69%): {medium_quality}")
-        report.append(f"- Low quality (<40%): {low_quality}")
-        report.append("")
-        
-        # Category distribution
-        categories = Counter(c.category for c in self.companies)
-        report.append("## Category Distribution")
-        for category, count in categories.most_common():
-            report.append(f"- {category}: {count}")
-        report.append("")
-        
-        # Country distribution
-        countries = Counter(c.country for c in self.companies if c.country)
-        report.append("## Country Distribution")
-        for country, count in countries.most_common(10):
-            report.append(f"- {country}: {count}")
-        report.append("")
-        
-        # Technology trends
+        # Technology analysis
         all_tech = []
         for company in self.companies:
             all_tech.extend(company.technology_stack)
         tech_trends = Counter(all_tech)
-        report.append("## Technology Trends")
+        
+        report = f"""# Focused Super Enhanced European Healthcare Companies - Analytics Report
+================================================================================
+
+**Total companies:** {total_companies}
+**Average quality score:** {avg_quality:.1f}%
+**Average completeness score:** {avg_completeness:.1f}%
+**Average confidence score:** {avg_confidence:.1f}%
+
+## Quality Distribution
+- High quality (70%+): {high_quality}
+- Medium quality (40-69%): {medium_quality}
+- Low quality (<40%): {low_quality}
+
+## Category Distribution
+"""
+        
+        for category, count in categories.most_common():
+            report += f"- {category}: {count}\n"
+        
+        report += "\n## Country Distribution\n"
+        for country, count in countries.most_common():
+            report += f"- {country}: {count}\n"
+        
+        report += "\n## Technology Trends\n"
         for tech, count in tech_trends.most_common(10):
-            report.append(f"- {tech}: {count} companies")
-        report.append("")
+            report += f"- {tech}: {count} companies\n"
         
-        # Top companies by quality score
+        # Top companies by quality
         top_companies = sorted(self.companies, key=lambda x: x.data_quality_score, reverse=True)[:15]
-        report.append("## Top 15 Companies by Quality Score")
+        report += f"\n## Top 15 Companies by Quality Score\n"
+        
         for i, company in enumerate(top_companies, 1):
-            report.append(f"{i}. {company.name} ({company.data_quality_score}%) - {company.category}")
-        report.append("")
+            report += f"{i}. {company.name} ({company.data_quality_score:.1f}%) - {company.category}\n"
         
-        # Processing statistics
-        report.append("## Processing Statistics")
-        report.append(f"- Total URLs processed: {len(self.processed_urls)}")
-        report.append(f"- Successful extractions: {len(self.companies)}")
-        report.append(f"- Failed URLs: {len(self.failed_urls)}")
-        report.append(f"- Success rate: {(len(self.companies) / len(self.processed_urls) * 100):.1f}%")
-        report.append("")
+        report += f"""
+## Processing Statistics
+- Total URLs processed: {len(self.processed_urls)}
+- Successful extractions: {total_companies}
+- Failed URLs: {len(self.failed_urls)}
+- Success rate: {(total_companies/(len(self.processed_urls)+len(self.failed_urls)))*100:.1f}%
+
+## Data Freshness
+- Last updated: {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
+- All data is real-time and freshly scraped
+
+"""
         
-        # Data freshness
-        report.append("## Data Freshness")
-        report.append(f"- Last updated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-        report.append(f"- All data is real-time and freshly scraped")
-        report.append("")
-        
-        return "\n".join(report)
-    
+        return report
+
     def save_results(self) -> None:
-        """Save results in multiple formats with enhanced file organization."""
+        """Save extraction results to multiple formats."""
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         
-        # Create output directory
-        output_dir = Path("output")
-        output_dir.mkdir(exist_ok=True)
+        # Ensure output directory exists
+        Path("output").mkdir(exist_ok=True)
         
-        # Prepare data for export
-        companies_data = []
-        for company in self.companies:
-            company_dict = asdict(company)
-            # Convert lists to comma-separated strings for CSV
-            for key, value in company_dict.items():
-                if isinstance(value, list):
-                    company_dict[key] = ", ".join(str(v) for v in value)
-            companies_data.append(company_dict)
-        
-        # Save CSV
-        csv_file = output_dir / "focused_super_enhanced_healthcare_companies.csv"
-        with open(csv_file, 'w', newline='', encoding='utf-8') as f:
-            if companies_data:
-                writer = csv.DictWriter(f, fieldnames=companies_data[0].keys())
+        # Save to CSV
+        csv_filename = f"output/focused_super_enhanced_healthcare_companies_{timestamp}.csv"
+        with open(csv_filename, 'w', newline='', encoding='utf-8') as csvfile:
+            if self.companies:
+                # Convert dataclass to dict and handle lists
+                fieldnames = list(asdict(self.companies[0]).keys())
+                writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
                 writer.writeheader()
-                writer.writerows(companies_data)
+                
+                for company in self.companies:
+                    company_dict = asdict(company)
+                    # Convert lists to comma-separated strings
+                    for key, value in company_dict.items():
+                        if isinstance(value, list):
+                            company_dict[key] = ', '.join(str(v) for v in value)
+                    writer.writerow(company_dict)
         
-        # Save JSON
-        json_file = output_dir / "focused_super_enhanced_healthcare_companies.json"
-        with open(json_file, 'w', encoding='utf-8') as f:
-            json.dump([asdict(company) for company in self.companies], f, indent=2, ensure_ascii=False)
+        # Save to JSON
+        json_filename = f"output/focused_super_enhanced_healthcare_companies_{timestamp}.json"
+        with open(json_filename, 'w', encoding='utf-8') as jsonfile:
+            json.dump([asdict(company) for company in self.companies], jsonfile, 
+                     indent=2, ensure_ascii=False, default=str)
         
         # Save analytics report
-        analytics_report = self.generate_analytics_report()
-        analytics_file = output_dir / "focused_super_enhanced_analytics_report.md"
-        with open(analytics_file, 'w', encoding='utf-8') as f:
-            f.write(analytics_report)
+        analytics_filename = f"output/focused_super_enhanced_analytics_report_{timestamp}.md"
+        with open(analytics_filename, 'w', encoding='utf-8') as reportfile:
+            reportfile.write(self.generate_analytics_report())
         
         # Save quality report
-        quality_report = self.generate_quality_report()
-        quality_file = output_dir / "focused_super_enhanced_quality_report.txt"
-        with open(quality_file, 'w', encoding='utf-8') as f:
-            f.write(quality_report)
+        quality_filename = f"output/focused_super_enhanced_quality_report_{timestamp}.txt"
+        with open(quality_filename, 'w', encoding='utf-8') as qualityfile:
+            qualityfile.write(self.generate_quality_report())
         
-        print(f"✅ Results saved to {output_dir}/")
-        print(f"📊 CSV: {csv_file}")
-        print(f"📊 JSON: {json_file}")
-        print(f"📊 Analytics Report: {analytics_file}")
-        print(f"📊 Quality Report: {quality_file}")
-    
+        print(f"\n💾 RESULTS SAVED:")
+        print(f"📊 CSV: {csv_filename}")
+        print(f"📋 JSON: {json_filename}")
+        print(f"📈 Analytics: {analytics_filename}")
+        print(f"🔍 Quality Report: {quality_filename}")
+
     def generate_quality_report(self) -> str:
-        """Generate detailed quality report."""
+        """Generate detailed quality assessment report."""
+        if not self.companies:
+            return "No companies to analyze."
         
-        report = []
-        report.append("Focused Super Enhanced European Healthcare Companies - Quality Report")
-        report.append("=" * 80)
-        report.append("")
-        
-        # Basic statistics
-        report.append(f"Total companies: {len(self.companies)}")
-        report.append(f"Average quality score: {sum(c.data_quality_score for c in self.companies) / len(self.companies):.1f}%")
-        report.append(f"Average completeness score: {sum(c.completeness_score for c in self.companies) / len(self.companies):.1f}%")
-        report.append(f"Average confidence score: {sum(c.confidence_score for c in self.companies) / len(self.companies):.1f}%")
-        report.append("")
+        total_companies = len(self.companies)
+        avg_quality = sum(c.data_quality_score for c in self.companies) / total_companies
+        avg_completeness = sum(c.completeness_score for c in self.companies) / total_companies
+        avg_confidence = sum(c.confidence_score for c in self.companies) / total_companies
         
         # Quality distribution
-        high_quality = len([c for c in self.companies if c.data_quality_score >= 70])
-        medium_quality = len([c for c in self.companies if 40 <= c.data_quality_score < 70])
-        low_quality = len([c for c in self.companies if c.data_quality_score < 40])
+        high_quality = sum(1 for c in self.companies if c.data_quality_score >= 70)
+        medium_quality = sum(1 for c in self.companies if 40 <= c.data_quality_score < 70)
+        low_quality = sum(1 for c in self.companies if c.data_quality_score < 40)
         
-        report.append("Quality Distribution:")
-        report.append(f"High quality (70%+): {high_quality}")
-        report.append(f"Medium quality (40-69%): {medium_quality}")
-        report.append(f"Low quality (<40%): {low_quality}")
-        report.append("")
+        # Country and category analysis
+        countries = Counter(c.country for c in self.companies if c.country)
+        categories = Counter(c.category for c in self.companies if c.category)
         
-        # Category distribution
-        categories = Counter(c.category for c in self.companies)
-        report.append("Category Distribution:")
+        # Top companies
+        top_companies = sorted(self.companies, key=lambda x: x.data_quality_score, reverse=True)
+        
+        report = f"""Focused Super Enhanced European Healthcare Companies - Quality Report
+================================================================================
+
+Total companies: {total_companies}
+Average quality score: {avg_quality:.1f}%
+Average completeness score: {avg_completeness:.1f}%
+Average confidence score: {avg_confidence:.1f}%
+
+Quality Distribution:
+High quality (70%+): {high_quality}
+Medium quality (40-69%): {medium_quality}
+Low quality (<40%): {low_quality}
+
+Category Distribution:
+"""
+        
         for category, count in categories.most_common():
-            report.append(f"{category}: {count}")
-        report.append("")
+            report += f"{category}: {count}\n"
         
-        # Top companies by quality score
-        top_companies = sorted(self.companies, key=lambda x: x.data_quality_score, reverse=True)[:20]
-        report.append("Top 20 Companies by Quality Score:")
-        for i, company in enumerate(top_companies, 1):
-            report.append(f"{i}. {company.name} ({company.data_quality_score}%) - {company.category} - {company.location}")
-        report.append("")
+        report += "\nTop 20 Companies by Quality Score:\n"
+        for i, company in enumerate(top_companies[:20], 1):
+            report += f"{i}. {company.name} ({company.data_quality_score:.1f}%) - {company.category} - {company.country}\n"
         
-        # Data completeness analysis
-        report.append("Data Completeness Analysis:")
-        fields = ['description', 'location', 'founded_year', 'employees', 'funding_amount', 'ceo', 'email', 'phone']
-        for field in fields:
-            completed = len([c for c in self.companies if getattr(c, field)])
-            percentage = (completed / len(self.companies)) * 100
-            report.append(f"{field}: {completed}/{len(self.companies)} ({percentage:.1f}%)")
-        
-        return "\n".join(report)
-    
+        return report
+
     def run(self, initial_urls: List[str]) -> None:
-        """Run the focused super enhanced scraping process."""
-        
-        print("🚀 Starting Focused Super Enhanced Healthcare Company Scraper")
-        print("=" * 80)
-        
+        """Main execution method with comprehensive processing pipeline."""
         start_time = time.time()
         
-        # Process provided URLs
+        print(f"\n🎯 STARTING COMPREHENSIVE HEALTHCARE INTELLIGENCE EXTRACTION")
+        print(f"📊 Input URLs: {len(initial_urls)}")
+        
+        # Phase 1: Process initial URLs
         self.process_company_urls(initial_urls)
         
-        # Remove duplicates
+        # Phase 2: Remove duplicates
         self.remove_duplicates()
         
-        # Enrich data
+        # Phase 3: Enrich data
         self.enrich_company_data()
         
-        # Save results
-        self.save_results()
-        
-        # Final statistics
+        # Phase 4: Generate reports and save results
         end_time = time.time()
-        processing_time = end_time - start_time
+        duration = end_time - start_time
         
-        print("\n🎉 SCRAPING COMPLETE!")
-        print("=" * 80)
-        print(f"📊 Total companies extracted: {len(self.companies)}")
-        print(f"📈 Average quality score: {sum(c.data_quality_score for c in self.companies) / len(self.companies):.1f}%")
-        print(f"🌍 Countries covered: {len(set(c.country for c in self.companies if c.country))}")
-        print(f"🏥 Healthcare categories: {len(set(c.category for c in self.companies))}")
-        print(f"⏱️ Processing time: {processing_time:.1f} seconds")
-        print(f"🎯 Success rate: {(len(self.companies) / len(self.processed_urls) * 100):.1f}%")
+        print(f"\n" + "=" * 70)
+        print(f"✅ FOCUSED SUPER ENHANCED EXTRACTION COMPLETE!")
+        print(f"=" * 70)
+        print(f"⏱️  Total Duration: {duration:.2f} seconds")
+        print(f"🏢 Companies Extracted: {len(self.companies)}")
+        print(f"🌐 URLs Processed: {len(self.processed_urls)}")
+        print(f"❌ Failed URLs: {len(self.failed_urls)}")
+        print(f"📈 Success Rate: {(len(self.companies)/(len(self.processed_urls)+len(self.failed_urls)))*100:.1f}%")
         
-        # Category breakdown
-        categories = Counter(c.category for c in self.companies)
-        print("\n📊 Category Breakdown:")
-        for category, count in categories.most_common():
-            print(f"   {category}: {count} companies")
+        if self.companies:
+            avg_quality = sum(c.data_quality_score for c in self.companies) / len(self.companies)
+            print(f"🎯 Average Quality Score: {avg_quality:.1f}%")
+            
+            # Show top companies
+            top_companies = sorted(self.companies, key=lambda x: x.data_quality_score, reverse=True)[:5]
+            print(f"\n🏆 TOP 5 COMPANIES BY QUALITY:")
+            for i, company in enumerate(top_companies, 1):
+                print(f"   {i}. {company.name} ({company.data_quality_score:.1f}%) - {company.category}")
         
-        # Top quality companies
-        top_companies = sorted(self.companies, key=lambda x: x.data_quality_score, reverse=True)[:5]
-        print(f"\n🏆 Top 5 Quality Companies:")
-        for i, company in enumerate(top_companies, 1):
-            print(f"   {i}. {company.name} ({company.data_quality_score}%) - {company.category}")
+        self.save_results()
 
 def main():
     """Main function to run the focused super enhanced scraper."""
@@ -1369,42 +1367,29 @@ def main():
     # Initialize scraper
     scraper = FocusedSuperScraper()
     
-    # Provided URLs from user
-    initial_urls = [
-        "https://www.healthtec.sg",
-        "https://www.deepc.ai/",
-        "https://www.doctolib.de/",
-        "https://www.nect.com/",
-        "https://www.nuveon.de/",
-        "https://www.teladochealth.com/",
-        "https://www.psious.com/",
-        "https://www.feedbackmedical.com/",
-        "https://www.clue.care/",
-        "https://www.doctorly.de/",
-        "https://www.kaia-health.com/",
-        "https://www.oviva.com/",
-        "https://www.mediteo.com/",
-        "https://www.thryve.health/",
-        "https://www.carevive.com/",
-        "https://www.medwing.com/",
-        "https://www.mondosano.de/",
-        "https://www.medlanes.com/",
-        "https://www.zavamed.com/",
-        "https://www.fernarzt.com/",
-        "https://www.teleclinic.com/",
-        "https://www.minddoc.com/",
-        "https://www.selfapy.com/",
-        "https://www.mentalis.io/",
-        "https://www.cara.care/",
-        "https://www.mika.health/",
-        "https://www.heartbeat-labs.com/",
-        "https://www.recare.com/",
-        "https://www.medicalvalues.com/",
-        "https://www.getdoctorly.com/"
-    ]
+    # Get comprehensive URL list (350+ companies instead of 30!)
+    print("🔍 LOADING COMPREHENSIVE HEALTHCARE COMPANY DATABASE...")
+    all_urls = get_all_healthcare_urls()
+    german_urls = get_german_healthcare_urls()
+    
+    print(f"📊 Available URLs:")
+    print(f"   📍 Total European Healthcare: {len(all_urls)} companies")
+    print(f"   🇩🇪 German Healthcare Focus: {len(german_urls)} companies")
+    
+    # Choose processing strategy
+    print(f"\n🎯 PROCESSING STRATEGY:")
+    print(f"   Using COMPREHENSIVE European dataset ({len(all_urls)} URLs)")
+    print(f"   This is {len(all_urls)/30:.1f}x MORE than previous 30 URLs!")
+    
+    # Process a subset for demonstration (first 100 companies)
+    # In production, you would process all URLs
+    sample_urls = all_urls[:100]  # Process first 100 for demo
+    
+    print(f"\n🚀 DEMO: Processing first {len(sample_urls)} companies...")
+    print(f"   (Full dataset available: {len(all_urls)} companies)")
     
     # Run the scraper
-    scraper.run(initial_urls)
+    scraper.run(sample_urls)
 
 if __name__ == "__main__":
     main()
