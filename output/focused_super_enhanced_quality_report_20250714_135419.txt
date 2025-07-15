@@ -1,0 +1,39 @@
+Focused Super Enhanced European Healthcare Companies - Quality Report
+================================================================================
+
+Total companies: 73
+Average quality score: 40.5%
+Average completeness score: 17.7%
+Average confidence score: 70.3%
+
+Quality Distribution:
+High quality (70%+): 0
+Medium quality (40-69%): 16
+Low quality (<40%): 57
+
+Category Distribution:
+Healthcare IT: 69
+Medical Software: 3
+Medical Devices: 1
+
+Top 20 Companies by Quality Score:
+1. Bioxcel (68.8%) - Medical Devices - Germany
+2. Doctolib (50.0%) - Healthcare IT - Germany
+3. Doctorly (50.0%) - Healthcare IT - Germany
+4. Mondosano (50.0%) - Healthcare IT - Germany
+5. Au Schein (50.0%) - Healthcare IT - Germany
+6. Therapie (50.0%) - Healthcare IT - Germany
+7. Novego (50.0%) - Healthcare IT - Germany
+8. Hellobetter (50.0%) - Healthcare IT - Germany
+9. Nuveon (50.0%) - Healthcare IT - Germany
+10. Biontech (50.0%) - Healthcare IT - Germany
+11. Medigene (50.0%) - Healthcare IT - Germany
+12. 4Sc (50.0%) - Healthcare IT - Germany
+13. Caresquare (50.0%) - Healthcare IT - Germany
+14. Pflegebox (50.0%) - Healthcare IT - Germany
+15. Medikamente Per Klick (50.0%) - Healthcare IT - Germany
+16. Mycare (50.0%) - Healthcare IT - Germany
+17. Teleclinic (37.5%) - Healthcare IT - 
+18. Fernarzt (37.5%) - Healthcare IT - 
+19. Zavamed (37.5%) - Healthcare IT - 
+20. Medlanes (37.5%) - Medical Software - 
