@@ -50,16 +50,34 @@ class ImprovedStartupDiscovery:
             'duckduckgo': {'success': 0, 'attempts': 0}
         }
         
-        # Health-related keywords for validation
-        self.health_keywords = [
-            'health', 'medical', 'medicine', 'clinic', 'hospital', 'patient', 
-            'therapy', 'treatment', 'diagnostic', 'pharma', 'biotech',
-            'telemedicine', 'digital health', 'e-health', 'medtech',
-            'therapeutics', 'healthcare', 'wellness', 'rehabilitation',
-            'ai', 'artificial intelligence', 'data analytics', 'platform'
-        ]
+        # Multi-language health-related keywords for validation
+        self.health_keywords = {
+            'english': [
+                'health', 'medical', 'medicine', 'clinic', 'hospital', 'patient', 
+                'therapy', 'treatment', 'diagnostic', 'pharma', 'biotech',
+                'telemedicine', 'digital health', 'e-health', 'medtech',
+                'therapeutics', 'healthcare', 'wellness', 'rehabilitation',
+                'ai', 'artificial intelligence', 'data analytics', 'platform'
+            ],
+            'german': [
+                'gesundheit', 'medizin', 'medizinisch', 'klinik', 'krankenhaus', 'patient',
+                'therapie', 'behandlung', 'diagnose', 'pharma', 'biotechnologie',
+                'telemedizin', 'digitale gesundheit', 'e-health', 'medtech',
+                'therapeutika', 'gesundheitswesen', 'wellness', 'rehabilitation',
+                'ki', 'künstliche intelligenz', 'datenanalyse', 'plattform',
+                'arzneimittel', 'heilung', 'vorsorge', 'pflege', 'chirurgie'
+            ],
+            'french': [
+                'santé', 'médical', 'médecine', 'clinique', 'hôpital', 'patient',
+                'thérapie', 'traitement', 'diagnostic', 'pharma', 'biotechnologie',
+                'télémédecine', 'santé numérique', 'e-santé', 'medtech',
+                'thérapeutique', 'soins de santé', 'bien-être', 'réhabilitation',
+                'ia', 'intelligence artificielle', 'analyse de données', 'plateforme',
+                'médicament', 'guérison', 'prévention', 'soins', 'chirurgie'
+            ]
+        }
 
-    def canonicalize_domain(self, url: str) -> str:
+    def canonicalize_domain(self, url: str, preserve_valuable_paths: bool = False) -> str:
         """Canonicalize domain to avoid duplicates (remove www, trailing paths, etc.)"""
         try:
             parsed = urlparse(url)
@@ -71,11 +89,52 @@ class ImprovedStartupDiscovery:
             # Use https as default scheme
             scheme = 'https'
             
-            # Return canonical URL (domain only, no paths)
-            canonical_url = f"{scheme}://{domain}"
+            if preserve_valuable_paths and parsed.path and parsed.path != '/':
+                # For stronger deduplication, preserve meaningful paths
+                # like /product, /platform, /app, etc.
+                path = parsed.path.rstrip('/')
+                valuable_paths = ['/product', '/platform', '/app', '/solution', '/service', '/about', '/company']
+                if any(path.startswith(vp) for vp in valuable_paths):
+                    canonical_url = f"{scheme}://{domain}{path}"
+                else:
+                    canonical_url = f"{scheme}://{domain}"
+            else:
+                # Return canonical URL (domain only, no paths)
+                canonical_url = f"{scheme}://{domain}"
+            
             return canonical_url
         except Exception:
             return url
+    
+    def extract_page_signature(self, url: str) -> Dict:
+        """Extract page title and meta description for stronger deduplication"""
+        try:
+            response = self.session.get(url, timeout=10)
+            if response.status_code == 200:
+                soup = BeautifulSoup(response.content, 'html.parser')
+                
+                # Extract title
+                title_tag = soup.find('title')
+                title = title_tag.get_text().strip() if title_tag else ''
+                
+                # Extract meta description
+                meta_desc = soup.find('meta', attrs={'name': 'description'})
+                description = meta_desc.get('content', '').strip() if meta_desc else ''
+                
+                # Extract h1 for additional context
+                h1_tag = soup.find('h1')
+                h1_text = h1_tag.get_text().strip() if h1_tag else ''
+                
+                return {
+                    'title': title[:200],  # Limit length
+                    'description': description[:300],
+                    'h1': h1_text[:100],
+                    'signature': f"{title[:50]}|{description[:100]}".lower()
+                }
+        except Exception as e:
+            logger.debug(f"Could not extract page signature for {url}: {str(e)}")
+        
+        return {'title': '', 'description': '', 'h1': '', 'signature': ''}
     
     def smart_delay(self, base_delay: float = None) -> None:
         """Enhanced throttling with random jitter to avoid bot detection"""
@@ -106,7 +165,7 @@ class ImprovedStartupDiscovery:
             }
 
     def validate_health_content(self, url: str) -> Dict:
-        """Validate if the page content is health/med-related"""
+        """Validate if the page content is health/med-related using multi-language keywords"""
         try:
             response = self.session.get(url, timeout=10)
             if response.status_code == 200:
@@ -116,21 +175,49 @@ class ImprovedStartupDiscovery:
                 # Extract text content
                 text_content = soup.get_text().lower()
                 
-                # Count health keywords
-                health_score = sum(1 for keyword in self.health_keywords if keyword in text_content)
+                # Detect country from domain or content first
+                domain = urlparse(url).netloc
+                country = self.detect_country(domain, text_content)
+                
+                # Choose appropriate keyword sets based on country/domain
+                keyword_sets_to_use = ['english']  # Always include English
+                
+                if '.de' in domain.lower() or 'german' in country.lower():
+                    keyword_sets_to_use.append('german')
+                if '.fr' in domain.lower() or 'french' in country.lower() or 'france' in country.lower():
+                    keyword_sets_to_use.append('french')
+                
+                # Count health keywords across all relevant languages
+                total_health_score = 0
+                keyword_matches = {}
+                
+                for lang in keyword_sets_to_use:
+                    lang_score = 0
+                    lang_matches = []
+                    for keyword in self.health_keywords[lang]:
+                        if keyword in text_content:
+                            lang_score += 1
+                            lang_matches.append(keyword)
+                    
+                    total_health_score += lang_score
+                    if lang_matches:
+                        keyword_matches[lang] = lang_matches[:5]  # Store top 5 matches per language
                 
                 # Extract meta description for additional context
                 meta_desc = soup.find('meta', attrs={'name': 'description'})
                 meta_content = meta_desc.get('content', '') if meta_desc else ''
                 
-                # Detect country from domain or content
-                domain = urlparse(url).netloc
-                country = self.detect_country(domain, text_content)
+                # Extract title for stronger deduplication
+                title_tag = soup.find('title')
+                page_title = title_tag.get_text().strip() if title_tag else ''
                 
                 return {
-                    'health_score': health_score,
-                    'is_health_related': health_score >= 3,
+                    'health_score': total_health_score,
+                    'is_health_related': total_health_score >= 3,
+                    'keyword_matches': keyword_matches,
+                    'languages_detected': keyword_sets_to_use,
                     'meta_description': meta_content[:200],
+                    'page_title': page_title[:150],
                     'country': country,
                     'discovered_at': datetime.now().isoformat()
                 }
@@ -140,7 +227,10 @@ class ImprovedStartupDiscovery:
         return {
             'health_score': 0,
             'is_health_related': False,
+            'keyword_matches': {},
+            'languages_detected': ['english'],
             'meta_description': '',
+            'page_title': '',
             'country': 'Unknown',
             'discovered_at': datetime.now().isoformat()
         }
@@ -468,39 +558,51 @@ class ImprovedStartupDiscovery:
             logger.warning(f"  ⚠️ No GitHub token found, using anonymous access (limited to {query_limit} queries)")
         
         for i, query in enumerate(tqdm(github_queries[:query_limit], desc="GitHub queries")):
-            try:
-                self.smart_delay(1.0)  # Respectful delay with jitter
-                api_url = f"https://api.github.com/search/repositories?q={query.replace(' ', '+')}&sort=stars&order=desc&per_page=30"
-                
-                response = self.session.get(api_url, headers=headers, timeout=10)
-                
-                if response.status_code == 200:
-                    data = response.json()
-                    for repo in data.get('items', []):
-                        # Check for homepage URL
-                        homepage = repo.get('homepage')
-                        if homepage and homepage.startswith('http'):
-                            # Validate it's not just GitHub or common platforms
-                            domain = urlparse(homepage).netloc
-                            if not any(platform in domain for platform in ['github.com', 'gitlab.com', 'npmjs.com']):
-                                canonical_url = self.canonicalize_domain(homepage)
-                                results.append({
-                                    'url': canonical_url,
-                                    'source': f'GitHub: {query}',
-                                    'confidence': 6,
-                                    'category': 'GitHub Project',
-                                    'github_stars': repo.get('stargazers_count', 0),
-                                    'github_repo': repo.get('full_name', '')
-                                })
-                elif response.status_code == 403:
-                    logger.warning("GitHub rate limit exceeded")
-                    break
-                else:
-                    logger.warning(f"GitHub API error: {response.status_code}")
+            max_retries = 1
+            retry_count = 0
+            
+            while retry_count <= max_retries:
+                try:
+                    self.smart_delay(1.0)  # Respectful delay with jitter
+                    api_url = f"https://api.github.com/search/repositories?q={query.replace(' ', '+')}&sort=stars&order=desc&per_page=30"
                     
-            except Exception as e:
-                logger.error(f"GitHub search error: {str(e)}")
-                continue
+                    response = self.session.get(api_url, headers=headers, timeout=10)
+                    
+                    if response.status_code == 200:
+                        data = response.json()
+                        for repo in data.get('items', []):
+                            # Check for homepage URL
+                            homepage = repo.get('homepage')
+                            if homepage and homepage.startswith('http'):
+                                # Validate it's not just GitHub or common platforms
+                                domain = urlparse(homepage).netloc
+                                if not any(platform in domain for platform in ['github.com', 'gitlab.com', 'npmjs.com']):
+                                    canonical_url = self.canonicalize_domain(homepage)
+                                    results.append({
+                                        'url': canonical_url,
+                                        'source': f'GitHub: {query}',
+                                        'confidence': 6,
+                                        'category': 'GitHub Project',
+                                        'github_stars': repo.get('stargazers_count', 0),
+                                        'github_repo': repo.get('full_name', '')
+                                    })
+                        break  # Success, exit retry loop
+                        
+                    elif response.status_code == 403:
+                        if retry_count < max_retries:
+                            logger.warning(f"GitHub rate limit exceeded for query '{query}', retrying in 60s...")
+                            time.sleep(60)  # Wait 60 seconds before retry
+                            retry_count += 1
+                        else:
+                            logger.error(f"GitHub rate limit exceeded for query '{query}', skipping after retry")
+                            break
+                    else:
+                        logger.warning(f"GitHub API error: {response.status_code}")
+                        break
+                        
+                except Exception as e:
+                    logger.error(f"GitHub search error: {str(e)}")
+                    break
         
         logger.info(f"✅ Found {len(results)} URLs from GitHub")
         return results
@@ -719,15 +821,49 @@ class ImprovedStartupDiscovery:
         # 7. Final consolidation
         all_results = verified_results + discovered_results + generated_results
         
-        # Remove duplicates using canonicalized URLs
+        # Remove duplicates using stronger deduplication (domain + title/meta)
         unique_results = []
-        seen_canonical_urls = set()
+        seen_signatures = set()
+        seen_domains = {}
+        
         for result in sorted(all_results, key=lambda x: x['confidence'], reverse=True):
-            canonical_url = self.canonicalize_domain(result['url'])
-            if canonical_url not in seen_canonical_urls:
-                seen_canonical_urls.add(canonical_url)
-                result['url'] = canonical_url  # Ensure URL is canonical
-                unique_results.append(result)
+            canonical_url = self.canonicalize_domain(result['url'], preserve_valuable_paths=True)
+            domain_only = self.canonicalize_domain(result['url'], preserve_valuable_paths=False)
+            
+            # Create signature for stronger deduplication
+            page_title = result.get('page_title', '')
+            meta_desc = result.get('meta_description', '')
+            signature = f"{domain_only}|{page_title[:50]}|{meta_desc[:100]}".lower()
+            
+            # Check if we've seen this exact signature
+            if signature in seen_signatures:
+                continue
+            
+            # Check if we have the same domain with different valuable content
+            if domain_only in seen_domains:
+                existing_result = seen_domains[domain_only]
+                existing_title = existing_result.get('page_title', '').lower()
+                existing_desc = existing_result.get('meta_description', '').lower()
+                current_title = page_title.lower()
+                current_desc = meta_desc.lower()
+                
+                # Only keep both if titles/descriptions are significantly different
+                title_similarity = len(set(existing_title.split()) & set(current_title.split()))
+                desc_similarity = len(set(existing_desc.split()) & set(current_desc.split()))
+                
+                # If content is too similar, skip the duplicate
+                if (title_similarity > 2 and len(current_title.split()) > 3) or \
+                   (desc_similarity > 5 and len(current_desc.split()) > 10):
+                    logger.debug(f"Skipping similar content for {domain_only}: {page_title[:30]}")
+                    continue
+                else:
+                    logger.debug(f"Preserving different content for {domain_only}: {page_title[:30]}")
+            
+            # Add to results
+            seen_signatures.add(signature)
+            seen_domains[domain_only] = result
+            result['url'] = canonical_url  # Ensure URL is canonical
+            unique_results.append(result)
         
         end_time = time.time()
         
@@ -815,12 +951,20 @@ class ImprovedStartupDiscovery:
             
         with open(filename, 'w', newline='', encoding='utf-8') as csvfile:
             fieldnames = ['url', 'source', 'confidence', 'category', 'method', 'is_alive', 
-                         'status_code', 'health_score', 'is_health_related', 'country', 'discovered_at']
+                         'status_code', 'health_score', 'is_health_related', 'country', 
+                         'page_title', 'meta_description', 'languages_detected', 'keyword_matches',
+                         'discovered_at']
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames, extrasaction='ignore')
             writer.writeheader()
             
             for url_data in urls:
-                writer.writerow(url_data)
+                # Convert lists/dicts to strings for CSV compatibility
+                row = dict(url_data)
+                if 'languages_detected' in row and isinstance(row['languages_detected'], list):
+                    row['languages_detected'] = ', '.join(row['languages_detected'])
+                if 'keyword_matches' in row and isinstance(row['keyword_matches'], dict):
+                    row['keyword_matches'] = str(row['keyword_matches'])
+                writer.writerow(row)
 
     def save_summary_report(self, results: Dict, filename: str, files_created: Dict):
         """Save comprehensive summary report"""
@@ -854,11 +998,14 @@ class ImprovedStartupDiscovery:
             f.write("  ✅ Robust search with fallbacks (Google → Bing → DuckDuckGo)\n")
             f.write("  ✅ Deep pagination support for startup directories\n") 
             f.write("  ✅ URL health checks and validation\n")
-            f.write("  ✅ Enhanced GitHub discovery with API tokens\n")
+            f.write("  ✅ Enhanced GitHub discovery with API tokens + retry logic\n")
             f.write("  ✅ Separated output files by confidence level\n")
             f.write("  ✅ Progress bars and comprehensive logging\n")
-            f.write("  ✅ Content validation for health relevance\n")
+            f.write("  ✅ Multi-language content validation (EN/DE/FR)\n")
+            f.write("  ✅ Stronger deduplication using domain + title/meta\n")
             f.write("  ✅ Country detection from domains and content\n")
+            f.write("  ✅ GitHub rate limit retry handling (60s retry)\n")
+            f.write("  ✅ Preserve valuable different pages on same domain\n")
 
 def main():
     """Main function to run the improved startup discovery"""
@@ -868,7 +1015,9 @@ def main():
     logger.info("  • Robust search with fallbacks + smart ranking")
     logger.info("  • Deep pagination support")
     logger.info("  • URL health checks + domain canonicalization")
-    logger.info("  • Enhanced GitHub discovery")
+    logger.info("  • Enhanced GitHub discovery + retry logic")
+    logger.info("  • Multi-language keyword scanning (EN/DE/FR)")
+    logger.info("  • Stronger deduplication (domain + title/meta)")
     logger.info("  • Separated output files")
     logger.info("  • Progress bars and comprehensive logging")
     logger.info("  • Smart throttling with jitter")

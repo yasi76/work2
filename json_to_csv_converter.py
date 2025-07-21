@@ -42,8 +42,9 @@ def convert_json_to_csv(json_file_path, output_csv_path=None):
         fieldnames = [
             'url', 'source', 'confidence', 'category', 'method',
             'is_alive', 'status_code', 'final_url', 'content_length',
-            'health_score', 'is_health_related', 'meta_description',
-            'country', 'discovered_at', 'github_stars', 'github_repo', 'error'
+            'health_score', 'is_health_related', 'page_title', 'meta_description',
+            'keyword_matches', 'languages_detected', 'country', 'discovered_at', 
+            'github_stars', 'github_repo', 'error'
         ]
         
         # Write CSV file
@@ -56,7 +57,11 @@ def convert_json_to_csv(json_file_path, output_csv_path=None):
                 # Ensure all fields have values (fill missing with empty string)
                 row = {}
                 for field in fieldnames:
-                    row[field] = url_data.get(field, '')
+                    value = url_data.get(field, '')
+                    # Convert lists/dicts to strings for CSV compatibility
+                    if isinstance(value, (list, dict)):
+                        value = str(value)
+                    row[field] = value
                 writer.writerow(row)
         
         print(f"✅ Successfully converted {len(urls)} URLs to CSV")
