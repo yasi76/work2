@@ -201,6 +201,122 @@ def is_company_url(url):
     
     return True
 
+def extract_company_name_from_url(url):
+    """Extract company name from URL domain"""
+    try:
+        domain = urlparse(url).netloc.lower()
+        
+        # Remove www, subdomain prefixes
+        domain = re.sub(r'^(www\.|shop\.|app\.|api\.|blog\.|news\.)', '', domain)
+        
+        # Get the main domain part (before TLD)
+        domain_parts = domain.split('.')
+        if len(domain_parts) >= 2:
+            company_part = domain_parts[0]
+            
+            # Clean up common patterns
+            company_part = re.sub(r'(health|medical|pharma|biotech|med|care)$', '', company_part)
+            company_part = company_part.strip('-_')
+            
+            # Capitalize properly
+            if company_part:
+                return company_part.capitalize()
+    
+    except:
+        pass
+    
+    return None
+
+def extract_company_name_from_title(title):
+    """Extract company name from page title"""
+    if not title:
+        return None
+    
+    title = clean_text(title)
+    
+    # Common title patterns to extract company name
+    patterns = [
+        # "Company Name | Tagline" or "Company Name - Tagline"
+        r'^([^||\-–—]+)[\s]*[||\-–—]',
+        # "Company Name: Tagline"
+        r'^([^:]+):',
+        # "Welcome to Company Name" 
+        r'welcome\s+to\s+([^||\-–—]+)',
+        # "Company Name - Official Site"
+        r'^([^||\-–—]+)\s*[\-–—]\s*(official|home|website)',
+        # Just take first part before common separators
+        r'^([^||\-–—\(\[]+)',
+    ]
+    
+    for pattern in patterns:
+        match = re.search(pattern, title, re.IGNORECASE)
+        if match:
+            company_name = match.group(1).strip()
+            
+            # Clean up the extracted name
+            company_name = clean_company_name(company_name)
+            if company_name and len(company_name) > 2:
+                return company_name
+    
+    return None
+
+def extract_company_name_from_meta(content):
+    """Extract company name from meta tags"""
+    meta_patterns = [
+        # og:site_name
+        r'<meta[^>]*property=["\']og:site_name["\'][^>]*content=["\']([^"\']+)["\']',
+        # application-name
+        r'<meta[^>]*name=["\']application-name["\'][^>]*content=["\']([^"\']+)["\']',
+        # author (sometimes company name)
+        r'<meta[^>]*name=["\']author["\'][^>]*content=["\']([^"\']+)["\']',
+        # twitter:site
+        r'<meta[^>]*name=["\']twitter:site["\'][^>]*content=["\']@?([^"\']+)["\']',
+    ]
+    
+    for pattern in meta_patterns:
+        match = re.search(pattern, content, re.IGNORECASE)
+        if match:
+            company_name = clean_text(match.group(1))
+            company_name = clean_company_name(company_name)
+            if company_name and len(company_name) > 2:
+                return company_name
+    
+    return None
+
+def clean_company_name(name):
+    """Clean and normalize company name"""
+    if not name:
+        return None
+    
+    name = clean_text(name)
+    
+    # Remove common suffixes/prefixes
+    name = re.sub(r'\s*[-–—|:]\s*(home|official|website|site).*$', '', name, flags=re.IGNORECASE)
+    name = re.sub(r'^(welcome\s+to\s+)', '', name, flags=re.IGNORECASE)
+    
+    # Remove HTML artifacts
+    name = re.sub(r'[<>]', '', name)
+    
+    # Clean up whitespace
+    name = re.sub(r'\s+', ' ', name)
+    name = name.strip()
+    
+    # Remove single character words at the end
+    name = re.sub(r'\s+[a-zA-Z]\s*$', '', name)
+    
+    return name if len(name) > 2 else None
+
+def is_generic_text(text):
+    """Check if text is too generic to be a company name"""
+    generic_words = [
+        'home', 'about', 'contact', 'welcome', 'page', 'site', 'website',
+        'official', 'login', 'register', 'search', 'menu', 'navigation',
+        'privacy', 'terms', 'conditions', 'policy', 'copyright', 'reserved'
+    ]
+    
+    text_lower = text.lower()
+    return any(word in text_lower for word in generic_words)
+
 def validate_url(url):
     """Validate URL and extract company information"""
     try:
@@ -209,7 +325,28 @@ def validate_url(url):
         if content and str(status_code).startswith('2'):
             # Extract title
             title_match = re.search(r'<title[^>]*>(.*?)</title>', content, re.IGNORECASE | re.DOTALL)
-            title = clean_text(title_match.group(1)) if title_match else "Unknown Company"
+            raw_title = title_match.group(1) if title_match else ""
+            
+            # Extract company name using multiple methods
+            url_name = extract_company_name_from_url(url)
+            title_name = extract_company_name_from_title(raw_title)
+            meta_name = extract_company_name_from_meta(content)
+            
+            # Choose the best company name based on priority and quality
+            candidates = [
+                (meta_name, 'Meta tags'),
+                (title_name, 'Page title'),
+                (url_name, 'URL domain')
+            ]
+            
+            # Pick first non-None candidate
+            company_name = "Unknown Company"
+            extraction_method = "Fallback"
+            for name, method in candidates:
+                if name and len(name) > 2 and not is_generic_text(name):
+                    company_name = name
+                    extraction_method = method
+                    break
             
             # Extract description
             desc_patterns = [
@@ -226,14 +363,14 @@ def validate_url(url):
                     break
             
             # Determine healthcare type and country
-            healthcare_type = determine_healthcare_type(url, content, title)
+            healthcare_type = determine_healthcare_type(url, content, raw_title)
             country = extract_country(url)
             
             # Determine source
             source = "Manual" if url in MANUAL_URLS else "Discovered"
             
             return {
-                'name': title,
+                'name': company_name,
                 'website': url,
                 'description': description,
                 'country': country,
@@ -241,6 +378,8 @@ def validate_url(url):
                 'status': 'Active',
                 'status_code': status_code,
                 'source': source,
+                'extraction_method': extraction_method,
+                'raw_title': clean_text(raw_title)[:100] if raw_title else "",
                 'validated_date': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             }
         else:
@@ -254,9 +393,10 @@ def create_error_record(url, error_msg):
     healthcare_type = determine_healthcare_type(url, "", "")
     country = extract_country(url)
     source = "Manual" if url in MANUAL_URLS else "Discovered"
+    url_name = extract_company_name_from_url(url)
     
     return {
-        'name': 'Error - Could not access',
+        'name': url_name or 'Error - Could not access',
         'website': url,
         'description': f'Error: {error_msg}',
         'country': country,
@@ -264,6 +404,8 @@ def create_error_record(url, error_msg):
         'status': 'Error',
         'status_code': error_msg,
         'source': source,
+        'extraction_method': 'URL domain (error)',
+        'raw_title': '',
         'validated_date': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     }
 
@@ -357,7 +499,7 @@ def save_to_files(companies, base_filename):
     
     # Save to CSV
     with open(csv_filename, 'w', newline='', encoding='utf-8') as csvfile:
-        fieldnames = ['name', 'website', 'description', 'country', 'healthcare_type', 'status', 'status_code', 'source', 'validated_date']
+        fieldnames = ['name', 'website', 'description', 'country', 'healthcare_type', 'status', 'status_code', 'source', 'extraction_method', 'raw_title', 'validated_date']
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         writer.writeheader()
         for company in companies:
