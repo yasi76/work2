@@ -298,11 +298,30 @@ def load_input_data(file_path: str) -> List[Dict]:
     if file_path.endswith('.json'):
         with open(file_path, 'r', encoding='utf-8') as f:
             data = json.load(f)
-            # Handle both list of strings and list of dicts
-            if data and isinstance(data[0], str):
-                # Convert list of URLs to list of dicts
-                return [{'url': url} for url in data]
-            return data
+            
+            # Handle wrapped JSON format with 'urls' key (from discovery script)
+            if isinstance(data, dict):
+                if 'urls' in data:
+                    urls = data['urls']
+                    logger.info(f"Found {len(urls)} URLs in discovery output")
+                    # If urls is a list of strings, convert to list of dicts
+                    if urls and isinstance(urls[0], str):
+                        return [{'url': url} for url in urls]
+                    return urls
+                else:
+                    raise ValueError("Dictionary JSON must contain 'urls' key")
+            
+            # Handle direct list format
+            elif isinstance(data, list):
+                # Handle list of strings
+                if data and isinstance(data[0], str):
+                    return [{'url': url} for url in data]
+                # Handle list of dicts
+                return data
+            
+            else:
+                raise ValueError("Unsupported JSON structure. Expected list or dict with 'urls' key.")
+                
     elif file_path.endswith('.csv'):
         data = []
         with open(file_path, 'r', encoding='utf-8') as f:

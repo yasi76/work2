@@ -46,7 +46,20 @@ The script accepts either JSON or CSV input files.
 
 ### JSON Format Options:
 
-1. **List of URLs (simple format)**:
+1. **Discovery script output format** (from `ultimate_startup_discovery.py`):
+```json
+{
+  "discovery_timestamp": "2025-07-21T23:58:40",
+  "total_urls_discovered": 150,
+  "analysis": {...},
+  "urls": [
+    "https://example1.com",
+    "https://example2.com"
+  ]
+}
+```
+
+2. **List of URLs (simple format)**:
 ```json
 [
   "https://example1.com",
@@ -55,7 +68,7 @@ The script accepts either JSON or CSV input files.
 ]
 ```
 
-2. **List of objects with metadata (detailed format)**:
+3. **List of objects with metadata (detailed format)**:
 ```json
 [
   {
@@ -68,13 +81,27 @@ The script accepts either JSON or CSV input files.
 ]
 ```
 
+4. **Discovery output with detailed URLs**:
+```json
+{
+  "discovery_timestamp": "2025-07-21T23:58:40",
+  "urls": [
+    {
+      "url": "https://example.com",
+      "confidence": 0.95,
+      "method": "web_search"
+    }
+  ]
+}
+```
+
 ### CSV Format:
 ```csv
 url,confidence,method,status_code,health_score,country,category
 https://example.com,0.95,web_search,,,DE,Digital Health
 ```
 
-The script automatically detects the format and handles both cases. Optional fields from the discovery phase will be preserved in the output.
+The script automatically detects the format and handles all cases. Optional fields from the discovery phase will be preserved in the output.
 
 ## Output Files
 
