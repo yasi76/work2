@@ -283,6 +283,170 @@ def extract_company_name_from_meta(content):
     
     return None
 
+def extract_products_and_services(content, title, url):
+    """Extract company products and services from website content"""
+    if not content:
+        return "No product information available"
+    
+    products = []
+    
+    # 1. Extract from meta description (often contains key products/services)
+    desc_patterns = [
+        r'<meta[^>]*name=["\']description["\'][^>]*content=["\']([^"\']{20,200})["\']',
+        r'<meta[^>]*property=["\']og:description["\'][^>]*content=["\']([^"\']{20,200})["\']',
+    ]
+    
+    for pattern in desc_patterns:
+        match = re.search(pattern, content, re.IGNORECASE)
+        if match:
+            desc = clean_text(match.group(1))
+            if desc and len(desc) > 20:
+                products.append(desc)
+                break
+    
+    # 2. Extract from page title (often mentions main product)
+    if title:
+        title_clean = clean_text(title)
+        # Look for product mentions in title after company name
+        title_parts = re.split(r'[|\-–—:]', title_clean)
+        if len(title_parts) > 1:
+            potential_product = title_parts[1].strip()
+            if len(potential_product) > 5 and len(potential_product) < 100:
+                products.append(potential_product)
+    
+    # 3. Extract from headings (h1, h2, h3) - often describe main services
+    heading_patterns = [
+        r'<h[1-3][^>]*>([^<]{10,80})</h[1-3]>',
+    ]
+    
+    for pattern in heading_patterns:
+        matches = re.findall(pattern, content, re.IGNORECASE)
+        for match in matches[:3]:  # Only first 3 headings
+            heading = clean_text(match)
+            if heading and is_product_relevant(heading):
+                products.append(heading)
+    
+    # 4. Extract from product/service keywords in content
+    content_lower = content.lower()
+    
+    # Healthcare-specific product patterns
+    product_keywords = [
+        # AI/ML Products
+        (r'(ai[- ]powered [^.]{10,60})', 'AI/ML'),
+        (r'(machine learning [^.]{5,50})', 'AI/ML'),
+        (r'(artificial intelligence [^.]{5,50})', 'AI/ML'),
+        (r'(predictive analytics [^.]{5,50})', 'AI/ML'),
+        
+        # Digital Health Products
+        (r'(telemedicine [^.]{5,50})', 'Digital Health'),
+        (r'(remote monitoring [^.]{5,50})', 'Digital Health'),
+        (r'(mobile health app[^.]{0,40})', 'Digital Health'),
+        (r'(digital therapeutics [^.]{5,50})', 'Digital Health'),
+        
+        # Medical Devices
+        (r'(medical device[s]? [^.]{5,50})', 'Devices'),
+        (r'(diagnostic [^.]{5,50})', 'Devices'),
+        (r'(monitoring system[s]? [^.]{5,50})', 'Devices'),
+        
+        # Pharma/Biotech
+        (r'(drug development [^.]{5,50})', 'Pharma'),
+        (r'(pharmaceutical [^.]{5,50})', 'Pharma'),
+        (r'(clinical trial[s]? [^.]{5,50})', 'Pharma'),
+        (r'(biotech [^.]{5,50})', 'Biotech'),
+        
+        # Software/Platforms
+        (r'(software platform [^.]{5,50})', 'Software'),
+        (r'(saas [^.]{5,50})', 'Software'),
+        (r'(cloud[- ]based [^.]{5,50})', 'Software'),
+    ]
+    
+    for pattern, category in product_keywords:
+        matches = re.findall(pattern, content_lower)
+        for match in matches[:2]:  # Limit to 2 per category
+            if len(match) > 10:
+                products.append(f"{category}: {match.capitalize()}")
+    
+    # 5. Extract from structured sections (About, Products, Services)
+    section_patterns = [
+        r'(?:about|our solution|our product|what we do|services)[^<]{20,150}',
+        r'(?:we offer|we provide|we develop)[^<.]{20,100}',
+    ]
+    
+    for pattern in section_patterns:
+        matches = re.findall(pattern, content, re.IGNORECASE | re.DOTALL)
+        for match in matches[:2]:
+            section_text = clean_text(match)
+            if section_text and len(section_text) > 20:
+                products.append(section_text)
+    
+    # Clean and deduplicate products
+    unique_products = []
+    seen = set()
+    
+    for product in products:
+        product_clean = clean_text(product)[:200]  # Limit length
+        if product_clean and len(product_clean) > 10:
+            # Simple deduplication
+            product_key = product_clean.lower()[:50]
+            if product_key not in seen:
+                unique_products.append(product_clean)
+                seen.add(product_key)
+        
+        if len(unique_products) >= 5:  # Limit to 5 products max
+            break
+    
+    if unique_products:
+        return " | ".join(unique_products)
+    else:
+        return extract_fallback_product_info(url, title)
+
+def is_product_relevant(text):
+    """Check if heading text is likely to describe a product/service"""
+    if not text or len(text) < 5:
+        return False
+    
+    # Skip generic headings
+    generic_terms = [
+        'home', 'about us', 'contact', 'news', 'blog', 'career', 'team',
+        'privacy', 'terms', 'cookie', 'navigation', 'menu', 'footer',
+        'header', 'sidebar', 'login', 'register', 'search'
+    ]
+    
+    text_lower = text.lower()
+    if any(term in text_lower for term in generic_terms):
+        return False
+    
+    # Look for product-indicating words
+    product_indicators = [
+        'solution', 'platform', 'service', 'product', 'system', 'technology',
+        'software', 'app', 'tool', 'device', 'treatment', 'therapy',
+        'diagnostic', 'monitoring', 'management', 'analytics'
+    ]
+    
+    return any(indicator in text_lower for indicator in product_indicators)
+
+def extract_fallback_product_info(url, title):
+    """Extract basic product info as fallback"""
+    domain = urlparse(url).netloc.lower()
+    
+    # Infer from domain name
+    if 'health' in domain:
+        return "Healthcare solutions"
+    elif 'med' in domain:
+        return "Medical services"
+    elif 'pharma' in domain:
+        return "Pharmaceutical products"
+    elif 'bio' in domain:
+        return "Biotechnology solutions"
+    elif 'ai' in domain or 'analytics' in domain:
+        return "AI/Healthcare analytics"
+    elif 'app' in domain or 'digital' in domain:
+        return "Digital health platform"
+    elif title and len(title) > 10:
+        return f"Healthcare solutions ({clean_text(title)[:50]})"
+    else:
+        return "Healthcare products and services"
+
 def clean_company_name(name):
     """Clean and normalize company name"""
     if not name:
@@ -362,6 +526,9 @@ def validate_url(url):
                     description = clean_text(desc_match.group(1))
                     break
             
+            # Extract products and services
+            products = extract_products_and_services(content, raw_title, url)
+            
             # Determine healthcare type and country
             healthcare_type = determine_healthcare_type(url, content, raw_title)
             country = extract_country(url)
@@ -373,6 +540,7 @@ def validate_url(url):
                 'name': company_name,
                 'website': url,
                 'description': description,
+                'products_services': products,
                 'country': country,
                 'healthcare_type': healthcare_type,
                 'status': 'Active',
@@ -394,11 +562,13 @@ def create_error_record(url, error_msg):
     country = extract_country(url)
     source = "Manual" if url in MANUAL_URLS else "Discovered"
     url_name = extract_company_name_from_url(url)
+    fallback_products = extract_fallback_product_info(url, "")
     
     return {
         'name': url_name or 'Error - Could not access',
         'website': url,
         'description': f'Error: {error_msg}',
+        'products_services': fallback_products,
         'country': country,
         'healthcare_type': healthcare_type,
         'status': 'Error',
@@ -499,7 +669,7 @@ def save_to_files(companies, base_filename):
     
     # Save to CSV
     with open(csv_filename, 'w', newline='', encoding='utf-8') as csvfile:
-        fieldnames = ['name', 'website', 'description', 'country', 'healthcare_type', 'status', 'status_code', 'source', 'extraction_method', 'raw_title', 'validated_date']
+        fieldnames = ['name', 'website', 'description', 'products_services', 'country', 'healthcare_type', 'status', 'status_code', 'source', 'extraction_method', 'raw_title', 'validated_date']
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         writer.writeheader()
         for company in companies:
@@ -548,7 +718,15 @@ def main():
         status_icon = "✅" if company_data['status'] == 'Active' else "❌"
         type_icon = "🔍" if 'AI/ML' in company_data['healthcare_type'] else "📝"
         source_icon = "📋" if company_data['source'] == 'Manual' else "🔍"
-        print(f"  {status_icon}{type_icon}{source_icon} {company_data['status']} - {company_data['healthcare_type']} ({company_data['country']})")
+        
+        # Show company name and first product
+        company_info = f"{company_data['name']}"
+        if company_data.get('products_services') and len(company_data['products_services']) > 20:
+            first_product = company_data['products_services'].split('|')[0][:50]
+            company_info += f" - {first_product}..."
+        
+        print(f"  {status_icon}{type_icon}{source_icon} {company_info}")
+        print(f"      Status: {company_data['status']} | Type: {company_data['healthcare_type']} | Country: {company_data['country']}")
         
         # Respectful delay
         time.sleep(1)
