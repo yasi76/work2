@@ -1,0 +1,210 @@
+original_url,domain,fake_reason,classification
+https://www.medicinechestidiom.com,medicinechestidiom.com,Contains fake pattern: medicinechestidiom,FABRICATED
+https://medicinechestidiom.com,medicinechestidiom.com,Contains fake pattern: medicinechestidiom,FABRICATED
+https://www.medicinechestidiom.eu,medicinechestidiom.eu,Contains fake pattern: medicinechestidiom,FABRICATED
+https://www.medicinechestidiom.de,medicinechestidiom.de,Contains fake pattern: medicinechestidiom,FABRICATED
+https://medicinechestidiom.de,medicinechestidiom.de,Contains fake pattern: medicinechestidiom,FABRICATED
+https://www.pharmaceuticalcompaniesbycountry.com,pharmaceuticalcompaniesbycountry.com,Contains fake pattern: pharmaceuticalcompaniesbycountry,FABRICATED
+https://pharmaceuticalcompaniesbycountry.com,pharmaceuticalcompaniesbycountry.com,Contains fake pattern: pharmaceuticalcompaniesbycountry,FABRICATED
+https://www.pharmaceuticalcompaniesbycountry.eu,pharmaceuticalcompaniesbycountry.eu,Contains fake pattern: pharmaceuticalcompaniesbycountry,FABRICATED
+https://www.pharmaceuticalcompaniesbycountry.de,pharmaceuticalcompaniesbycountry.de,Contains fake pattern: pharmaceuticalcompaniesbycountry,FABRICATED
+https://pharmaceuticalcompaniesbycountry.de,pharmaceuticalcompaniesbycountry.de,Contains fake pattern: pharmaceuticalcompaniesbycountry,FABRICATED
+https://www.drugsingermany.com,drugsingermany.com,Contains fake pattern: drugsin,FABRICATED
+https://drugsingermany.com,drugsingermany.com,Contains fake pattern: drugsin,FABRICATED
+https://www.drugsingermany.eu,drugsingermany.eu,Contains fake pattern: drugsin,FABRICATED
+https://www.drugsingermany.de,drugsingermany.de,Contains fake pattern: drugsin,FABRICATED
+https://drugsingermany.de,drugsingermany.de,Contains fake pattern: drugsin,FABRICATED
+https://www.healthcarecompaniesofgermany.com,healthcarecompaniesofgermany.com,Contains fake pattern: healthcarecompaniesof,FABRICATED
+https://healthcarecompaniesofgermany.com,healthcarecompaniesofgermany.com,Contains fake pattern: healthcarecompaniesof,FABRICATED
+https://www.healthcarecompaniesofgermany.eu,healthcarecompaniesofgermany.eu,Contains fake pattern: healthcarecompaniesof,FABRICATED
+https://www.healthcarecompaniesofgermany.de,healthcarecompaniesofgermany.de,Contains fake pattern: healthcarecompaniesof,FABRICATED
+https://healthcarecompaniesofgermany.de,healthcarecompaniesofgermany.de,Contains fake pattern: healthcarecompaniesof,FABRICATED
+https://www.listofpharmaceuticalmanufacturersintheunitedkingdom.com,listofpharmaceuticalmanufacturersintheunitedkingdom.com,Contains fake pattern: listofpharmaceuticalmanufacturers,FABRICATED
+https://listofpharmaceuticalmanufacturersintheunitedkingdom.com,listofpharmaceuticalmanufacturersintheunitedkingdom.com,Contains fake pattern: listofpharmaceuticalmanufacturers,FABRICATED
+https://www.listofpharmaceuticalmanufacturersintheunitedkingdom.eu,listofpharmaceuticalmanufacturersintheunitedkingdom.eu,Contains fake pattern: listofpharmaceuticalmanufacturers,FABRICATED
+https://www.listofpharmaceuticalmanufacturersintheunitedkingdom.co.uk,listofpharmaceuticalmanufacturersintheunitedkingdom.co.uk,Contains fake pattern: listofpharmaceuticalmanufacturers,FABRICATED
+https://listofpharmaceuticalmanufacturersintheunitedkingdom.co.uk,listofpharmaceuticalmanufacturersintheunitedkingdom.co.uk,Contains fake pattern: listofpharmaceuticalmanufacturers,FABRICATED
+https://www.listofpharmaceuticalmanufacturersintheunitedkingdom.uk,listofpharmaceuticalmanufacturersintheunitedkingdom.uk,Contains fake pattern: listofpharmaceuticalmanufacturers,FABRICATED
+https://listofpharmaceuticalmanufacturersintheunitedkingdom.uk,listofpharmaceuticalmanufacturersintheunitedkingdom.uk,Contains fake pattern: listofpharmaceuticalmanufacturers,FABRICATED
+https://www.pharmaceuticalcompaniesbycountry.co.uk,pharmaceuticalcompaniesbycountry.co.uk,Contains fake pattern: pharmaceuticalcompaniesbycountry,FABRICATED
+https://pharmaceuticalcompaniesbycountry.co.uk,pharmaceuticalcompaniesbycountry.co.uk,Contains fake pattern: pharmaceuticalcompaniesbycountry,FABRICATED
+https://www.pharmaceuticalcompaniesbycountry.uk,pharmaceuticalcompaniesbycountry.uk,Contains fake pattern: pharmaceuticalcompaniesbycountry,FABRICATED
+https://pharmaceuticalcompaniesbycountry.uk,pharmaceuticalcompaniesbycountry.uk,Contains fake pattern: pharmaceuticalcompaniesbycountry,FABRICATED
+https://www.pharmaceuticalindustryintheunitedkingdom.com,pharmaceuticalindustryintheunitedkingdom.com,Contains fake pattern: pharmaceuticalindustryinthe,FABRICATED
+https://pharmaceuticalindustryintheunitedkingdom.com,pharmaceuticalindustryintheunitedkingdom.com,Contains fake pattern: pharmaceuticalindustryinthe,FABRICATED
+https://www.pharmaceuticalindustryintheunitedkingdom.eu,pharmaceuticalindustryintheunitedkingdom.eu,Contains fake pattern: pharmaceuticalindustryinthe,FABRICATED
+https://www.pharmaceuticalindustryintheunitedkingdom.co.uk,pharmaceuticalindustryintheunitedkingdom.co.uk,Contains fake pattern: pharmaceuticalindustryinthe,FABRICATED
+https://pharmaceuticalindustryintheunitedkingdom.co.uk,pharmaceuticalindustryintheunitedkingdom.co.uk,Contains fake pattern: pharmaceuticalindustryinthe,FABRICATED
+https://www.pharmaceuticalindustryintheunitedkingdom.uk,pharmaceuticalindustryintheunitedkingdom.uk,Contains fake pattern: pharmaceuticalindustryinthe,FABRICATED
+https://pharmaceuticalindustryintheunitedkingdom.uk,pharmaceuticalindustryintheunitedkingdom.uk,Contains fake pattern: pharmaceuticalindustryinthe,FABRICATED
+https://www.healthcarecompaniesoftheunitedkingdom.com,healthcarecompaniesoftheunitedkingdom.com,Contains fake pattern: healthcarecompaniesof,FABRICATED
+https://healthcarecompaniesoftheunitedkingdom.com,healthcarecompaniesoftheunitedkingdom.com,Contains fake pattern: healthcarecompaniesof,FABRICATED
+https://www.healthcarecompaniesoftheunitedkingdom.eu,healthcarecompaniesoftheunitedkingdom.eu,Contains fake pattern: healthcarecompaniesof,FABRICATED
+https://www.healthcarecompaniesoftheunitedkingdom.co.uk,healthcarecompaniesoftheunitedkingdom.co.uk,Contains fake pattern: healthcarecompaniesof,FABRICATED
+https://healthcarecompaniesoftheunitedkingdom.co.uk,healthcarecompaniesoftheunitedkingdom.co.uk,Contains fake pattern: healthcarecompaniesof,FABRICATED
+https://www.healthcarecompaniesoftheunitedkingdom.uk,healthcarecompaniesoftheunitedkingdom.uk,Contains fake pattern: healthcarecompaniesof,FABRICATED
+https://healthcarecompaniesoftheunitedkingdom.uk,healthcarecompaniesoftheunitedkingdom.uk,Contains fake pattern: healthcarecompaniesof,FABRICATED
+https://www.pharmaceuticalcompaniesofengland.com,pharmaceuticalcompaniesofengland.com,Contains fake pattern: pharmaceuticalcompaniesof,FABRICATED
+https://pharmaceuticalcompaniesofengland.com,pharmaceuticalcompaniesofengland.com,Contains fake pattern: pharmaceuticalcompaniesof,FABRICATED
+https://www.pharmaceuticalcompaniesofengland.eu,pharmaceuticalcompaniesofengland.eu,Contains fake pattern: pharmaceuticalcompaniesof,FABRICATED
+https://www.pharmaceuticalcompaniesofengland.co.uk,pharmaceuticalcompaniesofengland.co.uk,Contains fake pattern: pharmaceuticalcompaniesof,FABRICATED
+https://pharmaceuticalcompaniesofengland.co.uk,pharmaceuticalcompaniesofengland.co.uk,Contains fake pattern: pharmaceuticalcompaniesof,FABRICATED
+https://www.pharmaceuticalcompaniesofengland.uk,pharmaceuticalcompaniesofengland.uk,Contains fake pattern: pharmaceuticalcompaniesof,FABRICATED
+https://pharmaceuticalcompaniesofengland.uk,pharmaceuticalcompaniesofengland.uk,Contains fake pattern: pharmaceuticalcompaniesof,FABRICATED
+https://www.pharmaceuticalcompaniesofscotland.com,pharmaceuticalcompaniesofscotland.com,Contains fake pattern: pharmaceuticalcompaniesof,FABRICATED
+https://pharmaceuticalcompaniesofscotland.com,pharmaceuticalcompaniesofscotland.com,Contains fake pattern: pharmaceuticalcompaniesof,FABRICATED
+https://www.pharmaceuticalcompaniesofscotland.eu,pharmaceuticalcompaniesofscotland.eu,Contains fake pattern: pharmaceuticalcompaniesof,FABRICATED
+https://www.pharmaceuticalcompaniesofscotland.co.uk,pharmaceuticalcompaniesofscotland.co.uk,Contains fake pattern: pharmaceuticalcompaniesof,FABRICATED
+https://pharmaceuticalcompaniesofscotland.co.uk,pharmaceuticalcompaniesofscotland.co.uk,Contains fake pattern: pharmaceuticalcompaniesof,FABRICATED
+https://www.pharmaceuticalcompaniesofscotland.uk,pharmaceuticalcompaniesofscotland.uk,Contains fake pattern: pharmaceuticalcompaniesof,FABRICATED
+https://pharmaceuticalcompaniesofscotland.uk,pharmaceuticalcompaniesofscotland.uk,Contains fake pattern: pharmaceuticalcompaniesof,FABRICATED
+https://www.pharmaceuticalcompaniesbycountry.fr,pharmaceuticalcompaniesbycountry.fr,Contains fake pattern: pharmaceuticalcompaniesbycountry,FABRICATED
+https://pharmaceuticalcompaniesbycountry.fr,pharmaceuticalcompaniesbycountry.fr,Contains fake pattern: pharmaceuticalcompaniesbycountry,FABRICATED
+https://www.healthcarecompaniesoffrance.com,healthcarecompaniesoffrance.com,Contains fake pattern: healthcarecompaniesof,FABRICATED
+https://healthcarecompaniesoffrance.com,healthcarecompaniesoffrance.com,Contains fake pattern: healthcarecompaniesof,FABRICATED
+https://www.healthcarecompaniesoffrance.eu,healthcarecompaniesoffrance.eu,Contains fake pattern: healthcarecompaniesof,FABRICATED
+https://www.healthcarecompaniesoffrance.fr,healthcarecompaniesoffrance.fr,Contains fake pattern: healthcarecompaniesof,FABRICATED
+https://healthcarecompaniesoffrance.fr,healthcarecompaniesoffrance.fr,Contains fake pattern: healthcarecompaniesof,FABRICATED
+https://www.pharmaceuticalcompaniesbycountry.ch,pharmaceuticalcompaniesbycountry.ch,Contains fake pattern: pharmaceuticalcompaniesbycountry,FABRICATED
+https://pharmaceuticalcompaniesbycountry.ch,pharmaceuticalcompaniesbycountry.ch,Contains fake pattern: pharmaceuticalcompaniesbycountry,FABRICATED
+https://www.drugsinswitzerland.com,drugsinswitzerland.com,Contains fake pattern: drugsin,FABRICATED
+https://drugsinswitzerland.com,drugsinswitzerland.com,Contains fake pattern: drugsin,FABRICATED
+https://www.drugsinswitzerland.eu,drugsinswitzerland.eu,Contains fake pattern: drugsin,FABRICATED
+https://www.drugsinswitzerland.ch,drugsinswitzerland.ch,Contains fake pattern: drugsin,FABRICATED
+https://drugsinswitzerland.ch,drugsinswitzerland.ch,Contains fake pattern: drugsin,FABRICATED
+https://www.healthcarecompaniesofswitzerland.com,healthcarecompaniesofswitzerland.com,Contains fake pattern: healthcarecompaniesof,FABRICATED
+https://healthcarecompaniesofswitzerland.com,healthcarecompaniesofswitzerland.com,Contains fake pattern: healthcarecompaniesof,FABRICATED
+https://www.healthcarecompaniesofswitzerland.eu,healthcarecompaniesofswitzerland.eu,Contains fake pattern: healthcarecompaniesof,FABRICATED
+https://www.healthcarecompaniesofswitzerland.ch,healthcarecompaniesofswitzerland.ch,Contains fake pattern: healthcarecompaniesof,FABRICATED
+https://healthcarecompaniesofswitzerland.ch,healthcarecompaniesofswitzerland.ch,Contains fake pattern: healthcarecompaniesof,FABRICATED
+https://www.pharmaceuticalcompaniesbycountry.nl,pharmaceuticalcompaniesbycountry.nl,Contains fake pattern: pharmaceuticalcompaniesbycountry,FABRICATED
+https://pharmaceuticalcompaniesbycountry.nl,pharmaceuticalcompaniesbycountry.nl,Contains fake pattern: pharmaceuticalcompaniesbycountry,FABRICATED
+https://www.healthcarecompaniesofthenetherlands.com,healthcarecompaniesofthenetherlands.com,Contains fake pattern: healthcarecompaniesof,FABRICATED
+https://healthcarecompaniesofthenetherlands.com,healthcarecompaniesofthenetherlands.com,Contains fake pattern: healthcarecompaniesof,FABRICATED
+https://www.healthcarecompaniesofthenetherlands.eu,healthcarecompaniesofthenetherlands.eu,Contains fake pattern: healthcarecompaniesof,FABRICATED
+https://www.healthcarecompaniesofthenetherlands.nl,healthcarecompaniesofthenetherlands.nl,Contains fake pattern: healthcarecompaniesof,FABRICATED
+https://healthcarecompaniesofthenetherlands.nl,healthcarecompaniesofthenetherlands.nl,Contains fake pattern: healthcarecompaniesof,FABRICATED
+https://www.pharmaceuticalcompaniesbycountry.se,pharmaceuticalcompaniesbycountry.se,Contains fake pattern: pharmaceuticalcompaniesbycountry,FABRICATED
+https://pharmaceuticalcompaniesbycountry.se,pharmaceuticalcompaniesbycountry.se,Contains fake pattern: pharmaceuticalcompaniesbycountry,FABRICATED
+https://www.drugsinsweden.com,drugsinsweden.com,Contains fake pattern: drugsin,FABRICATED
+https://drugsinsweden.com,drugsinsweden.com,Contains fake pattern: drugsin,FABRICATED
+https://www.drugsinsweden.eu,drugsinsweden.eu,Contains fake pattern: drugsin,FABRICATED
+https://www.drugsinsweden.se,drugsinsweden.se,Contains fake pattern: drugsin,FABRICATED
+https://drugsinsweden.se,drugsinsweden.se,Contains fake pattern: drugsin,FABRICATED
+https://www.healthcarecompaniesofsweden.com,healthcarecompaniesofsweden.com,Contains fake pattern: healthcarecompaniesof,FABRICATED
+https://healthcarecompaniesofsweden.com,healthcarecompaniesofsweden.com,Contains fake pattern: healthcarecompaniesof,FABRICATED
+https://www.healthcarecompaniesofsweden.eu,healthcarecompaniesofsweden.eu,Contains fake pattern: healthcarecompaniesof,FABRICATED
+https://www.healthcarecompaniesofsweden.se,healthcarecompaniesofsweden.se,Contains fake pattern: healthcarecompaniesof,FABRICATED
+https://healthcarecompaniesofsweden.se,healthcarecompaniesofsweden.se,Contains fake pattern: healthcarecompaniesof,FABRICATED
+https://www.pharmaceuticalindustryinsweden.com,pharmaceuticalindustryinsweden.com,Wikipedia abuse: Category:,FABRICATED
+https://pharmaceuticalindustryinsweden.com,pharmaceuticalindustryinsweden.com,Wikipedia abuse: Category:,FABRICATED
+https://www.pharmaceuticalindustryinsweden.eu,pharmaceuticalindustryinsweden.eu,Wikipedia abuse: Category:,FABRICATED
+https://www.pharmaceuticalindustryinsweden.se,pharmaceuticalindustryinsweden.se,Wikipedia abuse: Category:,FABRICATED
+https://pharmaceuticalindustryinsweden.se,pharmaceuticalindustryinsweden.se,Wikipedia abuse: Category:,FABRICATED
+https://www.biotechnologycompaniesbycountry.com,biotechnologycompaniesbycountry.com,Wikipedia abuse: Category:,FABRICATED
+https://biotechnologycompaniesbycountry.com,biotechnologycompaniesbycountry.com,Wikipedia abuse: Category:,FABRICATED
+https://www.biotechnologycompaniesbycountry.eu,biotechnologycompaniesbycountry.eu,Wikipedia abuse: Category:,FABRICATED
+https://www.biotechnologycompaniesbycountry.de,biotechnologycompaniesbycountry.de,Wikipedia abuse: Category:,FABRICATED
+https://biotechnologycompaniesbycountry.de,biotechnologycompaniesbycountry.de,Wikipedia abuse: Category:,FABRICATED
+https://www.biotechnologycompaniesbycountry.co.uk,biotechnologycompaniesbycountry.co.uk,Wikipedia abuse: Category:,FABRICATED
+https://biotechnologycompaniesbycountry.co.uk,biotechnologycompaniesbycountry.co.uk,Wikipedia abuse: Category:,FABRICATED
+https://www.biotechnologycompaniesbycountry.uk,biotechnologycompaniesbycountry.uk,Wikipedia abuse: Category:,FABRICATED
+https://biotechnologycompaniesbycountry.uk,biotechnologycompaniesbycountry.uk,Wikipedia abuse: Category:,FABRICATED
+https://www.biotechnologyintheunitedkingdom.com,biotechnologyintheunitedkingdom.com,Wikipedia abuse: Category:,FABRICATED
+https://biotechnologyintheunitedkingdom.com,biotechnologyintheunitedkingdom.com,Wikipedia abuse: Category:,FABRICATED
+https://www.biotechnologyintheunitedkingdom.eu,biotechnologyintheunitedkingdom.eu,Wikipedia abuse: Category:,FABRICATED
+https://www.biotechnologyintheunitedkingdom.co.uk,biotechnologyintheunitedkingdom.co.uk,Wikipedia abuse: Category:,FABRICATED
+https://biotechnologyintheunitedkingdom.co.uk,biotechnologyintheunitedkingdom.co.uk,Wikipedia abuse: Category:,FABRICATED
+https://www.biotechnologyintheunitedkingdom.uk,biotechnologyintheunitedkingdom.uk,Wikipedia abuse: Category:,FABRICATED
+https://biotechnologyintheunitedkingdom.uk,biotechnologyintheunitedkingdom.uk,Wikipedia abuse: Category:,FABRICATED
+https://www.biotechnologycompaniesbycountry.fr,biotechnologycompaniesbycountry.fr,Wikipedia abuse: Category:,FABRICATED
+https://biotechnologycompaniesbycountry.fr,biotechnologycompaniesbycountry.fr,Wikipedia abuse: Category:,FABRICATED
+https://www.biotechnologyinfrance.com,biotechnologyinfrance.com,Wikipedia abuse: Category:,FABRICATED
+https://biotechnologyinfrance.com,biotechnologyinfrance.com,Wikipedia abuse: Category:,FABRICATED
+https://www.biotechnologyinfrance.eu,biotechnologyinfrance.eu,Wikipedia abuse: Category:,FABRICATED
+https://www.biotechnologyinfrance.fr,biotechnologyinfrance.fr,Wikipedia abuse: Category:,FABRICATED
+https://biotechnologyinfrance.fr,biotechnologyinfrance.fr,Wikipedia abuse: Category:,FABRICATED
+https://www.biotechnologycompaniesbycountry.ch,biotechnologycompaniesbycountry.ch,Wikipedia abuse: Category:,FABRICATED
+https://biotechnologycompaniesbycountry.ch,biotechnologycompaniesbycountry.ch,Wikipedia abuse: Category:,FABRICATED
+https://www.biotechnologyinswitzerland.com,biotechnologyinswitzerland.com,Wikipedia abuse: Category:,FABRICATED
+https://biotechnologyinswitzerland.com,biotechnologyinswitzerland.com,Wikipedia abuse: Category:,FABRICATED
+https://www.biotechnologyinswitzerland.eu,biotechnologyinswitzerland.eu,Wikipedia abuse: Category:,FABRICATED
+https://www.biotechnologyinswitzerland.ch,biotechnologyinswitzerland.ch,Wikipedia abuse: Category:,FABRICATED
+https://biotechnologyinswitzerland.ch,biotechnologyinswitzerland.ch,Wikipedia abuse: Category:,FABRICATED
+https://www.medicaltechnologycompaniesbycountry.com,medicaltechnologycompaniesbycountry.com,Wikipedia abuse: Category:,FABRICATED
+https://medicaltechnologycompaniesbycountry.com,medicaltechnologycompaniesbycountry.com,Wikipedia abuse: Category:,FABRICATED
+https://www.medicaltechnologycompaniesbycountry.eu,medicaltechnologycompaniesbycountry.eu,Wikipedia abuse: Category:,FABRICATED
+https://www.medicaltechnologycompaniesbycountry.de,medicaltechnologycompaniesbycountry.de,Wikipedia abuse: Category:,FABRICATED
+https://medicaltechnologycompaniesbycountry.de,medicaltechnologycompaniesbycountry.de,Wikipedia abuse: Category:,FABRICATED
+https://www.medicaltechnologycompaniesbycountry.co.uk,medicaltechnologycompaniesbycountry.co.uk,Wikipedia abuse: Category:,FABRICATED
+https://medicaltechnologycompaniesbycountry.co.uk,medicaltechnologycompaniesbycountry.co.uk,Wikipedia abuse: Category:,FABRICATED
+https://www.medicaltechnologycompaniesbycountry.uk,medicaltechnologycompaniesbycountry.uk,Wikipedia abuse: Category:,FABRICATED
+https://medicaltechnologycompaniesbycountry.uk,medicaltechnologycompaniesbycountry.uk,Wikipedia abuse: Category:,FABRICATED
+https://www.medicaltechnologyintheunitedkingdom.com,medicaltechnologyintheunitedkingdom.com,Wikipedia abuse: Category:,FABRICATED
+https://medicaltechnologyintheunitedkingdom.com,medicaltechnologyintheunitedkingdom.com,Wikipedia abuse: Category:,FABRICATED
+https://www.medicaltechnologyintheunitedkingdom.eu,medicaltechnologyintheunitedkingdom.eu,Wikipedia abuse: Category:,FABRICATED
+https://www.medicaltechnologyintheunitedkingdom.co.uk,medicaltechnologyintheunitedkingdom.co.uk,Wikipedia abuse: Category:,FABRICATED
+https://medicaltechnologyintheunitedkingdom.co.uk,medicaltechnologyintheunitedkingdom.co.uk,Wikipedia abuse: Category:,FABRICATED
+https://www.medicaltechnologyintheunitedkingdom.uk,medicaltechnologyintheunitedkingdom.uk,Wikipedia abuse: Category:,FABRICATED
+https://medicaltechnologyintheunitedkingdom.uk,medicaltechnologyintheunitedkingdom.uk,Wikipedia abuse: Category:,FABRICATED
+https://www.healthcarecompaniesbycountry.com,healthcarecompaniesbycountry.com,Wikipedia abuse: Category:,FABRICATED
+https://healthcarecompaniesbycountry.com,healthcarecompaniesbycountry.com,Wikipedia abuse: Category:,FABRICATED
+https://www.healthcarecompaniesbycountry.eu,healthcarecompaniesbycountry.eu,Wikipedia abuse: Category:,FABRICATED
+https://www.healthcarecompaniesbycountry.de,healthcarecompaniesbycountry.de,Wikipedia abuse: Category:,FABRICATED
+https://healthcarecompaniesbycountry.de,healthcarecompaniesbycountry.de,Wikipedia abuse: Category:,FABRICATED
+https://www.medicalandhealthorganisationsbasedingermany.com,medicalandhealthorganisationsbasedingermany.com,Contains fake pattern: medicalandhealthorganisations,FABRICATED
+https://medicalandhealthorganisationsbasedingermany.com,medicalandhealthorganisationsbasedingermany.com,Contains fake pattern: medicalandhealthorganisations,FABRICATED
+https://www.medicalandhealthorganisationsbasedingermany.eu,medicalandhealthorganisationsbasedingermany.eu,Contains fake pattern: medicalandhealthorganisations,FABRICATED
+https://www.medicalandhealthorganisationsbasedingermany.de,medicalandhealthorganisationsbasedingermany.de,Contains fake pattern: medicalandhealthorganisations,FABRICATED
+https://medicalandhealthorganisationsbasedingermany.de,medicalandhealthorganisationsbasedingermany.de,Contains fake pattern: medicalandhealthorganisations,FABRICATED
+https://www.pharmaceuticalcompaniesofgermany.com,pharmaceuticalcompaniesofgermany.com,Contains fake pattern: pharmaceuticalcompaniesof,FABRICATED
+https://pharmaceuticalcompaniesofgermany.com,pharmaceuticalcompaniesofgermany.com,Contains fake pattern: pharmaceuticalcompaniesof,FABRICATED
+https://www.pharmaceuticalcompaniesofgermany.eu,pharmaceuticalcompaniesofgermany.eu,Contains fake pattern: pharmaceuticalcompaniesof,FABRICATED
+https://www.pharmaceuticalcompaniesofgermany.de,pharmaceuticalcompaniesofgermany.de,Contains fake pattern: pharmaceuticalcompaniesof,FABRICATED
+https://pharmaceuticalcompaniesofgermany.de,pharmaceuticalcompaniesofgermany.de,Contains fake pattern: pharmaceuticalcompaniesof,FABRICATED
+https://www.healthcarecompaniesbycountry.co.uk,healthcarecompaniesbycountry.co.uk,Wikipedia abuse: Category:,FABRICATED
+https://healthcarecompaniesbycountry.co.uk,healthcarecompaniesbycountry.co.uk,Wikipedia abuse: Category:,FABRICATED
+https://www.healthcarecompaniesbycountry.uk,healthcarecompaniesbycountry.uk,Wikipedia abuse: Category:,FABRICATED
+https://healthcarecompaniesbycountry.uk,healthcarecompaniesbycountry.uk,Wikipedia abuse: Category:,FABRICATED
+https://www.medicalandhealthorganisationsbasedintheunitedkingdom.com,medicalandhealthorganisationsbasedintheunitedkingdom.com,Contains fake pattern: medicalandhealthorganisations,FABRICATED
+https://medicalandhealthorganisationsbasedintheunitedkingdom.com,medicalandhealthorganisationsbasedintheunitedkingdom.com,Contains fake pattern: medicalandhealthorganisations,FABRICATED
+https://www.medicalandhealthorganisationsbasedintheunitedkingdom.eu,medicalandhealthorganisationsbasedintheunitedkingdom.eu,Contains fake pattern: medicalandhealthorganisations,FABRICATED
+https://www.medicalandhealthorganisationsbasedintheunitedkingdom.co.uk,medicalandhealthorganisationsbasedintheunitedkingdom.co.uk,Contains fake pattern: medicalandhealthorganisations,FABRICATED
+https://medicalandhealthorganisationsbasedintheunitedkingdom.co.uk,medicalandhealthorganisationsbasedintheunitedkingdom.co.uk,Contains fake pattern: medicalandhealthorganisations,FABRICATED
+https://www.medicalandhealthorganisationsbasedintheunitedkingdom.uk,medicalandhealthorganisationsbasedintheunitedkingdom.uk,Contains fake pattern: medicalandhealthorganisations,FABRICATED
+https://medicalandhealthorganisationsbasedintheunitedkingdom.uk,medicalandhealthorganisationsbasedintheunitedkingdom.uk,Contains fake pattern: medicalandhealthorganisations,FABRICATED
+https://www.privatemedicineintheunitedkingdom.com,privatemedicineintheunitedkingdom.com,Contains fake pattern: privatemedicinein,FABRICATED
+https://privatemedicineintheunitedkingdom.com,privatemedicineintheunitedkingdom.com,Contains fake pattern: privatemedicinein,FABRICATED
+https://www.privatemedicineintheunitedkingdom.eu,privatemedicineintheunitedkingdom.eu,Contains fake pattern: privatemedicinein,FABRICATED
+https://www.privatemedicineintheunitedkingdom.co.uk,privatemedicineintheunitedkingdom.co.uk,Contains fake pattern: privatemedicinein,FABRICATED
+https://privatemedicineintheunitedkingdom.co.uk,privatemedicineintheunitedkingdom.co.uk,Contains fake pattern: privatemedicinein,FABRICATED
+https://www.privatemedicineintheunitedkingdom.uk,privatemedicineintheunitedkingdom.uk,Contains fake pattern: privatemedicinein,FABRICATED
+https://privatemedicineintheunitedkingdom.uk,privatemedicineintheunitedkingdom.uk,Contains fake pattern: privatemedicinein,FABRICATED
+https://www.healthclubsintheunitedkingdom.com,healthclubsintheunitedkingdom.com,Contains fake pattern: healthclubsin,FABRICATED
+https://healthclubsintheunitedkingdom.com,healthclubsintheunitedkingdom.com,Contains fake pattern: healthclubsin,FABRICATED
+https://www.healthclubsintheunitedkingdom.eu,healthclubsintheunitedkingdom.eu,Contains fake pattern: healthclubsin,FABRICATED
+https://www.healthclubsintheunitedkingdom.co.uk,healthclubsintheunitedkingdom.co.uk,Contains fake pattern: healthclubsin,FABRICATED
+https://healthclubsintheunitedkingdom.co.uk,healthclubsintheunitedkingdom.co.uk,Contains fake pattern: healthclubsin,FABRICATED
+https://www.healthclubsintheunitedkingdom.uk,healthclubsintheunitedkingdom.uk,Contains fake pattern: healthclubsin,FABRICATED
+https://healthclubsintheunitedkingdom.uk,healthclubsintheunitedkingdom.uk,Contains fake pattern: healthclubsin,FABRICATED
+https://www.pharmaceuticalcompaniesoftheunitedkingdom.com,pharmaceuticalcompaniesoftheunitedkingdom.com,Contains fake pattern: pharmaceuticalcompaniesof,FABRICATED
+https://pharmaceuticalcompaniesoftheunitedkingdom.com,pharmaceuticalcompaniesoftheunitedkingdom.com,Contains fake pattern: pharmaceuticalcompaniesof,FABRICATED
+https://www.pharmaceuticalcompaniesoftheunitedkingdom.eu,pharmaceuticalcompaniesoftheunitedkingdom.eu,Contains fake pattern: pharmaceuticalcompaniesof,FABRICATED
+https://www.pharmaceuticalcompaniesoftheunitedkingdom.co.uk,pharmaceuticalcompaniesoftheunitedkingdom.co.uk,Contains fake pattern: pharmaceuticalcompaniesof,FABRICATED
+https://pharmaceuticalcompaniesoftheunitedkingdom.co.uk,pharmaceuticalcompaniesoftheunitedkingdom.co.uk,Contains fake pattern: pharmaceuticalcompaniesof,FABRICATED
+https://www.pharmaceuticalcompaniesoftheunitedkingdom.uk,pharmaceuticalcompaniesoftheunitedkingdom.uk,Contains fake pattern: pharmaceuticalcompaniesof,FABRICATED
+https://pharmaceuticalcompaniesoftheunitedkingdom.uk,pharmaceuticalcompaniesoftheunitedkingdom.uk,Contains fake pattern: pharmaceuticalcompaniesof,FABRICATED
+https://www.healthcarecompaniesofengland.com,healthcarecompaniesofengland.com,Contains fake pattern: healthcarecompaniesof,FABRICATED
+https://healthcarecompaniesofengland.com,healthcarecompaniesofengland.com,Contains fake pattern: healthcarecompaniesof,FABRICATED
+https://www.healthcarecompaniesofengland.eu,healthcarecompaniesofengland.eu,Contains fake pattern: healthcarecompaniesof,FABRICATED
+https://www.healthcarecompaniesofengland.co.uk,healthcarecompaniesofengland.co.uk,Contains fake pattern: healthcarecompaniesof,FABRICATED
+https://healthcarecompaniesofengland.co.uk,healthcarecompaniesofengland.co.uk,Contains fake pattern: healthcarecompaniesof,FABRICATED
+https://www.healthcarecompaniesofengland.uk,healthcarecompaniesofengland.uk,Contains fake pattern: healthcarecompaniesof,FABRICATED
+https://healthcarecompaniesofengland.uk,healthcarecompaniesofengland.uk,Contains fake pattern: healthcarecompaniesof,FABRICATED
+https://www.healthcarecompaniesofscotland.com,healthcarecompaniesofscotland.com,Contains fake pattern: healthcarecompaniesof,FABRICATED
+https://healthcarecompaniesofscotland.com,healthcarecompaniesofscotland.com,Contains fake pattern: healthcarecompaniesof,FABRICATED
+https://www.healthcarecompaniesofscotland.eu,healthcarecompaniesofscotland.eu,Contains fake pattern: healthcarecompaniesof,FABRICATED
+https://www.healthcarecompaniesofscotland.co.uk,healthcarecompaniesofscotland.co.uk,Contains fake pattern: healthcarecompaniesof,FABRICATED
+https://healthcarecompaniesofscotland.co.uk,healthcarecompaniesofscotland.co.uk,Contains fake pattern: healthcarecompaniesof,FABRICATED
+https://www.healthcarecompaniesofscotland.uk,healthcarecompaniesofscotland.uk,Contains fake pattern: healthcarecompaniesof,FABRICATED
+https://healthcarecompaniesofscotland.uk,healthcarecompaniesofscotland.uk,Contains fake pattern: healthcarecompaniesof,FABRICATED
