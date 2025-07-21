@@ -13,6 +13,62 @@ from typing import List, Dict, Set
 import sys
 import os
 
+# ---------------- SMART SORTING UTIL ---------------- #
+
+# NOTE: This helper is placed at module level so it can be reused by
+# different discovery pipelines.  It centralises the ranking logic so
+# that there is ONE single source-of-truth for how results are ordered.
+#
+# Sorting priority (highest → lowest):
+#   1. Discovery method (human verified ≫ generated)
+#   2. Confidence score (0-10)
+#   3. Health score (keyword match score, if present)
+#   4. HTTP status_code success flag (200 beats others)
+#
+# Any of the optional fields may be missing – the helper deals with that
+# gracefully and never raises.
+
+
+def apply_smart_sorting_safe(results: List[Dict]) -> List[Dict]:
+    """Return *results* ordered by composite ranking criteria.
+
+    The function never mutates *results* and is resilient to missing
+    keys in the individual dictionaries.
+    """
+
+    # Single source-of-truth for method priorities
+    method_priority = {
+        "User Verified": 100,
+        "Hardcoded": 95,
+        "Manual Curation": 80,
+        "Google Search": 50,
+        "Enhanced Discovery": 40,
+        "Generated": 10,
+    }
+
+    def sort_key(item: Dict):
+        # Discovery method ranking (fallback 0)
+        m_score = method_priority.get(item.get("method", "Unknown"), 0)
+
+        # Confidence 0-10 (fallback 0)
+        conf_score = item.get("confidence", 0)
+
+        # Health keyword score – present only on some pipelines
+        health_score = item.get("health_score", 0)
+
+        # Successful HTTP status flag (1 if 200, else 0)
+        http_ok = 1 if item.get("status_code", 0) == 200 else 0
+
+        return (
+            m_score,
+            conf_score,
+            health_score,
+            http_ok,
+        )
+
+    # Sort descending by the composite tuple
+    return sorted(results, key=sort_key, reverse=True)
+
 # Import discovery methods
 try:
     from enhanced_startup_discovery import EnhancedStartupDiscovery
@@ -252,19 +308,8 @@ class UltimateStartupDiscovery:
         unique_results = []
         seen_urls = set()
         
-        # Sort by confidence (highest first), then by method priority
-        method_priority = {
-            'Hardcoded': 5,
-            'Manual Curation': 4,
-            'Google Search': 3,
-            'Enhanced Discovery': 2,
-            'Generated': 1
-        }
-        
-        sorted_results = sorted(all_results, key=lambda x: (
-            x['confidence'], 
-            method_priority.get(x.get('method', 'Unknown'), 0)
-        ), reverse=True)
+        # Apply the centralised smart sorting logic
+        sorted_results = apply_smart_sorting_safe(all_results)
         
         for result in sorted_results:
             url = result['url']
@@ -398,27 +443,37 @@ class UltimateStartupDiscovery:
         
         # 1. User hardcoded URLs (highest priority)
         print("1️⃣ USER VERIFIED URLs")
+        stage_start = time.time()
         user_results = self.get_user_hardcoded_urls()
+        print(f"⏱️  Stage 1 took {time.time() - stage_start:.1f}s")
         all_results.extend(user_results)
-        
+
         # 2. Enhanced discovery
         print("\n2️⃣ ENHANCED DISCOVERY")
+        stage_start = time.time()
         enhanced_results = self.run_enhanced_discovery()
+        print(f"⏱️  Stage 2 took {time.time() - stage_start:.1f}s")
         all_results.extend(enhanced_results)
-        
+
         # 3. Google search discovery
         print("\n3️⃣ GOOGLE SEARCH DISCOVERY")
+        stage_start = time.time()
         google_results = self.run_google_search_discovery()
+        print(f"⏱️  Stage 3 took {time.time() - stage_start:.1f}s")
         all_results.extend(google_results)
-        
+
         # 4. Curated startup URLs
         print("\n4️⃣ CURATED STARTUP URLs")
+        stage_start = time.time()
         curated_results = self.add_curated_startup_urls()
+        print(f"⏱️  Stage 4 took {time.time() - stage_start:.1f}s")
         all_results.extend(curated_results)
-        
+
         # 5. Consolidate and rank
         print("\n5️⃣ CONSOLIDATION & RANKING")
+        stage_start = time.time()
         final_results = self.consolidate_and_rank_results(all_results)
+        print(f"⏱️  Stage 5 took {time.time() - stage_start:.1f}s")
         
         # 6. Analyze results
         print("\n6️⃣ ANALYSIS")
