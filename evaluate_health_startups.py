@@ -126,6 +126,9 @@ class HealthStartupEvaluator:
         title = self._extract_title(soup)
         description = self._extract_description(soup)
         
+        # Extract company name using multiple strategies
+        company_name = self._extract_company_name(soup, title, final_url, startup_data)
+        
         # Detect language
         language = self._detect_language(soup, response)
         
@@ -145,6 +148,7 @@ class HealthStartupEvaluator:
             final_url=final_url,
             page_title=title,
             meta_description=description,
+            company_name=company_name,
             health_relevance_score=health_score,
             is_live=True,
             is_health_related=(health_score >= 3),
@@ -171,6 +175,68 @@ class HealthStartupEvaluator:
             return og_desc['content'].strip()
         
         return ""
+    
+    def _extract_company_name(self, soup: BeautifulSoup, title: str, url: str, startup_data: Dict) -> str:
+        """Extract company name using multiple strategies"""
+        
+        # Strategy 1: Check if name already exists in startup_data
+        if 'name' in startup_data and startup_data['name']:
+            name = startup_data['name'].strip()
+            if name and name.lower() not in ['healthcare company', 'unknown', 'n/a']:
+                return name
+        
+        # Strategy 2: Try OpenGraph site_name
+        og_site_name = soup.find('meta', attrs={'property': 'og:site_name'})
+        if og_site_name and og_site_name.get('content'):
+            return og_site_name['content'].strip()
+        
+        # Strategy 3: Try application-name meta tag
+        app_name = soup.find('meta', attrs={'name': 'application-name'})
+        if app_name and app_name.get('content'):
+            return app_name['content'].strip()
+        
+        # Strategy 4: Clean the title tag
+        if title:
+            # Common patterns to clean from titles
+            clean_patterns = [
+                r'\s*[-–—|]\s*Home\s*$',
+                r'\s*[-–—|]\s*Welcome\s*$',
+                r'\s*[-–—|]\s*Official\s*(Website|Site)\s*$',
+                r'\s*[-–—|]\s*Homepage\s*$',
+                r'^Welcome to\s*',
+                r'\s*\|.*$',  # Remove everything after pipe
+                r'\s*-\s*.*$',  # Remove everything after dash
+            ]
+            
+            cleaned_title = title
+            for pattern in clean_patterns:
+                cleaned_title = re.sub(pattern, '', cleaned_title, flags=re.IGNORECASE)
+            
+            # If we got a reasonable name from title, use it
+            if cleaned_title and len(cleaned_title) > 2 and len(cleaned_title) < 50:
+                return cleaned_title.strip()
+        
+        # Strategy 5: Extract from URL domain as last resort
+        parsed_url = urlparse(url)
+        domain = parsed_url.netloc.lower()
+        
+        # Remove common prefixes
+        domain = re.sub(r'^(www\.|app\.|portal\.)', '', domain)
+        
+        # Get the main part before TLD
+        domain_parts = domain.split('.')
+        if domain_parts:
+            name = domain_parts[0]
+            # Capitalize properly (handle names like "doctolib" -> "Doctolib")
+            if name and len(name) > 1:
+                # Handle special cases like "ada" -> "ADA" (if all lowercase and short)
+                if len(name) <= 3:
+                    return name.upper()
+                else:
+                    # Capitalize first letter
+                    return name[0].upper() + name[1:]
+        
+        return "Unknown"
     
     def _detect_language(self, soup: BeautifulSoup, response: requests.Response) -> str:
         """Detect page language"""
