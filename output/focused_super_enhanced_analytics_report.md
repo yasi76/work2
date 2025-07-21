@@ -1,41 +1,40 @@
 # Focused Super Enhanced European Healthcare Companies - Analytics Report
 ================================================================================
 
-**Total companies:** 36
+**Total companies:** 40
 **Average quality score:** 59.6%
-**Average completeness score:** 62.2%
-**Average confidence score:** 80.4%
+**Average completeness score:** 61.7%
+**Average confidence score:** 80.9%
 
 ## Quality Distribution
 - High quality (70%+): 4
-- Medium quality (40-69%): 32
+- Medium quality (40-69%): 36
 - Low quality (<40%): 0
 
 ## Category Distribution
-- Healthcare IT: 25
+- Healthcare IT: 30
 - Digital Health: 4
 - Wellness: 2
-- Geriatrics: 1
 - Diagnostics: 1
 - Mental Health: 1
 - Pharmaceuticals: 1
 - Cardiology: 1
 
 ## Country Distribution
-- UK: 20
-- Germany: 10
+- UK: 25
+- Germany: 9
 - Europe: 4
 - France: 2
 
 ## Technology Trends
-- ml: 36 companies
-- ai: 34 companies
-- java: 33 companies
-- javascript: 33 companies
-- api: 31 companies
-- mobile: 21 companies
-- cloud: 18 companies
-- rest: 15 companies
+- ml: 40 companies
+- ai: 38 companies
+- java: 37 companies
+- javascript: 37 companies
+- api: 35 companies
+- mobile: 25 companies
+- cloud: 23 companies
+- rest: 20 companies
 - aws: 11 companies
 - ios: 11 companies
 
@@ -48,20 +47,20 @@
 6. Benefits (68.5%) - Healthcare IT
 7. deepcOS (67.5%) - Healthcare IT
 8. Die Plattform für Top (67.3%) - Mental Health
-9. Nect (64.8%) - Geriatrics
-10. Cara Care (62.5%) - Healthcare IT
-11. Telehealth &amp; Telemedicine Provider (61.7%) - Wellness
-12. TelefonSeelsorge® Deutschland (60.8%) - Healthcare IT
-13. Medlanes (60.6%) - Healthcare IT
-14. Gewichtsabnahme: Tipps und Ursachen verstehen &#8211; Medlanes (60.6%) - Healthcare IT
-15. Fernarzt.com – Ihr digitaler Gesundheitsanbieter (59.8%) - Healthcare IT
+9. Bayer acquires HiDoc Technologies and Cara Care® app for irritable bowel syndrome (63.5%) - Digital Health
+10. Nect Sign &#8211; Nect (62.8%) - Healthcare IT
+11. Cara Care (62.5%) - Healthcare IT
+12. Telehealth &amp; Telemedicine Provider (61.7%) - Wellness
+13. TelefonSeelsorge® Deutschland (60.8%) - Healthcare IT
+14. Medlanes (60.6%) - Healthcare IT
+15. Gewichtsabnahme: Tipps und Ursachen verstehen &#8211; Medlanes (60.6%) - Healthcare IT
 
 ## Processing Statistics
-- Total URLs processed: 41
-- Successful extractions: 36
+- Total URLs processed: 46
+- Successful extractions: 40
 - Failed URLs: 6
-- Success rate: 87.8%
+- Success rate: 87.0%
 
 ## Data Freshness
-- Last updated: 2025-07-13 09:40:15
+- Last updated: 2025-07-21 08:20:56
 - All data is real-time and freshly scraped
