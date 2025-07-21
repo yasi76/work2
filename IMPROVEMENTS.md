@@ -178,6 +178,30 @@ comprehensive_results_timestamp.json
 
 ## ✨ Bonus Features Added
 
+### Domain Canonicalization
+```python
+def canonicalize_domain(self, url):
+    # Remove www., normalize to https, strip paths
+    # https://www.healthmeapp.de/de/ → https://healthmeapp.de
+    # Prevents duplicates like www.example.com vs example.com
+```
+
+### Smart Request Throttling
+```python
+def smart_delay(self, base_delay=None):
+    # Random jitter to avoid bot detection
+    jitter = random.uniform(base_delay * 0.75, base_delay * 1.25)
+    time.sleep(jitter)  # No more static delays
+```
+
+### Smart Search Engine Fallback Ranking
+```python
+def get_search_engine_priority(self):
+    # Track success rates per engine
+    # Auto-prioritize most reliable engines
+    # Google might fail, but Bing succeeds → Bing gets priority
+```
+
 ### Country Detection
 ```python
 def detect_country(self, domain, content):
@@ -199,9 +223,20 @@ for url in tqdm(user_urls, desc="Validating verified URLs"):
 import logging
 logger = logging.getLogger(__name__)
 
-# Structured logging with timestamps
+# ALL print() statements converted to structured logging
+logger.info("Discovery started")
 logger.warning(f"Skipped broken: {url}")
 logger.error(f"GitHub API error: {response.status_code}")
+```
+
+### Search Engine Performance Tracking
+```python
+# Track and report success rates
+self.engine_success_rates = {
+    'google': {'success': 0, 'attempts': 0},
+    'bing': {'success': 0, 'attempts': 0},
+    'duckduckgo': {'success': 0, 'attempts': 0}
+}
 ```
 
 ### Timestamp Fields

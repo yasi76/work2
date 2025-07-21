@@ -43,6 +43,13 @@ class ImprovedStartupDiscovery:
             'generated': []
         }
         
+        # Search engine success tracking for smart fallback ranking
+        self.engine_success_rates = {
+            'google': {'success': 0, 'attempts': 0},
+            'bing': {'success': 0, 'attempts': 0},
+            'duckduckgo': {'success': 0, 'attempts': 0}
+        }
+        
         # Health-related keywords for validation
         self.health_keywords = [
             'health', 'medical', 'medicine', 'clinic', 'hospital', 'patient', 
@@ -51,6 +58,33 @@ class ImprovedStartupDiscovery:
             'therapeutics', 'healthcare', 'wellness', 'rehabilitation',
             'ai', 'artificial intelligence', 'data analytics', 'platform'
         ]
+
+    def canonicalize_domain(self, url: str) -> str:
+        """Canonicalize domain to avoid duplicates (remove www, trailing paths, etc.)"""
+        try:
+            parsed = urlparse(url)
+            # Remove www. prefix
+            domain = parsed.netloc.lower()
+            if domain.startswith('www.'):
+                domain = domain[4:]
+            
+            # Use https as default scheme
+            scheme = 'https'
+            
+            # Return canonical URL (domain only, no paths)
+            canonical_url = f"{scheme}://{domain}"
+            return canonical_url
+        except Exception:
+            return url
+    
+    def smart_delay(self, base_delay: float = None) -> None:
+        """Enhanced throttling with random jitter to avoid bot detection"""
+        if base_delay is None:
+            base_delay = self.delay
+        
+        # Add random jitter (±25% of base delay)
+        jitter = random.uniform(base_delay * 0.75, base_delay * 1.25)
+        time.sleep(jitter)
 
     def check_url_health(self, url: str, timeout: int = 5) -> Dict:
         """Check if URL is alive and accessible"""
@@ -157,31 +191,50 @@ class ImprovedStartupDiscovery:
         
         return 'Europe'
 
+    def get_search_engine_priority(self) -> List[str]:
+        """Get search engines ordered by success rate (smart fallback ranking)"""
+        engines = []
+        for engine, stats in self.engine_success_rates.items():
+            if stats['attempts'] > 0:
+                success_rate = stats['success'] / stats['attempts']
+                engines.append((engine, success_rate))
+            else:
+                # Default order for engines with no attempts
+                engines.append((engine, 0.5))
+        
+        # Sort by success rate (descending)
+        engines.sort(key=lambda x: x[1], reverse=True)
+        return [engine[0] for engine in engines]
+    
     def search_with_fallbacks(self, query: str, num_results: int = 20) -> List[str]:
-        """Search with multiple search engines as fallbacks"""
-        print(f"🔍 Searching for: '{query}'")
+        """Search with multiple search engines using smart fallback ranking"""
+        logger.info(f"🔍 Searching for: '{query}'")
         
-        # Try Google first
-        urls = self.search_google(query, num_results)
-        if urls:
-            print(f"  ✅ Google found {len(urls)} results")
-            return urls
+        # Get engines in priority order based on success rates
+        engine_priority = self.get_search_engine_priority()
         
-        print("  ⚠️ Google failed, trying Bing...")
-        # Fallback to Bing
-        urls = self.search_bing(query, num_results)
-        if urls:
-            print(f"  ✅ Bing found {len(urls)} results")
-            return urls
+        search_methods = {
+            'google': self.search_google,
+            'bing': self.search_bing,
+            'duckduckgo': self.search_duckduckgo
+        }
         
-        print("  ⚠️ Bing failed, trying DuckDuckGo...")
-        # Fallback to DuckDuckGo
-        urls = self.search_duckduckgo(query, num_results)
-        if urls:
-            print(f"  ✅ DuckDuckGo found {len(urls)} results")
-            return urls
+        for engine in engine_priority:
+            try:
+                logger.info(f"  Trying {engine.title()}...")
+                urls = search_methods[engine](query, num_results)
+                if urls:
+                    logger.info(f"  ✅ {engine.title()} found {len(urls)} results")
+                    self.engine_success_rates[engine]['success'] += 1
+                    return urls
+                else:
+                    logger.warning(f"  ⚠️ {engine.title()} returned no results")
+            except Exception as e:
+                logger.error(f"  ❌ {engine.title()} failed: {str(e)}")
+            finally:
+                self.engine_success_rates[engine]['attempts'] += 1
         
-        print("  ❌ All search engines failed")
+        logger.error("  ❌ All search engines failed")
         return []
 
     def search_google(self, query: str, num_results: int = 20) -> List[str]:
@@ -190,7 +243,7 @@ class ImprovedStartupDiscovery:
             encoded_query = quote_plus(query)
             search_url = f"https://www.google.com/search?q={encoded_query}&num={num_results}"
             
-            time.sleep(self.delay)
+            self.smart_delay()
             response = self.session.get(search_url, timeout=15)
             response.raise_for_status()
             
@@ -231,7 +284,7 @@ class ImprovedStartupDiscovery:
             encoded_query = quote_plus(query)
             search_url = f"https://www.bing.com/search?q={encoded_query}&count={num_results}"
             
-            time.sleep(self.delay)
+            self.smart_delay()
             response = self.session.get(search_url, timeout=15)
             response.raise_for_status()
             
@@ -265,7 +318,7 @@ class ImprovedStartupDiscovery:
             encoded_query = quote_plus(query)
             search_url = f"https://duckduckgo.com/html/?q={encoded_query}"
             
-            time.sleep(self.delay)
+            self.smart_delay()
             response = self.session.get(search_url, timeout=15)
             response.raise_for_status()
             
@@ -312,7 +365,7 @@ class ImprovedStartupDiscovery:
 
     def scrape_startup_directory_with_pagination(self, base_url: str, directory_name: str, max_pages: int = 10) -> List[Dict]:
         """Scrape startup directories with pagination support"""
-        print(f"🔍 Scraping {directory_name} with pagination (up to {max_pages} pages)...")
+        logger.info(f"🔍 Scraping {directory_name} with pagination (up to {max_pages} pages)...")
         results = []
         
         for page in tqdm(range(1, max_pages + 1), desc=f"Scraping {directory_name}"):
@@ -329,7 +382,7 @@ class ImprovedStartupDiscovery:
                 page_results = []
                 for page_url in page_urls:
                     try:
-                        time.sleep(self.delay)
+                        self.smart_delay()
                         response = self.session.get(page_url, timeout=15)
                         response.raise_for_status()
                         
@@ -360,9 +413,10 @@ class ImprovedStartupDiscovery:
                                     
                                     if not any(excluded in domain for excluded in exclude_domains):
                                         clean_url = f"https://{domain}"
-                                        if clean_url not in [r['url'] for r in page_results]:
+                                        canonical_url = self.canonicalize_domain(clean_url)
+                                        if canonical_url not in [r['url'] for r in page_results]:
                                             page_results.append({
-                                                'url': clean_url,
+                                                'url': canonical_url,
                                                 'source': f'{directory_name} (Page {page})',
                                                 'confidence': 7,
                                                 'category': 'Directory Listed'
@@ -375,22 +429,22 @@ class ImprovedStartupDiscovery:
                         continue  # Try next pagination pattern
                 
                 if not page_results:
-                    print(f"  No results found on page {page}, stopping pagination")
+                    logger.info(f"  No results found on page {page}, stopping pagination")
                     break
                 
                 results.extend(page_results)
-                print(f"  Page {page}: Found {len(page_results)} URLs")
+                logger.info(f"  Page {page}: Found {len(page_results)} URLs")
                 
             except Exception as e:
                 logger.error(f"Error scraping page {page} of {directory_name}: {str(e)}")
                 break
         
-        print(f"✅ Found {len(results)} total URLs from {directory_name}")
+        logger.info(f"✅ Found {len(results)} total URLs from {directory_name}")
         return results
 
     def search_github_with_token(self) -> List[Dict]:
         """Enhanced GitHub discovery with API token support"""
-        print("🔍 Searching GitHub for health tech projects...")
+        logger.info("🔍 Searching GitHub for health tech projects...")
         results = []
         
         # Use more queries with API token
@@ -409,13 +463,13 @@ class ImprovedStartupDiscovery:
         headers = {}
         if self.github_token:
             headers['Authorization'] = f'token {self.github_token}'
-            print(f"  ✅ Using GitHub API token for enhanced rate limits")
+            logger.info(f"  ✅ Using GitHub API token for enhanced rate limits")
         else:
-            print(f"  ⚠️ No GitHub token found, using anonymous access (limited to {query_limit} queries)")
+            logger.warning(f"  ⚠️ No GitHub token found, using anonymous access (limited to {query_limit} queries)")
         
         for i, query in enumerate(tqdm(github_queries[:query_limit], desc="GitHub queries")):
             try:
-                time.sleep(1)  # Respectful delay
+                self.smart_delay(1.0)  # Respectful delay with jitter
                 api_url = f"https://api.github.com/search/repositories?q={query.replace(' ', '+')}&sort=stars&order=desc&per_page=30"
                 
                 response = self.session.get(api_url, headers=headers, timeout=10)
@@ -429,8 +483,9 @@ class ImprovedStartupDiscovery:
                             # Validate it's not just GitHub or common platforms
                             domain = urlparse(homepage).netloc
                             if not any(platform in domain for platform in ['github.com', 'gitlab.com', 'npmjs.com']):
+                                canonical_url = self.canonicalize_domain(homepage)
                                 results.append({
-                                    'url': homepage,
+                                    'url': canonical_url,
                                     'source': f'GitHub: {query}',
                                     'confidence': 6,
                                     'category': 'GitHub Project',
@@ -447,12 +502,12 @@ class ImprovedStartupDiscovery:
                 logger.error(f"GitHub search error: {str(e)}")
                 continue
         
-        print(f"✅ Found {len(results)} URLs from GitHub")
+        logger.info(f"✅ Found {len(results)} URLs from GitHub")
         return results
 
     def generate_and_validate_domains(self) -> List[Dict]:
         """Generate potential domains and validate them before adding"""
-        print("🔍 Generating and validating potential health tech domains...")
+        logger.info("🔍 Generating and validating potential health tech domains...")
         results = []
         
         # Generate potential combinations (reduced set)
@@ -473,25 +528,26 @@ class ImprovedStartupDiscovery:
         random.shuffle(potential_domains)
         potential_domains = potential_domains[:50]  # Limit to 50 for testing
         
-        print(f"  Testing {len(potential_domains)} generated domains...")
+        logger.info(f"  Testing {len(potential_domains)} generated domains...")
         
         for domain in tqdm(potential_domains, desc="Validating domains"):
-            health_check = self.check_url_health(domain, timeout=3)
+            canonical_domain = self.canonicalize_domain(domain)
+            health_check = self.check_url_health(canonical_domain, timeout=3)
             if health_check['is_alive']:
                 results.append({
-                    'url': domain,
+                    'url': canonical_domain,
                     'source': 'Generated & Validated',
                     'confidence': 4,
                     'category': 'Generated Domain',
                     'status_code': health_check['status_code']
                 })
         
-        print(f"✅ Found {len(results)} valid generated domains")
+        logger.info(f"✅ Found {len(results)} valid generated domains")
         return results
 
     def get_user_verified_urls(self) -> List[Dict]:
         """User's verified hardcoded URLs - highest priority"""
-        print("🔍 Loading user's verified hardcoded URLs...")
+        logger.info("🔍 Loading user's verified hardcoded URLs...")
         
         user_urls = [
             'https://www.acalta.de',
@@ -550,14 +606,15 @@ class ImprovedStartupDiscovery:
         ]
         
         results = []
-        print(f"  Validating {len(user_urls)} verified URLs...")
+        logger.info(f"  Validating {len(user_urls)} verified URLs...")
         
         for url in tqdm(user_urls, desc="Validating verified URLs"):
-            health_check = self.check_url_health(url)
-            validation = self.validate_health_content(url) if health_check['is_alive'] else {}
+            canonical_url = self.canonicalize_domain(url)
+            health_check = self.check_url_health(canonical_url)
+            validation = self.validate_health_content(canonical_url) if health_check['is_alive'] else {}
             
             result = {
-                'url': url,
+                'url': canonical_url,
                 'source': 'User Verified',
                 'confidence': 10,
                 'category': 'Verified Health Tech',
@@ -566,24 +623,24 @@ class ImprovedStartupDiscovery:
                 **validation
             }
             results.append(result)
-            self.found_urls.add(url)
+            self.found_urls.add(canonical_url)
         
-        print(f"✅ Processed {len(results)} verified user URLs")
+        logger.info(f"✅ Processed {len(results)} verified user URLs")
         return results
 
     def discover_all_startups(self) -> Dict:
         """Main discovery method with all improvements"""
-        print("🚀 IMPROVED STARTUP DISCOVERY SYSTEM")
-        print("=" * 60)
+        logger.info("🚀 IMPROVED STARTUP DISCOVERY SYSTEM")
+        logger.info("=" * 60)
         start_time = time.time()
         
         # 1. User verified URLs (highest priority)
-        print("\n1️⃣ USER VERIFIED URLs")
+        logger.info("\n1️⃣ USER VERIFIED URLs")
         verified_results = self.get_user_verified_urls()
         self.all_discovered_urls['verified'] = verified_results
         
         # 2. Enhanced directory scraping with pagination
-        print("\n2️⃣ STARTUP DIRECTORIES (with pagination)")
+        logger.info("\n2️⃣ STARTUP DIRECTORIES (with pagination)")
         directory_results = []
         directories = [
             {
@@ -606,11 +663,11 @@ class ImprovedStartupDiscovery:
                 logger.error(f"Error with {directory['name']}: {str(e)}")
         
         # 3. Enhanced GitHub discovery
-        print("\n3️⃣ GITHUB DISCOVERY (enhanced)")
+        logger.info("\n3️⃣ GITHUB DISCOVERY (enhanced)")
         github_results = self.search_github_with_token()
         
         # 4. Search engine discovery with fallbacks
-        print("\n4️⃣ SEARCH ENGINE DISCOVERY (with fallbacks)")
+        logger.info("\n4️⃣ SEARCH ENGINE DISCOVERY (with fallbacks)")
         search_results = []
         search_queries = [
             "digital health startup Germany site:.de",
@@ -623,10 +680,11 @@ class ImprovedStartupDiscovery:
         for query in tqdm(search_queries, desc="Search queries"):
             urls = self.search_with_fallbacks(query, 15)
             for url in urls:
-                if url not in self.found_urls:
-                    self.found_urls.add(url)
+                canonical_url = self.canonicalize_domain(url)
+                if canonical_url not in self.found_urls:
+                    self.found_urls.add(canonical_url)
                     search_results.append({
-                        'url': url,
+                        'url': canonical_url,
                         'source': f'Search: {query}',
                         'confidence': 6,
                         'category': 'Search Engine',
@@ -634,7 +692,7 @@ class ImprovedStartupDiscovery:
                     })
         
         # 5. Generated and validated domains
-        print("\n5️⃣ GENERATED DOMAINS (validated)")
+        logger.info("\n5️⃣ GENERATED DOMAINS (validated)")
         generated_results = self.generate_and_validate_domains()
         
         # Combine discovered and generated results
@@ -643,8 +701,8 @@ class ImprovedStartupDiscovery:
         self.all_discovered_urls['generated'] = generated_results
         
         # 6. Health validation for discovered URLs
-        print("\n6️⃣ HEALTH CONTENT VALIDATION")
-        print("  Validating discovered URLs for health relevance...")
+        logger.info("\n6️⃣ HEALTH CONTENT VALIDATION")
+        logger.info("  Validating discovered URLs for health relevance...")
         
         for result in tqdm(discovered_results, desc="Validating content"):
             if result['url'] not in [r['url'] for r in verified_results]:
@@ -661,21 +719,33 @@ class ImprovedStartupDiscovery:
         # 7. Final consolidation
         all_results = verified_results + discovered_results + generated_results
         
-        # Remove duplicates
+        # Remove duplicates using canonicalized URLs
         unique_results = []
-        seen_urls = set()
+        seen_canonical_urls = set()
         for result in sorted(all_results, key=lambda x: x['confidence'], reverse=True):
-            if result['url'] not in seen_urls:
-                seen_urls.add(result['url'])
+            canonical_url = self.canonicalize_domain(result['url'])
+            if canonical_url not in seen_canonical_urls:
+                seen_canonical_urls.add(canonical_url)
+                result['url'] = canonical_url  # Ensure URL is canonical
                 unique_results.append(result)
         
         end_time = time.time()
         
-        # Prepare final results
+        # Prepare final results with search engine performance stats
+        engine_stats = {}
+        for engine, stats in self.engine_success_rates.items():
+            if stats['attempts'] > 0:
+                engine_stats[engine] = {
+                    'success_rate': round(stats['success'] / stats['attempts'], 2),
+                    'attempts': stats['attempts'],
+                    'successes': stats['success']
+                }
+        
         final_results = {
             'total_urls_discovered': len(unique_results),
             'discovery_time_seconds': round(end_time - start_time, 2),
             'urls': unique_results,
+            'engine_performance': engine_stats,
             'summary': {
                 'verified': len(verified_results),
                 'discovered': len(discovered_results),
@@ -686,10 +756,16 @@ class ImprovedStartupDiscovery:
             }
         }
         
-        print(f"\n📊 DISCOVERY COMPLETE! ({final_results['discovery_time_seconds']}s)")
-        print(f"🎯 Total URLs: {final_results['total_urls_discovered']}")
-        print(f"✅ Alive URLs: {final_results['summary']['alive_urls']}")
-        print(f"🏥 Health-related: {final_results['summary']['health_related']}")
+        logger.info(f"\n📊 DISCOVERY COMPLETE! ({final_results['discovery_time_seconds']}s)")
+        logger.info(f"🎯 Total URLs: {final_results['total_urls_discovered']}")
+        logger.info(f"✅ Alive URLs: {final_results['summary']['alive_urls']}")
+        logger.info(f"🏥 Health-related: {final_results['summary']['health_related']}")
+        
+        # Log search engine performance
+        if engine_stats:
+            logger.info("🔍 Search Engine Performance:")
+            for engine, stats in engine_stats.items():
+                logger.info(f"  {engine.title()}: {stats['success_rate']} success rate ({stats['successes']}/{stats['attempts']})")
         
         return final_results
 
@@ -786,26 +862,27 @@ class ImprovedStartupDiscovery:
 
 def main():
     """Main function to run the improved startup discovery"""
-    print("🚀 IMPROVED STARTUP DISCOVERY SYSTEM")
-    print("=" * 60)
-    print("🎯 All major issues addressed:")
-    print("  • Robust search with fallbacks")
-    print("  • Deep pagination support")
-    print("  • URL health checks")
-    print("  • Enhanced GitHub discovery")
-    print("  • Separated output files")
-    print("  • Progress bars and logging")
-    print("")
+    logger.info("🚀 IMPROVED STARTUP DISCOVERY SYSTEM")
+    logger.info("=" * 60)
+    logger.info("🎯 All major issues addressed:")
+    logger.info("  • Robust search with fallbacks + smart ranking")
+    logger.info("  • Deep pagination support")
+    logger.info("  • URL health checks + domain canonicalization")
+    logger.info("  • Enhanced GitHub discovery")
+    logger.info("  • Separated output files")
+    logger.info("  • Progress bars and comprehensive logging")
+    logger.info("  • Smart throttling with jitter")
+    logger.info("")
     
     # Check for GitHub token
     github_token = os.getenv('GITHUB_TOKEN')
     if github_token:
-        print(f"✅ GitHub API token found - enhanced discovery enabled")
+        logger.info(f"✅ GitHub API token found - enhanced discovery enabled")
     else:
-        print(f"⚠️ No GitHub token found - limited to anonymous access")
-        print(f"  Set GITHUB_TOKEN environment variable for better results")
+        logger.warning(f"⚠️ No GitHub token found - limited to anonymous access")
+        logger.info(f"  Set GITHUB_TOKEN environment variable for better results")
     
-    print("")
+    logger.info("")
     
     try:
         # Initialize and run discovery
@@ -815,21 +892,21 @@ def main():
         # Save separated results
         files = discoverer.save_separated_results(results)
         
-        print(f"\n✨ SUCCESS! Discovery completed in {results['discovery_time_seconds']}s")
-        print(f"📁 Files created:")
+        logger.info(f"\n✨ SUCCESS! Discovery completed in {results['discovery_time_seconds']}s")
+        logger.info(f"📁 Files created:")
         for file_type, filename in files.items():
-            print(f"  • {filename}")
+            logger.info(f"  • {filename}")
         
-        print(f"\n📋 Next steps:")
-        print(f"  1. Review verified URLs in: {files['verified']}")
-        print(f"  2. Validate discovered URLs in: {files['discovered']}")
-        print(f"  3. Check generated URLs in: {files['generated']}")
-        print(f"  4. Use comprehensive data from: {files['json']}")
+        logger.info(f"\n📋 Next steps:")
+        logger.info(f"  1. Review verified URLs in: {files['verified']}")
+        logger.info(f"  2. Validate discovered URLs in: {files['discovered']}")
+        logger.info(f"  3. Check generated URLs in: {files['generated']}")
+        logger.info(f"  4. Use comprehensive data from: {files['json']}")
         
         return files
         
     except KeyboardInterrupt:
-        print(f"\n⚠️ Discovery interrupted by user")
+        logger.warning(f"\n⚠️ Discovery interrupted by user")
         return None
     except Exception as e:
         logger.error(f"Error during discovery: {str(e)}")
@@ -840,6 +917,6 @@ def main():
 if __name__ == "__main__":
     results = main()
     if results:
-        print(f"\n🎊 Improved discovery completed successfully!")
+        logger.info(f"\n🎊 Improved discovery completed successfully!")
     else:
-        print(f"\n⚠️ Discovery completed with issues")
+        logger.warning(f"\n⚠️ Discovery completed with issues")
