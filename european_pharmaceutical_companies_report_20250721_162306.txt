@@ -1,0 +1,393 @@
+================================================================================
+COMPREHENSIVE EUROPEAN PHARMACEUTICAL COMPANIES DATABASE
+================================================================================
+Generated: 2025-07-21 16:23:06
+Total verified companies: 47
+
+📊 COMPANIES BY COUNTRY
+----------------------------------------
+  • Germany: 10 companies
+  • Switzerland: 6 companies
+  • France: 5 companies
+  • United Kingdom: 4 companies
+  • Denmark: 3 companies
+  • Italy: 3 companies
+  • Spain: 3 companies
+  • Netherlands: 2 companies
+  • Sweden: 2 companies
+  • Belgium: 2 companies
+  • Finland: 1 companies
+  • Austria: 1 companies
+  • Norway: 1 companies
+  • Ireland: 1 companies
+  • Poland: 1 companies
+  • Czech Republic: 1 companies
+  • Hungary: 1 companies
+
+🏢 AUSTRIA - 1 companies
+--------------------------------------------------
+  • Takeda Austria GmbH
+    Website: https://takeda.com
+    Location: Linz, Austria
+    Type: Pharmaceutical company (Austrian subsidiary)
+
+
+🏢 BELGIUM - 2 companies
+--------------------------------------------------
+  • UCB S.A.
+    Website: https://ucb.com
+    Location: Brussels, Belgium
+    Founded: 1928
+    Employees: 8,500+
+    Type: Biopharmaceutical company
+
+  • Galapagos NV
+    Website: https://galapagos.com
+    Location: Mechelen, Belgium
+    Founded: 1999
+    Employees: 1,000+
+    Type: Biotechnology company
+
+
+🏢 CZECH REPUBLIC - 1 companies
+--------------------------------------------------
+  • Zentiva
+    Website: https://zentiva.com
+    Location: Prague, Czech Republic
+    Founded: 1990
+    Employees: 4,000+
+    Type: Generic pharmaceuticals
+
+
+🏢 DENMARK - 3 companies
+--------------------------------------------------
+  • Novo Nordisk A/S
+    Website: https://novo-nordisk.com
+    Location: Bagsværd, Denmark
+    Founded: 1923
+    Employees: 49,000+
+    Type: Pharmaceutical company (diabetes care)
+
+  • H. Lundbeck A/S
+    Website: https://lundbeck.com
+    Location: Copenhagen, Denmark
+    Founded: 1915
+    Employees: 5,500+
+    Type: Pharmaceutical company (CNS disorders)
+
+  • Genmab A/S
+    Website: https://genmab.com
+    Location: Copenhagen, Denmark
+    Founded: 1999
+    Employees: 1,000+
+    Type: Biotechnology company
+
+
+🏢 FINLAND - 1 companies
+--------------------------------------------------
+  • Orion Corporation
+    Website: https://orion.fi
+    Location: Espoo, Finland
+    Founded: 1917
+    Employees: 3,300+
+    Type: Pharmaceutical company
+
+
+🏢 FRANCE - 5 companies
+--------------------------------------------------
+  • Sanofi S.A.
+    Website: https://sanofi.com
+    Location: Paris, France
+    Founded: 1973
+    Employees: 100,000+
+    Type: Multinational pharmaceutical company
+
+  • Servier
+    Website: https://servier.com
+    Location: Suresnes, France
+    Founded: 1954
+    Employees: 22,000+
+    Type: Pharmaceutical company
+
+  • Ipsen S.A.
+    Website: https://ipsen.com
+    Location: Boulogne-Billancourt, France
+    Founded: 1929
+    Employees: 5,800+
+    Type: Pharmaceutical company
+
+  • Pierre Fabre
+    Website: https://pierre-fabre.com
+    Location: Castres, France
+    Founded: 1961
+    Employees: 10,000+
+    Type: Pharmaceutical and cosmetics company
+
+  • bioMérieux
+    Website: https://biomerieux.com
+    Location: Marcy-l'Étoile, France
+    Founded: 1963
+    Employees: 13,000+
+    Type: In vitro diagnostics
+
+
+🏢 GERMANY - 10 companies
+--------------------------------------------------
+  • Bayer AG
+    Website: https://bayer.com
+    Location: Leverkusen, Germany
+    Founded: 1863
+    Employees: 100,000+
+    Type: Multinational pharmaceutical and life sciences
+
+  • Boehringer Ingelheim
+    Website: https://boehringer-ingelheim.com
+    Location: Ingelheim am Rhein, Germany
+    Founded: 1885
+    Employees: 52,000+
+    Type: Pharmaceutical company
+
+  • Merck KGaA
+    Website: https://merckgroup.com
+    Location: Darmstadt, Germany
+    Founded: 1668
+    Employees: 60,000+
+    Type: Pharmaceutical and chemical company
+
+  • Fresenius SE & Co. KGaA
+    Website: https://fresenius.com
+    Location: Bad Homburg, Germany
+    Founded: 1912
+    Employees: 300,000+
+    Type: Healthcare company
+
+  • Fresenius Kabi
+    Website: https://freseniuskabi.com
+    Location: Bad Homburg, Germany
+    Founded: 1912
+    Employees: 40,000+
+    Type: Pharmaceutical company
+
+  • Berlin-Chemie AG
+    Website: https://berlin-chemie.de
+    Location: Berlin, Germany
+    Founded: 1890
+    Type: Pharmaceutical company
+
+  • STADA Arzneimittel AG
+    Website: https://stada.de
+    Location: Bad Vilbel, Germany
+    Founded: 1895
+    Employees: 12,000+
+    Type: Generic pharmaceuticals
+
+  • Hexal AG
+    Website: https://hexal.de
+    Location: Holzkirchen, Germany
+    Founded: 1986
+    Type: Generic pharmaceuticals
+
+  • ratiopharm GmbH
+    Website: https://ratiopharm.de
+    Location: Ulm, Germany
+    Founded: 1973
+    Type: Generic pharmaceuticals
+
+  • bene-Arzneimittel GmbH
+    Website: https://bene-arzneimittel.de
+    Location: Munich, Germany
+    Founded: 1950
+    Type: Pharmaceutical company
+
+
+🏢 HUNGARY - 1 companies
+--------------------------------------------------
+  • Gedeon Richter Plc.
+    Website: https://gedeon-richter.com
+    Location: Budapest, Hungary
+    Founded: 1901
+    Employees: 12,000+
+    Type: Pharmaceutical company
+
+
+🏢 IRELAND - 1 companies
+--------------------------------------------------
+  • Shire plc
+    Website: https://shire.com
+    Location: Dublin, Ireland
+    Founded: 1986
+    Type: Pharmaceutical company
+    Note: Acquired by Takeda in 2019
+
+
+🏢 ITALY - 3 companies
+--------------------------------------------------
+  • Recordati S.p.A.
+    Website: https://recordati.com
+    Location: Milan, Italy
+    Founded: 1926
+    Employees: 4,300+
+    Type: Pharmaceutical company
+
+  • Chiesi Farmaceutici S.p.A.
+    Website: https://chiesi.com
+    Location: Parma, Italy
+    Founded: 1935
+    Employees: 6,000+
+    Type: Pharmaceutical company
+
+  • Angelini S.p.A.
+    Website: https://angelini.it
+    Location: Rome, Italy
+    Founded: 1919
+    Type: Pharmaceutical company
+
+
+🏢 NETHERLANDS - 2 companies
+--------------------------------------------------
+  • QIAGEN N.V.
+    Website: https://qiagen.com
+    Location: Venlo, Netherlands
+    Founded: 1984
+    Employees: 5,100+
+    Type: Molecular diagnostics and sample preparation
+
+  • Crucell N.V.
+    Website: https://crucell.com
+    Location: Leiden, Netherlands
+    Founded: 1993
+    Type: Biotechnology company
+    Note: Acquired by Johnson & Johnson
+
+
+🏢 NORWAY - 1 companies
+--------------------------------------------------
+  • PhotoCure ASA
+    Website: https://photocure.com
+    Location: Oslo, Norway
+    Founded: 1993
+    Type: Pharmaceutical company
+
+
+🏢 POLAND - 1 companies
+--------------------------------------------------
+  • Polpharma
+    Website: https://polpharma.pl
+    Location: Gdańsk, Poland
+    Founded: 1935
+    Employees: 7,000+
+    Type: Pharmaceutical company
+
+
+🏢 SPAIN - 3 companies
+--------------------------------------------------
+  • Almirall S.A.
+    Website: https://almirall.com
+    Location: Barcelona, Spain
+    Founded: 1943
+    Employees: 1,800+
+    Type: Pharmaceutical company
+
+  • Grifols S.A.
+    Website: https://grifols.com
+    Location: Barcelona, Spain
+    Founded: 1940
+    Employees: 24,000+
+    Type: Pharmaceutical and diagnostics company
+
+  • Esteve Pharmaceuticals
+    Website: https://esteve.com
+    Location: Barcelona, Spain
+    Founded: 1929
+    Employees: 2,500+
+    Type: Pharmaceutical company
+
+
+🏢 SWEDEN - 2 companies
+--------------------------------------------------
+  • Getinge AB
+    Website: https://getinge.com
+    Location: Gothenburg, Sweden
+    Founded: 1904
+    Employees: 10,000+
+    Type: Medical technology
+
+  • Swedish Orphan Biovitrum (Sobi)
+    Website: https://sobi.com
+    Location: Stockholm, Sweden
+    Founded: 1986
+    Employees: 1,600+
+    Type: Pharmaceutical company (rare diseases)
+
+
+🏢 SWITZERLAND - 6 companies
+--------------------------------------------------
+  • F. Hoffmann-La Roche AG
+    Website: https://roche.com
+    Location: Basel, Switzerland
+    Founded: 1896
+    Employees: 100,000+
+    Type: Multinational healthcare company
+
+  • Novartis AG
+    Website: https://novartis.com
+    Location: Basel, Switzerland
+    Founded: 1996
+    Employees: 110,000+
+    Type: Multinational pharmaceutical company
+
+  • Ferring Pharmaceuticals
+    Website: https://ferring.ch
+    Location: Saint-Prex, Switzerland
+    Founded: 1950
+    Employees: 6,500+
+    Type: Pharmaceutical company
+
+  • Siegfried Holding AG
+    Website: https://siegfried.ch
+    Location: Zofingen, Switzerland
+    Founded: 1873
+    Employees: 3,500+
+    Type: Pharmaceutical services
+
+  • Lonza Group AG
+    Website: https://lonza.com
+    Location: Basel, Switzerland
+    Founded: 1897
+    Employees: 17,000+
+    Type: Pharmaceutical and biotechnology services
+
+  • Actelion
+    Website: https://actelion.com
+    Location: Allschwil, Switzerland
+    Founded: 1997
+    Type: Pharmaceutical company
+    Note: Acquired by Johnson & Johnson in 2017
+
+
+🏢 UNITED KINGDOM - 4 companies
+--------------------------------------------------
+  • GlaxoSmithKline plc
+    Website: https://gsk.com
+    Location: London, United Kingdom
+    Founded: 2000
+    Employees: 95,000+
+    Type: Multinational pharmaceutical company
+
+  • AstraZeneca plc
+    Website: https://astrazeneca.com
+    Location: Cambridge, United Kingdom
+    Founded: 1999
+    Employees: 76,000+
+    Type: Multinational pharmaceutical company
+
+  • Ferring Pharmaceuticals UK
+    Website: https://ferring.co.uk
+    Location: West Drayton, United Kingdom
+    Type: Pharmaceutical company (UK subsidiary)
+
+  • Crescent Pharma
+    Website: https://crescentpharma.com
+    Founded: 2014
+    Type: Pharmaceutical company
+

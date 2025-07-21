@@ -1,0 +1,11 @@
+company_name,website,city,founded,employees,type,wikipedia,notes
+Bayer AG,https://bayer.com,Leverkusen,1863,"100,000+",Multinational pharmaceutical and life sciences,https://en.wikipedia.org/wiki/Bayer,
+Boehringer Ingelheim,https://boehringer-ingelheim.com,Ingelheim am Rhein,1885,"52,000+",Pharmaceutical company,https://en.wikipedia.org/wiki/Boehringer_Ingelheim,
+Merck KGaA,https://merckgroup.com,Darmstadt,1668,"60,000+",Pharmaceutical and chemical company,https://en.wikipedia.org/wiki/Merck_KGaA,
+Fresenius SE & Co. KGaA,https://fresenius.com,Bad Homburg,1912,"300,000+",Healthcare company,https://en.wikipedia.org/wiki/Fresenius,
+Fresenius Kabi,https://freseniuskabi.com,Bad Homburg,1912,"40,000+",Pharmaceutical company,https://en.wikipedia.org/wiki/Fresenius_Kabi,
+Berlin-Chemie AG,https://berlin-chemie.de,Berlin,1890,,Pharmaceutical company,,
+STADA Arzneimittel AG,https://stada.de,Bad Vilbel,1895,"12,000+",Generic pharmaceuticals,https://en.wikipedia.org/wiki/Stada_Arzneimittel,
+Hexal AG,https://hexal.de,Holzkirchen,1986,,Generic pharmaceuticals,,
+ratiopharm GmbH,https://ratiopharm.de,Ulm,1973,,Generic pharmaceuticals,,
+bene-Arzneimittel GmbH,https://bene-arzneimittel.de,Munich,1950,,Pharmaceutical company,,

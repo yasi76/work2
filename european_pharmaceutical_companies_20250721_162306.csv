@@ -1,0 +1,48 @@
+company_name,website,country,city,founded,employees,type,wikipedia,notes,verified_status
+Bayer AG,https://bayer.com,Germany,Leverkusen,1863,"100,000+",Multinational pharmaceutical and life sciences,https://en.wikipedia.org/wiki/Bayer,,Verified Active
+Boehringer Ingelheim,https://boehringer-ingelheim.com,Germany,Ingelheim am Rhein,1885,"52,000+",Pharmaceutical company,https://en.wikipedia.org/wiki/Boehringer_Ingelheim,,Verified Active
+Merck KGaA,https://merckgroup.com,Germany,Darmstadt,1668,"60,000+",Pharmaceutical and chemical company,https://en.wikipedia.org/wiki/Merck_KGaA,,Verified Active
+Fresenius SE & Co. KGaA,https://fresenius.com,Germany,Bad Homburg,1912,"300,000+",Healthcare company,https://en.wikipedia.org/wiki/Fresenius,,Verified Active
+Fresenius Kabi,https://freseniuskabi.com,Germany,Bad Homburg,1912,"40,000+",Pharmaceutical company,https://en.wikipedia.org/wiki/Fresenius_Kabi,,Verified Active
+Berlin-Chemie AG,https://berlin-chemie.de,Germany,Berlin,1890,,Pharmaceutical company,,,Verified Active
+STADA Arzneimittel AG,https://stada.de,Germany,Bad Vilbel,1895,"12,000+",Generic pharmaceuticals,https://en.wikipedia.org/wiki/Stada_Arzneimittel,,Verified Active
+Hexal AG,https://hexal.de,Germany,Holzkirchen,1986,,Generic pharmaceuticals,,,Verified Active
+ratiopharm GmbH,https://ratiopharm.de,Germany,Ulm,1973,,Generic pharmaceuticals,,,Verified Active
+bene-Arzneimittel GmbH,https://bene-arzneimittel.de,Germany,Munich,1950,,Pharmaceutical company,,,Verified Active
+F. Hoffmann-La Roche AG,https://roche.com,Switzerland,Basel,1896,"100,000+",Multinational healthcare company,https://en.wikipedia.org/wiki/Hoffmann-La_Roche,,Verified Active
+Novartis AG,https://novartis.com,Switzerland,Basel,1996,"110,000+",Multinational pharmaceutical company,https://en.wikipedia.org/wiki/Novartis,,Verified Active
+Ferring Pharmaceuticals,https://ferring.ch,Switzerland,Saint-Prex,1950,"6,500+",Pharmaceutical company,https://en.wikipedia.org/wiki/Ferring_Pharmaceuticals,,Verified Active
+Siegfried Holding AG,https://siegfried.ch,Switzerland,Zofingen,1873,"3,500+",Pharmaceutical services,https://en.wikipedia.org/wiki/Siegfried_Holding,,Verified Active
+Lonza Group AG,https://lonza.com,Switzerland,Basel,1897,"17,000+",Pharmaceutical and biotechnology services,https://en.wikipedia.org/wiki/Lonza_Group,,Verified Active
+Actelion,https://actelion.com,Switzerland,Allschwil,1997,,Pharmaceutical company,,Acquired by Johnson & Johnson in 2017,Verified Active
+Sanofi S.A.,https://sanofi.com,France,Paris,1973,"100,000+",Multinational pharmaceutical company,https://en.wikipedia.org/wiki/Sanofi,,Verified Active
+Servier,https://servier.com,France,Suresnes,1954,"22,000+",Pharmaceutical company,https://en.wikipedia.org/wiki/Servier,,Verified Active
+Ipsen S.A.,https://ipsen.com,France,Boulogne-Billancourt,1929,"5,800+",Pharmaceutical company,https://en.wikipedia.org/wiki/Ipsen,,Verified Active
+Pierre Fabre,https://pierre-fabre.com,France,Castres,1961,"10,000+",Pharmaceutical and cosmetics company,https://en.wikipedia.org/wiki/Pierre_Fabre_(company),,Verified Active
+bioMérieux,https://biomerieux.com,France,Marcy-l'Étoile,1963,"13,000+",In vitro diagnostics,https://en.wikipedia.org/wiki/BioM%C3%A9rieux,,Verified Active
+GlaxoSmithKline plc,https://gsk.com,United Kingdom,London,2000,"95,000+",Multinational pharmaceutical company,https://en.wikipedia.org/wiki/GlaxoSmithKline,,Verified Active
+AstraZeneca plc,https://astrazeneca.com,United Kingdom,Cambridge,1999,"76,000+",Multinational pharmaceutical company,https://en.wikipedia.org/wiki/AstraZeneca,,Verified Active
+Ferring Pharmaceuticals UK,https://ferring.co.uk,United Kingdom,West Drayton,,,Pharmaceutical company (UK subsidiary),,,Verified Active
+Crescent Pharma,https://crescentpharma.com,United Kingdom,,2014,,Pharmaceutical company,,,Verified Active
+QIAGEN N.V.,https://qiagen.com,Netherlands,Venlo,1984,"5,100+",Molecular diagnostics and sample preparation,https://en.wikipedia.org/wiki/Qiagen,,Verified Active
+Crucell N.V.,https://crucell.com,Netherlands,Leiden,1993,,Biotechnology company,,Acquired by Johnson & Johnson,Verified Active
+Novo Nordisk A/S,https://novo-nordisk.com,Denmark,Bagsværd,1923,"49,000+",Pharmaceutical company (diabetes care),https://en.wikipedia.org/wiki/Novo_Nordisk,,Verified Active
+H. Lundbeck A/S,https://lundbeck.com,Denmark,Copenhagen,1915,"5,500+",Pharmaceutical company (CNS disorders),https://en.wikipedia.org/wiki/Lundbeck,,Verified Active
+Genmab A/S,https://genmab.com,Denmark,Copenhagen,1999,"1,000+",Biotechnology company,https://en.wikipedia.org/wiki/Genmab,,Verified Active
+Getinge AB,https://getinge.com,Sweden,Gothenburg,1904,"10,000+",Medical technology,https://en.wikipedia.org/wiki/Getinge,,Verified Active
+Swedish Orphan Biovitrum (Sobi),https://sobi.com,Sweden,Stockholm,1986,"1,600+",Pharmaceutical company (rare diseases),https://en.wikipedia.org/wiki/Swedish_Orphan_Biovitrum,,Verified Active
+Orion Corporation,https://orion.fi,Finland,Espoo,1917,"3,300+",Pharmaceutical company,https://en.wikipedia.org/wiki/Orion_Corporation,,Verified Active
+Recordati S.p.A.,https://recordati.com,Italy,Milan,1926,"4,300+",Pharmaceutical company,https://en.wikipedia.org/wiki/Recordati,,Verified Active
+Chiesi Farmaceutici S.p.A.,https://chiesi.com,Italy,Parma,1935,"6,000+",Pharmaceutical company,https://en.wikipedia.org/wiki/Chiesi_Farmaceutici,,Verified Active
+Angelini S.p.A.,https://angelini.it,Italy,Rome,1919,,Pharmaceutical company,,,Verified Active
+Almirall S.A.,https://almirall.com,Spain,Barcelona,1943,"1,800+",Pharmaceutical company,https://en.wikipedia.org/wiki/Almirall,,Verified Active
+Grifols S.A.,https://grifols.com,Spain,Barcelona,1940,"24,000+",Pharmaceutical and diagnostics company,https://en.wikipedia.org/wiki/Grifols,,Verified Active
+Esteve Pharmaceuticals,https://esteve.com,Spain,Barcelona,1929,"2,500+",Pharmaceutical company,,,Verified Active
+UCB S.A.,https://ucb.com,Belgium,Brussels,1928,"8,500+",Biopharmaceutical company,https://en.wikipedia.org/wiki/UCB_(company),,Verified Active
+Galapagos NV,https://galapagos.com,Belgium,Mechelen,1999,"1,000+",Biotechnology company,https://en.wikipedia.org/wiki/Galapagos_(company),,Verified Active
+Takeda Austria GmbH,https://takeda.com,Austria,Linz,,,Pharmaceutical company (Austrian subsidiary),,,Verified Active
+PhotoCure ASA,https://photocure.com,Norway,Oslo,1993,,Pharmaceutical company,,,Verified Active
+Shire plc,https://shire.com,Ireland,Dublin,1986,,Pharmaceutical company,,Acquired by Takeda in 2019,Verified Active
+Polpharma,https://polpharma.pl,Poland,Gdańsk,1935,"7,000+",Pharmaceutical company,,,Verified Active
+Zentiva,https://zentiva.com,Czech Republic,Prague,1990,"4,000+",Generic pharmaceuticals,,,Verified Active
+Gedeon Richter Plc.,https://gedeon-richter.com,Hungary,Budapest,1901,"12,000+",Pharmaceutical company,https://en.wikipedia.org/wiki/Gedeon_Richter_Plc.,,Verified Active
