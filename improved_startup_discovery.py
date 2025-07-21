@@ -50,6 +50,40 @@ class ImprovedStartupDiscovery:
             'duckduckgo': {'success': 0, 'attempts': 0}
         }
         
+        # Domain filtering - banned domains and patterns
+        self.banned_domains = [
+            # Social media platforms
+            'facebook.com', 'twitter.com', 'instagram.com', 'linkedin.com', 'youtube.com',
+            'snapchat.com', 'tiktok.com', 'pinterest.com', 'reddit.com',
+            
+            # Development/hosting platforms
+            'github.com', 'gitlab.com', 'vercel.app', 'netlify.app', 'herokuapp.com',
+            'github.io', 'gitlab.io', 'pages.dev', 'firebaseapp.com', 'appspot.com',
+            
+            # Generic hosting/domain services
+            'blogspot.com', 'wordpress.com', 'wix.com', 'squarespace.com', 'weebly.com',
+            'godaddy.com', 'namecheap.com', 'domain.com', 'sedo.com',
+            
+            # App stores and marketplaces
+            'play.google.com', 'apps.apple.com', 'microsoft.com', 'amazon.com',
+            'shopify.com', 'etsy.com', 'ebay.com',
+            
+            # News and media
+            'techcrunch.com', 'forbes.com', 'reuters.com', 'bloomberg.com', 'cnn.com',
+            'bbc.com', 'theguardian.com', 'nytimes.com',
+            
+            # Search engines and utilities
+            'google.com', 'bing.com', 'duckduckgo.com', 'yahoo.com', 'baidu.com',
+            'wikipedia.org', 'wikimedia.org'
+        ]
+        
+        # Banned domain patterns (for subdomains)
+        self.banned_patterns = [
+            '.vercel.app', '.netlify.app', '.herokuapp.com', '.github.io', '.gitlab.io',
+            '.pages.dev', '.firebaseapp.com', '.appspot.com', '.blogspot.com',
+            '.wordpress.com', '.wix.com', '.squarespace.com', '.weebly.com'
+        ]
+        
         # Multi-language health-related keywords for validation
         self.health_keywords = {
             'english': [
@@ -136,6 +170,127 @@ class ImprovedStartupDiscovery:
         
         return {'title': '', 'description': '', 'h1': '', 'signature': ''}
     
+    def is_domain_banned(self, url: str) -> bool:
+        """Check if domain is in banned list or matches banned patterns"""
+        try:
+            parsed = urlparse(url)
+            domain = parsed.netloc.lower()
+            
+            # Remove www. prefix for checking
+            if domain.startswith('www.'):
+                domain = domain[4:]
+            
+            # Check exact domain matches
+            if domain in self.banned_domains:
+                return True
+            
+            # Check pattern matches (for subdomains and hosting platforms)
+            for pattern in self.banned_patterns:
+                if domain.endswith(pattern):
+                    return True
+            
+            return False
+        except Exception:
+            return False
+    
+    def auto_label_industry(self, meta_description: str, page_title: str = '') -> str:
+        """Auto-label industry/startup type based on meta description and title"""
+        text = f"{meta_description} {page_title}".lower()
+        
+        # Industry classification keywords
+        industry_patterns = {
+            'AI/ML': ['artificial intelligence', 'machine learning', 'ai', 'ml', 'neural network', 'deep learning'],
+            'Telemedicine': ['telemedicine', 'remote consultation', 'virtual care', 'telehealth', 'remote doctor'],
+            'Digital Therapeutics': ['digital therapeutics', 'dtx', 'therapeutic app', 'prescription app'],
+            'MedTech': ['medical device', 'medtech', 'medical technology', 'diagnostic device', 'wearable'],
+            'Pharma': ['pharmaceutical', 'drug development', 'clinical trial', 'biotech', 'biotechnology'],
+            'Health Data': ['health data', 'medical data', 'ehr', 'electronic health', 'health records'],
+            'Wellness': ['wellness', 'fitness', 'nutrition', 'mental health', 'meditation', 'wellbeing'],
+            'Healthcare Platform': ['healthcare platform', 'health platform', 'medical platform', 'care platform'],
+            'Diagnostics': ['diagnostic', 'lab test', 'medical test', 'screening', 'biomarker'],
+            'Rehabilitation': ['rehabilitation', 'physio', 'therapy', 'recovery', 'rehab']
+        }
+        
+        # Score each industry
+        industry_scores = {}
+        for industry, keywords in industry_patterns.items():
+            score = sum(1 for keyword in keywords if keyword in text)
+            if score > 0:
+                industry_scores[industry] = score
+        
+        # Return highest scoring industry or 'General Health'
+        if industry_scores:
+            return max(industry_scores, key=industry_scores.get)
+        else:
+            return 'General Health'
+    
+    def apply_enhanced_filtering(self, results: List[Dict]) -> List[Dict]:
+        """Apply enhanced filtering to remove low-quality results"""
+        filtered_results = []
+        
+        for result in results:
+            url = result['url']
+            
+            # Check 1: Domain not banned
+            if self.is_domain_banned(url):
+                logger.debug(f"Filtered banned domain: {url}")
+                continue
+            
+            # Check 2: URL is alive
+            if not result.get('is_alive', True):
+                logger.debug(f"Filtered dead URL: {url}")
+                continue
+            
+            # Check 3: Minimum health score
+            health_score = result.get('health_score', 0)
+            if health_score < 2:
+                logger.debug(f"Filtered low health score ({health_score}): {url}")
+                continue
+            
+            # Check 4: Minimum content length (optional heuristic)
+            content_length = result.get('content_length', 0)
+            if content_length > 0 and content_length < 2000:
+                logger.debug(f"Filtered low content ({content_length} bytes): {url}")
+                continue
+            
+            # Passed all filters
+            filtered_results.append(result)
+        
+        return filtered_results
+    
+    def apply_smart_sorting(self, results: List[Dict]) -> List[Dict]:
+        """Apply smart sorting: confidence DESC, health_related first, status_code priority"""
+        
+        def sort_key(result):
+            # Primary: Confidence (higher is better)
+            confidence = result.get('confidence', 0)
+            
+            # Secondary: Health related (True = 1, False = 0, prioritize True)
+            is_health_related = 1 if result.get('is_health_related', False) else 0
+            
+            # Tertiary: Status code priority (200 > 3xx > 4xx > 5xx)
+            status_code = result.get('status_code', 999)
+            if status_code == 200:
+                status_priority = 3
+            elif 300 <= status_code < 400:
+                status_priority = 2  
+            elif 400 <= status_code < 500:
+                status_priority = 1
+            else:
+                status_priority = 0
+            
+            # Quaternary: Health score (higher is better)
+            health_score = result.get('health_score', 0)
+            
+            # Return tuple for sorting (higher values first)
+            return (confidence, is_health_related, status_priority, health_score)
+        
+        # Sort in descending order (higher scores first)
+        sorted_results = sorted(results, key=sort_key, reverse=True)
+        
+        logger.info(f"  Sorted {len(sorted_results)} results by quality metrics")
+        return sorted_results
+    
     def smart_delay(self, base_delay: float = None) -> None:
         """Enhanced throttling with random jitter to avoid bot detection"""
         if base_delay is None:
@@ -211,6 +366,9 @@ class ImprovedStartupDiscovery:
                 title_tag = soup.find('title')
                 page_title = title_tag.get_text().strip() if title_tag else ''
                 
+                # Auto-label industry type
+                industry_label = self.auto_label_industry(meta_content, page_title)
+                
                 return {
                     'health_score': total_health_score,
                     'is_health_related': total_health_score >= 3,
@@ -218,6 +376,7 @@ class ImprovedStartupDiscovery:
                     'languages_detected': keyword_sets_to_use,
                     'meta_description': meta_content[:200],
                     'page_title': page_title[:150],
+                    'industry_label': industry_label,
                     'country': country,
                     'discovered_at': datetime.now().isoformat()
                 }
@@ -231,6 +390,7 @@ class ImprovedStartupDiscovery:
             'languages_detected': ['english'],
             'meta_description': '',
             'page_title': '',
+            'industry_label': 'Unknown',
             'country': 'Unknown',
             'discovered_at': datetime.now().isoformat()
         }
@@ -802,7 +962,7 @@ class ImprovedStartupDiscovery:
         self.all_discovered_urls['discovered'] = discovered_results
         self.all_discovered_urls['generated'] = generated_results
         
-        # 6. Health validation for discovered URLs
+        # 6. Health validation for discovered URLs  
         logger.info("\n6️⃣ HEALTH CONTENT VALIDATION")
         logger.info("  Validating discovered URLs for health relevance...")
         
@@ -818,7 +978,22 @@ class ImprovedStartupDiscovery:
                 if validation.get('is_health_related', False):
                     result['confidence'] = min(result['confidence'] + 2, 10)
         
-        # 7. Final consolidation
+        # 7. Apply enhanced filtering
+        logger.info("\n7️⃣ ENHANCED FILTERING")
+        logger.info("  Applying domain filtering and quality validation...")
+        
+        # Filter all results (except verified ones which are trusted)
+        filtered_discovered = self.apply_enhanced_filtering(discovered_results)
+        filtered_generated = self.apply_enhanced_filtering(generated_results)
+        
+        logger.info(f"  Filtered discovered: {len(discovered_results)} → {len(filtered_discovered)}")
+        logger.info(f"  Filtered generated: {len(generated_results)} → {len(filtered_generated)}")
+        
+        # Update the results
+        discovered_results = filtered_discovered
+        generated_results = filtered_generated
+        
+        # 8. Final consolidation and smart sorting
         all_results = verified_results + discovered_results + generated_results
         
         # Remove duplicates using stronger deduplication (domain + title/meta)
@@ -864,6 +1039,10 @@ class ImprovedStartupDiscovery:
             seen_domains[domain_only] = result
             result['url'] = canonical_url  # Ensure URL is canonical
             unique_results.append(result)
+        
+        # Apply smart sorting: confidence DESC, health_related first, status_code priority
+        logger.info("  Applying smart sorting...")
+        unique_results = self.apply_smart_sorting(unique_results)
         
         end_time = time.time()
         
@@ -951,7 +1130,7 @@ class ImprovedStartupDiscovery:
             
         with open(filename, 'w', newline='', encoding='utf-8') as csvfile:
             fieldnames = ['url', 'source', 'confidence', 'category', 'method', 'is_alive', 
-                         'status_code', 'health_score', 'is_health_related', 'country', 
+                         'status_code', 'health_score', 'is_health_related', 'industry_label', 'country', 
                          'page_title', 'meta_description', 'languages_detected', 'keyword_matches',
                          'discovered_at']
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames, extrasaction='ignore')
@@ -1006,6 +1185,10 @@ class ImprovedStartupDiscovery:
             f.write("  ✅ Country detection from domains and content\n")
             f.write("  ✅ GitHub rate limit retry handling (60s retry)\n")
             f.write("  ✅ Preserve valuable different pages on same domain\n")
+            f.write("  ✅ Domain filtering (banned social media, hosting platforms)\n")
+            f.write("  ✅ Enhanced quality filtering (alive, health score, content length)\n")
+            f.write("  ✅ Auto industry labeling (AI/ML, Telemedicine, MedTech, etc.)\n")
+            f.write("  ✅ Smart sorting (confidence, health relevance, status code)\n")
 
 def main():
     """Main function to run the improved startup discovery"""
