@@ -297,7 +297,12 @@ def load_input_data(file_path: str) -> List[Dict]:
     """Load startup data from JSON or CSV file"""
     if file_path.endswith('.json'):
         with open(file_path, 'r', encoding='utf-8') as f:
-            return json.load(f)
+            data = json.load(f)
+            # Handle both list of strings and list of dicts
+            if data and isinstance(data[0], str):
+                # Convert list of URLs to list of dicts
+                return [{'url': url} for url in data]
+            return data
     elif file_path.endswith('.csv'):
         data = []
         with open(file_path, 'r', encoding='utf-8') as f:
@@ -351,8 +356,12 @@ def evaluate_startups_parallel(startups: List[Dict], max_workers: int = 10) -> L
                 results.append(result)
             except Exception as e:
                 startup = future_to_startup[future]
-                logger.error(f"Error processing {startup.get('url', 'unknown')}: {str(e)}")
-                results.append(evaluator._create_error_result(startup, str(e)))
+                url = startup.get('url', 'unknown') if isinstance(startup, dict) else str(startup)
+                logger.error(f"Error processing {url}: {str(e)}")
+                if isinstance(startup, dict):
+                    results.append(evaluator._create_error_result(startup, str(e)))
+                else:
+                    results.append(evaluator._create_error_result({'url': startup}, str(e)))
     
     return results
 

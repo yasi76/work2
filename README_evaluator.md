@@ -42,17 +42,39 @@ python evaluate_health_startups.py input_file.json --output-prefix health_startu
 
 ## Input Format
 
-The script accepts either JSON or CSV input files. Each startup entry should contain at minimum:
+The script accepts either JSON or CSV input files.
 
+### JSON Format Options:
+
+1. **List of URLs (simple format)**:
 ```json
-{
-  "url": "https://example.com",
-  "confidence": 0.95,
-  "method": "web_search"
-}
+[
+  "https://example1.com",
+  "https://example2.com",
+  "example3.com"
+]
 ```
 
-Optional fields from the discovery phase will be preserved in the output.
+2. **List of objects with metadata (detailed format)**:
+```json
+[
+  {
+    "url": "https://example.com",
+    "confidence": 0.95,
+    "method": "web_search",
+    "country": "DE",
+    "category": "Digital Health"
+  }
+]
+```
+
+### CSV Format:
+```csv
+url,confidence,method,status_code,health_score,country,category
+https://example.com,0.95,web_search,,,DE,Digital Health
+```
+
+The script automatically detects the format and handles both cases. Optional fields from the discovery phase will be preserved in the output.
 
 ## Output Files
 
