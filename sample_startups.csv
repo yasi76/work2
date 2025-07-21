@@ -1,0 +1,7 @@
+url,confidence,method,status_code,health_score,country,category
+https://ada.com,0.95,web_search,,,DE,AI Health
+doctolib.de,0.90,directory_listing,,,DE,Appointment Booking
+https://www.heartbeat-labs.com,0.85,web_search,,,DE,Digital Health Incubator
+https://www.babylonhealth.com,0.88,web_search,,,UK,Telemedicine
+https://www.kry.se,0.92,directory_listing,,,SE,Digital Health
+https://www.medgate.ch,0.87,web_search,,,CH,Telemedicine
