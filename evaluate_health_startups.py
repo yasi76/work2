@@ -339,6 +339,7 @@ class HealthStartupEvaluator:
             'final_url': kwargs.get('final_url', ''),
             'page_title': kwargs.get('page_title', ''),
             'meta_description': kwargs.get('meta_description', ''),
+            'company_name': kwargs.get('company_name', 'Unknown'),
             'health_relevance_score': kwargs.get('health_relevance_score', 0),
             'is_live': kwargs.get('is_live', False),
             'is_health_related': kwargs.get('is_health_related', False),
