@@ -1,22 +1,21 @@
 #!/usr/bin/env python3
 """
-🔍 Dynamic Healthcare Company Research Discovery
-💡 Actually FINDS companies using the 6 research methods
-===============================================================
-This script implements the research methods to find real companies
-and outputs results that can be used by other scripts.
+🔍 Dynamic Healthcare URL Discovery
+💡 Finds healthcare company URLs from research sources
+===============================================
+This script discovers URLs only - no company names.
+The MEGA script will extract company names from websites.
 """
 
 import urllib.request
 import urllib.parse
 import urllib.error
-import csv
 import json
 import time
 import re
 import ssl
 from datetime import datetime
-from urllib.parse import urlparse, urljoin
+from urllib.parse import urlparse
 
 def create_safe_request(url, timeout=15):
     """Create a safe HTTP request with error handling"""
@@ -48,10 +47,8 @@ def create_safe_request(url, timeout=15):
     except Exception as e:
         return None, str(e)
 
-def extract_companies_from_wikipedia(category_url):
-    """
-    Extract actual company names from Wikipedia category pages
-    """
+def extract_urls_from_wikipedia(category_url, country):
+    """Extract potential URLs from Wikipedia category pages"""
     print(f"🔍 Researching: {category_url}")
     
     content, status = create_safe_request(category_url)
@@ -59,14 +56,12 @@ def extract_companies_from_wikipedia(category_url):
         print(f"  ❌ Failed to access Wikipedia page")
         return []
     
-    companies = []
+    urls = []
     
-    # Extract company links from Wikipedia category pages
-    # Updated patterns for Wikipedia structure
+    # Extract company names from Wikipedia and generate potential URLs
     company_patterns = [
         r'<li><a href="/wiki/([^"]*)" title="([^"]*)"[^>]*>([^<]*)</a>',
         r'<div class="mw-category-group">.*?<a href="/wiki/([^"]*)" title="([^"]*)"[^>]*>([^<]*)</a>',
-        r'<a href="/wiki/([^"]*)" title="([^"]*)"[^>]*>([^<]*)</a>(?=.*(?:pharmaceutical|biotech|medical|health))',
     ]
     
     for pattern in company_patterns:
@@ -80,100 +75,101 @@ def extract_companies_from_wikipedia(category_url):
                 health_keywords = ['pharmaceutical', 'biotech', 'medical', 'health', 'drug', 'medicine', 'therapy', 'diagnostic']
                 
                 if any(keyword in combined_text for keyword in health_keywords):
-                    companies.append({
-                        'name': name.strip(),
-                        'wikipedia_url': f"https://en.wikipedia.org/wiki/{wiki_slug}",
-                        'source': 'Wikipedia',
-                        'category': category_url.split('/')[-1],
-                        'country': extract_country_from_category(category_url)
-                    })
+                    # Generate potential URLs from company name
+                    potential_urls = generate_potential_urls(name, country)
+                    urls.extend(potential_urls)
     
-    # Remove duplicates
-    seen_names = set()
-    unique_companies = []
-    for company in companies:
-        if company['name'] not in seen_names:
-            unique_companies.append(company)
-            seen_names.add(company['name'])
-    
-    print(f"  ✅ Found {len(unique_companies)} companies from Wikipedia")
-    return unique_companies
+    print(f"  ✅ Generated {len(urls)} potential URLs")
+    return urls
 
-def extract_country_from_category(category_url):
-    """Extract country from Wikipedia category URL"""
-    country_mapping = {
-        'Germany': 'Germany',
-        'United_Kingdom': 'United Kingdom', 
-        'France': 'France',
-        'Switzerland': 'Switzerland',
-        'Netherlands': 'Netherlands',
-        'Sweden': 'Sweden',
-        'Denmark': 'Denmark',
-        'Italy': 'Italy',
-        'Spain': 'Spain',
-        'Belgium': 'Belgium',
-        'Austria': 'Austria',
-        'Norway': 'Norway',
-        'Finland': 'Finland'
-    }
+def generate_potential_urls(company_name, country):
+    """Generate potential website URLs from company names"""
+    # Clean company name for URL generation
+    clean_name = re.sub(r'[^a-zA-Z0-9]', '', company_name.lower())
+    clean_name = re.sub(r'(gmbh|ag|se|ltd|inc|corp|company)$', '', clean_name)
     
-    for key, country in country_mapping.items():
-        if key in category_url:
-            return country
+    if len(clean_name) < 3:
+        return []
     
-    return 'Europe'
-
-def research_wikipedia_categories():
-    """
-    Research Method 1: Wikipedia Categories - ACTUALLY IMPLEMENTED
-    """
-    print("📚 METHOD 1: Wikipedia Category Research - LIVE EXTRACTION")
-    print("=" * 60)
-    
-    wikipedia_categories = [
-        # Major European countries - pharmaceutical companies
-        'https://en.wikipedia.org/wiki/Category:Pharmaceutical_companies_of_Germany',
-        'https://en.wikipedia.org/wiki/Category:Pharmaceutical_companies_of_the_United_Kingdom',
-        'https://en.wikipedia.org/wiki/Category:Pharmaceutical_companies_of_France',
-        'https://en.wikipedia.org/wiki/Category:Pharmaceutical_companies_of_Switzerland',
-        'https://en.wikipedia.org/wiki/Category:Pharmaceutical_companies_of_the_Netherlands',
-        'https://en.wikipedia.org/wiki/Category:Pharmaceutical_companies_of_Sweden',
-        
-        # Biotechnology companies
-        'https://en.wikipedia.org/wiki/Category:Biotechnology_companies_of_Germany',
-        'https://en.wikipedia.org/wiki/Category:Biotechnology_companies_of_the_United_Kingdom',
-        'https://en.wikipedia.org/wiki/Category:Biotechnology_companies_of_France',
-        'https://en.wikipedia.org/wiki/Category:Biotechnology_companies_of_Switzerland',
-        
-        # Medical technology companies
-        'https://en.wikipedia.org/wiki/Category:Medical_technology_companies_of_Germany',
-        'https://en.wikipedia.org/wiki/Category:Medical_technology_companies_of_the_United_Kingdom',
-        
-        # Health care companies
-        'https://en.wikipedia.org/wiki/Category:Health_care_companies_of_Germany',
-        'https://en.wikipedia.org/wiki/Category:Health_care_companies_of_the_United_Kingdom',
-        'https://en.wikipedia.org/wiki/Category:Health_care_companies_of_France',
+    potential_urls = [
+        f"https://www.{clean_name}.com",
+        f"https://{clean_name}.com",
+        f"https://www.{clean_name}.eu",
     ]
     
-    all_companies = []
+    # Add country-specific domains
+    country_domains = {
+        'Germany': ['.de'],
+        'United Kingdom': ['.co.uk', '.uk'],
+        'France': ['.fr'],
+        'Switzerland': ['.ch'],
+        'Netherlands': ['.nl'],
+        'Sweden': ['.se'],
+        'Denmark': ['.dk'],
+        'Italy': ['.it'],
+        'Spain': ['.es'],
+        'Belgium': ['.be'],
+        'Austria': ['.at'],
+        'Norway': ['.no'],
+        'Finland': ['.fi']
+    }
     
-    for category_url in wikipedia_categories:
+    if country in country_domains:
+        for domain in country_domains[country]:
+            potential_urls.extend([
+                f"https://www.{clean_name}{domain}",
+                f"https://{clean_name}{domain}"
+            ])
+    
+    return potential_urls
+
+def research_wikipedia_categories():
+    """Research Method 1: Wikipedia Categories"""
+    print("📚 METHOD 1: Wikipedia Category Research")
+    print("=" * 50)
+    
+    wikipedia_sources = [
+        # Pharmaceutical companies
+        ('https://en.wikipedia.org/wiki/Category:Pharmaceutical_companies_of_Germany', 'Germany'),
+        ('https://en.wikipedia.org/wiki/Category:Pharmaceutical_companies_of_the_United_Kingdom', 'United Kingdom'),
+        ('https://en.wikipedia.org/wiki/Category:Pharmaceutical_companies_of_France', 'France'),
+        ('https://en.wikipedia.org/wiki/Category:Pharmaceutical_companies_of_Switzerland', 'Switzerland'),
+        ('https://en.wikipedia.org/wiki/Category:Pharmaceutical_companies_of_the_Netherlands', 'Netherlands'),
+        ('https://en.wikipedia.org/wiki/Category:Pharmaceutical_companies_of_Sweden', 'Sweden'),
+        
+        # Biotechnology companies
+        ('https://en.wikipedia.org/wiki/Category:Biotechnology_companies_of_Germany', 'Germany'),
+        ('https://en.wikipedia.org/wiki/Category:Biotechnology_companies_of_the_United_Kingdom', 'United Kingdom'),
+        ('https://en.wikipedia.org/wiki/Category:Biotechnology_companies_of_France', 'France'),
+        ('https://en.wikipedia.org/wiki/Category:Biotechnology_companies_of_Switzerland', 'Switzerland'),
+        
+        # Medical technology companies
+        ('https://en.wikipedia.org/wiki/Category:Medical_technology_companies_of_Germany', 'Germany'),
+        ('https://en.wikipedia.org/wiki/Category:Medical_technology_companies_of_the_United_Kingdom', 'United Kingdom'),
+        
+        # Health care companies
+        ('https://en.wikipedia.org/wiki/Category:Health_care_companies_of_Germany', 'Germany'),
+        ('https://en.wikipedia.org/wiki/Category:Health_care_companies_of_the_United_Kingdom', 'United Kingdom'),
+        ('https://en.wikipedia.org/wiki/Category:Health_care_companies_of_France', 'France'),
+    ]
+    
+    all_urls = []
+    
+    for category_url, country in wikipedia_sources:
         try:
-            companies = extract_companies_from_wikipedia(category_url)
-            all_companies.extend(companies)
+            urls = extract_urls_from_wikipedia(category_url, country)
+            all_urls.extend(urls)
             time.sleep(2)  # Respectful delay
         except Exception as e:
             print(f"  ❌ Error processing {category_url}: {str(e)}")
     
-    print(f"📊 Total Wikipedia companies found: {len(all_companies)}")
-    return all_companies
+    print(f"📊 Total URLs generated from Wikipedia: {len(all_urls)}")
+    return all_urls
 
-def research_stock_exchange_companies():
-    """
-    Research Method 2: Extract companies from stock exchange Wikipedia pages
-    """
-    print("\n📈 METHOD 2: Stock Exchange Research - LIVE EXTRACTION")
-    print("=" * 60)
+def research_stock_exchange_urls():
+    """Research Method 2: Generate URLs from stock exchange companies"""
+    print("\n📈 METHOD 2: Stock Exchange Research")
+    print("=" * 50)
     
     stock_exchanges = [
         {
@@ -198,7 +194,7 @@ def research_stock_exchange_companies():
         }
     ]
     
-    all_companies = []
+    all_urls = []
     
     for exchange in stock_exchanges:
         print(f"🔍 Researching: {exchange['name']} ({exchange['country']})")
@@ -208,22 +204,19 @@ def research_stock_exchange_companies():
             print(f"  ❌ Failed to access {exchange['name']}")
             continue
         
-        # Extract company names from stock exchange listings
-        # Look for table rows with company information
+        # Extract company names and generate URLs
         patterns = [
             r'<td[^>]*><a[^>]*title="([^"]*)"[^>]*>([^<]*)</a></td>',
-            r'<tr[^>]*>.*?<td[^>]*>.*?<a[^>]*>([^<]*)</a>.*?</td>',
             r'<a href="/wiki/([^"]*)" title="([^"]*)"[^>]*>([^<]*)</a>'
         ]
         
-        companies_found = []
+        urls_found = []
         for pattern in patterns:
             matches = re.findall(pattern, content, re.IGNORECASE | re.DOTALL)
             for match in matches:
                 if len(match) >= 2:
                     if len(match) == 2:
                         title, name = match
-                        wiki_slug = name.replace(' ', '_')
                     else:
                         wiki_slug, title, name = match
                     
@@ -232,251 +225,116 @@ def research_stock_exchange_companies():
                     health_keywords = ['pharmaceutical', 'biotech', 'medical', 'health', 'drug', 'medicine', 'care', 'therapeutics', 'diagnostics']
                     
                     if any(keyword in combined_text for keyword in health_keywords):
-                        companies_found.append({
-                            'name': name.strip(),
-                            'source': f'Stock Exchange ({exchange["name"]})',
-                            'country': exchange['country'],
-                            'exchange': exchange['name']
-                        })
+                        potential_urls = generate_potential_urls(name, exchange['country'])
+                        urls_found.extend(potential_urls)
         
-        # Remove duplicates for this exchange
-        seen_names = set()
-        unique_companies = []
-        for company in companies_found:
-            if company['name'] not in seen_names:
-                unique_companies.append(company)
-                seen_names.add(company['name'])
-        
-        print(f"  ✅ Found {len(unique_companies)} healthcare companies")
-        all_companies.extend(unique_companies)
+        print(f"  ✅ Generated {len(urls_found)} URLs")
+        all_urls.extend(urls_found)
         time.sleep(2)
     
-    print(f"📊 Total stock exchange companies found: {len(all_companies)}")
-    return all_companies
+    print(f"📊 Total URLs from stock exchanges: {len(all_urls)}")
+    return all_urls
 
-def generate_potential_urls(company_name, country_hint=None):
-    """
-    Generate potential website URLs from company names
-    """
-    clean_name = re.sub(r'[^a-zA-Z0-9]', '', company_name.lower())
+def clean_and_deduplicate_urls(all_urls):
+    """Clean and remove duplicate URLs"""
+    print(f"\n🧹 Cleaning and deduplicating URLs...")
     
-    potential_urls = [
-        f"https://www.{clean_name}.com",
-        f"https://{clean_name}.com",
-        f"https://www.{clean_name}.eu",
-    ]
+    clean_urls = set()
     
-    # Add country-specific domains
-    if country_hint:
-        country_domains = {
-            'Germany': ['.de'],
-            'United Kingdom': ['.co.uk', '.uk'],
-            'France': ['.fr'],
-            'Switzerland': ['.ch'],
-            'Netherlands': ['.nl'],
-            'Sweden': ['.se'],
-            'Denmark': ['.dk'],
-            'Italy': ['.it'],
-            'Spain': ['.es'],
-            'Belgium': ['.be'],
-            'Austria': ['.at'],
-            'Norway': ['.no'],
-            'Finland': ['.fi']
-        }
-        
-        if country_hint in country_domains:
-            for domain in country_domains[country_hint]:
-                potential_urls.extend([
-                    f"https://www.{clean_name}{domain}",
-                    f"https://{clean_name}{domain}"
-                ])
+    for url in all_urls:
+        # Basic URL cleaning
+        clean_url = url.strip().rstrip('/')
+        if clean_url and is_valid_url(clean_url):
+            clean_urls.add(clean_url)
     
-    return potential_urls
+    final_urls = sorted(list(clean_urls))
+    print(f"📊 Unique URLs after cleaning: {len(final_urls)}")
+    
+    return final_urls
 
-def validate_sample_urls(companies, max_validate=20):
-    """
-    Validate a sample of discovered companies to test URL generation
-    """
-    print(f"\n✅ Validating Sample URLs (max {max_validate})")
-    print("=" * 60)
-    
-    validated_companies = []
-    
-    for i, company in enumerate(companies[:max_validate]):
-        company_name = company['name']
-        country = company.get('country', 'Europe')
+def is_valid_url(url):
+    """Check if URL is valid and potentially a company website"""
+    try:
+        parsed = urlparse(url)
+        if not parsed.netloc or not parsed.scheme:
+            return False
         
-        print(f"[{i+1}/{min(len(companies), max_validate)}] Testing: {company_name}")
+        # Exclude obviously bad patterns
+        exclude_patterns = [
+            'facebook.com', 'twitter.com', 'linkedin.com', 'youtube.com', 'instagram.com',
+            'google.com', 'wikipedia.org', 'github.com', 'stackoverflow.com'
+        ]
         
-        potential_urls = generate_potential_urls(company_name, country)
-        
-        for url in potential_urls[:3]:  # Test first 3 potential URLs
-            content, status = create_safe_request(url)
-            
-            if content and str(status).startswith('2'):
-                # Check if it's actually a healthcare company website
-                health_indicators = ['health', 'medical', 'pharma', 'bio', 'medicine', 'drug', 'therapy', 'diagnostic']
-                if any(indicator in content.lower() for indicator in health_indicators):
-                    validated_companies.append({
-                        'name': company_name,
-                        'website': url,
-                        'country': country,
-                        'source': company['source'],
-                        'status': 'Active',
-                        'discovery_method': company.get('source', 'Unknown')
-                    })
-                    print(f"  ✅ FOUND: {url}")
-                    break
-            
-            time.sleep(0.5)  # Brief delay between URL tests
-        
-        if not any(comp['name'] == company_name for comp in validated_companies):
-            print(f"  ❌ No valid URL found for {company_name}")
-        
-        time.sleep(1)  # Delay between companies
-    
-    success_rate = (len(validated_companies) / min(len(companies), max_validate)) * 100
-    print(f"\n📊 Validation Results:")
-    print(f"  • Tested: {min(len(companies), max_validate)} companies")
-    print(f"  • Valid URLs found: {len(validated_companies)} companies")
-    print(f"  • Success Rate: {success_rate:.1f}%")
-    
-    return validated_companies
+        url_lower = url.lower()
+        return not any(pattern in url_lower for pattern in exclude_patterns)
+    except:
+        return False
 
-def save_discovered_companies(companies, filename="DISCOVERED_COMPANIES"):
-    """Save discovered companies to files"""
+def save_urls_for_mega_script(urls):
+    """Save URLs for the MEGA script to process"""
     timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-    csv_filename = f"{filename}_{timestamp}.csv"
-    json_filename = f"{filename}_{timestamp}.json"
     
-    # Save to CSV
-    if companies:
-        with open(csv_filename, 'w', newline='', encoding='utf-8') as csvfile:
-            fieldnames = companies[0].keys()
-            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-            writer.writeheader()
-            for company in companies:
-                writer.writerow(company)
-    
-    # Save to JSON
-    with open(json_filename, 'w', encoding='utf-8') as jsonfile:
-        json.dump(companies, jsonfile, indent=2, ensure_ascii=False)
-    
-    return csv_filename, json_filename
-
-def generate_url_list_for_mega_script(all_discovered_companies):
-    """
-    Generate a list of URLs that can be used by the MEGA script
-    """
-    print(f"\n🔗 Generating URL List for MEGA Script")
-    print("=" * 60)
-    
-    all_potential_urls = []
-    
-    for company in all_discovered_companies:
-        company_name = company['name']
-        country = company.get('country', 'Europe')
-        
-        potential_urls = generate_potential_urls(company_name, country)
-        
-        for url in potential_urls:
-            all_potential_urls.append({
-                'url': url,
-                'company_name': company_name,
-                'country': country,
-                'source': company['source']
-            })
-    
-    print(f"📊 Generated {len(all_potential_urls)} potential URLs for validation")
-    
-    # Save URL list
-    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-    url_filename = f"DISCOVERED_URLS_FOR_MEGA_{timestamp}.json"
-    
-    with open(url_filename, 'w', encoding='utf-8') as f:
-        json.dump(all_potential_urls, f, indent=2, ensure_ascii=False)
-    
-    # Also create a simple URL list
-    simple_urls = [item['url'] for item in all_potential_urls]
+    # Simple text file for easy loading
     simple_filename = f"SIMPLE_URL_LIST_{timestamp}.txt"
-    
     with open(simple_filename, 'w', encoding='utf-8') as f:
-        for url in simple_urls:
+        for url in urls:
             f.write(url + '\n')
     
-    print(f"💾 Saved URL lists:")
-    print(f"  • Detailed: {url_filename}")
-    print(f"  • Simple: {simple_filename}")
+    # JSON file with metadata
+    json_filename = f"DISCOVERED_URLS_FOR_MEGA_{timestamp}.json"
+    url_data = [{'url': url} for url in urls]
+    with open(json_filename, 'w', encoding='utf-8') as f:
+        json.dump(url_data, f, indent=2, ensure_ascii=False)
     
-    return url_filename, simple_filename, simple_urls
+    print(f"💾 Saved URL lists:")
+    print(f"  • Simple: {simple_filename}")
+    print(f"  • JSON: {json_filename}")
+    
+    return simple_filename, json_filename
 
 def main():
-    """
-    Main function - actually implements the research methods
-    """
-    print("🔍 DYNAMIC HEALTHCARE COMPANY RESEARCH DISCOVERY")
-    print("=" * 80)
-    print("💡 This script ACTUALLY finds companies using systematic research")
-    print("🎯 Results can be used by MEGA script for validation")
-    print("=" * 80)
+    """Main function - discovers URLs only"""
+    print("🔍 DYNAMIC HEALTHCARE URL DISCOVERY")
+    print("=" * 60)
+    print("💡 This script discovers URLs - MEGA script extracts company names")
+    print("=" * 60)
     
-    all_discovered_companies = []
+    all_urls = []
     
-    # Method 1: Wikipedia Research (implemented)
+    # Method 1: Wikipedia Research
     try:
-        wikipedia_companies = research_wikipedia_categories()
-        all_discovered_companies.extend(wikipedia_companies)
+        wikipedia_urls = research_wikipedia_categories()
+        all_urls.extend(wikipedia_urls)
     except Exception as e:
         print(f"❌ Wikipedia research failed: {e}")
     
-    # Method 2: Stock Exchange Research (implemented)
+    # Method 2: Stock Exchange Research
     try:
-        stock_companies = research_stock_exchange_companies()
-        all_discovered_companies.extend(stock_companies)
+        stock_urls = research_stock_exchange_urls()
+        all_urls.extend(stock_urls)
     except Exception as e:
         print(f"❌ Stock exchange research failed: {e}")
     
-    # Remove duplicates from all sources
-    seen_names = set()
-    unique_companies = []
-    for company in all_discovered_companies:
-        if company['name'] not in seen_names:
-            unique_companies.append(company)
-            seen_names.add(company['name'])
-    
-    print(f"\n📊 DISCOVERY SUMMARY:")
-    print(f"  • Total companies discovered: {len(unique_companies)}")
-    print(f"  • Sources used: Wikipedia, Stock Exchanges")
-    print(f"  • Countries covered: Germany, UK, France, Switzerland, Netherlands, Sweden")
-    
-    if unique_companies:
-        # Save discovered companies
-        csv_file, json_file = save_discovered_companies(unique_companies)
+    if all_urls:
+        # Clean and deduplicate
+        clean_urls = clean_and_deduplicate_urls(all_urls)
         
-        # Validate a sample
-        validated_companies = validate_sample_urls(unique_companies, max_validate=30)
+        # Save for MEGA script
+        simple_file, json_file = save_urls_for_mega_script(clean_urls)
         
-        # Generate URL list for MEGA script
-        url_file, simple_file, url_list = generate_url_list_for_mega_script(unique_companies)
+        print(f"\n📊 DISCOVERY SUMMARY:")
+        print(f"  • Total URLs discovered: {len(clean_urls)}")
+        print(f"  • Sources: Wikipedia, Stock Exchanges")
+        print(f"  • Ready for MEGA script processing")
         
-        print(f"\n💾 FILES CREATED:")
-        print(f"  • Companies (CSV): {csv_file}")
-        print(f"  • Companies (JSON): {json_file}")
-        print(f"  • URLs for MEGA: {url_file}")
-        print(f"  • Simple URLs: {simple_file}")
+        print(f"\n🚀 SUCCESS! Use these files with MEGA script:")
+        print(f"  • {simple_file}")
+        print(f"  • {json_file}")
         
-        print(f"\n🎯 NEXT STEPS:")
-        print(f"  1. Review the discovered companies in {csv_file}")
-        print(f"  2. Use {simple_file} or {url_file} with the MEGA script")
-        print(f"  3. Run MEGA script with discovered URLs for full validation")
-        
-        print(f"\n🚀 SUCCESS! Found {len(unique_companies)} companies using systematic research!")
-        print(f"💡 This is much better than hardcoded URLs - it's dynamic discovery!")
-        
-        return unique_companies, url_list
+        return clean_urls
     else:
-        print(f"\n❌ No companies discovered. Check network connection and try again.")
-        return [], []
+        print(f"\n❌ No URLs discovered. Check network connection.")
+        return []
 
 if __name__ == "__main__":
     main()
