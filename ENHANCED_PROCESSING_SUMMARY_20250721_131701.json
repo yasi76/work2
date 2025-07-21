@@ -1,0 +1,14 @@
+{
+  "processing_date": "2025-07-21T13:17:01.252951",
+  "original_companies": 53,
+  "non_european_filtered": 8,
+  "final_european_companies": 45,
+  "output_file": "EUROPEAN_HEALTHCARE_EXACT_PRODUCTS_20250721_131701.csv",
+  "enhancements": [
+    "exact_products - Precisely extracted product names",
+    "precise_city - Accurate city information",
+    "precise_state - Accurate state/region information",
+    "precise_country - Accurate country information",
+    "location_extraction_method - Method used for location extraction"
+  ]
+}
