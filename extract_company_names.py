@@ -229,8 +229,37 @@ def process_validated_file(input_file: str, output_prefix: str, refetch: bool = 
     # Load the validated data
     logger.info(f"Loading validated data from {input_file}")
     with open(input_file, 'r', encoding='utf-8') as f:
-        startups = json.load(f)
+        data = json.load(f)
     
+    # Handle different input formats
+    if isinstance(data, dict):
+        # Handle wrapped format with 'urls' key
+        if 'urls' in data:
+            startups = data['urls']
+        else:
+            # Handle summary file format
+            startups = []
+            for key, value in data.items():
+                if isinstance(value, dict) and 'url' in value:
+                    startups.append(value)
+                elif isinstance(value, str) and (key.startswith('http') or '.' in key):
+                    startups.append({'url': key})
+    elif isinstance(data, list):
+        startups = data
+    else:
+        raise ValueError("Unsupported JSON structure")
+    
+    # Convert string items to dictionaries if needed
+    processed_startups = []
+    for item in startups:
+        if isinstance(item, str):
+            processed_startups.append({'url': item})
+        elif isinstance(item, dict):
+            processed_startups.append(item)
+        else:
+            logger.warning(f"Skipping invalid item: {item}")
+    
+    startups = processed_startups
     logger.info(f"Processing {len(startups)} startups")
     
     extractor = CompanyNameExtractor()

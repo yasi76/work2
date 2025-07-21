@@ -1,3 +1,10 @@
 requests>=2.31.0
 beautifulsoup4>=4.12.0
 lxml>=4.9.0
+
+# Optional dependencies for advanced features
+# Uncomment these if you want to use visualization and Excel export features
+# matplotlib>=3.5.0
+# seaborn>=0.12.0
+# pandas>=1.5.0
+# openpyxl>=3.0.0
