@@ -2,6 +2,7 @@
 """
 PART 1: FREE URL FINDER
 Find European health tech startup URLs using only free tools and methods
+Includes user's verified hardcoded URLs as priority source
 """
 
 import urllib.request
@@ -20,6 +21,69 @@ class FreeURLFinder:
         self.user_agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
         self.search_delay = 2  # Be respectful with requests
         
+    def get_user_hardcoded_urls(self) -> List[str]:
+        """User's verified hardcoded URLs - Priority source"""
+        print("🔍 Loading user's hardcoded URLs (Priority source)...")
+        
+        user_urls = [
+            'https://www.acalta.de',
+            'https://www.actimi.com',
+            'https://www.emmora.de',
+            'https://www.alfa-ai.com',
+            'https://www.apheris.com',
+            'https://www.aporize.com/',
+            'https://www.arztlena.com/',
+            'https://shop.getnutrio.com/',
+            'https://www.auta.health/',
+            'https://visioncheckout.com/',
+            'https://www.avayl.tech/',
+            'https://www.avimedical.com/avi-impact',
+            'https://de.becureglobal.com/',
+            'https://bellehealth.co/de/',
+            'https://www.biotx.ai/',
+            'https://www.brainjo.de/',
+            'https://brea.app/',
+            'https://breathment.com/',
+            'https://de.caona.eu/',
+            'https://www.careanimations.de/',
+            'https://sfs-healthcare.com',
+            'https://www.climedo.de/',
+            'https://www.cliniserve.de/',
+            'https://cogthera.de/#erfahren',
+            'https://www.comuny.de/',
+            'https://curecurve.de/elina-app/',
+            'https://www.cynteract.com/de/rehabilitation',
+            'https://www.healthmeapp.de/de/',
+            'https://deepeye.ai/',
+            'https://www.deepmentation.ai/',
+            'https://denton-systems.de/',
+            'https://www.derma2go.com/',
+            'https://www.dianovi.com/',
+            'http://dopavision.com/',
+            'https://www.dpv-analytics.com/',
+            'http://www.ecovery.de/',
+            'https://elixionmedical.com/',
+            'https://www.empident.de/',
+            'https://eye2you.ai/',
+            'https://www.fitwhit.de',
+            'https://www.floy.com/',
+            'https://fyzo.de/assistant/',
+            'https://www.gesund.de/app',
+            'https://www.glaice.de/',
+            'https://gleea.de/',
+            'https://www.guidecare.de/',
+            'https://www.apodienste.com/',
+            'https://www.help-app.de/',
+            'https://www.heynanny.com/',
+            'https://incontalert.de/',
+            'https://home.informme.info/',
+            'https://www.kranushealth.com/de/therapien/haeufiger-harndrang',
+            'https://www.kranushealth.com/de/therapien/inkontinenz'
+        ]
+        
+        print(f"  📋 Loaded {len(user_urls)} user hardcoded URLs")
+        return user_urls
+    
     def search_german_startups_free(self) -> List[str]:
         """Search German-startups.com using free browsing methods"""
         print("🔍 Searching German-startups.com (free method)...")
@@ -79,7 +143,6 @@ class FreeURLFinder:
             'https://temedica.com',
             'https://brca-exchange.org',
             'https://careship.de',
-            'https://medlanes.com',
             'https://smartpatient.eu',
             'https://oncgnostics.com',
             'https://motognosis.com',
@@ -445,6 +508,11 @@ class FreeURLFinder:
         
         all_urls = []
         
+        # Start with user's hardcoded URLs (Priority)
+        user_urls = self.get_user_hardcoded_urls()
+        all_urls.extend(user_urls)
+        time.sleep(self.search_delay)
+        
         # Execute all discovery methods
         all_urls.extend(self.search_german_startups_free())
         time.sleep(self.search_delay)
@@ -474,6 +542,7 @@ class FreeURLFinder:
             'total_urls_found': len(unique_urls),
             'urls': unique_urls,
             'sources': {
+                'user_hardcoded': len(user_urls),
                 'german_startups': len(self.search_german_startups_free()),
                 'eu_startups': len(self.search_eu_startups_free()),
                 'conferences': len(self.search_health_tech_conferences_free()),
@@ -497,9 +566,13 @@ class FreeURLFinder:
             writer = csv.writer(f)
             writer.writerow(['url', 'discovery_method', 'status'])
             
+            user_hardcoded = self.get_user_hardcoded_urls()
+            
             for url in results['urls']:
                 # Determine source (simplified)
-                if '.de' in url or 'german' in url.lower():
+                if url in user_hardcoded:
+                    source = 'User Hardcoded'
+                elif '.de' in url or 'german' in url.lower():
                     source = 'German Startups'
                 elif any(tld in url for tld in ['.fr', '.nl', '.ch', '.co.uk', '.se', '.dk']):
                     source = 'EU Startups'
@@ -524,6 +597,7 @@ def main():
     print("🔍 PART 1: FREE EUROPEAN HEALTH TECH URL DISCOVERY")
     print("=" * 60)
     print("Using only FREE tools and methods to find URLs")
+    print("Including user's hardcoded URLs as priority source")
     print("")
     
     # Initialize finder
@@ -550,6 +624,7 @@ def main():
     
     print(f"\n🎯 SUMMARY:")
     print(f"  ✅ Successfully discovered {results['total_urls_found']} URLs using FREE methods")
+    print(f"  👤 Includes {results['sources']['user_hardcoded']} user hardcoded URLs")
     print(f"  🌍 Covered German, EU, and international health tech companies")
     print(f"  🆓 No paid tools required - all methods are free")
     print(f"  ➡️  Ready for Part 2: URL Evaluation")

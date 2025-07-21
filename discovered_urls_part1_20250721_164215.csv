@@ -1,0 +1,380 @@
+url,discovery_method,status
+https://gethealth.ch,EU Startups,Discovered
+https://medapp.co.uk,EU Startups,Discovered
+https://google.com/health,Conferences/Accelerators,Discovered
+https://gettherapy.de,German Startups,Discovered
+https://mycare.ch,EU Startups,Discovered
+https://pfizer.com,Conferences/Accelerators,Discovered
+https://healthtech.nl,EU Startups,Discovered
+https://denton-systems.de/,User Hardcoded,Discovered
+https://mymed.ch,EU Startups,Discovered
+https://careai.de,German Startups,Discovered
+https://wellness.fr,EU Startups,Discovered
+https://epd-zorg.nl,EU Startups,Discovered
+https://abbott.com,Conferences/Accelerators,Discovered
+https://doctech.de,German Startups,Discovered
+https://patienttech.fr,EU Startups,Discovered
+https://getclinic.nl,EU Startups,Discovered
+https://gleea.de/,User Hardcoded,Discovered
+https://clinic.ch,EU Startups,Discovered
+https://johnson.com,Conferences/Accelerators,Discovered
+https://vidal.fr,EU Startups,Discovered
+https://getcare.nl,EU Startups,Discovered
+https://getmed.se,EU Startups,Discovered
+https://www.acalta.de,User Hardcoded,Discovered
+https://medtech.fr,EU Startups,Discovered
+https://getpatient.co.uk,EU Startups,Discovered
+https://hellobetter.de,German Startups,Discovered
+https://docapp.de,German Startups,Discovered
+https://www.healthmeapp.de/de/,User Hardcoded,Discovered
+https://getwellness.fr,EU Startups,Discovered
+https://opensafely.org,GitHub Projects,Discovered
+https://healthtech.fr,EU Startups,Discovered
+https://gethealth.de,German Startups,Discovered
+https://docmorris.de,German Startups,Discovered
+https://nextgen.com,Conferences/Accelerators,Discovered
+https://breathment.com/,User Hardcoded,Discovered
+https://mediteo.com,Conferences/Accelerators,Discovered
+https://mytherapy.co.uk,EU Startups,Discovered
+https://telemedi.co,Conferences/Accelerators,Discovered
+https://sundhedsstyrelsen.dk,EU Startups,Discovered
+https://caretech.se,EU Startups,Discovered
+https://www.auta.health/,User Hardcoded,Discovered
+https://hl7.org,Conferences/Accelerators,Discovered
+https://bristol.ac.uk,Conferences/Accelerators,Discovered
+https://mymed.co.uk,EU Startups,Discovered
+https://clinic.se,EU Startups,Discovered
+https://gettherapy.ch,EU Startups,Discovered
+https://openmf.org,GitHub Projects,Discovered
+https://mytherapy.se,EU Startups,Discovered
+https://newsenselab.com,Conferences/Accelerators,Discovered
+https://mymed.nl,EU Startups,Discovered
+https://apoteket.dk,EU Startups,Discovered
+https://sante.fr,EU Startups,Discovered
+https://healthapp.nl,EU Startups,Discovered
+https://ethz.ch,EU Startups,Discovered
+https://mywellness.co.uk,EU Startups,Discovered
+https://getpatient.ch,EU Startups,Discovered
+https://medtech.nl,EU Startups,Discovered
+https://wellnesstech.se,EU Startups,Discovered
+https://de.caona.eu/,User Hardcoded,Discovered
+https://bellehealth.co/de/,User Hardcoded,Discovered
+https://clinicapp.ch,EU Startups,Discovered
+https://motognosis.com,Conferences/Accelerators,Discovered
+https://sundhed.dk,EU Startups,Discovered
+https://chipsoft.com,Conferences/Accelerators,Discovered
+https://phenex-pharma.com,Conferences/Accelerators,Discovered
+https://shop-apotheke.com,Conferences/Accelerators,Discovered
+https://innoplexus.com,Conferences/Accelerators,Discovered
+https://fhir.org,Conferences/Accelerators,Discovered
+https://ordinationen.at,Conferences/Accelerators,Discovered
+https://medtronic.com,Conferences/Accelerators,Discovered
+https://temedica.com,Conferences/Accelerators,Discovered
+https://doctorbox.de,German Startups,Discovered
+https://heartkinetics.com,Conferences/Accelerators,Discovered
+https://netdoktor.at,Conferences/Accelerators,Discovered
+https://medgate.ch,EU Startups,Discovered
+https://epic.com,Conferences/Accelerators,Discovered
+https://onedoc.ch,EU Startups,Discovered
+https://ottonova.de,German Startups,Discovered
+https://home.informme.info/,User Hardcoded,Discovered
+https://aponeo.de,German Startups,Discovered
+https://contextflow.com,Conferences/Accelerators,Discovered
+https://viomedo.com,Conferences/Accelerators,Discovered
+https://sharecare.com,Conferences/Accelerators,Discovered
+https://echo.co.uk,EU Startups,Discovered
+https://qiagen.com,Conferences/Accelerators,Discovered
+https://onlinearts.nl,EU Startups,Discovered
+https://usi.ch,EU Startups,Discovered
+https://www.climedo.de/,User Hardcoded,Discovered
+https://cambridge-enterprise.com,University Spinoffs,Discovered
+https://borger.dk,EU Startups,Discovered
+https://incontalert.de/,User Hardcoded,Discovered
+https://www.arztlena.com/,User Hardcoded,Discovered
+https://deepeye.ai/,User Hardcoded,Discovered
+https://nedap-healthcare.com,Conferences/Accelerators,Discovered
+https://thinksono.com,Conferences/Accelerators,Discovered
+https://mindmaze.com,Conferences/Accelerators,Discovered
+https://minimed.at,Conferences/Accelerators,Discovered
+https://www.aporize.com/,User Hardcoded,Discovered
+https://newpharma.de,German Startups,Discovered
+https://myra.health,Conferences/Accelerators,Discovered
+https://www.avimedical.com/avi-impact,User Hardcoded,Discovered
+https://zavamed.com,Conferences/Accelerators,Discovered
+https://zorgdomein.com,Conferences/Accelerators,Discovered
+https://samedi.de,German Startups,Discovered
+https://lloydsapotek.se,EU Startups,Discovered
+https://eedoctors.ch,EU Startups,Discovered
+https://smartpatient.eu,Conferences/Accelerators,Discovered
+https://hospitalrun.io,Conferences/Accelerators,Discovered
+https://clinic.de,German Startups,Discovered
+https://openelis.org,GitHub Projects,Discovered
+https://fyzo.de/assistant/,User Hardcoded,Discovered
+https://therapytech.nl,EU Startups,Discovered
+https://wellnessapp.fr,EU Startups,Discovered
+https://hslu.ch,EU Startups,Discovered
+https://suppremol.com,Conferences/Accelerators,Discovered
+https://swica.ch,EU Startups,Discovered
+https://smarthealth.de,German Startups,Discovered
+https://myhealth.de,German Startups,Discovered
+https://healthtech.co.uk,EU Startups,Discovered
+https://med.co.uk,EU Startups,Discovered
+https://medatixx.de,German Startups,Discovered
+https://dokteronline.com,Conferences/Accelerators,Discovered
+https://commcare.org,Conferences/Accelerators,Discovered
+https://ucl-business.com,Conferences/Accelerators,Discovered
+https://epfl.ch,EU Startups,Discovered
+https://patientapp.se,EU Startups,Discovered
+https://getwellness.co.uk,EU Startups,Discovered
+https://www.actimi.com,User Hardcoded,Discovered
+https://infomedics.com,Conferences/Accelerators,Discovered
+https://automata.tech,Conferences/Accelerators,Discovered
+https://medwing.com,Conferences/Accelerators,Discovered
+https://www.help-app.de/,User Hardcoded,Discovered
+https://medconfidential.org,Conferences/Accelerators,Discovered
+https://intersystems.com,Conferences/Accelerators,Discovered
+https://ascenion.de,German Startups,Discovered
+https://unige.ch,EU Startups,Discovered
+https://gethealth.co.uk,EU Startups,Discovered
+https://wellnessapp.co.uk,EU Startups,Discovered
+https://getmed.de,German Startups,Discovered
+https://mymed.fr,EU Startups,Discovered
+https://healthbank.coop,Conferences/Accelerators,Discovered
+https://www.apodienste.com/,User Hardcoded,Discovered
+https://mydoc.co.uk,EU Startups,Discovered
+https://clinictech.de,German Startups,Discovered
+https://www.floy.com/,User Hardcoded,Discovered
+https://www.apheris.com,User Hardcoded,Discovered
+https://aidhere.com,Conferences/Accelerators,Discovered
+https://roche.com,Conferences/Accelerators,Discovered
+https://www.heynanny.com/,User Hardcoded,Discovered
+https://getwellness.de,German Startups,Discovered
+https://1177.se,EU Startups,Discovered
+https://med.fr,EU Startups,Discovered
+https://nictiz.nl,EU Startups,Discovered
+https://patientapp.co.uk,EU Startups,Discovered
+https://patienttech.de,German Startups,Discovered
+https://clue.app,Conferences/Accelerators,Discovered
+https://pharmarket.com,Conferences/Accelerators,Discovered
+https://medadom.com,Conferences/Accelerators,Discovered
+https://livi.co.uk,EU Startups,Discovered
+https://allscripts.com,Conferences/Accelerators,Discovered
+https://neotiv.de,German Startups,Discovered
+https://morphosys.com,Conferences/Accelerators,Discovered
+https://medizin-transparent.at,Conferences/Accelerators,Discovered
+https://philips.com/healthcare,Conferences/Accelerators,Discovered
+https://brca-exchange.org,Conferences/Accelerators,Discovered
+https://www.cliniserve.de/,User Hardcoded,Discovered
+https://gesundheit.gv.at,Conferences/Accelerators,Discovered
+https://regionh.dk,EU Startups,Discovered
+https://vardguiden.se,EU Startups,Discovered
+https://unine.ch,EU Startups,Discovered
+https://minimed.de,German Startups,Discovered
+https://comparis.ch,EU Startups,Discovered
+https://laeger.dk,EU Startups,Discovered
+https://unifr.ch,EU Startups,Discovered
+https://vayu.com,Conferences/Accelerators,Discovered
+https://elixionmedical.com/,User Hardcoded,Discovered
+https://medecinsdegarde.fr,EU Startups,Discovered
+https://myhealthchecked.com,Conferences/Accelerators,Discovered
+https://ada.com,Conferences/Accelerators,Discovered
+https://medisite.fr,EU Startups,Discovered
+https://change-healthcare.com,Conferences/Accelerators,Discovered
+https://uniforschung.de,German Startups,Discovered
+https://medigene.com,Conferences/Accelerators,Discovered
+https://www.brainjo.de/,User Hardcoded,Discovered
+https://accurx.com,Conferences/Accelerators,Discovered
+https://kaia-health.com,Conferences/Accelerators,Discovered
+https://push.doctor,Conferences/Accelerators,Discovered
+https://careship.de,German Startups,Discovered
+https://biovica.com,Conferences/Accelerators,Discovered
+https://ge.com/healthcare,Conferences/Accelerators,Discovered
+https://mydoc.ch,EU Startups,Discovered
+https://bahmni.org,Conferences/Accelerators,Discovered
+https://ihe.net,Conferences/Accelerators,Discovered
+https://pharmazie.com,Conferences/Accelerators,Discovered
+https://myhealth.se,EU Startups,Discovered
+https://getmed.ch,EU Startups,Discovered
+https://qare.fr,EU Startups,Discovered
+https://medtech.de,German Startups,Discovered
+https://www.deepmentation.ai/,User Hardcoded,Discovered
+http://www.ecovery.de/,User Hardcoded,Discovered
+https://broca.io,Conferences/Accelerators,Discovered
+https://min-doktor.se,EU Startups,Discovered
+https://medtech.co.uk,EU Startups,Discovered
+https://wilex.de,German Startups,Discovered
+https://medtech.se,EU Startups,Discovered
+https://patient.se,EU Startups,Discovered
+https://apple.com/healthcare,Conferences/Accelerators,Discovered
+https://kcl.ac.uk,Conferences/Accelerators,Discovered
+https://tum.de,German Startups,Discovered
+https://wellnessapp.se,EU Startups,Discovered
+https://zava.com,Conferences/Accelerators,Discovered
+https://apotheker.at,Conferences/Accelerators,Discovered
+https://wellnesstech.fr,EU Startups,Discovered
+https://myclinic.se,EU Startups,Discovered
+https://healthtech.de,German Startups,Discovered
+https://unil.ch,EU Startups,Discovered
+https://therapytech.de,German Startups,Discovered
+https://myclinic.fr,EU Startups,Discovered
+https://novartis.com,Conferences/Accelerators,Discovered
+https://rapidpro.io,Conferences/Accelerators,Discovered
+https://mypatient.nl,EU Startups,Discovered
+https://careapp.nl,EU Startups,Discovered
+https://mydoc.se,EU Startups,Discovered
+https://medapp.nl,EU Startups,Discovered
+https://caretech.nl,EU Startups,Discovered
+https://ehealth.de,German Startups,Discovered
+https://helmholtz-enterprise.de,German Startups,Discovered
+https://huisartsenpost.nl,EU Startups,Discovered
+https://doc.co.uk,EU Startups,Discovered
+https://care.se,EU Startups,Discovered
+https://getdoc.ch,EU Startups,Discovered
+https://max-planck-innovation.de,German Startups,Discovered
+https://ed.ac.uk,Conferences/Accelerators,Discovered
+https://vsee.com,Conferences/Accelerators,Discovered
+https://openmrs.org,GitHub Projects,Discovered
+https://getpatient.nl,EU Startups,Discovered
+https://sst.dk,EU Startups,Discovered
+https://wellnesstech.ch,EU Startups,Discovered
+https://www.kranushealth.com/de/therapien/inkontinenz,User Hardcoded,Discovered
+https://evotec.com,Conferences/Accelerators,Discovered
+https://patient.fr,EU Startups,Discovered
+https://researchkit.org,Conferences/Accelerators,Discovered
+https://fraunhofer-venture.de,German Startups,Discovered
+https://healthapp.co.uk,EU Startups,Discovered
+https://www.gesund.de/app,User Hardcoded,Discovered
+https://owkin.com,Conferences/Accelerators,Discovered
+https://lykon.com,Conferences/Accelerators,Discovered
+https://celltex.com,Conferences/Accelerators,Discovered
+https://doktor24.se,EU Startups,Discovered
+https://www.derma2go.com/,User Hardcoded,Discovered
+https://css.ch,EU Startups,Discovered
+https://isis-innovation.com,Conferences/Accelerators,Discovered
+https://www.fitwhit.de,User Hardcoded,Discovered
+https://www.dpv-analytics.com/,User Hardcoded,Discovered
+https://doctorfmh.ch,EU Startups,Discovered
+https://dhis2.org,Conferences/Accelerators,Discovered
+https://warwick.ac.uk,Conferences/Accelerators,Discovered
+https://www.comuny.de/,User Hardcoded,Discovered
+https://www.alfa-ai.com,User Hardcoded,Discovered
+https://www.cynteract.com/de/rehabilitation,User Hardcoded,Discovered
+https://diagnostic-biochips.com,Conferences/Accelerators,Discovered
+https://doxy.me,Conferences/Accelerators,Discovered
+https://imperial-innovations.com,Conferences/Accelerators,Discovered
+https://medic.org,Conferences/Accelerators,Discovered
+https://sanvartis.com,Conferences/Accelerators,Discovered
+https://thryve.health,Conferences/Accelerators,Discovered
+https://aidpath.com,Conferences/Accelerators,Discovered
+https://kl.dk,EU Startups,Discovered
+https://nanoscale.de,German Startups,Discovered
+https://oncgnostics.com,Conferences/Accelerators,Discovered
+https://4sc.com,Conferences/Accelerators,Discovered
+https://apotek.se,EU Startups,Discovered
+https://docplanner.com,Conferences/Accelerators,Discovered
+https://uzh.ch,EU Startups,Discovered
+https://min-laege.dk,EU Startups,Discovered
+https://gsk.com,Conferences/Accelerators,Discovered
+https://lindera.de,German Startups,Discovered
+https://consultations-medicales.fr,EU Startups,Discovered
+https://healthtap.com,Conferences/Accelerators,Discovered
+https://kry.se,EU Startups,Discovered
+https://immunic-therapeutics.com,Conferences/Accelerators,Discovered
+https://merantix.com,Conferences/Accelerators,Discovered
+https://webdoc.at,Conferences/Accelerators,Discovered
+https://de.becureglobal.com/,User Hardcoded,Discovered
+https://amwell.com,Conferences/Accelerators,Discovered
+https://nanobiotix.com,Conferences/Accelerators,Discovered
+https://tele-doc.de,German Startups,Discovered
+https://smartregister.org,Conferences/Accelerators,Discovered
+https://myclinic.de,German Startups,Discovered
+https://therapy.ch,EU Startups,Discovered
+https://getwellness.ch,EU Startups,Discovered
+https://med.ch,EU Startups,Discovered
+https://shop.getnutrio.com/,User Hardcoded,Discovered
+https://health.nl,EU Startups,Discovered
+https://netdoktor.se,EU Startups,Discovered
+https://merck.com,Conferences/Accelerators,Discovered
+https://sfs-healthcare.com,User Hardcoded,Discovered
+https://docfinder.at,Conferences/Accelerators,Discovered
+https://bayer.com,Conferences/Accelerators,Discovered
+https://patienttech.co.uk,EU Startups,Discovered
+https://www.careanimations.de/,User Hardcoded,Discovered
+https://myhealth.ch,EU Startups,Discovered
+https://medapp.se,EU Startups,Discovered
+https://technologieallianz.de,German Startups,Discovered
+https://fosanis.com,Conferences/Accelerators,Discovered
+https://charite.de,German Startups,Discovered
+https://getdoc.nl,EU Startups,Discovered
+https://healx.io,Conferences/Accelerators,Discovered
+https://therapytech.co.uk,EU Startups,Discovered
+https://heartkins.com,Conferences/Accelerators,Discovered
+https://brea.app/,User Hardcoded,Discovered
+https://mytherapy.de,German Startups,Discovered
+https://www.kranushealth.com/de/therapien/haeufiger-harndrang,User Hardcoded,Discovered
+https://babylon.health,Conferences/Accelerators,Discovered
+https://leeds.ac.uk,Conferences/Accelerators,Discovered
+https://felmo.de,German Startups,Discovered
+https://mywellness.nl,EU Startups,Discovered
+https://getclinic.se,EU Startups,Discovered
+https://mymed.se,EU Startups,Discovered
+https://therapyapp.co.uk,EU Startups,Discovered
+https://wellness.co.uk,EU Startups,Discovered
+https://myhealth.nl,EU Startups,Discovered
+https://getcare.de,German Startups,Discovered
+https://gethealth.se,EU Startups,Discovered
+https://caretech.co.uk,EU Startups,Discovered
+https://zoom.us/healthcare,Conferences/Accelerators,Discovered
+https://mologen.com,Conferences/Accelerators,Discovered
+https://wellnesstech.nl,EU Startups,Discovered
+https://mint-medical.com,Conferences/Accelerators,Discovered
+https://sensyne.com,Conferences/Accelerators,Discovered
+https://gesund.at,Conferences/Accelerators,Discovered
+https://teleclinic.com,Conferences/Accelerators,Discovered
+https://astrazeneca.com,Conferences/Accelerators,Discovered
+https://amazon.com/health,Conferences/Accelerators,Discovered
+https://www.emmora.de,User Hardcoded,Discovered
+http://dopavision.com/,User Hardcoded,Discovered
+https://mondocteur.fr,EU Startups,Discovered
+https://helsana.ch,EU Startups,Discovered
+https://opensrp.org,GitHub Projects,Discovered
+https://manchester.ac.uk,Conferences/Accelerators,Discovered
+https://eye2you.ai/,User Hardcoded,Discovered
+https://openlmis.org,GitHub Projects,Discovered
+https://www.open-emr.org,GitHub Projects,Discovered
+https://motech.org,Conferences/Accelerators,Discovered
+https://molecularmatch.com,Conferences/Accelerators,Discovered
+https://visioncheckout.com/,User Hardcoded,Discovered
+https://nuvisan.com,Conferences/Accelerators,Discovered
+https://www.guidecare.de/,User Hardcoded,Discovered
+https://curecurve.de/elina-app/,User Hardcoded,Discovered
+https://cogthera.de/#erfahren,User Hardcoded,Discovered
+https://rheacell.com,Conferences/Accelerators,Discovered
+https://biotest.com,Conferences/Accelerators,Discovered
+https://tutech.de,German Startups,Discovered
+https://doctorly.de,German Startups,Discovered
+https://www.empident.de/,User Hardcoded,Discovered
+https://www.avayl.tech/,User Hardcoded,Discovered
+https://cellex.com,Conferences/Accelerators,Discovered
+https://unibas.ch,EU Startups,Discovered
+https://smart-on-fhir.github.io,GitHub Projects,Discovered
+https://livi.fr,EU Startups,Discovered
+https://siemens-healthineers.com,Conferences/Accelerators,Discovered
+https://sanofi.com,Conferences/Accelerators,Discovered
+https://meditech.com,Conferences/Accelerators,Discovered
+https://dedalus.com,Conferences/Accelerators,Discovered
+https://doktor.se,EU Startups,Discovered
+https://microsoft.com/healthcare,Conferences/Accelerators,Discovered
+https://www.biotx.ai/,User Hardcoded,Discovered
+https://teladoc.com,Conferences/Accelerators,Discovered
+https://netdoktor.dk,EU Startups,Discovered
+https://medlanes.com,Conferences/Accelerators,Discovered
+https://apoteket.se,EU Startups,Discovered
+https://doctolib.fr,EU Startups,Discovered
+https://www.dianovi.com/,User Hardcoded,Discovered
+https://www.glaice.de/,User Hardcoded,Discovered
+https://blackford.ai,Conferences/Accelerators,Discovered
+https://medi24.ch,EU Startups,Discovered
+https://brainsbaseline.com,Conferences/Accelerators,Discovered
+https://caresyntax.com,Conferences/Accelerators,Discovered
+https://carekit.org,Conferences/Accelerators,Discovered
