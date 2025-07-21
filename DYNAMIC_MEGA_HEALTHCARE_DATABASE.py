@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """
-🏥 Dynamic MEGA European Healthcare Database Builder
-🚀 Uses URLs from Dynamic Research Discovery + Your Manual URLs
-===============================================================
-This script loads URLs from the dynamic research discovery process
-and combines them with your manual URLs for comprehensive validation.
+🏥 Dynamic MEGA Healthcare URL Validator & Accuracy Assessor
+🚀 Validates URLs from Dynamic Research Discovery + Your Manual URLs
+====================================================================
+This script focuses on URL validation and accuracy assessment.
+It combines URLs from the dynamic research discovery process
+with your manual URLs to find the most accurate and accessible URLs.
 """
 
 import urllib.request
@@ -201,318 +202,23 @@ def is_company_url(url):
     
     return True
 
-def extract_company_name_from_url(url):
-    """Extract company name from URL domain"""
-    try:
-        domain = urlparse(url).netloc.lower()
-        
-        # Remove www, subdomain prefixes
-        domain = re.sub(r'^(www\.|shop\.|app\.|api\.|blog\.|news\.)', '', domain)
-        
-        # Get the main domain part (before TLD)
-        domain_parts = domain.split('.')
-        if len(domain_parts) >= 2:
-            company_part = domain_parts[0]
-            
-            # Clean up common patterns
-            company_part = re.sub(r'(health|medical|pharma|biotech|med|care)$', '', company_part)
-            company_part = company_part.strip('-_')
-            
-            # Capitalize properly
-            if company_part:
-                return company_part.capitalize()
-    
-    except:
-        pass
-    
-    return None
 
-def extract_company_name_from_title(title):
-    """Extract company name from page title"""
-    if not title:
-        return None
-    
-    title = clean_text(title)
-    
-    # Common title patterns to extract company name
-    patterns = [
-        # "Company Name | Tagline" or "Company Name - Tagline"
-        r'^([^||\-–—]+)[\s]*[||\-–—]',
-        # "Company Name: Tagline"
-        r'^([^:]+):',
-        # "Welcome to Company Name" 
-        r'welcome\s+to\s+([^||\-–—]+)',
-        # "Company Name - Official Site"
-        r'^([^||\-–—]+)\s*[\-–—]\s*(official|home|website)',
-        # Just take first part before common separators
-        r'^([^||\-–—\(\[]+)',
-    ]
-    
-    for pattern in patterns:
-        match = re.search(pattern, title, re.IGNORECASE)
-        if match:
-            company_name = match.group(1).strip()
-            
-            # Clean up the extracted name
-            company_name = clean_company_name(company_name)
-            if company_name and len(company_name) > 2:
-                return company_name
-    
-    return None
 
-def extract_company_name_from_meta(content):
-    """Extract company name from meta tags"""
-    meta_patterns = [
-        # og:site_name
-        r'<meta[^>]*property=["\']og:site_name["\'][^>]*content=["\']([^"\']+)["\']',
-        # application-name
-        r'<meta[^>]*name=["\']application-name["\'][^>]*content=["\']([^"\']+)["\']',
-        # author (sometimes company name)
-        r'<meta[^>]*name=["\']author["\'][^>]*content=["\']([^"\']+)["\']',
-        # twitter:site
-        r'<meta[^>]*name=["\']twitter:site["\'][^>]*content=["\']@?([^"\']+)["\']',
-    ]
-    
-    for pattern in meta_patterns:
-        match = re.search(pattern, content, re.IGNORECASE)
-        if match:
-            company_name = clean_text(match.group(1))
-            company_name = clean_company_name(company_name)
-            if company_name and len(company_name) > 2:
-                return company_name
-    
-    return None
 
-def extract_products_and_services(content, title, url):
-    """Extract company products and services from website content"""
-    if not content:
-        return "No product information available"
-    
-    products = []
-    
-    # 1. Extract from meta description (often contains key products/services)
-    desc_patterns = [
-        r'<meta[^>]*name=["\']description["\'][^>]*content=["\']([^"\']{20,200})["\']',
-        r'<meta[^>]*property=["\']og:description["\'][^>]*content=["\']([^"\']{20,200})["\']',
-    ]
-    
-    for pattern in desc_patterns:
-        match = re.search(pattern, content, re.IGNORECASE)
-        if match:
-            desc = clean_text(match.group(1))
-            if desc and len(desc) > 20:
-                products.append(desc)
-                break
-    
-    # 2. Extract from page title (often mentions main product)
-    if title:
-        title_clean = clean_text(title)
-        # Look for product mentions in title after company name
-        title_parts = re.split(r'[|\-–—:]', title_clean)
-        if len(title_parts) > 1:
-            potential_product = title_parts[1].strip()
-            if len(potential_product) > 5 and len(potential_product) < 100:
-                products.append(potential_product)
-    
-    # 3. Extract from headings (h1, h2, h3) - often describe main services
-    heading_patterns = [
-        r'<h[1-3][^>]*>([^<]{10,80})</h[1-3]>',
-    ]
-    
-    for pattern in heading_patterns:
-        matches = re.findall(pattern, content, re.IGNORECASE)
-        for match in matches[:3]:  # Only first 3 headings
-            heading = clean_text(match)
-            if heading and is_product_relevant(heading):
-                products.append(heading)
-    
-    # 4. Extract from product/service keywords in content
-    content_lower = content.lower()
-    
-    # Healthcare-specific product patterns
-    product_keywords = [
-        # AI/ML Products
-        (r'(ai[- ]powered [^.]{10,60})', 'AI/ML'),
-        (r'(machine learning [^.]{5,50})', 'AI/ML'),
-        (r'(artificial intelligence [^.]{5,50})', 'AI/ML'),
-        (r'(predictive analytics [^.]{5,50})', 'AI/ML'),
-        
-        # Digital Health Products
-        (r'(telemedicine [^.]{5,50})', 'Digital Health'),
-        (r'(remote monitoring [^.]{5,50})', 'Digital Health'),
-        (r'(mobile health app[^.]{0,40})', 'Digital Health'),
-        (r'(digital therapeutics [^.]{5,50})', 'Digital Health'),
-        
-        # Medical Devices
-        (r'(medical device[s]? [^.]{5,50})', 'Devices'),
-        (r'(diagnostic [^.]{5,50})', 'Devices'),
-        (r'(monitoring system[s]? [^.]{5,50})', 'Devices'),
-        
-        # Pharma/Biotech
-        (r'(drug development [^.]{5,50})', 'Pharma'),
-        (r'(pharmaceutical [^.]{5,50})', 'Pharma'),
-        (r'(clinical trial[s]? [^.]{5,50})', 'Pharma'),
-        (r'(biotech [^.]{5,50})', 'Biotech'),
-        
-        # Software/Platforms
-        (r'(software platform [^.]{5,50})', 'Software'),
-        (r'(saas [^.]{5,50})', 'Software'),
-        (r'(cloud[- ]based [^.]{5,50})', 'Software'),
-    ]
-    
-    for pattern, category in product_keywords:
-        matches = re.findall(pattern, content_lower)
-        for match in matches[:2]:  # Limit to 2 per category
-            if len(match) > 10:
-                products.append(f"{category}: {match.capitalize()}")
-    
-    # 5. Extract from structured sections (About, Products, Services)
-    section_patterns = [
-        r'(?:about|our solution|our product|what we do|services)[^<]{20,150}',
-        r'(?:we offer|we provide|we develop)[^<.]{20,100}',
-    ]
-    
-    for pattern in section_patterns:
-        matches = re.findall(pattern, content, re.IGNORECASE | re.DOTALL)
-        for match in matches[:2]:
-            section_text = clean_text(match)
-            if section_text and len(section_text) > 20:
-                products.append(section_text)
-    
-    # Clean and deduplicate products
-    unique_products = []
-    seen = set()
-    
-    for product in products:
-        product_clean = clean_text(product)[:200]  # Limit length
-        if product_clean and len(product_clean) > 10:
-            # Simple deduplication
-            product_key = product_clean.lower()[:50]
-            if product_key not in seen:
-                unique_products.append(product_clean)
-                seen.add(product_key)
-        
-        if len(unique_products) >= 5:  # Limit to 5 products max
-            break
-    
-    if unique_products:
-        return " | ".join(unique_products)
-    else:
-        return extract_fallback_product_info(url, title)
 
-def is_product_relevant(text):
-    """Check if heading text is likely to describe a product/service"""
-    if not text or len(text) < 5:
-        return False
-    
-    # Skip generic headings
-    generic_terms = [
-        'home', 'about us', 'contact', 'news', 'blog', 'career', 'team',
-        'privacy', 'terms', 'cookie', 'navigation', 'menu', 'footer',
-        'header', 'sidebar', 'login', 'register', 'search'
-    ]
-    
-    text_lower = text.lower()
-    if any(term in text_lower for term in generic_terms):
-        return False
-    
-    # Look for product-indicating words
-    product_indicators = [
-        'solution', 'platform', 'service', 'product', 'system', 'technology',
-        'software', 'app', 'tool', 'device', 'treatment', 'therapy',
-        'diagnostic', 'monitoring', 'management', 'analytics'
-    ]
-    
-    return any(indicator in text_lower for indicator in product_indicators)
 
-def extract_fallback_product_info(url, title):
-    """Extract basic product info as fallback"""
-    domain = urlparse(url).netloc.lower()
-    
-    # Infer from domain name
-    if 'health' in domain:
-        return "Healthcare solutions"
-    elif 'med' in domain:
-        return "Medical services"
-    elif 'pharma' in domain:
-        return "Pharmaceutical products"
-    elif 'bio' in domain:
-        return "Biotechnology solutions"
-    elif 'ai' in domain or 'analytics' in domain:
-        return "AI/Healthcare analytics"
-    elif 'app' in domain or 'digital' in domain:
-        return "Digital health platform"
-    elif title and len(title) > 10:
-        return f"Healthcare solutions ({clean_text(title)[:50]})"
-    else:
-        return "Healthcare products and services"
-
-def clean_company_name(name):
-    """Clean and normalize company name"""
-    if not name:
-        return None
-    
-    name = clean_text(name)
-    
-    # Remove common suffixes/prefixes
-    name = re.sub(r'\s*[-–—|:]\s*(home|official|website|site).*$', '', name, flags=re.IGNORECASE)
-    name = re.sub(r'^(welcome\s+to\s+)', '', name, flags=re.IGNORECASE)
-    
-    # Remove HTML artifacts
-    name = re.sub(r'[<>]', '', name)
-    
-    # Clean up whitespace
-    name = re.sub(r'\s+', ' ', name)
-    name = name.strip()
-    
-    # Remove single character words at the end
-    name = re.sub(r'\s+[a-zA-Z]\s*$', '', name)
-    
-    return name if len(name) > 2 else None
-
-def is_generic_text(text):
-    """Check if text is too generic to be a company name"""
-    generic_words = [
-        'home', 'about', 'contact', 'welcome', 'page', 'site', 'website',
-        'official', 'login', 'register', 'search', 'menu', 'navigation',
-        'privacy', 'terms', 'conditions', 'policy', 'copyright', 'reserved'
-    ]
-    
-    text_lower = text.lower()
-    return any(word in text_lower for word in generic_words)
 
 def validate_url(url):
-    """Validate URL and extract company information"""
+    """Validate URL accessibility and extract basic information for accuracy assessment"""
     try:
         content, status_code = create_safe_request(url)
         
         if content and str(status_code).startswith('2'):
-            # Extract title
+            # Extract title for validation purposes
             title_match = re.search(r'<title[^>]*>(.*?)</title>', content, re.IGNORECASE | re.DOTALL)
             raw_title = title_match.group(1) if title_match else ""
             
-            # Extract company name using multiple methods
-            url_name = extract_company_name_from_url(url)
-            title_name = extract_company_name_from_title(raw_title)
-            meta_name = extract_company_name_from_meta(content)
-            
-            # Choose the best company name based on priority and quality
-            candidates = [
-                (meta_name, 'Meta tags'),
-                (title_name, 'Page title'),
-                (url_name, 'URL domain')
-            ]
-            
-            # Pick first non-None candidate
-            company_name = "Unknown Company"
-            extraction_method = "Fallback"
-            for name, method in candidates:
-                if name and len(name) > 2 and not is_generic_text(name):
-                    company_name = name
-                    extraction_method = method
-                    break
-            
-            # Extract description
+            # Extract description for validation
             desc_patterns = [
                 r'<meta[^>]*name=["\']description["\'][^>]*content=["\']([^"\']*)["\']',
                 r'<meta[^>]*property=["\']og:description["\'][^>]*content=["\']([^"\']*)["\']',
@@ -526,10 +232,7 @@ def validate_url(url):
                     description = clean_text(desc_match.group(1))
                     break
             
-            # Extract products and services
-            products = extract_products_and_services(content, raw_title, url)
-            
-            # Determine healthcare type and country
+            # Determine healthcare type and country for categorization
             healthcare_type = determine_healthcare_type(url, content, raw_title)
             country = extract_country(url)
             
@@ -537,18 +240,17 @@ def validate_url(url):
             source = "Manual" if url in MANUAL_URLS else "Discovered"
             
             return {
-                'name': company_name,
                 'website': url,
                 'description': description,
-                'products_services': products,
                 'country': country,
                 'healthcare_type': healthcare_type,
                 'status': 'Active',
                 'status_code': status_code,
                 'source': source,
-                'extraction_method': extraction_method,
                 'raw_title': clean_text(raw_title)[:100] if raw_title else "",
-                'validated_date': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                'validated_date': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                'content_length': len(content),
+                'has_healthcare_keywords': is_healthcare_related(content)
             }
         else:
             return create_error_record(url, f"HTTP {status_code}")
@@ -561,22 +263,19 @@ def create_error_record(url, error_msg):
     healthcare_type = determine_healthcare_type(url, "", "")
     country = extract_country(url)
     source = "Manual" if url in MANUAL_URLS else "Discovered"
-    url_name = extract_company_name_from_url(url)
-    fallback_products = extract_fallback_product_info(url, "")
     
     return {
-        'name': url_name or 'Error - Could not access',
         'website': url,
         'description': f'Error: {error_msg}',
-        'products_services': fallback_products,
         'country': country,
         'healthcare_type': healthcare_type,
         'status': 'Error',
         'status_code': error_msg,
         'source': source,
-        'extraction_method': 'URL domain (error)',
         'raw_title': '',
-        'validated_date': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        'validated_date': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+        'content_length': 0,
+        'has_healthcare_keywords': False
     }
 
 def clean_text(text):
@@ -607,6 +306,20 @@ def clean_text(text):
         text = text.replace(entity, char)
     
     return text[:500] if len(text) > 500 else text
+
+def is_healthcare_related(content):
+    """Check if content contains healthcare-related keywords"""
+    if not content:
+        return False
+    
+    content_lower = content.lower()
+    healthcare_keywords = [
+        'health', 'medical', 'pharma', 'biotech', 'medicine', 'therapy',
+        'diagnostic', 'treatment', 'patient', 'clinical', 'hospital',
+        'drug', 'healthcare', 'telemedicine', 'digital health'
+    ]
+    
+    return any(keyword in content_lower for keyword in healthcare_keywords)
 
 def determine_healthcare_type(url, content, title):
     """Determine healthcare category based on URL and content"""
@@ -669,7 +382,7 @@ def save_to_files(companies, base_filename):
     
     # Save to CSV
     with open(csv_filename, 'w', newline='', encoding='utf-8') as csvfile:
-        fieldnames = ['name', 'website', 'description', 'products_services', 'country', 'healthcare_type', 'status', 'status_code', 'source', 'extraction_method', 'raw_title', 'validated_date']
+        fieldnames = ['website', 'description', 'country', 'healthcare_type', 'status', 'status_code', 'source', 'raw_title', 'validated_date', 'content_length', 'has_healthcare_keywords']
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         writer.writeheader()
         for company in companies:
@@ -682,9 +395,12 @@ def save_to_files(companies, base_filename):
     return csv_filename, json_filename
 
 def main():
-    """Main execution function"""
-    print("🏥 Dynamic MEGA European Healthcare Database Builder")
-    print("🚀 Using Dynamic Research Discovery + Your Manual URLs")
+    """Main execution function - focuses on URL validation and accuracy assessment"""
+    print("🏥 Dynamic MEGA Healthcare URL Validator & Accuracy Assessor")
+    print("🚀 Validating URLs from Dynamic Research Discovery + Your Manual URLs")
+    print("======================================================================")
+    print("💡 This script validates URLs and assesses their accuracy - no name extraction")
+    print("🎯 Use company_name_extractor.py for extracting company names from validated URLs")
     print("======================================================================")
     
     # Load discovered URLs from research script
@@ -711,76 +427,80 @@ def main():
     for i, url in enumerate(all_urls, 1):
         print(f"[{i}/{len(all_urls)}] Validating: {url}")
         
-        company_data = validate_url(url)
-        companies.append(company_data)
+        url_data = validate_url(url)
+        companies.append(url_data)
         
         # Show progress
-        status_icon = "✅" if company_data['status'] == 'Active' else "❌"
-        type_icon = "🔍" if 'AI/ML' in company_data['healthcare_type'] else "📝"
-        source_icon = "📋" if company_data['source'] == 'Manual' else "🔍"
+        status_icon = "✅" if url_data['status'] == 'Active' else "❌"
+        type_icon = "🔍" if 'AI/ML' in url_data['healthcare_type'] else "📝"
+        source_icon = "📋" if url_data['source'] == 'Manual' else "🔍"
+        healthcare_icon = "🏥" if url_data.get('has_healthcare_keywords') else "❓"
         
-        # Show company name and first product
-        company_info = f"{company_data['name']}"
-        if company_data.get('products_services') and len(company_data['products_services']) > 20:
-            first_product = company_data['products_services'].split('|')[0][:50]
-            company_info += f" - {first_product}..."
+        # Show URL and basic info
+        url_info = f"{url} ({url_data.get('content_length', 0)} bytes)"
         
-        print(f"  {status_icon}{type_icon}{source_icon} {company_info}")
-        print(f"      Status: {company_data['status']} | Type: {company_data['healthcare_type']} | Country: {company_data['country']}")
+        print(f"  {status_icon}{type_icon}{source_icon}{healthcare_icon} {url_info}")
+        print(f"      Status: {url_data['status']} | Type: {url_data['healthcare_type']} | Country: {url_data['country']}")
+        if url_data.get('description') and url_data['description'] != 'No description available':
+            print(f"      Description: {url_data['description'][:100]}...")
         
         # Respectful delay
         time.sleep(1)
     
     # Save results
-    csv_file, json_file = save_to_files(companies, "DYNAMIC_MEGA_EUROPEAN_HEALTHCARE_DATABASE")
+    csv_file, json_file = save_to_files(companies, "DYNAMIC_MEGA_URL_VALIDATION_REPORT")
     
     # Generate comprehensive report
-    active_companies = [c for c in companies if c['status'] == 'Active']
-    manual_companies = [c for c in companies if c['source'] == 'Manual']
-    discovered_companies = [c for c in companies if c['source'] == 'Discovered']
+    active_urls = [c for c in companies if c['status'] == 'Active']
+    manual_urls = [c for c in companies if c['source'] == 'Manual']
+    discovered_urls = [c for c in companies if c['source'] == 'Discovered']
+    healthcare_confirmed = [c for c in companies if c.get('has_healthcare_keywords', False)]
     
     # Count by healthcare type
     type_counts = {}
-    for company in active_companies:
-        type_name = company['healthcare_type']
+    for url_data in active_urls:
+        type_name = url_data['healthcare_type']
         type_counts[type_name] = type_counts.get(type_name, 0) + 1
     
     # Count by country
     country_counts = {}
-    for company in active_companies:
-        country_name = company['country']
+    for url_data in active_urls:
+        country_name = url_data['country']
         country_counts[country_name] = country_counts.get(country_name, 0) + 1
     
     # Final report
     print("\n======================================================================")
-    print("📈 DYNAMIC MEGA FINAL REPORT")
+    print("📈 DYNAMIC MEGA URL VALIDATION REPORT")
     print("======================================================================")
-    print("📊 OVERVIEW:")
-    print(f"  • Total companies processed: {len(companies)}")
-    print(f"  • Active websites: {len(active_companies)}")
-    print(f"  • Manual URLs: {len(manual_companies)}")
-    print(f"  • Dynamically discovered: {len(discovered_companies)}")
-    print(f"  • Success rate: {(len(active_companies)/len(companies)*100):.1f}%")
+    print("📊 VALIDATION OVERVIEW:")
+    print(f"  • Total URLs processed: {len(companies)}")
+    print(f"  • Active/accessible URLs: {len(active_urls)}")
+    print(f"  • Manual URLs: {len(manual_urls)}")
+    print(f"  • Dynamically discovered: {len(discovered_urls)}")
+    print(f"  • Healthcare content confirmed: {len(healthcare_confirmed)}")
+    print(f"  • Success rate: {(len(active_urls)/len(companies)*100):.1f}%")
+    print(f"  • Healthcare accuracy: {(len(healthcare_confirmed)/len(active_urls)*100 if active_urls else 0):.1f}%")
     
-    print(f"\n🏥 HEALTHCARE CATEGORIES:")
+    print(f"\n🏥 HEALTHCARE CATEGORIES (Active URLs):")
     for healthcare_type, count in sorted(type_counts.items(), key=lambda x: x[1], reverse=True):
-        print(f"  • {healthcare_type}: {count} companies")
+        print(f"  • {healthcare_type}: {count} URLs")
     
-    print(f"\n🌍 COUNTRIES:")
+    print(f"\n🌍 COUNTRIES (Active URLs):")
     for country, count in sorted(country_counts.items(), key=lambda x: x[1], reverse=True)[:10]:  # Top 10
-        print(f"  • {country}: {count} companies")
+        print(f"  • {country}: {count} URLs")
     
-    print(f"\n📈 SOURCES:")
-    print(f"  • Manual (your original): {len(manual_companies)} companies")
-    print(f"  • Dynamic discovery: {len(discovered_companies)} companies")
+    print(f"\n📈 URL SOURCES:")
+    print(f"  • Manual (your original): {len(manual_urls)} URLs")
+    print(f"  • Dynamic discovery: {len(discovered_urls)} URLs")
     
     print(f"\n💾 FILES SAVED:")
     print(f"  • {csv_file}")
     print(f"  • {json_file}")
     
-    print(f"\n🎉 Dynamic MEGA Enhanced Database completed!")
-    print(f"📊 {len(companies)} companies total with dynamic research integration!")
-    print(f"💡 This combines your manual URLs with dynamically discovered companies!")
+    print(f"\n🎉 URL Validation and Accuracy Assessment completed!")
+    print(f"📊 {len(active_urls)} validated URLs from {len(companies)} total!")
+    print(f"💡 Use these validated URLs with company_name_extractor.py for name extraction!")
+    print(f"🔗 Most accurate URLs saved for further processing!")
 
 if __name__ == "__main__":
     main()
