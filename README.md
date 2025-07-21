@@ -1,10 +1,13 @@
 # 🚀 Improved Startup Discovery System
 
-**Professional-grade discovery of digital health startups with all major issues fixed**
+**Production-ready discovery of European digital health startups with comprehensive expansion**
 
 ## 🎯 Quick Start
 
 ```bash
+# Install dependencies
+pip install -r requirements.txt
+
 # Basic usage
 python3 improved_startup_discovery.py
 
@@ -13,14 +16,27 @@ export GITHUB_TOKEN=your_github_token
 python3 improved_startup_discovery.py
 ```
 
-## ✅ Major Improvements
+## ✨ Key Features
 
-- **Robust Search**: Multi-engine fallbacks (Google → Bing → DuckDuckGo) with smart ranking
-- **Deep Pagination**: 5-10x more directory coverage through automatic pagination
-- **URL Validation**: 100% working URLs through health checks and canonicalization
-- **Enhanced GitHub**: 3x more sources with API token support
-- **Smart Organization**: Confidence-separated output files
-- **Professional Logging**: Comprehensive structured logging throughout
+### 🔍 **Comprehensive Discovery Sources**
+- **6 Directory Sources**: StartupBlink, Sifted, MedTech Europe, German Accelerator + more
+- **20 Smart Search Queries**: Location + vertical combinations across Europe
+- **5 News Aggregators**: EU-Startups, HealthTech Alpha, specialized health directories
+- **Enhanced GitHub**: 6 queries with API token support + retry logic
+- **LinkedIn References**: Search-based startup mentions and lists
+
+### 🛡️ **Quality & Validation**
+- **Domain Filtering**: 50+ banned domains, hosting platforms filtered out
+- **URL Health Checks**: Only working URLs included (is_alive=True)
+- **Multi-Language Support**: English, German, French keyword scanning
+- **Industry Auto-Labeling**: AI/ML, Telemedicine, MedTech, Pharma, etc.
+- **Smart Deduplication**: Domain + title/meta signature matching
+
+### 📊 **Smart Organization**
+- **Confidence-Based Sorting**: High quality results first
+- **Health Relevance Priority**: Health-related startups prioritized
+- **Separated Output Files**: Verified, discovered, and generated categories
+- **Comprehensive Metadata**: Industry labels, countries, health scores
 
 ## 📁 Output Files
 
@@ -30,21 +46,25 @@ python3 improved_startup_discovery.py
 - `comprehensive_results_YYYYMMDD_HHMMSS.json` - Complete data with metadata
 - `discovery_summary_YYYYMMDD_HHMMSS.txt` - Human-readable report
 
-## 🔧 Dependencies
+## 🔧 JSON to CSV Conversion
 
 ```bash
-pip install -r requirements.txt
+# Convert comprehensive JSON results to CSV
+python3 json_to_csv_converter.py comprehensive_results_YYYYMMDD_HHMMSS.json
 ```
 
-## 📖 Documentation
+## 🏆 Results Expected
 
-See `IMPROVEMENTS.md` for detailed technical documentation of all fixes and enhancements.
+- **5-10x Dataset Growth** through expanded sources
+- **Multi-Country Coverage**: Germany, France, UK, Netherlands, Switzerland, Austria, etc.
+- **Industry Intelligence**: Auto-categorized by health tech verticals
+- **Production Quality**: Filtered, validated, and sorted results
+- **100% Free**: No paid APIs or services required
 
-## 🏆 Results
+## 🎯 Perfect For
 
-- 5-10x more directory coverage through pagination
-- 3x more GitHub sources with API token support
-- 100% working URLs through validation
-- Professional logging and error handling
-- Smart search engine fallback ranking
-- Domain canonicalization to prevent duplicates
+- Health tech market research
+- Startup ecosystem analysis  
+- Investment pipeline development
+- Partnership discovery
+- Competitive intelligence
