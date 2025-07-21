@@ -1,0 +1,1508 @@
+{
+  "validation_timestamp": "2025-07-21T16:28:31.036666",
+  "summary": {
+    "total_urls": 53,
+    "accessible": 49,
+    "dns_resolvable": 52,
+    "ssl_valid": 47,
+    "health_related": 11,
+    "accessibility_rate": 92.45283018867924,
+    "avg_response_time": 0.68,
+    "status_breakdown": {
+      "ACCESSIBLE": 49,
+      "DNS_FAILED": 1,
+      "URL_ERROR": 1,
+      "HTTP_ERROR": 2
+    },
+    "fastest_site": 0.04,
+    "slowest_site": 2.86
+  },
+  "results": [
+    {
+      "url": "https://www.acalta.de",
+      "status": "ACCESSIBLE",
+      "http_status": 200,
+      "accessible": true,
+      "dns_resolvable": true,
+      "ssl_valid": true,
+      "content_type": "text/html",
+      "title": null,
+      "response_time": 0.27,
+      "redirect_url": null,
+      "error_message": null,
+      "domain_info": {
+        "domain": "www.acalta.de",
+        "scheme": "https",
+        "path": "",
+        "query": ""
+      },
+      "analysis": {
+        "likely_purpose": "unknown",
+        "health_related": false,
+        "app_related": false,
+        "commercial": false,
+        "indicators": [
+          "German domain (.de)"
+        ]
+      }
+    },
+    {
+      "url": "https://www.actimi.com",
+      "status": "ACCESSIBLE",
+      "http_status": 200,
+      "accessible": true,
+      "dns_resolvable": true,
+      "ssl_valid": true,
+      "content_type": "text/html",
+      "title": null,
+      "response_time": 0.21,
+      "redirect_url": "https://actimi.com/",
+      "error_message": null,
+      "domain_info": {
+        "domain": "www.actimi.com",
+        "scheme": "https",
+        "path": "",
+        "query": ""
+      },
+      "analysis": {
+        "likely_purpose": "unknown",
+        "health_related": false,
+        "app_related": false,
+        "commercial": false,
+        "indicators": []
+      }
+    },
+    {
+      "url": "https://www.emmora.de",
+      "status": "ACCESSIBLE",
+      "http_status": 200,
+      "accessible": true,
+      "dns_resolvable": true,
+      "ssl_valid": true,
+      "content_type": "text/html; charset=utf-8",
+      "title": null,
+      "response_time": 1.4,
+      "redirect_url": "https://www.ahorn-gruppe.de/news-und-events/newsdetail/die-ahorn-gruppe-fuehrt-emmora-fort-und-erweitert-ihr-digitales-angebot-im-bereich-bestattungsvorsorge",
+      "error_message": null,
+      "domain_info": {
+        "domain": "www.emmora.de",
+        "scheme": "https",
+        "path": "",
+        "query": ""
+      },
+      "analysis": {
+        "likely_purpose": "unknown",
+        "health_related": false,
+        "app_related": false,
+        "commercial": false,
+        "indicators": [
+          "German domain (.de)"
+        ]
+      }
+    },
+    {
+      "url": "https://www.alfa-ai.com",
+      "status": "ACCESSIBLE",
+      "http_status": 200,
+      "accessible": true,
+      "dns_resolvable": true,
+      "ssl_valid": true,
+      "content_type": "text/html",
+      "title": null,
+      "response_time": 0.29,
+      "redirect_url": null,
+      "error_message": null,
+      "domain_info": {
+        "domain": "www.alfa-ai.com",
+        "scheme": "https",
+        "path": "",
+        "query": ""
+      },
+      "analysis": {
+        "likely_purpose": "technology_platform",
+        "health_related": false,
+        "app_related": true,
+        "commercial": false,
+        "indicators": [
+          "App/Tech-related: ai"
+        ]
+      }
+    },
+    {
+      "url": "https://www.apheris.com",
+      "status": "ACCESSIBLE",
+      "http_status": 200,
+      "accessible": true,
+      "dns_resolvable": true,
+      "ssl_valid": true,
+      "content_type": "text/html; charset=utf-8",
+      "title": null,
+      "response_time": 0.05,
+      "redirect_url": null,
+      "error_message": null,
+      "domain_info": {
+        "domain": "www.apheris.com",
+        "scheme": "https",
+        "path": "",
+        "query": ""
+      },
+      "analysis": {
+        "likely_purpose": "unknown",
+        "health_related": false,
+        "app_related": false,
+        "commercial": false,
+        "indicators": []
+      }
+    },
+    {
+      "url": "https://www.aporize.com/",
+      "status": "ACCESSIBLE",
+      "http_status": 200,
+      "accessible": true,
+      "dns_resolvable": true,
+      "ssl_valid": true,
+      "content_type": "text/html; charset=UTF-8",
+      "title": "Aporize",
+      "response_time": 2.86,
+      "redirect_url": "https://aporize.com/",
+      "error_message": null,
+      "domain_info": {
+        "domain": "www.aporize.com",
+        "scheme": "https",
+        "path": "/",
+        "query": ""
+      },
+      "analysis": {
+        "likely_purpose": "unknown",
+        "health_related": false,
+        "app_related": false,
+        "commercial": false,
+        "indicators": []
+      },
+      "health_keywords": [
+        "patient",
+        "app",
+        "gesundheit",
+        "medizin",
+        "patient"
+      ]
+    },
+    {
+      "url": "https://www.arztlena.com/",
+      "status": "DNS_FAILED",
+      "http_status": null,
+      "accessible": false,
+      "dns_resolvable": false,
+      "ssl_valid": false,
+      "content_type": null,
+      "title": null,
+      "response_time": null,
+      "redirect_url": null,
+      "error_message": "DNS resolution failed: [Errno -5] No address associated with hostname",
+      "domain_info": {
+        "domain": "www.arztlena.com",
+        "scheme": "https",
+        "path": "/",
+        "query": ""
+      },
+      "analysis": {}
+    },
+    {
+      "url": "https://shop.getnutrio.com/",
+      "status": "ACCESSIBLE",
+      "http_status": 200,
+      "accessible": true,
+      "dns_resolvable": true,
+      "ssl_valid": true,
+      "content_type": "text/html; charset=utf-8",
+      "title": null,
+      "response_time": 0.62,
+      "redirect_url": null,
+      "error_message": null,
+      "domain_info": {
+        "domain": "shop.getnutrio.com",
+        "scheme": "https",
+        "path": "/",
+        "query": ""
+      },
+      "analysis": {
+        "likely_purpose": "e_commerce",
+        "health_related": false,
+        "app_related": false,
+        "commercial": true,
+        "indicators": []
+      }
+    },
+    {
+      "url": "https://www.auta.health/",
+      "status": "ACCESSIBLE",
+      "http_status": 200,
+      "accessible": true,
+      "dns_resolvable": true,
+      "ssl_valid": true,
+      "content_type": "text/html",
+      "title": null,
+      "response_time": 0.09,
+      "redirect_url": null,
+      "error_message": null,
+      "domain_info": {
+        "domain": "www.auta.health",
+        "scheme": "https",
+        "path": "/",
+        "query": ""
+      },
+      "analysis": {
+        "likely_purpose": "healthcare_service",
+        "health_related": true,
+        "app_related": false,
+        "commercial": false,
+        "indicators": [
+          "Health-related: health"
+        ]
+      }
+    },
+    {
+      "url": "https://visioncheckout.com/",
+      "status": "ACCESSIBLE",
+      "http_status": 200,
+      "accessible": true,
+      "dns_resolvable": true,
+      "ssl_valid": true,
+      "content_type": "text/html; charset=UTF-8",
+      "title": null,
+      "response_time": 0.57,
+      "redirect_url": null,
+      "error_message": null,
+      "domain_info": {
+        "domain": "visioncheckout.com",
+        "scheme": "https",
+        "path": "/",
+        "query": ""
+      },
+      "analysis": {
+        "likely_purpose": "unknown",
+        "health_related": false,
+        "app_related": false,
+        "commercial": false,
+        "indicators": []
+      }
+    },
+    {
+      "url": "https://www.avayl.tech/",
+      "status": "ACCESSIBLE",
+      "http_status": 200,
+      "accessible": true,
+      "dns_resolvable": true,
+      "ssl_valid": true,
+      "content_type": "text/html; charset=UTF-8",
+      "title": null,
+      "response_time": 0.04,
+      "redirect_url": null,
+      "error_message": null,
+      "domain_info": {
+        "domain": "www.avayl.tech",
+        "scheme": "https",
+        "path": "/",
+        "query": ""
+      },
+      "analysis": {
+        "likely_purpose": "technology_platform",
+        "health_related": false,
+        "app_related": true,
+        "commercial": false,
+        "indicators": [
+          "App/Tech-related: tech"
+        ]
+      }
+    },
+    {
+      "url": "https://www.avimedical.com/avi-impact",
+      "status": "ACCESSIBLE",
+      "http_status": 200,
+      "accessible": true,
+      "dns_resolvable": true,
+      "ssl_valid": true,
+      "content_type": "text/html",
+      "title": null,
+      "response_time": 1.24,
+      "redirect_url": null,
+      "error_message": null,
+      "domain_info": {
+        "domain": "www.avimedical.com",
+        "scheme": "https",
+        "path": "/avi-impact",
+        "query": ""
+      },
+      "analysis": {
+        "likely_purpose": "healthcare_service",
+        "health_related": true,
+        "app_related": false,
+        "commercial": false,
+        "indicators": [
+          "Health-related: med"
+        ]
+      }
+    },
+    {
+      "url": "https://de.becureglobal.com/",
+      "status": "ACCESSIBLE",
+      "http_status": 200,
+      "accessible": true,
+      "dns_resolvable": true,
+      "ssl_valid": true,
+      "content_type": "text/html; charset=UTF-8",
+      "title": null,
+      "response_time": 1.59,
+      "redirect_url": null,
+      "error_message": null,
+      "domain_info": {
+        "domain": "de.becureglobal.com",
+        "scheme": "https",
+        "path": "/",
+        "query": ""
+      },
+      "analysis": {
+        "likely_purpose": "unknown",
+        "health_related": false,
+        "app_related": false,
+        "commercial": false,
+        "indicators": []
+      }
+    },
+    {
+      "url": "https://bellehealth.co/de/",
+      "status": "ACCESSIBLE",
+      "http_status": 200,
+      "accessible": true,
+      "dns_resolvable": true,
+      "ssl_valid": true,
+      "content_type": "text/html; charset=UTF-8",
+      "title": null,
+      "response_time": 0.68,
+      "redirect_url": null,
+      "error_message": null,
+      "domain_info": {
+        "domain": "bellehealth.co",
+        "scheme": "https",
+        "path": "/de/",
+        "query": ""
+      },
+      "analysis": {
+        "likely_purpose": "healthcare_service",
+        "health_related": true,
+        "app_related": false,
+        "commercial": false,
+        "indicators": [
+          "Health-related: health"
+        ]
+      }
+    },
+    {
+      "url": "https://www.biotx.ai/",
+      "status": "ACCESSIBLE",
+      "http_status": 200,
+      "accessible": true,
+      "dns_resolvable": true,
+      "ssl_valid": true,
+      "content_type": "text/html; charset=UTF-8",
+      "title": null,
+      "response_time": 0.06,
+      "redirect_url": null,
+      "error_message": null,
+      "domain_info": {
+        "domain": "www.biotx.ai",
+        "scheme": "https",
+        "path": "/",
+        "query": ""
+      },
+      "analysis": {
+        "likely_purpose": "technology_platform",
+        "health_related": false,
+        "app_related": true,
+        "commercial": false,
+        "indicators": [
+          "App/Tech-related: ai"
+        ]
+      }
+    },
+    {
+      "url": "https://www.brainjo.de/",
+      "status": "ACCESSIBLE",
+      "http_status": 200,
+      "accessible": true,
+      "dns_resolvable": true,
+      "ssl_valid": true,
+      "content_type": "text/html;charset=utf-8",
+      "title": null,
+      "response_time": 0.54,
+      "redirect_url": null,
+      "error_message": null,
+      "domain_info": {
+        "domain": "www.brainjo.de",
+        "scheme": "https",
+        "path": "/",
+        "query": ""
+      },
+      "analysis": {
+        "likely_purpose": "technology_platform",
+        "health_related": false,
+        "app_related": true,
+        "commercial": false,
+        "indicators": [
+          "App/Tech-related: ai",
+          "German domain (.de)"
+        ]
+      }
+    },
+    {
+      "url": "https://brea.app/",
+      "status": "ACCESSIBLE",
+      "http_status": 200,
+      "accessible": true,
+      "dns_resolvable": true,
+      "ssl_valid": true,
+      "content_type": "text/html",
+      "title": null,
+      "response_time": 0.43,
+      "redirect_url": null,
+      "error_message": null,
+      "domain_info": {
+        "domain": "brea.app",
+        "scheme": "https",
+        "path": "/",
+        "query": ""
+      },
+      "analysis": {
+        "likely_purpose": "technology_platform",
+        "health_related": false,
+        "app_related": true,
+        "commercial": false,
+        "indicators": [
+          "App/Tech-related: app"
+        ]
+      }
+    },
+    {
+      "url": "https://breathment.com/",
+      "status": "ACCESSIBLE",
+      "http_status": 200,
+      "accessible": true,
+      "dns_resolvable": true,
+      "ssl_valid": true,
+      "content_type": "text/html; charset=utf-8",
+      "title": null,
+      "response_time": 0.19,
+      "redirect_url": "https://breathment.com/language-redirect/",
+      "error_message": null,
+      "domain_info": {
+        "domain": "breathment.com",
+        "scheme": "https",
+        "path": "/",
+        "query": ""
+      },
+      "analysis": {
+        "likely_purpose": "unknown",
+        "health_related": false,
+        "app_related": false,
+        "commercial": false,
+        "indicators": []
+      }
+    },
+    {
+      "url": "https://de.caona.eu/",
+      "status": "URL_ERROR",
+      "http_status": null,
+      "accessible": false,
+      "dns_resolvable": true,
+      "ssl_valid": false,
+      "content_type": null,
+      "title": null,
+      "response_time": null,
+      "redirect_url": null,
+      "error_message": "URL Error: [SSL: SSLV3_ALERT_HANDSHAKE_FAILURE] ssl/tls alert handshake failure (_ssl.c:1029)",
+      "domain_info": {
+        "domain": "de.caona.eu",
+        "scheme": "https",
+        "path": "/",
+        "query": ""
+      },
+      "analysis": {
+        "likely_purpose": "unknown",
+        "health_related": false,
+        "app_related": false,
+        "commercial": false,
+        "indicators": []
+      }
+    },
+    {
+      "url": "https://www.careanimations.de/",
+      "status": "ACCESSIBLE",
+      "http_status": 200,
+      "accessible": true,
+      "dns_resolvable": true,
+      "ssl_valid": true,
+      "content_type": "text/html; charset=UTF-8",
+      "title": "Animierte Informationsvideos | Careanimations",
+      "response_time": 1.52,
+      "redirect_url": "https://careanimations.de/",
+      "error_message": null,
+      "domain_info": {
+        "domain": "www.careanimations.de",
+        "scheme": "https",
+        "path": "/",
+        "query": ""
+      },
+      "analysis": {
+        "likely_purpose": "healthcare_service",
+        "health_related": true,
+        "app_related": false,
+        "commercial": false,
+        "indicators": [
+          "Health-related: care",
+          "German domain (.de)"
+        ]
+      },
+      "health_keywords": [
+        "health",
+        "medicine",
+        "pharma",
+        "patient",
+        "doctor",
+        "hospital",
+        "app",
+        "digital health",
+        "gesundheit",
+        "medizin"
+      ]
+    },
+    {
+      "url": "https://sfs-healthcare.com",
+      "status": "ACCESSIBLE",
+      "http_status": 200,
+      "accessible": true,
+      "dns_resolvable": true,
+      "ssl_valid": true,
+      "content_type": "text/html; charset=UTF-8",
+      "title": null,
+      "response_time": 1.93,
+      "redirect_url": "https://www.sfs-healthcare.com/",
+      "error_message": null,
+      "domain_info": {
+        "domain": "sfs-healthcare.com",
+        "scheme": "https",
+        "path": "",
+        "query": ""
+      },
+      "analysis": {
+        "likely_purpose": "healthcare_service",
+        "health_related": true,
+        "app_related": false,
+        "commercial": false,
+        "indicators": [
+          "Health-related: health",
+          "Health-related: care"
+        ]
+      }
+    },
+    {
+      "url": "https://www.climedo.de/",
+      "status": "ACCESSIBLE",
+      "http_status": 200,
+      "accessible": true,
+      "dns_resolvable": true,
+      "ssl_valid": true,
+      "content_type": "text/html; charset=UTF-8",
+      "title": null,
+      "response_time": 1.02,
+      "redirect_url": "https://climedo.de/",
+      "error_message": null,
+      "domain_info": {
+        "domain": "www.climedo.de",
+        "scheme": "https",
+        "path": "/",
+        "query": ""
+      },
+      "analysis": {
+        "likely_purpose": "healthcare_service",
+        "health_related": true,
+        "app_related": false,
+        "commercial": false,
+        "indicators": [
+          "Health-related: med",
+          "German domain (.de)"
+        ]
+      }
+    },
+    {
+      "url": "https://www.cliniserve.de/",
+      "status": "ACCESSIBLE",
+      "http_status": 200,
+      "accessible": true,
+      "dns_resolvable": true,
+      "ssl_valid": true,
+      "content_type": "text/html; charset=UTF-8",
+      "title": null,
+      "response_time": 0.44,
+      "redirect_url": null,
+      "error_message": null,
+      "domain_info": {
+        "domain": "www.cliniserve.de",
+        "scheme": "https",
+        "path": "/",
+        "query": ""
+      },
+      "analysis": {
+        "likely_purpose": "unknown",
+        "health_related": false,
+        "app_related": false,
+        "commercial": false,
+        "indicators": [
+          "German domain (.de)"
+        ]
+      },
+      "health_keywords": [
+        "app"
+      ]
+    },
+    {
+      "url": "https://cogthera.de/#erfahren",
+      "status": "ACCESSIBLE",
+      "http_status": 200,
+      "accessible": true,
+      "dns_resolvable": true,
+      "ssl_valid": true,
+      "content_type": "text/html; charset=UTF-8",
+      "title": "Kognitives Training für Menschen mit MCI und leichter Demenz",
+      "response_time": 1.76,
+      "redirect_url": null,
+      "error_message": null,
+      "domain_info": {
+        "domain": "cogthera.de",
+        "scheme": "https",
+        "path": "/",
+        "query": ""
+      },
+      "analysis": {
+        "likely_purpose": "technology_platform",
+        "health_related": false,
+        "app_related": true,
+        "commercial": false,
+        "indicators": [
+          "App/Tech-related: ai",
+          "German domain (.de)"
+        ]
+      },
+      "health_keywords": [
+        "patient",
+        "doctor",
+        "app",
+        "gesundheit",
+        "medizin",
+        "patient",
+        "arzt"
+      ]
+    },
+    {
+      "url": "https://www.comuny.de/",
+      "status": "ACCESSIBLE",
+      "http_status": 200,
+      "accessible": true,
+      "dns_resolvable": true,
+      "ssl_valid": true,
+      "content_type": "text/html",
+      "title": null,
+      "response_time": 0.42,
+      "redirect_url": null,
+      "error_message": null,
+      "domain_info": {
+        "domain": "www.comuny.de",
+        "scheme": "https",
+        "path": "/",
+        "query": ""
+      },
+      "analysis": {
+        "likely_purpose": "unknown",
+        "health_related": false,
+        "app_related": false,
+        "commercial": false,
+        "indicators": [
+          "German domain (.de)"
+        ]
+      }
+    },
+    {
+      "url": "https://curecurve.de/elina-app/",
+      "status": "ACCESSIBLE",
+      "http_status": 200,
+      "accessible": true,
+      "dns_resolvable": true,
+      "ssl_valid": true,
+      "content_type": "text/html; charset=UTF-8",
+      "title": null,
+      "response_time": 0.74,
+      "redirect_url": null,
+      "error_message": null,
+      "domain_info": {
+        "domain": "curecurve.de",
+        "scheme": "https",
+        "path": "/elina-app/",
+        "query": ""
+      },
+      "analysis": {
+        "likely_purpose": "unknown",
+        "health_related": false,
+        "app_related": false,
+        "commercial": false,
+        "indicators": [
+          "German domain (.de)"
+        ]
+      },
+      "health_keywords": [
+        "app"
+      ]
+    },
+    {
+      "url": "https://www.cynteract.com/de/rehabilitation",
+      "status": "HTTP_ERROR",
+      "http_status": 404,
+      "accessible": false,
+      "dns_resolvable": true,
+      "ssl_valid": false,
+      "content_type": null,
+      "title": null,
+      "response_time": null,
+      "redirect_url": null,
+      "error_message": "HTTP Error 404: Not Found",
+      "domain_info": {
+        "domain": "www.cynteract.com",
+        "scheme": "https",
+        "path": "/de/rehabilitation",
+        "query": ""
+      },
+      "analysis": {
+        "likely_purpose": "unknown",
+        "health_related": false,
+        "app_related": false,
+        "commercial": false,
+        "indicators": []
+      }
+    },
+    {
+      "url": "https://www.healthmeapp.de/de/",
+      "status": "ACCESSIBLE",
+      "http_status": 200,
+      "accessible": true,
+      "dns_resolvable": true,
+      "ssl_valid": true,
+      "content_type": "text/html; charset=utf-8",
+      "title": null,
+      "response_time": 1.35,
+      "redirect_url": "https://www.healthmeapp.de/home",
+      "error_message": null,
+      "domain_info": {
+        "domain": "www.healthmeapp.de",
+        "scheme": "https",
+        "path": "/de/",
+        "query": ""
+      },
+      "analysis": {
+        "likely_purpose": "digital_health_app",
+        "health_related": true,
+        "app_related": true,
+        "commercial": false,
+        "indicators": [
+          "Health-related: health",
+          "App/Tech-related: app",
+          "German domain (.de)"
+        ]
+      }
+    },
+    {
+      "url": "https://deepeye.ai/",
+      "status": "ACCESSIBLE",
+      "http_status": 200,
+      "accessible": true,
+      "dns_resolvable": true,
+      "ssl_valid": true,
+      "content_type": "text/html",
+      "title": null,
+      "response_time": 1.28,
+      "redirect_url": "https://www.deepeye-medical.com/",
+      "error_message": null,
+      "domain_info": {
+        "domain": "deepeye.ai",
+        "scheme": "https",
+        "path": "/",
+        "query": ""
+      },
+      "analysis": {
+        "likely_purpose": "technology_platform",
+        "health_related": false,
+        "app_related": true,
+        "commercial": false,
+        "indicators": [
+          "App/Tech-related: ai"
+        ]
+      }
+    },
+    {
+      "url": "https://www.deepmentation.ai/",
+      "status": "ACCESSIBLE",
+      "http_status": 200,
+      "accessible": true,
+      "dns_resolvable": true,
+      "ssl_valid": true,
+      "content_type": "text/html; charset=utf-8",
+      "title": null,
+      "response_time": 1.5,
+      "redirect_url": "https://deepmentation.ai/",
+      "error_message": null,
+      "domain_info": {
+        "domain": "www.deepmentation.ai",
+        "scheme": "https",
+        "path": "/",
+        "query": ""
+      },
+      "analysis": {
+        "likely_purpose": "technology_platform",
+        "health_related": false,
+        "app_related": true,
+        "commercial": false,
+        "indicators": [
+          "App/Tech-related: ai"
+        ]
+      }
+    },
+    {
+      "url": "https://denton-systems.de/",
+      "status": "HTTP_ERROR",
+      "http_status": 410,
+      "accessible": false,
+      "dns_resolvable": true,
+      "ssl_valid": false,
+      "content_type": null,
+      "title": null,
+      "response_time": null,
+      "redirect_url": null,
+      "error_message": "HTTP Error 410: Gone",
+      "domain_info": {
+        "domain": "denton-systems.de",
+        "scheme": "https",
+        "path": "/",
+        "query": ""
+      },
+      "analysis": {
+        "likely_purpose": "unknown",
+        "health_related": false,
+        "app_related": false,
+        "commercial": false,
+        "indicators": [
+          "German domain (.de)"
+        ]
+      }
+    },
+    {
+      "url": "https://www.derma2go.com/",
+      "status": "ACCESSIBLE",
+      "http_status": 200,
+      "accessible": true,
+      "dns_resolvable": true,
+      "ssl_valid": true,
+      "content_type": "text/html; charset=UTF-8",
+      "title": null,
+      "response_time": 1.42,
+      "redirect_url": "https://www.derma2go.com/en/",
+      "error_message": null,
+      "domain_info": {
+        "domain": "www.derma2go.com",
+        "scheme": "https",
+        "path": "/",
+        "query": ""
+      },
+      "analysis": {
+        "likely_purpose": "unknown",
+        "health_related": false,
+        "app_related": false,
+        "commercial": false,
+        "indicators": []
+      }
+    },
+    {
+      "url": "https://www.dianovi.com/",
+      "status": "ACCESSIBLE",
+      "http_status": 200,
+      "accessible": true,
+      "dns_resolvable": true,
+      "ssl_valid": true,
+      "content_type": "text/html; charset=UTF-8",
+      "title": null,
+      "response_time": 0.05,
+      "redirect_url": null,
+      "error_message": null,
+      "domain_info": {
+        "domain": "www.dianovi.com",
+        "scheme": "https",
+        "path": "/",
+        "query": ""
+      },
+      "analysis": {
+        "likely_purpose": "unknown",
+        "health_related": false,
+        "app_related": false,
+        "commercial": false,
+        "indicators": []
+      }
+    },
+    {
+      "url": "http://dopavision.com/",
+      "status": "ACCESSIBLE",
+      "http_status": 200,
+      "accessible": true,
+      "dns_resolvable": true,
+      "ssl_valid": false,
+      "content_type": "text/html; charset=UTF-8",
+      "title": null,
+      "response_time": 0.64,
+      "redirect_url": "https://dopavision.com/",
+      "error_message": null,
+      "domain_info": {
+        "domain": "dopavision.com",
+        "scheme": "http",
+        "path": "/",
+        "query": ""
+      },
+      "analysis": {
+        "likely_purpose": "unknown",
+        "health_related": false,
+        "app_related": false,
+        "commercial": false,
+        "indicators": []
+      }
+    },
+    {
+      "url": "https://www.dpv-analytics.com/",
+      "status": "ACCESSIBLE",
+      "http_status": 200,
+      "accessible": true,
+      "dns_resolvable": true,
+      "ssl_valid": true,
+      "content_type": "text/html; charset=UTF-8",
+      "title": null,
+      "response_time": 0.84,
+      "redirect_url": "https://dpv-analytics.com/",
+      "error_message": null,
+      "domain_info": {
+        "domain": "www.dpv-analytics.com",
+        "scheme": "https",
+        "path": "/",
+        "query": ""
+      },
+      "analysis": {
+        "likely_purpose": "unknown",
+        "health_related": false,
+        "app_related": false,
+        "commercial": false,
+        "indicators": []
+      }
+    },
+    {
+      "url": "http://www.ecovery.de/",
+      "status": "ACCESSIBLE",
+      "http_status": 200,
+      "accessible": true,
+      "dns_resolvable": true,
+      "ssl_valid": false,
+      "content_type": "text/html; charset=UTF-8",
+      "title": null,
+      "response_time": 1.35,
+      "redirect_url": "https://ecovery.de/",
+      "error_message": null,
+      "domain_info": {
+        "domain": "www.ecovery.de",
+        "scheme": "http",
+        "path": "/",
+        "query": ""
+      },
+      "analysis": {
+        "likely_purpose": "unknown",
+        "health_related": false,
+        "app_related": false,
+        "commercial": false,
+        "indicators": [
+          "German domain (.de)"
+        ]
+      }
+    },
+    {
+      "url": "https://elixionmedical.com/",
+      "status": "ACCESSIBLE",
+      "http_status": 200,
+      "accessible": true,
+      "dns_resolvable": true,
+      "ssl_valid": true,
+      "content_type": "text/html; charset=UTF-8",
+      "title": null,
+      "response_time": 0.45,
+      "redirect_url": "https://elixionmedical.com/home",
+      "error_message": null,
+      "domain_info": {
+        "domain": "elixionmedical.com",
+        "scheme": "https",
+        "path": "/",
+        "query": ""
+      },
+      "analysis": {
+        "likely_purpose": "healthcare_service",
+        "health_related": true,
+        "app_related": false,
+        "commercial": false,
+        "indicators": [
+          "Health-related: med"
+        ]
+      }
+    },
+    {
+      "url": "https://www.empident.de/",
+      "status": "ACCESSIBLE",
+      "http_status": 200,
+      "accessible": true,
+      "dns_resolvable": true,
+      "ssl_valid": true,
+      "content_type": "text/html; charset=UTF-8",
+      "title": null,
+      "response_time": 1.18,
+      "redirect_url": "https://empident.de/",
+      "error_message": null,
+      "domain_info": {
+        "domain": "www.empident.de",
+        "scheme": "https",
+        "path": "/",
+        "query": ""
+      },
+      "analysis": {
+        "likely_purpose": "unknown",
+        "health_related": false,
+        "app_related": false,
+        "commercial": false,
+        "indicators": [
+          "German domain (.de)"
+        ]
+      }
+    },
+    {
+      "url": "https://eye2you.ai/",
+      "status": "ACCESSIBLE",
+      "http_status": 200,
+      "accessible": true,
+      "dns_resolvable": true,
+      "ssl_valid": true,
+      "content_type": "text/html; charset=UTF-8",
+      "title": null,
+      "response_time": 0.04,
+      "redirect_url": null,
+      "error_message": null,
+      "domain_info": {
+        "domain": "eye2you.ai",
+        "scheme": "https",
+        "path": "/",
+        "query": ""
+      },
+      "analysis": {
+        "likely_purpose": "technology_platform",
+        "health_related": false,
+        "app_related": true,
+        "commercial": false,
+        "indicators": [
+          "App/Tech-related: ai"
+        ]
+      }
+    },
+    {
+      "url": "https://www.fitwhit.de",
+      "status": "ACCESSIBLE",
+      "http_status": 200,
+      "accessible": true,
+      "dns_resolvable": true,
+      "ssl_valid": true,
+      "content_type": "text/html",
+      "title": null,
+      "response_time": 0.56,
+      "redirect_url": null,
+      "error_message": null,
+      "domain_info": {
+        "domain": "www.fitwhit.de",
+        "scheme": "https",
+        "path": "",
+        "query": ""
+      },
+      "analysis": {
+        "likely_purpose": "unknown",
+        "health_related": false,
+        "app_related": false,
+        "commercial": false,
+        "indicators": [
+          "German domain (.de)"
+        ]
+      }
+    },
+    {
+      "url": "https://www.floy.com/",
+      "status": "ACCESSIBLE",
+      "http_status": 200,
+      "accessible": true,
+      "dns_resolvable": true,
+      "ssl_valid": true,
+      "content_type": "text/html",
+      "title": null,
+      "response_time": 0.11,
+      "redirect_url": null,
+      "error_message": null,
+      "domain_info": {
+        "domain": "www.floy.com",
+        "scheme": "https",
+        "path": "/",
+        "query": ""
+      },
+      "analysis": {
+        "likely_purpose": "unknown",
+        "health_related": false,
+        "app_related": false,
+        "commercial": false,
+        "indicators": []
+      }
+    },
+    {
+      "url": "https://fyzo.de/assistant/",
+      "status": "ACCESSIBLE",
+      "http_status": 200,
+      "accessible": true,
+      "dns_resolvable": true,
+      "ssl_valid": true,
+      "content_type": "text/html; charset=utf-8",
+      "title": null,
+      "response_time": 0.43,
+      "redirect_url": null,
+      "error_message": null,
+      "domain_info": {
+        "domain": "fyzo.de",
+        "scheme": "https",
+        "path": "/assistant/",
+        "query": ""
+      },
+      "analysis": {
+        "likely_purpose": "unknown",
+        "health_related": false,
+        "app_related": false,
+        "commercial": false,
+        "indicators": [
+          "German domain (.de)"
+        ]
+      }
+    },
+    {
+      "url": "https://www.gesund.de/app",
+      "status": "ACCESSIBLE",
+      "http_status": 200,
+      "accessible": true,
+      "dns_resolvable": true,
+      "ssl_valid": true,
+      "content_type": "text/html; charset=UTF-8",
+      "title": null,
+      "response_time": 0.95,
+      "redirect_url": null,
+      "error_message": null,
+      "domain_info": {
+        "domain": "www.gesund.de",
+        "scheme": "https",
+        "path": "/app",
+        "query": ""
+      },
+      "analysis": {
+        "likely_purpose": "unknown",
+        "health_related": false,
+        "app_related": false,
+        "commercial": false,
+        "indicators": [
+          "German domain (.de)"
+        ]
+      }
+    },
+    {
+      "url": "https://www.glaice.de/",
+      "status": "ACCESSIBLE",
+      "http_status": 200,
+      "accessible": true,
+      "dns_resolvable": true,
+      "ssl_valid": true,
+      "content_type": "text/html",
+      "title": null,
+      "response_time": 0.32,
+      "redirect_url": null,
+      "error_message": null,
+      "domain_info": {
+        "domain": "www.glaice.de",
+        "scheme": "https",
+        "path": "/",
+        "query": ""
+      },
+      "analysis": {
+        "likely_purpose": "technology_platform",
+        "health_related": false,
+        "app_related": true,
+        "commercial": false,
+        "indicators": [
+          "App/Tech-related: ai",
+          "German domain (.de)"
+        ]
+      }
+    },
+    {
+      "url": "https://gleea.de/",
+      "status": "ACCESSIBLE",
+      "http_status": 200,
+      "accessible": true,
+      "dns_resolvable": true,
+      "ssl_valid": true,
+      "content_type": "text/html; charset=utf-8",
+      "title": null,
+      "response_time": 0.12,
+      "redirect_url": null,
+      "error_message": null,
+      "domain_info": {
+        "domain": "gleea.de",
+        "scheme": "https",
+        "path": "/",
+        "query": ""
+      },
+      "analysis": {
+        "likely_purpose": "unknown",
+        "health_related": false,
+        "app_related": false,
+        "commercial": false,
+        "indicators": [
+          "German domain (.de)"
+        ]
+      }
+    },
+    {
+      "url": "https://www.guidecare.de/",
+      "status": "ACCESSIBLE",
+      "http_status": 200,
+      "accessible": true,
+      "dns_resolvable": true,
+      "ssl_valid": true,
+      "content_type": "text/html",
+      "title": null,
+      "response_time": 0.16,
+      "redirect_url": null,
+      "error_message": null,
+      "domain_info": {
+        "domain": "www.guidecare.de",
+        "scheme": "https",
+        "path": "/",
+        "query": ""
+      },
+      "analysis": {
+        "likely_purpose": "healthcare_service",
+        "health_related": true,
+        "app_related": false,
+        "commercial": false,
+        "indicators": [
+          "Health-related: care",
+          "German domain (.de)"
+        ]
+      }
+    },
+    {
+      "url": "https://www.apodienste.com/",
+      "status": "ACCESSIBLE",
+      "http_status": 200,
+      "accessible": true,
+      "dns_resolvable": true,
+      "ssl_valid": true,
+      "content_type": "text/html; charset=UTF-8",
+      "title": null,
+      "response_time": 0.05,
+      "redirect_url": null,
+      "error_message": null,
+      "domain_info": {
+        "domain": "www.apodienste.com",
+        "scheme": "https",
+        "path": "/",
+        "query": ""
+      },
+      "analysis": {
+        "likely_purpose": "unknown",
+        "health_related": false,
+        "app_related": false,
+        "commercial": false,
+        "indicators": []
+      }
+    },
+    {
+      "url": "https://www.help-app.de/",
+      "status": "ACCESSIBLE",
+      "http_status": 200,
+      "accessible": true,
+      "dns_resolvable": true,
+      "ssl_valid": true,
+      "content_type": "text/html; charset=UTF-8",
+      "title": null,
+      "response_time": 0.69,
+      "redirect_url": null,
+      "error_message": null,
+      "domain_info": {
+        "domain": "www.help-app.de",
+        "scheme": "https",
+        "path": "/",
+        "query": ""
+      },
+      "analysis": {
+        "likely_purpose": "technology_platform",
+        "health_related": false,
+        "app_related": true,
+        "commercial": false,
+        "indicators": [
+          "App/Tech-related: app",
+          "German domain (.de)"
+        ]
+      }
+    },
+    {
+      "url": "https://www.heynanny.com/",
+      "status": "ACCESSIBLE",
+      "http_status": 200,
+      "accessible": true,
+      "dns_resolvable": true,
+      "ssl_valid": true,
+      "content_type": "text/html",
+      "title": null,
+      "response_time": 0.23,
+      "redirect_url": "https://www.heycare.com/",
+      "error_message": null,
+      "domain_info": {
+        "domain": "www.heynanny.com",
+        "scheme": "https",
+        "path": "/",
+        "query": ""
+      },
+      "analysis": {
+        "likely_purpose": "unknown",
+        "health_related": false,
+        "app_related": false,
+        "commercial": false,
+        "indicators": []
+      }
+    },
+    {
+      "url": "https://incontalert.de/",
+      "status": "ACCESSIBLE",
+      "http_status": 200,
+      "accessible": true,
+      "dns_resolvable": true,
+      "ssl_valid": true,
+      "content_type": "text/html; charset=UTF-8",
+      "title": null,
+      "response_time": 0.52,
+      "redirect_url": null,
+      "error_message": null,
+      "domain_info": {
+        "domain": "incontalert.de",
+        "scheme": "https",
+        "path": "/",
+        "query": ""
+      },
+      "analysis": {
+        "likely_purpose": "unknown",
+        "health_related": false,
+        "app_related": false,
+        "commercial": false,
+        "indicators": [
+          "German domain (.de)"
+        ]
+      }
+    },
+    {
+      "url": "https://home.informme.info/",
+      "status": "ACCESSIBLE",
+      "http_status": 200,
+      "accessible": true,
+      "dns_resolvable": true,
+      "ssl_valid": true,
+      "content_type": "text/html",
+      "title": null,
+      "response_time": 0.13,
+      "redirect_url": null,
+      "error_message": null,
+      "domain_info": {
+        "domain": "home.informme.info",
+        "scheme": "https",
+        "path": "/",
+        "query": ""
+      },
+      "analysis": {
+        "likely_purpose": "unknown",
+        "health_related": false,
+        "app_related": false,
+        "commercial": false,
+        "indicators": []
+      }
+    },
+    {
+      "url": "https://www.kranushealth.com/de/therapien/haeufiger-harndrang",
+      "status": "ACCESSIBLE",
+      "http_status": 200,
+      "accessible": true,
+      "dns_resolvable": true,
+      "ssl_valid": true,
+      "content_type": "text/html;charset=utf-8",
+      "title": null,
+      "response_time": 0.1,
+      "redirect_url": null,
+      "error_message": null,
+      "domain_info": {
+        "domain": "www.kranushealth.com",
+        "scheme": "https",
+        "path": "/de/therapien/haeufiger-harndrang",
+        "query": ""
+      },
+      "analysis": {
+        "likely_purpose": "healthcare_service",
+        "health_related": true,
+        "app_related": false,
+        "commercial": false,
+        "indicators": [
+          "Health-related: health"
+        ]
+      }
+    },
+    {
+      "url": "https://www.kranushealth.com/de/therapien/inkontinenz",
+      "status": "ACCESSIBLE",
+      "http_status": 200,
+      "accessible": true,
+      "dns_resolvable": true,
+      "ssl_valid": true,
+      "content_type": "text/html;charset=utf-8",
+      "title": null,
+      "response_time": 0.09,
+      "redirect_url": null,
+      "error_message": null,
+      "domain_info": {
+        "domain": "www.kranushealth.com",
+        "scheme": "https",
+        "path": "/de/therapien/inkontinenz",
+        "query": ""
+      },
+      "analysis": {
+        "likely_purpose": "healthcare_service",
+        "health_related": true,
+        "app_related": false,
+        "commercial": false,
+        "indicators": [
+          "Health-related: health"
+        ]
+      }
+    }
+  ]
+}

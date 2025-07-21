@@ -1,0 +1,54 @@
+url,status,accessible,http_status,response_time,dns_resolvable,ssl_valid,content_type,title,redirect_url,error_message,likely_purpose,health_related,app_related
+https://www.acalta.de,ACCESSIBLE,True,200,0.27,True,True,text/html,,,,unknown,False,False
+https://www.actimi.com,ACCESSIBLE,True,200,0.21,True,True,text/html,,https://actimi.com/,,unknown,False,False
+https://www.emmora.de,ACCESSIBLE,True,200,1.4,True,True,text/html; charset=utf-8,,https://www.ahorn-gruppe.de/news-und-events/newsdetail/die-ahorn-gruppe-fuehrt-emmora-fort-und-erweitert-ihr-digitales-angebot-im-bereich-bestattungsvorsorge,,unknown,False,False
+https://www.alfa-ai.com,ACCESSIBLE,True,200,0.29,True,True,text/html,,,,technology_platform,False,True
+https://www.apheris.com,ACCESSIBLE,True,200,0.05,True,True,text/html; charset=utf-8,,,,unknown,False,False
+https://www.aporize.com/,ACCESSIBLE,True,200,2.86,True,True,text/html; charset=UTF-8,Aporize,https://aporize.com/,,unknown,False,False
+https://www.arztlena.com/,DNS_FAILED,False,,,False,False,,,,DNS resolution failed: [Errno -5] No address associated with hostname,,False,False
+https://shop.getnutrio.com/,ACCESSIBLE,True,200,0.62,True,True,text/html; charset=utf-8,,,,e_commerce,False,False
+https://www.auta.health/,ACCESSIBLE,True,200,0.09,True,True,text/html,,,,healthcare_service,True,False
+https://visioncheckout.com/,ACCESSIBLE,True,200,0.57,True,True,text/html; charset=UTF-8,,,,unknown,False,False
+https://www.avayl.tech/,ACCESSIBLE,True,200,0.04,True,True,text/html; charset=UTF-8,,,,technology_platform,False,True
+https://www.avimedical.com/avi-impact,ACCESSIBLE,True,200,1.24,True,True,text/html,,,,healthcare_service,True,False
+https://de.becureglobal.com/,ACCESSIBLE,True,200,1.59,True,True,text/html; charset=UTF-8,,,,unknown,False,False
+https://bellehealth.co/de/,ACCESSIBLE,True,200,0.68,True,True,text/html; charset=UTF-8,,,,healthcare_service,True,False
+https://www.biotx.ai/,ACCESSIBLE,True,200,0.06,True,True,text/html; charset=UTF-8,,,,technology_platform,False,True
+https://www.brainjo.de/,ACCESSIBLE,True,200,0.54,True,True,text/html;charset=utf-8,,,,technology_platform,False,True
+https://brea.app/,ACCESSIBLE,True,200,0.43,True,True,text/html,,,,technology_platform,False,True
+https://breathment.com/,ACCESSIBLE,True,200,0.19,True,True,text/html; charset=utf-8,,https://breathment.com/language-redirect/,,unknown,False,False
+https://de.caona.eu/,URL_ERROR,False,,,True,False,,,,URL Error: [SSL: SSLV3_ALERT_HANDSHAKE_FAILURE] ssl/tls alert handshake failure (_ssl.c:1029),unknown,False,False
+https://www.careanimations.de/,ACCESSIBLE,True,200,1.52,True,True,text/html; charset=UTF-8,Animierte Informationsvideos | Careanimations,https://careanimations.de/,,healthcare_service,True,False
+https://sfs-healthcare.com,ACCESSIBLE,True,200,1.93,True,True,text/html; charset=UTF-8,,https://www.sfs-healthcare.com/,,healthcare_service,True,False
+https://www.climedo.de/,ACCESSIBLE,True,200,1.02,True,True,text/html; charset=UTF-8,,https://climedo.de/,,healthcare_service,True,False
+https://www.cliniserve.de/,ACCESSIBLE,True,200,0.44,True,True,text/html; charset=UTF-8,,,,unknown,False,False
+https://cogthera.de/#erfahren,ACCESSIBLE,True,200,1.76,True,True,text/html; charset=UTF-8,Kognitives Training für Menschen mit MCI und leichter Demenz,,,technology_platform,False,True
+https://www.comuny.de/,ACCESSIBLE,True,200,0.42,True,True,text/html,,,,unknown,False,False
+https://curecurve.de/elina-app/,ACCESSIBLE,True,200,0.74,True,True,text/html; charset=UTF-8,,,,unknown,False,False
+https://www.cynteract.com/de/rehabilitation,HTTP_ERROR,False,404,,True,False,,,,HTTP Error 404: Not Found,unknown,False,False
+https://www.healthmeapp.de/de/,ACCESSIBLE,True,200,1.35,True,True,text/html; charset=utf-8,,https://www.healthmeapp.de/home,,digital_health_app,True,True
+https://deepeye.ai/,ACCESSIBLE,True,200,1.28,True,True,text/html,,https://www.deepeye-medical.com/,,technology_platform,False,True
+https://www.deepmentation.ai/,ACCESSIBLE,True,200,1.5,True,True,text/html; charset=utf-8,,https://deepmentation.ai/,,technology_platform,False,True
+https://denton-systems.de/,HTTP_ERROR,False,410,,True,False,,,,HTTP Error 410: Gone,unknown,False,False
+https://www.derma2go.com/,ACCESSIBLE,True,200,1.42,True,True,text/html; charset=UTF-8,,https://www.derma2go.com/en/,,unknown,False,False
+https://www.dianovi.com/,ACCESSIBLE,True,200,0.05,True,True,text/html; charset=UTF-8,,,,unknown,False,False
+http://dopavision.com/,ACCESSIBLE,True,200,0.64,True,False,text/html; charset=UTF-8,,https://dopavision.com/,,unknown,False,False
+https://www.dpv-analytics.com/,ACCESSIBLE,True,200,0.84,True,True,text/html; charset=UTF-8,,https://dpv-analytics.com/,,unknown,False,False
+http://www.ecovery.de/,ACCESSIBLE,True,200,1.35,True,False,text/html; charset=UTF-8,,https://ecovery.de/,,unknown,False,False
+https://elixionmedical.com/,ACCESSIBLE,True,200,0.45,True,True,text/html; charset=UTF-8,,https://elixionmedical.com/home,,healthcare_service,True,False
+https://www.empident.de/,ACCESSIBLE,True,200,1.18,True,True,text/html; charset=UTF-8,,https://empident.de/,,unknown,False,False
+https://eye2you.ai/,ACCESSIBLE,True,200,0.04,True,True,text/html; charset=UTF-8,,,,technology_platform,False,True
+https://www.fitwhit.de,ACCESSIBLE,True,200,0.56,True,True,text/html,,,,unknown,False,False
+https://www.floy.com/,ACCESSIBLE,True,200,0.11,True,True,text/html,,,,unknown,False,False
+https://fyzo.de/assistant/,ACCESSIBLE,True,200,0.43,True,True,text/html; charset=utf-8,,,,unknown,False,False
+https://www.gesund.de/app,ACCESSIBLE,True,200,0.95,True,True,text/html; charset=UTF-8,,,,unknown,False,False
+https://www.glaice.de/,ACCESSIBLE,True,200,0.32,True,True,text/html,,,,technology_platform,False,True
+https://gleea.de/,ACCESSIBLE,True,200,0.12,True,True,text/html; charset=utf-8,,,,unknown,False,False
+https://www.guidecare.de/,ACCESSIBLE,True,200,0.16,True,True,text/html,,,,healthcare_service,True,False
+https://www.apodienste.com/,ACCESSIBLE,True,200,0.05,True,True,text/html; charset=UTF-8,,,,unknown,False,False
+https://www.help-app.de/,ACCESSIBLE,True,200,0.69,True,True,text/html; charset=UTF-8,,,,technology_platform,False,True
+https://www.heynanny.com/,ACCESSIBLE,True,200,0.23,True,True,text/html,,https://www.heycare.com/,,unknown,False,False
+https://incontalert.de/,ACCESSIBLE,True,200,0.52,True,True,text/html; charset=UTF-8,,,,unknown,False,False
+https://home.informme.info/,ACCESSIBLE,True,200,0.13,True,True,text/html,,,,unknown,False,False
+https://www.kranushealth.com/de/therapien/haeufiger-harndrang,ACCESSIBLE,True,200,0.1,True,True,text/html;charset=utf-8,,,,healthcare_service,True,False
+https://www.kranushealth.com/de/therapien/inkontinenz,ACCESSIBLE,True,200,0.09,True,True,text/html;charset=utf-8,,,,healthcare_service,True,False
