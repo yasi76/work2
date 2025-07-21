@@ -43,7 +43,7 @@ def convert_json_to_csv(json_file_path, output_csv_path=None):
             'url', 'source', 'confidence', 'category', 'method',
             'is_alive', 'status_code', 'final_url', 'content_length',
             'health_score', 'is_health_related', 'industry_label', 'page_title', 'meta_description',
-            'keyword_matches', 'languages_detected', 'country', 'discovered_at', 
+            'keyword_matches', 'languages_detected', 'link_context', 'note', 'country', 'discovered_at', 
             'github_stars', 'github_repo', 'error'
         ]
         

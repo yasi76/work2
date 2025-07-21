@@ -767,6 +767,186 @@ class ImprovedStartupDiscovery:
         logger.info(f"✅ Found {len(results)} URLs from GitHub")
         return results
 
+    def scrape_startup_news_aggregators(self) -> List[Dict]:
+        """Scrape startup news aggregators for health tech companies"""
+        logger.info("🔍 Scraping startup news aggregators...")
+        results = []
+        
+        # News aggregator sources
+        news_sources = [
+            {
+                'url': 'https://www.eu-startups.com/directory/health/',
+                'name': 'EU-Startups Health Directory'
+            },
+            {
+                'url': 'https://www.eu-startups.com/directory/medtech/',
+                'name': 'EU-Startups MedTech Directory'
+            },
+            {
+                'url': 'https://healthtechalpha.com/companies/',
+                'name': 'HealthTech Alpha Free Listings'
+            },
+            {
+                'url': 'https://healthtechalpha.com/companies/search/?q=germany',
+                'name': 'HealthTech Alpha Germany'
+            },
+            {
+                'url': 'https://healthtechalpha.com/companies/search/?q=europe',
+                'name': 'HealthTech Alpha Europe'
+            }
+        ]
+        
+        for source in news_sources:
+            try:
+                source_results = self.scrape_news_aggregator_with_pagination(
+                    source['url'], source['name'], max_pages=3
+                )
+                results.extend(source_results)
+            except Exception as e:
+                logger.error(f"Error scraping {source['name']}: {str(e)}")
+        
+        logger.info(f"✅ Found {len(results)} URLs from news aggregators")
+        return results
+
+    def scrape_news_aggregator_with_pagination(self, base_url: str, source_name: str, max_pages: int = 3) -> List[Dict]:
+        """Scrape news aggregators with pagination support"""
+        logger.info(f"🔍 Scraping {source_name} with pagination...")
+        results = []
+        
+        for page in tqdm(range(1, max_pages + 1), desc=f"Scraping {source_name}"):
+            try:
+                # Try different pagination patterns for news sites
+                page_urls = [
+                    f"{base_url}?page={page}",
+                    f"{base_url}&page={page}",
+                    f"{base_url}/page/{page}",
+                    f"{base_url}?p={page}",
+                    f"{base_url}&p={page}",
+                    f"{base_url}/{page}/",
+                    base_url if page == 1 else None  # First page might not need pagination
+                ]
+                
+                page_results = []
+                for page_url in page_urls:
+                    if not page_url:
+                        continue
+                        
+                    try:
+                        self.smart_delay()
+                        response = self.session.get(page_url, timeout=15)
+                        response.raise_for_status()
+                        
+                        soup = BeautifulSoup(response.content, 'html.parser')
+                        
+                        # More specific patterns for news aggregators
+                        startup_patterns = [
+                            r'https?://[^/]+\.(?:com|de|io|co|ai|health|tech|app|eu|fr|uk|nl|ch|se|dk|at|be|it|es)/?'
+                        ]
+                        
+                        # Look for company URLs in various elements
+                        link_selectors = [
+                            'a[href^="http"]',  # All external links
+                            '.company-link a[href^="http"]',  # Company-specific links
+                            '.startup-link a[href^="http"]',  # Startup-specific links
+                            '.portfolio-item a[href^="http"]',  # Portfolio links
+                            'article a[href^="http"]',  # Article links
+                            '.member-link a[href^="http"]'  # Member links
+                        ]
+                        
+                        for selector in link_selectors:
+                            for link in soup.select(selector):
+                                href = link.get('href')
+                                if not href:
+                                    continue
+                                
+                                # Convert relative URLs to absolute
+                                if href.startswith('/'):
+                                    href = urljoin(page_url, href)
+                                
+                                # Check if it matches startup patterns
+                                for pattern in startup_patterns:
+                                    if re.match(pattern, href):
+                                        domain = urlparse(href).netloc
+                                        
+                                        # Filter out news sites and aggregators themselves
+                                        exclude_domains = [
+                                            'eu-startups.com', 'healthtechalpha.com', 'sifted.eu',
+                                            'startupblink.com', 'crunchbase.com', 'linkedin.com', 
+                                            'twitter.com', 'facebook.com', 'google.com', 'youtube.com'
+                                        ]
+                                        
+                                        if not any(excluded in domain for excluded in exclude_domains):
+                                            clean_url = self.canonicalize_domain(href)
+                                            if clean_url not in [r['url'] for r in page_results]:
+                                                # Get additional context from link text
+                                                link_text = link.get_text().strip()
+                                                page_results.append({
+                                                    'url': clean_url,
+                                                    'source': f'{source_name} (Page {page})',
+                                                    'confidence': 6,
+                                                    'category': 'News Aggregator',
+                                                    'link_context': link_text[:100]
+                                                })
+                        
+                        if page_results:
+                            break  # Found results with this pagination pattern
+                            
+                    except Exception as e:
+                        continue  # Try next pagination pattern
+                
+                if not page_results:
+                    logger.info(f"  No results found on page {page}, stopping pagination")
+                    break
+                
+                results.extend(page_results)
+                logger.info(f"  Page {page}: Found {len(page_results)} URLs")
+                
+            except Exception as e:
+                logger.error(f"Error scraping page {page} of {source_name}: {str(e)}")
+                break
+        
+        logger.info(f"✅ Found {len(results)} total URLs from {source_name}")
+        return results
+
+    def scrape_linkedin_health_startup_lists(self) -> List[Dict]:
+        """Scrape LinkedIn lists for German Digital Health Startups (basic approach)"""
+        logger.info("🔍 Searching for LinkedIn health startup mentions...")
+        results = []
+        
+        # Since we can't directly scrape LinkedIn (requires auth), we'll search for 
+        # LinkedIn-mentioned companies through search engines
+        linkedin_search_queries = [
+            "site:linkedin.com \"german digital health startup\"",
+            "site:linkedin.com \"digital health startup germany\"",
+            "site:linkedin.com \"healthtech startup berlin\"",
+            "site:linkedin.com \"medtech startup munich\"",
+            "site:linkedin.com \"telemedicine startup germany\""
+        ]
+        
+        for query in tqdm(linkedin_search_queries, desc="LinkedIn searches"):
+            try:
+                # Use our existing search with fallbacks
+                urls = self.search_with_fallbacks(query, 10)
+                
+                # Extract company names/domains mentioned in LinkedIn content
+                for url in urls:
+                    if 'linkedin.com' in url:
+                        # This would be a LinkedIn post/profile mentioning health startups
+                        # We can't scrape LinkedIn directly, but we can note it for manual review
+                        results.append({
+                            'url': url,
+                            'source': 'LinkedIn Search Results',
+                            'confidence': 4,
+                            'category': 'LinkedIn Mention',
+                            'note': 'Manual review recommended for LinkedIn content'
+                        })
+            except Exception as e:
+                logger.error(f"LinkedIn search error: {str(e)}")
+                continue
+        
+        logger.info(f"✅ Found {len(results)} LinkedIn references")
+        return results
+
     def generate_and_validate_domains(self) -> List[Dict]:
         """Generate potential domains and validate them before adding"""
         logger.info("🔍 Generating and validating potential health tech domains...")
@@ -905,6 +1085,7 @@ class ImprovedStartupDiscovery:
         logger.info("\n2️⃣ STARTUP DIRECTORIES (with pagination)")
         directory_results = []
         directories = [
+            # Original directories
             {
                 'url': 'https://www.startbase.de/companies?industries=healthcare',
                 'name': 'Startbase Healthcare'
@@ -912,6 +1093,23 @@ class ImprovedStartupDiscovery:
             {
                 'url': 'https://www.deutsche-startups.de/category/healthtech/',
                 'name': 'Deutsche Startups HealthTech'
+            },
+            # Expanded directories
+            {
+                'url': 'https://www.startupblink.com/category/health',
+                'name': 'StartupBlink Health Europe'
+            },
+            {
+                'url': 'https://sifted.eu/rankings/startup',
+                'name': 'Sifted Startup Europe'
+            },
+            {
+                'url': 'https://www.medtecheurope.org/members',
+                'name': 'MedTech Europe Members'
+            },
+            {
+                'url': 'https://www.german-accelerator.com/portfolio',
+                'name': 'German Accelerator Portfolio'
             }
         ]
         
@@ -932,11 +1130,31 @@ class ImprovedStartupDiscovery:
         logger.info("\n4️⃣ SEARCH ENGINE DISCOVERY (with fallbacks)")
         search_results = []
         search_queries = [
+            # Original queries
             "digital health startup Germany site:.de",
-            "telemedicine startup Deutschland",
+            "telemedicine startup Deutschland", 
             "health tech company Berlin Munich",
             "medical AI startup Germany",
-            "e-health startup Deutschland"
+            "e-health startup Deutschland",
+            
+            # Expanded location + vertical combinations
+            "mental health startup site:.de",
+            "digital therapeutics startup site:.fr",
+            "AI healthcare app Berlin site:.de",
+            "medtech startup Munich site:.de",
+            "healthtech startup Vienna site:.at",
+            "telemedicine platform Switzerland site:.ch",
+            "digital health startup Amsterdam site:.nl",
+            "health tech startup Stockholm site:.se",
+            "medical AI startup Copenhagen site:.dk",
+            "wellness app startup site:.eu",
+            
+            # Specific verticals
+            "remote patient monitoring startup Europe",
+            "clinical trial software startup",
+            "pharmacy automation startup Germany",
+            "medical imaging AI startup",
+            "health data analytics startup Europe"
         ]
         
         for query in tqdm(search_queries, desc="Search queries"):
@@ -953,17 +1171,25 @@ class ImprovedStartupDiscovery:
                         'method': 'Search'
                     })
         
-        # 5. Generated and validated domains
-        logger.info("\n5️⃣ GENERATED DOMAINS (validated)")
+        # 5. Startup news aggregators
+        logger.info("\n5️⃣ STARTUP NEWS AGGREGATORS")
+        news_results = self.scrape_startup_news_aggregators()
+        
+        # 6. LinkedIn health startup lists (limited approach)
+        logger.info("\n6️⃣ LINKEDIN STARTUP REFERENCES")
+        linkedin_results = self.scrape_linkedin_health_startup_lists()
+        
+        # 7. Generated and validated domains
+        logger.info("\n7️⃣ GENERATED DOMAINS (validated)")
         generated_results = self.generate_and_validate_domains()
         
         # Combine discovered and generated results
-        discovered_results = directory_results + github_results + search_results
+        discovered_results = directory_results + github_results + search_results + news_results + linkedin_results
         self.all_discovered_urls['discovered'] = discovered_results
         self.all_discovered_urls['generated'] = generated_results
         
-        # 6. Health validation for discovered URLs  
-        logger.info("\n6️⃣ HEALTH CONTENT VALIDATION")
+        # 8. Health validation for discovered URLs  
+        logger.info("\n8️⃣ HEALTH CONTENT VALIDATION")
         logger.info("  Validating discovered URLs for health relevance...")
         
         for result in tqdm(discovered_results, desc="Validating content"):
@@ -978,8 +1204,8 @@ class ImprovedStartupDiscovery:
                 if validation.get('is_health_related', False):
                     result['confidence'] = min(result['confidence'] + 2, 10)
         
-        # 7. Apply enhanced filtering
-        logger.info("\n7️⃣ ENHANCED FILTERING")
+        # 9. Apply enhanced filtering
+        logger.info("\n9️⃣ ENHANCED FILTERING")
         logger.info("  Applying domain filtering and quality validation...")
         
         # Filter all results (except verified ones which are trusted)
@@ -993,7 +1219,7 @@ class ImprovedStartupDiscovery:
         discovered_results = filtered_discovered
         generated_results = filtered_generated
         
-        # 8. Final consolidation and smart sorting
+        # 🔟 Final consolidation and smart sorting
         all_results = verified_results + discovered_results + generated_results
         
         # Remove duplicates using stronger deduplication (domain + title/meta)
@@ -1132,7 +1358,7 @@ class ImprovedStartupDiscovery:
             fieldnames = ['url', 'source', 'confidence', 'category', 'method', 'is_alive', 
                          'status_code', 'health_score', 'is_health_related', 'industry_label', 'country', 
                          'page_title', 'meta_description', 'languages_detected', 'keyword_matches',
-                         'discovered_at']
+                         'link_context', 'note', 'discovered_at']
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames, extrasaction='ignore')
             writer.writeheader()
             
