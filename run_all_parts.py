@@ -50,9 +50,9 @@ def main():
         
         # Import and run Part 1
         sys.path.append('.')
-        from part1_url_finder import FreeURLFinder
+        from part1_url_finder import MassiveEuropeanHealthTechFinder
         
-        finder = FreeURLFinder()
+        finder = MassiveEuropeanHealthTechFinder()
         part1_results = finder.find_all_urls()
         csv_file, json_file = finder.save_discovered_urls(part1_results)
         
