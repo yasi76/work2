@@ -1,0 +1,7 @@
+url,final_result,confidence_score,extraction_method,og_site_name,application_name,title,cleaned_title,h1,logo_alt,domain_based,timestamp
+https://github.com,GitHub,0.95,og:site_name,GitHub,,,,,,,2025-07-21T21:46:41.856112
+https://www.actimi.com,ACTIMI Digitaler Datenaustausch nach MDR,0.75,title,,,ACTIMI Digitaler Datenaustausch nach MDR,ACTIMI Digitaler Datenaustausch nach MDR,,,,2025-07-21T21:46:41.853557
+floy.health,Floy,0.75,title,,,Floy | Maximize. Human. Health.,Floy,,,,2025-07-21T21:46:41.912091
+https://stripe.com,Stripe,0.9,json-ld,,,,,,,,2025-07-21T21:46:41.855199
+https://getnutrio.shop,Nutrio,0.3,domain-fallback,,,,,,,Nutrio,2025-07-21T21:46:41.854520
+https://floy.health,Floy,0.75,title,,,Floy | Maximize. Human. Health.,Floy,,,,2025-07-21T21:46:41.852290

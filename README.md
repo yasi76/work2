@@ -1,289 +1,196 @@
-# 🚀 Ultimate Startup Discovery System
+# Company Name Extractor from URLs
 
-**The most comprehensive free tool for discovering digital health startup URLs across Germany and Europe**
+A robust Python solution to extract company names from URLs using multiple methods in priority order. The tool provides both basic and advanced extraction capabilities with confidence scoring.
 
-## 🎯 Overview
+## Features
 
-This system replaces manually hardcoded URL lists with a smart, automated discovery solution that finds real startup websites using only **free tools** and **public sources**. No paid APIs required!
+### Basic Extractor (`extract_company_name.py`)
+- Multiple extraction methods in priority order
+- Handles URLs with or without protocol
+- Graceful fallback to domain-based extraction
+- Session management for better performance
 
-## ✨ Key Features
+### Advanced Extractor (`extract_company_name_advanced.py`)
+- All features from basic extractor plus:
+- Confidence scoring (0-1) for each extraction
+- Parallel processing for multiple URLs
+- JSON-LD and Schema.org support
+- Twitter metadata extraction
+- Enhanced title cleaning with scoring
+- CSV and JSON export capabilities
+- Batch processing from files
 
-- 🆓 **100% FREE** - No paid APIs like Crunchbase, Dealroom, or Google API
-- 🎯 **Real Startup URLs** - Finds actual company homepages, not marketplaces or articles  
-- 🇪🇺 **European Focus** - Prioritizes Germany with comprehensive European coverage
-- 🤖 **Automated Discovery** - Multiple discovery methods working together
-- 📊 **Quality Scoring** - Confidence ratings for all discovered URLs
-- 📁 **Multiple Outputs** - CSV, JSON, and detailed reports
+## Installation
 
-## 📋 What It Discovered
-
-**Total URLs Found: 218**
-
-### 🎯 Quality Breakdown
-- **High Confidence (8-10)**: 112 URLs - Verified and curated companies
-- **Medium Confidence (5-7)**: 6 URLs - GitHub projects and directories  
-- **Low Confidence (1-4)**: 100 URLs - Generated potential domains
-
-### 📊 Discovery Methods
-- **User Verified**: 53 URLs (your hardcoded list)
-- **Manual Curation**: 47 URLs (known health tech companies)
-- **Enhanced Discovery**: 118 URLs (GitHub + conferences + generated domains)
-
-### 🌍 Geographic Distribution  
-- **Germany/Europe**: 53 URLs (your verified startups)
-- **Europe/International**: 47 URLs (curated companies)
-- **Various/Generated**: 118 URLs (potential discoveries)
-
-## 🏗️ System Architecture
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│                ULTIMATE STARTUP DISCOVERY                   │
-├─────────────────────────────────────────────────────────────┤
-│  1️⃣ User Verified URLs (Highest Priority)                   │
-│     • Your 53 hardcoded URLs with confidence 10             │
-│                                                             │
-│  2️⃣ Enhanced Discovery Engine                               │
-│     • GitHub health tech projects                          │
-│     • Health tech conference exhibitors                    │
-│     • Generated health domain patterns                     │
-│                                                             │
-│  3️⃣ Google Search Discovery                                 │
-│     • German health startup queries                        │
-│     • European health tech searches                        │
-│     • Domain-specific discoveries                          │
-│                                                             │
-│  4️⃣ Curated Company Database                               │
-│     • Known German health tech leaders                     │
-│     • European digital health companies                    │
-│     • AI/MedTech/Pharma companies                         │
-│                                                             │
-│  5️⃣ Quality Analysis & Ranking                             │
-│     • Confidence scoring (1-10)                           │
-│     • Health tech relevance validation                     │
-│     • Duplicate removal and consolidation                  │
-└─────────────────────────────────────────────────────────────┘
-```
-
-## 🚀 Quick Start
-
-### 1. Run Complete Discovery
 ```bash
-python3 ultimate_startup_discovery.py
-```
+# Install dependencies
+pip install -r requirements.txt
 
-**Output Files:**
-- `ultimate_startup_discovery_TIMESTAMP.csv` - All URLs with metadata
-- `ultimate_startup_discovery_TIMESTAMP.json` - Complete data with analysis  
-- `discovery_report_TIMESTAMP.txt` - Human-readable summary
-
-### 2. Run Individual Components
-```bash
-# Enhanced discovery only
-python3 enhanced_startup_discovery.py
-
-# Google search only  
-python3 google_search_scraper.py
-```
-
-### 3. Use Existing 3-Part System
-```bash
-# Complete pipeline: Discovery → Evaluation → Company Extraction
-python3 run_all_parts.py
-
-# Or run parts individually
-python3 part1_url_finder.py
-python3 part2_url_evaluator.py  
-python3 part3_company_name_extractor.py
-```
-
-## 📊 Sample Results
-
-### Top Discovered Companies (Confidence 10)
-```
-🔝 VERIFIED STARTUPS:
-1. https://www.acalta.de - Digital health platform
-2. https://www.actimi.com - Senior health monitoring  
-3. https://www.alfa-ai.com - AI diagnostic tools
-4. https://www.auta.health/ - Mental health app
-5. https://deepeye.ai/ - AI ophthalmology
-
-🌟 CURATED ADDITIONS:
-1. https://www.ada.com - AI symptom checker
-2. https://www.doctolib.de - Appointment booking
-3. https://www.kaia-health.com - Digital therapeutics
-4. https://www.teleclinic.com - Telemedicine platform
-5. https://www.babylon.com - AI health assistant
-```
-
-## 📁 File Structure
-
-```
-📦 Ultimate Startup Discovery System
-├── 🚀 Main Scripts
-│   ├── ultimate_startup_discovery.py     # Master discovery system
-│   ├── enhanced_startup_discovery.py     # Multi-method discovery
-│   ├── google_search_scraper.py          # Search-based discovery
-│   └── run_all_parts.py                  # Complete 3-part pipeline
-│
-├── 🔧 Existing Components  
-│   ├── part1_url_finder.py               # URL discovery (872 URLs)
-│   ├── part2_url_evaluator.py            # URL validation & testing
-│   ├── part3_company_name_extractor.py   # Company name extraction
-│   └── demo_user_urls_only.py            # Quick demo with user URLs
-│
-├── 📊 Output Files
-│   ├── ultimate_startup_discovery_*.csv   # Main results
-│   ├── ultimate_startup_discovery_*.json  # Detailed data
-│   ├── discovery_report_*.txt             # Summary report  
-│   └── Various timestamped files
-│
-└── 📋 Documentation
-    ├── README.md                          # Original documentation
-    ├── IMPROVEMENT_SUMMARY.md             # System enhancements
-    ├── requirements.txt                   # Dependencies
-    └── ULTIMATE_STARTUP_DISCOVERY_README.md # This file
-```
-
-## 🛠️ Technical Details
-
-### Dependencies
-```bash
+# Or install manually
 pip install requests beautifulsoup4 lxml
 ```
 
-### Discovery Methods
+## Quick Start
 
-1. **User Verified URLs** (Confidence: 10)
-   - Your 53 hardcoded URLs are always included with highest priority
-   - These serve as the foundation and reference standard
+### Basic Usage
 
-2. **Manual Curation** (Confidence: 8)  
-   - 47 known German and European health tech companies
-   - Includes major players like Ada, Doctolib, Babylon Health
-   - Covers AI, MedTech, Pharma, and Digital Health sectors
+```python
+from extract_company_name import CompanyNameExtractor
 
-3. **GitHub Discovery** (Confidence: 6)
-   - Health tech projects with company homepages
-   - Open source projects linked to commercial companies
-   - API-based search using free GitHub API
+# Create extractor
+extractor = CompanyNameExtractor()
 
-4. **Conference Sources** (Confidence: 8)
-   - Health tech conference exhibitors  
-   - HIMSS, MEDICA, and other event participants
-   - Manually curated from public exhibitor lists
-
-5. **Generated Domains** (Confidence: 3)
-   - Pattern-based domain generation
-   - Health + tech term combinations
-   - European TLD coverage (.de, .com, .io, .ai, .eu, etc.)
-
-### Quality Scoring System
-
-- **10**: User verified URLs (your hardcoded list)
-- **8-9**: Manually curated known companies
-- **6-7**: GitHub projects and directory listings
-- **4-5**: Search results and conference listings  
-- **1-3**: Generated potential domains
-
-## 🔍 Next Steps
-
-### 1. URL Evaluation
-Use the existing URL evaluator to test which URLs are actually accessible:
-
-```bash
-python3 part2_url_evaluator.py
+# Extract company name
+result = extractor.extract_company_name("https://floy.health")
+print(result['final_result'])  # Output: "Floy"
 ```
 
-**Expected Results:**
-- 60-80% of high-confidence URLs will be working
-- 30-50% of medium-confidence URLs will be working  
-- 10-20% of low-confidence URLs will be working
+### Advanced Usage
 
-### 2. Company Name Extraction
-Extract company names from working URLs:
+```python
+from extract_company_name_advanced import AdvancedCompanyNameExtractor
 
-```bash
-python3 part3_company_name_extractor.py
+# Create extractor
+extractor = AdvancedCompanyNameExtractor()
+
+# Extract with confidence score
+result = extractor.extract_all_methods("https://stripe.com")
+print(f"{result['final_result']} (confidence: {result['confidence_score']:.0%})")
+# Output: "Stripe (confidence: 90%)"
+
+# Process multiple URLs in parallel
+urls = ["https://github.com", "https://stripe.com", "https://floy.health"]
+results = extractor.process_urls_parallel(urls)
+
+# Export to CSV
+extractor.export_results(results, 'companies.csv')
 ```
 
-**Expected Output:**
-- Clean company names with confidence scores
-- Company descriptions where available
-- Structured data ready for further analysis
+## Extraction Methods (Priority Order)
 
-### 3. Build Final Directory
-Combine results to create your comprehensive startup directory with:
-- Verified working URLs
-- Extracted company names
-- Confidence ratings
-- Geographic categorization
+1. **og:site_name** (95% confidence) - Most reliable for modern websites
+2. **JSON-LD structured data** (90% confidence) - Schema.org Organization data
+3. **Twitter:site** (85% confidence) - Twitter card metadata
+4. **application-name** (85% confidence) - HTML5 application name
+5. **Title tag** (75% confidence) - Cleaned and analyzed page title
+6. **H1 tags** (70% confidence) - Scored based on location and content
+7. **Logo alt text** (65% confidence) - Analyzed logo images
+8. **Schema.org microdata** (80% confidence) - Inline structured data
+9. **Domain-based** (30-50% confidence) - Fallback from URL structure
 
-## 🎯 Success Metrics
+## Examples
 
-The system successfully addresses your original concerns:
+Run the example script to see all features:
 
-### ❌ Original Problem
-- "Too few URLs for Europe and Germany"
-- Manual hardcoding not scalable
-- No automated discovery method
+```bash
+python example_usage.py
+```
 
-### ✅ Solution Delivered  
-- **218 URLs discovered** (vs. 53 original)
-- **53 verified + 47 curated + 118 discovered**
-- **German focus maintained** with European expansion
-- **100% free tools** - no paid APIs required
-- **Automated pipeline** for future discoveries
+This will demonstrate:
+- Basic extraction
+- Advanced extraction with confidence scores
+- Batch processing from file
+- Parallel processing
+- Filtering by confidence level
+- CSV/JSON export
 
-## 🔧 Customization
+## API Reference
 
-### Add New Discovery Sources
-Edit `ultimate_startup_discovery.py` to add:
-- New startup directories
-- Additional conference sources  
-- Custom search queries
-- Regional startup ecosystems
+### CompanyNameExtractor
 
-### Modify Search Terms
-Update `google_search_scraper.py` with:
-- Specific health domains (AI, telemedicine, etc.)
-- Regional focus (Nordic, DACH, etc.)
-- Language-specific searches
+```python
+extractor = CompanyNameExtractor(timeout=10)
 
-### Adjust Quality Scoring
-Modify confidence scoring in any discovery script:
-- Increase weight for certain sources
-- Add domain-specific scoring rules
-- Implement custom validation logic
+# Extract company name
+result = extractor.extract_company_name(url)
+# Returns: {
+#     'og_site_name': str or None,
+#     'application_name': str or None,
+#     'title': str or None,
+#     'cleaned_title': str or None,
+#     'h1': str or None,
+#     'logo_alt': str or None,
+#     'domain_based': str or None,
+#     'final_result': str or None
+# }
 
-## 🚨 Important Notes
+# Process multiple URLs
+results = extractor.process_urls(urls, delay=1.0)
+```
 
-### Rate Limiting
-- 2-3 second delays between API requests
-- Respectful of server resources
-- No aggressive scraping
+### AdvancedCompanyNameExtractor
 
-### Legal Compliance  
-- Only accesses publicly available information
-- Uses standard browser user agents
-- Respects robots.txt when possible
+```python
+extractor = AdvancedCompanyNameExtractor(
+    timeout=10,
+    use_gpt_cleaning=False,  # Optional GPT enhancement
+    openai_api_key=None
+)
 
-### Data Quality
-- Multiple validation layers
-- Confidence scoring for all results
-- Manual curation for high-priority sources
-- Duplicate detection and removal
+# Extract with all methods
+result = extractor.extract_all_methods(url)
+# Returns: {
+#     'final_result': str or None,
+#     'confidence_score': float (0-1),
+#     'extraction_method': str,
+#     'timestamp': str,
+#     # ... all extraction attempts
+# }
 
-## 🎉 Conclusion
+# Parallel processing
+results = extractor.process_urls_parallel(urls, max_workers=5)
 
-This Ultimate Startup Discovery System transforms your manual URL list into a comprehensive, automated discovery platform that:
+# Export results
+extractor.export_results(results, 'output.csv')
+```
 
-- **Scales automatically** - No more manual hardcoding
-- **Covers comprehensively** - 218 URLs across Germany and Europe  
-- **Maintains quality** - Confidence scoring and validation
-- **Costs nothing** - 100% free tools and methods
-- **Stays current** - Easily re-run for fresh discoveries
+## Best Practices
 
-Your original 53 URLs remain the high-quality foundation, now enhanced with 165 additional discoveries to create the most comprehensive European health tech startup database available.
+1. **For single URLs**: Use basic extractor for simplicity
+2. **For bulk processing**: Use advanced extractor with parallel processing
+3. **For production**: Review low confidence results (<50%) manually
+4. **Rate limiting**: Add delays when processing many URLs from same domain
+5. **Error handling**: Check for 'error' key in results when using parallel processing
 
-**Ready to scale your startup discovery! 🚀**
+## Common Issues
+
+1. **SSL Certificate errors**: Some sites have invalid certificates
+   - Solution: Domain-based extraction still works as fallback
+
+2. **Generic titles**: Some sites have unhelpful titles like "Home"
+   - Solution: Advanced extractor uses multiple methods
+
+3. **Complex domains**: URLs like "get-company.app" need smart parsing
+   - Solution: Advanced domain extraction handles prefixes/suffixes
+
+## Output Examples
+
+```
+URL: https://floy.health
+Company Name: Floy
+Confidence: 75%
+Method: title
+
+URL: https://stripe.com
+Company Name: Stripe
+Confidence: 90%
+Method: json-ld
+
+URL: https://github.com
+Company Name: GitHub
+Confidence: 95%
+Method: og:site_name
+```
+
+## License
+
+MIT License - Feel free to use in your projects!
+
+## Contributing
+
+Improvements welcome! Some ideas:
+- Add more extraction methods
+- Improve title cleaning patterns
+- Add language-specific handling
+- Integrate real GPT cleaning
+- Add more company indicators
