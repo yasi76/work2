@@ -8,6 +8,7 @@ This system provides automated tools to:
 - 🔍 Discover digital health startup websites
 - ✅ Validate URLs and check health relevance
 - 🏢 Extract company names intelligently
+- 📦 Extract product names and categorize types
 - 📊 Evaluate extraction accuracy
 
 ## Quick Start
@@ -71,7 +72,31 @@ python extract_company_names.py validated.json --refetch --js
 - NLP entity recognition (optional)
 - Domain name parsing
 
-### 4. `evaluate_name_extraction.py`
+### 4. `extract_product_names.py` 🆕
+Discovers and categorizes digital health products.
+
+**Usage:**
+```bash
+python extract_product_names.py startups_with_names.json
+python extract_product_names.py startups_with_names.json --max-workers 10
+```
+
+**Features:**
+- Multi-page crawling (checks /products, /solutions, etc.)
+- Product type classification (app, software, wearable, service, etc.)
+- Ground truth comparison
+- Multiple extraction strategies
+
+**Product Types Detected:**
+- `app` - Mobile applications
+- `software` - Web platforms, SaaS
+- `wearable` - Devices, sensors, monitors
+- `set` - Product bundles, kits
+- `service` - Digital services, consulting
+- `ai_tool` - AI/ML-based tools
+- `assistant` - Digital assistants, coaches
+
+### 5. `evaluate_name_extraction.py`
 Evaluates extraction accuracy against ground truth.
 
 **Usage:**
@@ -110,7 +135,7 @@ pip install playwright
 playwright install
 ```
 
-## Workflow Example
+## Complete Workflow
 
 ```bash
 # 1. Discover startups
@@ -122,30 +147,42 @@ python evaluate_health_startups.py discovered_startups_*.json
 # 3. Extract company names
 python extract_company_names.py *_validated.json --refetch
 
-# 4. Evaluate accuracy (optional)
+# 4. Extract products
+python extract_product_names.py *_with_names.json
+
+# 5. Evaluate accuracy (optional)
 python evaluate_name_extraction.py *_with_names.json
 ```
 
-## Data Format
+## Output Files
 
+### Product Extraction Outputs
+- `[prefix]_products_[timestamp].json` - Full product data
+- `[prefix]_products_[timestamp].csv` - CSV summary
+- `[prefix]_product_catalog_[timestamp].txt` - Readable catalog
+
+### Product Data Format
 ```json
 {
-  "url": "https://example.health",
-  "company_name": "Example Health GmbH",
-  "is_live": true,
-  "is_health_related": true,
-  "health_score": 0.85,
-  "page_title": "Example Health - Digital Solutions",
-  "extraction_method": "og:site_name"
+  "company_name": "fyzo GmbH",
+  "url": "https://fyzo.de/",
+  "product_names": ["fyzo Assistant", "fyzo Coach"],
+  "product_types": {
+    "fyzo Assistant": "app",
+    "fyzo Coach": "service"
+  },
+  "ground_truth_products": ["fyzo Assistant", "fyzo coach"],
+  "found_gt_products": ["fyzo Assistant"]
 }
 ```
 
 ## Tips
 
-- Use `--refetch` for better name extraction accuracy
-- Check logs for debugging information
-- Process large files with increased timeouts
-- Respect rate limits (2s delay by default)
+- Use `--refetch` for better extraction accuracy
+- Process product extraction with more workers for speed
+- Check product-specific pages (/products, /solutions)
+- Review the product catalog file for a clean overview
+- Ground truth helps evaluate extraction quality
 
 ## License
 
