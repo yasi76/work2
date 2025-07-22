@@ -12,6 +12,15 @@ A comprehensive Python-based system for discovering, evaluating, and analyzing d
 - **Concurrent Processing**: Uses multi-threading for efficient processing
 - **Free Tools Only**: Uses only free and public resources
 
+### 🆕 Enhanced Name Extraction Features
+
+- **NLP-based Extraction**: Uses spaCy for intelligent organization name detection
+- **Domain Mapping**: Configurable mappings for tricky domains
+- **Advanced Metadata Parsing**: Supports nested JSON-LD and @graph structures
+- **JavaScript Support**: Optional headless browser for JS-heavy sites
+- **Extraction Metrics**: Detailed statistics on extraction methods and success rates
+- **Input Validation**: Robust handling of various input formats
+
 ## 📋 Components
 
 ### 1. **ultimate_startup_discovery.py**
@@ -48,6 +57,10 @@ Intelligent company name extraction:
 - Uses multiple extraction strategies
 - Handles various naming conventions
 - Updates existing data with company names
+- **NEW**: NLP-based organization detection with spaCy
+- **NEW**: Configurable domain-to-name mappings
+- **NEW**: JavaScript rendering support with Playwright
+- **NEW**: Detailed extraction statistics and metrics
 
 ### 6. **generate_startup_summary.py**
 Analytics and reporting tool:
@@ -80,6 +93,17 @@ pip install -r requirements.txt
 pip install matplotlib seaborn pandas openpyxl
 ```
 
+4. (Optional) Install enhanced name extraction dependencies:
+```bash
+# For NLP-based extraction
+pip install spacy
+python -m spacy download en_core_web_sm
+
+# For JavaScript rendering
+pip install playwright
+playwright install
+```
+
 ## 📖 Usage
 
 ### Basic Discovery Pipeline
@@ -103,7 +127,17 @@ python evaluate_health_startups.py input_urls.json
 
 **Extract company names:**
 ```bash
+# Basic extraction from existing data
 python extract_company_names.py validated_urls.json
+
+# Refetch URLs for better accuracy
+python extract_company_names.py validated_urls.json --refetch
+
+# Use JavaScript rendering for dynamic sites
+python extract_company_names.py validated_urls.json --refetch --js
+
+# Update domain mappings
+python extract_company_names.py validated_urls.json --update-domain-map new_mappings.json
 ```
 
 **Generate summary reports:**
@@ -119,6 +153,8 @@ The system generates several output files:
 - `discovered_startups_[timestamp].csv` - Simplified CSV export
 - `startup_summary_report_[timestamp].txt` - Text summary report
 - `startup_evaluation.log` - Detailed processing logs
+- **NEW**: `[prefix]_extraction_stats.json` - Name extraction statistics
+- **NEW**: `domain_name_map.json` - Domain to company name mappings
 
 ## 📊 Data Structure
 
@@ -154,6 +190,15 @@ Each startup entry contains:
 Customizable health-related keywords in multiple languages:
 - English: health, medical, care, therapy, etc.
 - German: gesundheit, medizin, pflege, therapie, etc.
+
+### Domain Name Mappings
+Edit `domain_name_map.json` to add custom domain-to-name mappings:
+```json
+{
+  "getnutrio.com": "Nutrio",
+  "telemed24online.de": "TeleMed24 Online"
+}
+```
 
 ## 🤝 Contributing
 
