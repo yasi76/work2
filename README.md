@@ -20,6 +20,7 @@ A comprehensive Python-based system for discovering, evaluating, and analyzing d
 - **JavaScript Support**: Optional headless browser for JS-heavy sites
 - **Extraction Metrics**: Detailed statistics on extraction methods and success rates
 - **Input Validation**: Robust handling of various input formats
+- **Accuracy Evaluation**: Compare extracted names against ground truth data
 
 ## 📋 Components
 
@@ -74,6 +75,14 @@ Data processing utilities:
 - Handles data transformation
 - Manages file I/O operations
 - Provides helper functions
+
+### 8. **evaluate_name_extraction.py** 🆕
+Name extraction accuracy evaluator:
+- Compares extracted names against ground truth data
+- Calculates accuracy metrics and similarity scores
+- Generates detailed evaluation reports
+- Supports custom ground truth datasets
+- Color-coded console output for easy review
 
 ## 🛠️ Installation
 
@@ -145,6 +154,18 @@ python extract_company_names.py validated_urls.json --update-domain-map new_mapp
 python generate_startup_summary.py validated_urls.json
 ```
 
+**Evaluate name extraction accuracy:** 🆕
+```bash
+# Basic evaluation
+python evaluate_name_extraction.py startups_with_names.json
+
+# With custom ground truth
+python evaluate_name_extraction.py startups_with_names.json --ground-truth my_ground_truth.json
+
+# Save with custom prefix
+python evaluate_name_extraction.py startups_with_names.json --output-prefix evaluation
+```
+
 ### Output Files
 
 The system generates several output files:
@@ -155,6 +176,9 @@ The system generates several output files:
 - `startup_evaluation.log` - Detailed processing logs
 - **NEW**: `[prefix]_extraction_stats.json` - Name extraction statistics
 - **NEW**: `domain_name_map.json` - Domain to company name mappings
+- **NEW**: `name_evaluation_report_[timestamp].csv` - Extraction accuracy report
+- **NEW**: `name_evaluation_report_[timestamp].json` - Detailed evaluation data
+- **NEW**: `name_incorrect_extractions_[timestamp].txt` - Failed extractions for review
 
 ## 📊 Data Structure
 
@@ -175,6 +199,32 @@ Each startup entry contains:
     "validation_timestamp": "2024-01-15T10:30:00"
 }
 ```
+
+## 📊 Name Extraction Evaluation
+
+The evaluation tool helps assess the accuracy of the name extraction system:
+
+### Ground Truth Format
+Create a JSON file with known correct company names:
+```json
+{
+  "https://www.example.com": "Example GmbH",
+  "https://startup.de": "Startup AG"
+}
+```
+
+### Evaluation Metrics
+- **Exact Match Accuracy**: Case-insensitive exact matches
+- **Similarity Score**: Character-level similarity (0-1)
+- **Method Performance**: Accuracy by extraction method
+- **Coverage**: Percentage of ground truth URLs found
+
+### Console Output
+The evaluator provides color-coded output:
+- 🟢 Green: Correct extractions
+- 🔴 Red: Incorrect extractions
+- 🔵 Blue: URLs
+- 🟡 Yellow: Extracted/Expected names
 
 ## ⚙️ Configuration
 
