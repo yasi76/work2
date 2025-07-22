@@ -24,9 +24,41 @@ from datetime import datetime, timedelta
 import xml.etree.ElementTree as ET
 from difflib import SequenceMatcher
 import numpy as np
-from fuzzywuzzy import fuzz, process
 import warnings
 warnings.filterwarnings('ignore')
+
+# Import fuzzywuzzy with proper handling
+try:
+    from fuzzywuzzy import fuzz, process
+except ImportError:
+    # Create a simple fallback
+    class FuzzFallback:
+        @staticmethod
+        def ratio(s1, s2):
+            return SequenceMatcher(None, s1, s2).ratio() * 100
+        
+        @staticmethod
+        def token_set_ratio(s1, s2):
+            # Simple token comparison
+            tokens1 = set(s1.lower().split())
+            tokens2 = set(s2.lower().split())
+            if not tokens1 or not tokens2:
+                return 0
+            intersection = len(tokens1 & tokens2)
+            union = len(tokens1 | tokens2)
+            return (intersection / union) * 100 if union > 0 else 0
+        
+        @staticmethod
+        def partial_ratio(s1, s2):
+            # Simple substring check
+            s1_lower = s1.lower()
+            s2_lower = s2.lower()
+            if s1_lower in s2_lower or s2_lower in s1_lower:
+                return 90
+            return SequenceMatcher(None, s1, s2).ratio() * 100
+    
+    fuzz = FuzzFallback()
+    print("Warning: FuzzyWuzzy not available. Using fallback. Install with: pip install fuzzywuzzy python-Levenshtein")
 
 # Configure logging
 logging.basicConfig(
@@ -92,9 +124,9 @@ class EnhancedProductExtractor:
         self.session.headers.update(HEADERS)
         self.use_cache = use_cache
         self.cache = HTMLCache() if use_cache else None
-        self.ground_truth = self._load_ground_truth()
         self.extraction_stats = Counter()
-        self.url_normalizer = URLNormalizer()
+        self.url_normalizer = URLNormalizer()  # Initialize before using
+        self.ground_truth = self._load_ground_truth()  # Now can use url_normalizer
         
         # Enhanced product paths
         self.product_paths = [
@@ -457,10 +489,9 @@ class EnhancedProductExtractor:
                 scores = []
                 
                 # 1. Fuzzy string matching
-                if 'fuzz' in globals():
-                    scores.append(fuzz.ratio(gt_normalized, extracted_normalized) / 100)
-                    scores.append(fuzz.token_set_ratio(gt_name, extracted) / 100)
-                    scores.append(fuzz.partial_ratio(gt_name, extracted) / 100)
+                scores.append(fuzz.ratio(gt_normalized, extracted_normalized) / 100)
+                scores.append(fuzz.token_set_ratio(gt_name, extracted) / 100)
+                scores.append(fuzz.partial_ratio(gt_name, extracted) / 100)
                 
                 # 2. Token overlap (Jaccard similarity)
                 if gt_tokens and extracted_tokens:
@@ -780,10 +811,7 @@ class EnhancedProductExtractor:
                 name2 = other['name'].lower()
                 
                 # Calculate similarity
-                if 'fuzz' in globals():
-                    similarity = fuzz.ratio(name1, name2) / 100
-                else:
-                    similarity = SequenceMatcher(None, name1, name2).ratio()
+                similarity = fuzz.ratio(name1, name2) / 100
                 
                 if similarity >= 0.85:
                     group.append(other)
