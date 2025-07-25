@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Enhanced Company Name Extractor for Digital Health Startups
-Reads the output from evaluate_health_startups.py and extracts/updates company names
+Company Name Extractor for Digital Health Startups
+Reads the output from evaluate_health_startups.py and extracts company names
 Features: NLP extraction, advanced metadata parsing, domain mapping, metrics tracking
 """
 
