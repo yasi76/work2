@@ -158,7 +158,11 @@ class ProductExtractor:
             for tag in ['h1', 'h2', 'h3', 'h4']:
                 for heading in soup.find_all(tag):
                     text = heading.get_text(strip=True)
-                    if self._is_likely_product_name(text):
+                    # Get context from parent element
+                    parent = heading.parent
+                    context = parent.get_text(strip=True) if parent else ""
+                    
+                    if self._is_likely_product_name(text, context):
                         products['found_products'].append(text)
                         products['product_types'][text] = self._classify_product_type(text, html_content)
                         products['extraction_methods'].append(f'{tag}_heading')
@@ -195,15 +199,36 @@ class ProductExtractor:
                     products['product_types'][product] = self._classify_product_type(product, html_content)
                     products['extraction_methods'].append('lists')
             
+            # Final filtering and deduplication
+            products = self._apply_final_filters(products, url)
+            
         except Exception as e:
             logger.warning(f"Error extracting products from {url}: {str(e)}")
         
         return products
     
-    def _is_likely_product_name(self, text: str) -> bool:
+    def _is_likely_product_name(self, text: str, context: str = "") -> bool:
         """Check if text is likely a product name"""
-        if not text or len(text) < 2 or len(text) > 50:
+        if not text or len(text) < 5 or len(text) > 50:  # Changed minimum from 2 to 5
             return False
+        
+        text_lower = text.lower()
+        context_lower = context.lower() if context else ""
+        words = text.split()
+        
+        # Define required keywords early to use throughout the function
+        required_keywords = ['platform', 'app', 'software', 'solution', 'tool', 
+                           'device', 'system', 'suite', 'module', 'service',
+                           'plattform', 'anwendung', 'lösung']  # Include German terms
+        
+        # Require at least 2 words for better product name detection
+        if len(words) < 2:
+            # Allow single words only if they contain product indicators or have context
+            has_indicator = any(indicator.lower() in text_lower for indicator in PRODUCT_INDICATORS)
+            has_context_keyword = any(k in context_lower for k in required_keywords) if context_lower else False
+            
+            if not has_indicator and not has_context_keyword:
+                return False
         
         # Skip common non-product phrases
         skip_phrases = [
@@ -212,24 +237,52 @@ class ProductExtractor:
             'terms', 'agb', 'login', 'register', 'download'
         ]
         
-        text_lower = text.lower()
         for phrase in skip_phrases:
             if phrase in text_lower:
                 return False
         
-        # Check for product indicators
-        for indicator in PRODUCT_INDICATORS:
-            if indicator.lower() in text_lower:
-                return True
+        # NEW: Reject sentence fragments commonly found in landing pages
+        slogan_patterns = [
+            r"^(how|why|when|where|what|who)\b.*",  # How it works
+            r"^(a|an|the)\s[A-Z][a-z]+.*",          # A Blind Man's View
+            r"^(fits right in|auditability built in|preprocess.*|proprietary data.*)$",
+            r".*your way$",                          # Preprocess Your Way
+            r"^(build|create|transform|discover|learn|explore|unlock|empower)\b.*",  # Common marketing verbs
+            r"^(get|start|join|meet|find|see|try)\b.*",  # Call-to-action verbs
+            r".*\?$",  # Questions
+            r"^(the future of|next generation|state of the art|cutting edge).*",  # Marketing buzzwords
+            r".*built in$",  # "Auditability built in"
+            r"^fits.*",  # "Fits Right In"
+            r"^(your|our|their)\s.*",  # Possessive starts
+            r".*\s(for|with|by)\s(you|your|everyone|all|everyone)$",  # "X for you" patterns
+            r"^(easy|simple|fast|quick|better|best|new|free).*",  # Marketing adjectives
+        ]
         
-        # Check if it's a proper noun (capitalized)
-        words = text.split()
-        if any(word[0].isupper() for word in words if word):
-            # Check if it contains at least one meaningful word
-            if len([w for w in words if len(w) > 2]) > 0:
-                return True
+        if any(re.match(p, text_lower, re.IGNORECASE) for p in slogan_patterns):
+            logger.debug(f"Filtered marketing phrase: {text}")
+            return False
         
-        return False
+        # Check for product indicators in the name itself or context
+        has_product_indicator = any(indicator.lower() in text_lower for indicator in PRODUCT_INDICATORS)
+        has_required_keyword = any(k in text_lower or k in context_lower for k in required_keywords)
+        
+        if not has_product_indicator and not has_required_keyword:
+            # If no product indicators or keywords, require at least proper noun formatting
+            # and reject if it looks like a sentence or phrase
+            if not any(word[0].isupper() for word in words if word):
+                return False
+            
+            # Reject if it contains too many lowercase words (likely a sentence)
+            uppercase_words = sum(1 for word in words if word and word[0].isupper())
+            if uppercase_words < len(words) * 0.5:  # Less than 50% capitalized words
+                return False
+        
+        # Check if it contains at least one meaningful word
+        meaningful_words = [w for w in words if len(w) > 2]
+        if len(meaningful_words) == 0:
+            return False
+        
+        return True
     
     def _classify_product_type(self, product_name: str, context: str = "") -> str:
         """Classify the product type based on name and context"""
@@ -303,7 +356,7 @@ class ProductExtractor:
             meta = soup.find('meta', property=prop) or soup.find('meta', attrs={'name': prop})
             if meta and meta.get('content'):
                 content = meta['content'].strip()
-                if self._is_likely_product_name(content):
+                if self._is_likely_product_name(content, ""):
                     products.append(content)
         
         # Check application-name
@@ -327,11 +380,12 @@ class ProductExtractor:
         for selector in card_selectors:
             for card in soup.select(selector):
                 # Look for product name in card headings
+                card_context = card.get_text(strip=True)
                 for tag in ['h2', 'h3', 'h4', 'strong', 'b']:
                     heading = card.find(tag)
                     if heading:
                         text = heading.get_text(strip=True)
-                        if self._is_likely_product_name(text):
+                        if self._is_likely_product_name(text, card_context):
                             products.append(text)
                             break
         
@@ -348,12 +402,58 @@ class ProductExtractor:
             if any(word in list_text for word in ['product', 'solution', 'feature', 'produkt', 'lösung']):
                 for li in ul.find_all('li'):
                     text = li.get_text(strip=True)
-                    if self._is_likely_product_name(text):
+                    if self._is_likely_product_name(text, list_text):
                         # Clean up the text
                         text = re.sub(r'^[•\-\*]\s*', '', text)  # Remove bullets
                         text = text.split(':')[0].strip()  # Take part before colon
                         if len(text) > 2 and len(text) < 50:
                             products.append(text)
+        
+        return products
+    
+    def _apply_final_filters(self, products: Dict, url: str) -> Dict:
+        """Apply final filters and optionally limit to highest confidence product"""
+        filtered_products = []
+        
+        # Additional filtering for edge cases
+        for product in products['found_products']:
+            product_lower = product.lower()
+            
+            # Skip if it's just the company name repeated
+            if product_lower in url.lower():
+                logger.debug(f"Skipped product that matches URL: {product}")
+                continue
+            
+            # Skip generic terms
+            generic_terms = ['home', 'products', 'services', 'solutions', 'features', 'benefits']
+            if product_lower in generic_terms:
+                continue
+            
+            filtered_products.append(product)
+        
+        products['found_products'] = filtered_products
+        
+        # Optional: If too many products found, prioritize those with product indicators
+        if len(filtered_products) > 3:
+            scored_products = []
+            for product in filtered_products:
+                score = 0
+                product_lower = product.lower()
+                
+                # Score based on product indicators
+                for indicator in PRODUCT_INDICATORS:
+                    if indicator.lower() in product_lower:
+                        score += 2
+                
+                # Score based on product type
+                if products['product_types'].get(product) in ['app', 'platform', 'software', 'device']:
+                    score += 1
+                
+                scored_products.append((product, score))
+            
+            # Sort by score and take top 3
+            scored_products.sort(key=lambda x: x[1], reverse=True)
+            products['found_products'] = [p[0] for p in scored_products[:3]]
         
         return products
     
