@@ -1,0 +1,23 @@
+[
+  {
+    "company_name": "Doctolib",
+    "url": "https://www.doctolib.de",
+    "normalized_url": "doctolib.de",
+    "ort": "Unknown",
+    "source": "scraped"
+  },
+  {
+    "company_name": "Babylon Health",
+    "url": "https://www.babylonhealth.com",
+    "normalized_url": "babylonhealth.com",
+    "ort": "Unknown",
+    "source": "scraped"
+  },
+  {
+    "company_name": "Heartbeat Labs",
+    "url": "https://www.heartbeat-labs.com",
+    "normalized_url": "heartbeat-labs.com",
+    "ort": "Unknown",
+    "source": "scraped"
+  }
+]
