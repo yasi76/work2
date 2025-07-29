@@ -1,0 +1,52 @@
+[
+  {
+    "company_name": "Ada Health",
+    "url": "https://www.ada.com",
+    "category": "Digital Health"
+  },
+  {
+    "company_name": "Kaia Health",
+    "url": "https://www.kaia-health.com",
+    "category": "Digital Therapeutics"
+  },
+  {
+    "company_name": "TeleClinic",
+    "url": "https://www.teleclinic.com",
+    "category": "Telemedicine"
+  },
+  {
+    "company_name": "Doctolib",
+    "url": "https://www.doctolib.de",
+    "category": "Appointment Booking"
+  },
+  {
+    "company_name": "Jameda",
+    "url": "https://www.jameda.de",
+    "category": "Doctor Search"
+  },
+  {
+    "company_name": "Amboss",
+    "url": "https://www.amboss.com",
+    "category": "Medical Education"
+  },
+  {
+    "company_name": "Clue",
+    "url": "https://www.clue.com",
+    "category": "Women's Health"
+  },
+  {
+    "company_name": "Mediteo",
+    "url": "https://www.mediteo.com",
+    "category": "Medication Management"
+  },
+  {
+    "company_name": "Vivy",
+    "url": "https://www.vivy.com",
+    "category": "Health Records"
+  },
+  {
+    "company_name": "Zanadio",
+    "url": "https://www.zanadio.de",
+    "category": "Weight Management"
+  }
+]

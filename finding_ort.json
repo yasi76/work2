@@ -1,0 +1,72 @@
+[
+  {
+    "company_name": "Ada Health",
+    "url": "https://www.ada.com",
+    "normalized_url": "ada.com",
+    "ort": "Berlin",
+    "source": "hardcoded"
+  },
+  {
+    "company_name": "Kaia Health",
+    "url": "https://www.kaia-health.com",
+    "normalized_url": "kaia-health.com",
+    "ort": "München",
+    "source": "hardcoded"
+  },
+  {
+    "company_name": "TeleClinic",
+    "url": "https://www.teleclinic.com",
+    "normalized_url": "teleclinic.com",
+    "ort": "München",
+    "source": "hardcoded"
+  },
+  {
+    "company_name": "Doctolib",
+    "url": "https://www.doctolib.de",
+    "normalized_url": "doctolib.de",
+    "ort": "Unknown",
+    "source": "scraped"
+  },
+  {
+    "company_name": "Jameda",
+    "url": "https://www.jameda.de",
+    "normalized_url": "jameda.de",
+    "ort": "Frankfurt",
+    "source": "scraped"
+  },
+  {
+    "company_name": "Amboss",
+    "url": "https://www.amboss.com",
+    "normalized_url": "amboss.com",
+    "ort": "Berlin",
+    "source": "hardcoded"
+  },
+  {
+    "company_name": "Clue",
+    "url": "https://www.clue.com",
+    "normalized_url": "clue.com",
+    "ort": "Berlin",
+    "source": "hardcoded"
+  },
+  {
+    "company_name": "Mediteo",
+    "url": "https://www.mediteo.com",
+    "normalized_url": "mediteo.com",
+    "ort": "Berlin",
+    "source": "hardcoded"
+  },
+  {
+    "company_name": "Vivy",
+    "url": "https://www.vivy.com",
+    "normalized_url": "vivy.com",
+    "ort": "Berlin",
+    "source": "hardcoded"
+  },
+  {
+    "company_name": "Zanadio",
+    "url": "https://www.zanadio.de",
+    "normalized_url": "zanadio.de",
+    "ort": "Hamburg",
+    "source": "hardcoded"
+  }
+]

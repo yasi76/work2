@@ -1,0 +1,11 @@
+company_name,url,normalized_url,ort,source
+Ada Health,https://www.ada.com,ada.com,Berlin,hardcoded
+Kaia Health,https://www.kaia-health.com,kaia-health.com,München,hardcoded
+TeleClinic,https://www.teleclinic.com,teleclinic.com,München,hardcoded
+Doctolib,https://www.doctolib.de,doctolib.de,Unknown,scraped
+Jameda,https://www.jameda.de,jameda.de,Frankfurt,scraped
+Amboss,https://www.amboss.com,amboss.com,Berlin,hardcoded
+Clue,https://www.clue.com,clue.com,Berlin,hardcoded
+Mediteo,https://www.mediteo.com,mediteo.com,Berlin,hardcoded
+Vivy,https://www.vivy.com,vivy.com,Berlin,hardcoded
+Zanadio,https://www.zanadio.de,zanadio.de,Hamburg,hardcoded
