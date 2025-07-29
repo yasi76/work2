@@ -1,0 +1,450 @@
+{
+  "timestamp": "2025-07-29T13:18:20.813010",
+  "total_urls": 73,
+  "discovery_time_seconds": 0.0,
+  "source_breakdown": {
+    "hardcoded": 53,
+    "ground_truth": 10,
+    "search": 10
+  },
+  "urls": [
+    {
+      "url": "https://www.acalta.de",
+      "source": "Hardcoded",
+      "confidence": 10,
+      "category": "Verified Health Tech"
+    },
+    {
+      "url": "https://www.actimi.com",
+      "source": "Hardcoded",
+      "confidence": 10,
+      "category": "Verified Health Tech"
+    },
+    {
+      "url": "https://www.emmora.de",
+      "source": "Hardcoded",
+      "confidence": 10,
+      "category": "Verified Health Tech"
+    },
+    {
+      "url": "https://www.alfa-ai.com",
+      "source": "Hardcoded",
+      "confidence": 10,
+      "category": "Verified Health Tech"
+    },
+    {
+      "url": "https://www.apheris.com",
+      "source": "Hardcoded",
+      "confidence": 10,
+      "category": "Verified Health Tech"
+    },
+    {
+      "url": "https://www.aporize.com/",
+      "source": "Hardcoded",
+      "confidence": 10,
+      "category": "Verified Health Tech"
+    },
+    {
+      "url": "https://www.arztlena.com/",
+      "source": "Hardcoded",
+      "confidence": 10,
+      "category": "Verified Health Tech"
+    },
+    {
+      "url": "https://shop.getnutrio.com/",
+      "source": "Hardcoded",
+      "confidence": 10,
+      "category": "Verified Health Tech"
+    },
+    {
+      "url": "https://www.auta.health/",
+      "source": "Hardcoded",
+      "confidence": 10,
+      "category": "Verified Health Tech"
+    },
+    {
+      "url": "https://visioncheckout.com/",
+      "source": "Hardcoded",
+      "confidence": 10,
+      "category": "Verified Health Tech"
+    },
+    {
+      "url": "https://www.avayl.tech/",
+      "source": "Hardcoded",
+      "confidence": 10,
+      "category": "Verified Health Tech"
+    },
+    {
+      "url": "https://www.avimedical.com/avi-impact",
+      "source": "Hardcoded",
+      "confidence": 10,
+      "category": "Verified Health Tech"
+    },
+    {
+      "url": "https://de.becureglobal.com/",
+      "source": "Hardcoded",
+      "confidence": 10,
+      "category": "Verified Health Tech"
+    },
+    {
+      "url": "https://bellehealth.co/de/",
+      "source": "Hardcoded",
+      "confidence": 10,
+      "category": "Verified Health Tech"
+    },
+    {
+      "url": "https://www.biotx.ai/",
+      "source": "Hardcoded",
+      "confidence": 10,
+      "category": "Verified Health Tech"
+    },
+    {
+      "url": "https://www.brainjo.de/",
+      "source": "Hardcoded",
+      "confidence": 10,
+      "category": "Verified Health Tech"
+    },
+    {
+      "url": "https://brea.app/",
+      "source": "Hardcoded",
+      "confidence": 10,
+      "category": "Verified Health Tech"
+    },
+    {
+      "url": "https://breathment.com/",
+      "source": "Hardcoded",
+      "confidence": 10,
+      "category": "Verified Health Tech"
+    },
+    {
+      "url": "https://de.caona.eu/",
+      "source": "Hardcoded",
+      "confidence": 10,
+      "category": "Verified Health Tech"
+    },
+    {
+      "url": "https://www.careanimations.de/",
+      "source": "Hardcoded",
+      "confidence": 10,
+      "category": "Verified Health Tech"
+    },
+    {
+      "url": "https://sfs-healthcare.com",
+      "source": "Hardcoded",
+      "confidence": 10,
+      "category": "Verified Health Tech"
+    },
+    {
+      "url": "https://www.climedo.de/",
+      "source": "Hardcoded",
+      "confidence": 10,
+      "category": "Verified Health Tech"
+    },
+    {
+      "url": "https://www.cliniserve.de/",
+      "source": "Hardcoded",
+      "confidence": 10,
+      "category": "Verified Health Tech"
+    },
+    {
+      "url": "https://cogthera.de/#erfahren",
+      "source": "Hardcoded",
+      "confidence": 10,
+      "category": "Verified Health Tech"
+    },
+    {
+      "url": "https://www.comuny.de/",
+      "source": "Hardcoded",
+      "confidence": 10,
+      "category": "Verified Health Tech"
+    },
+    {
+      "url": "https://curecurve.de/elina-app/",
+      "source": "Hardcoded",
+      "confidence": 10,
+      "category": "Verified Health Tech"
+    },
+    {
+      "url": "https://www.cynteract.com/de/rehabilitation",
+      "source": "Hardcoded",
+      "confidence": 10,
+      "category": "Verified Health Tech"
+    },
+    {
+      "url": "https://www.healthmeapp.de/de/",
+      "source": "Hardcoded",
+      "confidence": 10,
+      "category": "Verified Health Tech"
+    },
+    {
+      "url": "https://deepeye.ai/",
+      "source": "Hardcoded",
+      "confidence": 10,
+      "category": "Verified Health Tech"
+    },
+    {
+      "url": "https://www.deepmentation.ai/",
+      "source": "Hardcoded",
+      "confidence": 10,
+      "category": "Verified Health Tech"
+    },
+    {
+      "url": "https://denton-systems.de/",
+      "source": "Hardcoded",
+      "confidence": 10,
+      "category": "Verified Health Tech"
+    },
+    {
+      "url": "https://www.derma2go.com/",
+      "source": "Hardcoded",
+      "confidence": 10,
+      "category": "Verified Health Tech"
+    },
+    {
+      "url": "https://www.dianovi.com/",
+      "source": "Hardcoded",
+      "confidence": 10,
+      "category": "Verified Health Tech"
+    },
+    {
+      "url": "http://dopavision.com/",
+      "source": "Hardcoded",
+      "confidence": 10,
+      "category": "Verified Health Tech"
+    },
+    {
+      "url": "https://www.dpv-analytics.com/",
+      "source": "Hardcoded",
+      "confidence": 10,
+      "category": "Verified Health Tech"
+    },
+    {
+      "url": "http://www.ecovery.de/",
+      "source": "Hardcoded",
+      "confidence": 10,
+      "category": "Verified Health Tech"
+    },
+    {
+      "url": "https://elixionmedical.com/",
+      "source": "Hardcoded",
+      "confidence": 10,
+      "category": "Verified Health Tech"
+    },
+    {
+      "url": "https://www.empident.de/",
+      "source": "Hardcoded",
+      "confidence": 10,
+      "category": "Verified Health Tech"
+    },
+    {
+      "url": "https://eye2you.ai/",
+      "source": "Hardcoded",
+      "confidence": 10,
+      "category": "Verified Health Tech"
+    },
+    {
+      "url": "https://www.fitwhit.de",
+      "source": "Hardcoded",
+      "confidence": 10,
+      "category": "Verified Health Tech"
+    },
+    {
+      "url": "https://www.floy.com/",
+      "source": "Hardcoded",
+      "confidence": 10,
+      "category": "Verified Health Tech"
+    },
+    {
+      "url": "https://fyzo.de/assistant/",
+      "source": "Hardcoded",
+      "confidence": 10,
+      "category": "Verified Health Tech"
+    },
+    {
+      "url": "https://www.gesund.de/app",
+      "source": "Hardcoded",
+      "confidence": 10,
+      "category": "Verified Health Tech"
+    },
+    {
+      "url": "https://www.glaice.de/",
+      "source": "Hardcoded",
+      "confidence": 10,
+      "category": "Verified Health Tech"
+    },
+    {
+      "url": "https://gleea.de/",
+      "source": "Hardcoded",
+      "confidence": 10,
+      "category": "Verified Health Tech"
+    },
+    {
+      "url": "https://www.guidecare.de/",
+      "source": "Hardcoded",
+      "confidence": 10,
+      "category": "Verified Health Tech"
+    },
+    {
+      "url": "https://www.apodienste.com/",
+      "source": "Hardcoded",
+      "confidence": 10,
+      "category": "Verified Health Tech"
+    },
+    {
+      "url": "https://www.help-app.de/",
+      "source": "Hardcoded",
+      "confidence": 10,
+      "category": "Verified Health Tech"
+    },
+    {
+      "url": "https://www.heynanny.com/",
+      "source": "Hardcoded",
+      "confidence": 10,
+      "category": "Verified Health Tech"
+    },
+    {
+      "url": "https://incontalert.de/",
+      "source": "Hardcoded",
+      "confidence": 10,
+      "category": "Verified Health Tech"
+    },
+    {
+      "url": "https://home.informme.info/",
+      "source": "Hardcoded",
+      "confidence": 10,
+      "category": "Verified Health Tech"
+    },
+    {
+      "url": "https://www.kranushealth.com/de/therapien/haeufiger-harndrang",
+      "source": "Hardcoded",
+      "confidence": 10,
+      "category": "Verified Health Tech"
+    },
+    {
+      "url": "https://www.kranushealth.com/de/therapien/inkontinenz",
+      "source": "Hardcoded",
+      "confidence": 10,
+      "category": "Verified Health Tech"
+    },
+    {
+      "url": "https://www.ada.com",
+      "source": "Ground Truth",
+      "confidence": 9,
+      "category": "GT Health Tech"
+    },
+    {
+      "url": "https://www.doctolib.de",
+      "source": "Ground Truth",
+      "confidence": 9,
+      "category": "GT Health Tech"
+    },
+    {
+      "url": "https://www.kaia-health.com",
+      "source": "Ground Truth",
+      "confidence": 9,
+      "category": "GT Health Tech"
+    },
+    {
+      "url": "https://www.teleclinic.com",
+      "source": "Ground Truth",
+      "confidence": 9,
+      "category": "GT Health Tech"
+    },
+    {
+      "url": "https://www.zavamed.com",
+      "source": "Ground Truth",
+      "confidence": 9,
+      "category": "GT Health Tech"
+    },
+    {
+      "url": "https://www.medwing.com",
+      "source": "Ground Truth",
+      "confidence": 9,
+      "category": "GT Health Tech"
+    },
+    {
+      "url": "https://www.felmo.de",
+      "source": "Ground Truth",
+      "confidence": 9,
+      "category": "GT Health Tech"
+    },
+    {
+      "url": "https://www.viomedo.de",
+      "source": "Ground Truth",
+      "confidence": 9,
+      "category": "GT Health Tech"
+    },
+    {
+      "url": "https://www.caresyntax.com",
+      "source": "Ground Truth",
+      "confidence": 9,
+      "category": "GT Health Tech"
+    },
+    {
+      "url": "https://www.merantix.com",
+      "source": "Ground Truth",
+      "confidence": 9,
+      "category": "GT Health Tech"
+    },
+    {
+      "url": "https://www.contextflow.com",
+      "source": "Search Discovery",
+      "confidence": 7,
+      "category": "Discovered Health Tech"
+    },
+    {
+      "url": "https://www.heartkinetics.com",
+      "source": "Search Discovery",
+      "confidence": 7,
+      "category": "Discovered Health Tech"
+    },
+    {
+      "url": "https://www.samedi.de",
+      "source": "Search Discovery",
+      "confidence": 7,
+      "category": "Discovered Health Tech"
+    },
+    {
+      "url": "https://www.medigene.com",
+      "source": "Search Discovery",
+      "confidence": 7,
+      "category": "Discovered Health Tech"
+    },
+    {
+      "url": "https://www.smartpatient.eu",
+      "source": "Search Discovery",
+      "confidence": 7,
+      "category": "Discovered Health Tech"
+    },
+    {
+      "url": "https://www.doctolib.fr",
+      "source": "Search Discovery",
+      "confidence": 7,
+      "category": "Discovered Health Tech"
+    },
+    {
+      "url": "https://www.livi.co.uk",
+      "source": "Search Discovery",
+      "confidence": 7,
+      "category": "Discovered Health Tech"
+    },
+    {
+      "url": "https://www.babylon.com",
+      "source": "Search Discovery",
+      "confidence": 7,
+      "category": "Discovered Health Tech"
+    },
+    {
+      "url": "https://www.echo.co.uk",
+      "source": "Search Discovery",
+      "confidence": 7,
+      "category": "Discovered Health Tech"
+    },
+    {
+      "url": "https://www.accurx.com",
+      "source": "Search Discovery",
+      "confidence": 7,
+      "category": "Discovered Health Tech"
+    }
+  ]
+}
