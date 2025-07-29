@@ -1,0 +1,713 @@
+Aachen
+Aalen
+Ahlen
+Ahrensburg
+Aichach
+Albstadt
+Alfeld
+Alfter
+Alsdorf
+Altena
+Altenburg
+Alzey
+Amberg
+Andernach
+Annaberg-Buchholz
+Ansbach
+Apolda
+Arnsberg
+Arnstadt
+Aschaffenburg
+Aschersleben
+Attendorn
+Augsburg
+Aurich
+Backnang
+Bad Homburg vor der Höhe
+Bad Honnef
+Bad Kissingen
+Bad Kreuznach
+Bad Mergentheim
+Bad Nauheim
+Bad Neuenahr-Ahrweiler
+Bad Oeynhausen
+Bad Oldesloe
+Bad Rappenau
+Bad Salzuflen
+Bad Segeberg
+Bad Vilbel
+Bad Waldsee
+Bad Zwischenahn
+Baden-Baden
+Baesweiler
+Balingen
+Bamberg
+Barsinghausen
+Baunatal
+Bautzen
+Bayreuth
+Beckum
+Bedburg
+Bensheim
+Bergheim
+Bergisch Gladbach
+Bergkamen
+Berlin
+Bernau bei Berlin
+Bernburg
+Biberach an der Riß
+Bielefeld
+Bietigheim-Bissingen
+Bingen am Rhein
+Bitterfeld-Wolfen
+Blankenfelde-Mahlow
+Bocholt
+Bochum
+Böblingen
+Bonn
+Borken
+Bornheim
+Bottrop
+Bramsche
+Brandenburg an der Havel
+Braunschweig
+Breisach am Rhein
+Bremen
+Bremerhaven
+Bremervörde
+Bretten
+Brilon
+Bruchsal
+Brühl
+Buchholz in der Nordheide
+Büdingen
+Bühl
+Bünde
+Büren
+Burg
+Burgdorf
+Burgwedel
+Butzbach
+Buxtehude
+Calw
+Castrop-Rauxel
+Celle
+Cham
+Chemnitz
+Cloppenburg
+Coburg
+Coesfeld
+Coswig
+Cottbus
+Crailsheim
+Cuxhaven
+Dachau
+Darmstadt
+Datteln
+Deggendorf
+Delbrück
+Delitzsch
+Delmenhorst
+Dessau-Roßlau
+Detmold
+Dietzenbach
+Dillenburg
+Dillingen an der Donau
+Dinslaken
+Ditzingen
+Döbeln
+Donaueschingen
+Dormagen
+Dorsten
+Dortmund
+Dreieich
+Dresden
+Duderstadt
+Duisburg
+Dülmen
+Düren
+Düsseldorf
+Eberswalde
+Eckernförde
+Edewecht
+Ehingen
+Einbeck
+Eisenach
+Eisenhüttenstadt
+Eislingen/Fils
+Ellwangen
+Elmshorn
+Emden
+Emmendingen
+Emmerich am Rhein
+Emsdetten
+Ennepetal
+Ennigerloh
+Eppingen
+Erding
+Erftstadt
+Erfurt
+Erkelenz
+Erkrath
+Erlangen
+Eschborn
+Eschweiler
+Espelkamp
+Essen
+Esslingen am Neckar
+Ettlingen
+Euskirchen
+Falkensee
+Fellbach
+Filderstadt
+Flensburg
+Flörsheim am Main
+Forchheim
+Frankfurt am Main
+Frankfurt (Oder)
+Frankenthal
+Frechen
+Freiberg
+Freiburg im Breisgau
+Freising
+Freital
+Freudenstadt
+Friedberg
+Friedrichsdorf
+Friedrichshafen
+Friesoythe
+Fröndenberg/Ruhr
+Fulda
+Fürstenfeldbruck
+Fürstenwalde/Spree
+Fürth
+Garbsen
+Gardelegen
+Garmisch-Partenkirchen
+Gauting
+Geesthacht
+Geislingen an der Steige
+Geldern
+Gelnhausen
+Gelsenkirchen
+Georgsmarienhütte
+Gera
+Germering
+Germersheim
+Gersthofen
+Geseke
+Gevelsberg
+Gießen
+Gifhorn
+Gladbeck
+Glauchau
+Goch
+Göppingen
+Görlitz
+Goslar
+Gotha
+Göttingen
+Greifswald
+Greiz
+Greven
+Grevenbroich
+Griesheim
+Grimma
+Gronau
+Groß-Gerau
+Groß-Umstadt
+Großenhain
+Gummersbach
+Günzburg
+Güstrow
+Gütersloh
+Haan
+Haar
+Hagen
+Halberstadt
+Halle (Saale)
+Halle (Westf.)
+Haltern am See
+Hamburg
+Hameln
+Hamm
+Hamminkeln
+Hanau
+Hann. Münden
+Hannover
+Harsewinkel
+Haßloch
+Hattersheim am Main
+Hattingen
+Heide
+Heidelberg
+Heidenheim an der Brenz
+Heilbronn
+Heiligenhaus
+Heinsberg
+Helmstedt
+Hemer
+Hennef
+Hennigsdorf
+Heppenheim
+Herborn
+Herdecke
+Herford
+Herne
+Herrenberg
+Herten
+Herzogenaurach
+Herzogenrath
+Hilden
+Hildesheim
+Hille
+Hockenheim
+Hof
+Hofheim am Taunus
+Hohen Neuendorf
+Holzkirchen
+Holzminden
+Homburg
+Horb am Neckar
+Hörstel
+Hoyerswerda
+Hückelhoven
+Hückeswagen
+Hürth
+Husum
+Ibbenbüren
+Idar-Oberstein
+Idstein
+Illingen
+Ilmenau
+Ingelheim am Rhein
+Ingolstadt
+Iserlohn
+Isernhagen
+Itzehoe
+Jena
+Jüchen
+Jülich
+Kaarst
+Kaiserslautern
+Kaltenkirchen
+Kamen
+Kamp-Lintfort
+Karben
+Karlsfeld
+Karlsruhe
+Kassel
+Kaufbeuren
+Kehl
+Kelkheim
+Kempen
+Kempten
+Kerpen
+Kevelaer
+Kiel
+Kirchheim unter Teck
+Kitzingen
+Kleve
+Klosterlechfeld
+Koblenz
+Köln
+Königs Wusterhausen
+Königsbrunn
+Königslutter am Elm
+Königswinter
+Konstanz
+Korbach
+Korntal-Münchingen
+Kornwestheim
+Korschenbroich
+Köthen
+Krefeld
+Kreuztal
+Kronach
+Kronberg im Taunus
+Kulmbach
+Laatzen
+Lage
+Lahr/Schwarzwald
+Lampertheim
+Landau in der Pfalz
+Landsberg am Lech
+Landshut
+Langen
+Langenfeld
+Langenhorn
+Langenhagen
+Lauf an der Pegnitz
+Laupheim
+Leer
+Lehrte
+Leichlingen
+Leimen
+Leinfelden-Echterdingen
+Leipzig
+Lemgo
+Lengerich
+Lennestadt
+Leonberg
+Leverkusen
+Lichtenfels
+Limbach-Oberfrohna
+Limburg an der Lahn
+Lindau
+Lindlar
+Lingen
+Lippstadt
+Löhne
+Lörrach
+Lohmar
+Lohne
+Luckenwalde
+Lübbecke
+Lübeck
+Lüdenscheid
+Lüdinghausen
+Ludwigsburg
+Ludwigsfelde
+Ludwigshafen am Rhein
+Lüneburg
+Lünen
+Magdeburg
+Maintal
+Mainz
+Mannheim
+Marburg
+Markkleeberg
+Marl
+Marsberg
+Mechernich
+Meckenheim
+Meerbusch
+Meinerzhagen
+Meiningen
+Meißen
+Melle
+Memmingen
+Menden
+Meppen
+Merseburg
+Merzig
+Meschede
+Mettmann
+Metzingen
+Michelstadt
+Miesbach
+Minden
+Moers
+Mönchengladbach
+Monheim am Rhein
+Moormerland
+Mörfelden-Walldorf
+Mosbach
+Mühlacker
+Mühlhausen/Thüringen
+Mühlheim am Main
+Mühlheim an der Ruhr
+Mülheim an der Ruhr
+München
+Münster
+Nagold
+Nauen
+Naumburg
+Neckarsulm
+Netphen
+Nettetal
+Neu Wulmstorf
+Neu-Isenburg
+Neu-Ulm
+Neuburg an der Donau
+Neubrandenburg
+Neukirchen-Vluyn
+Neumarkt in der Oberpfalz
+Neumünster
+Neunkirchen
+Neuruppin
+Neuss
+Neustadt am Rübenberge
+Neustadt an der Weinstraße
+Neustrelitz
+Neuwied
+Nidda
+Nidderau
+Nienburg/Weser
+Nordhorn
+Nordhausen
+Norden
+Norderstedt
+Nordenham
+Northeim
+Nürnberg
+Nürtingen
+Oberhausen
+Obertshausen
+Oberursel
+Ochtrup
+Oelde
+Oer-Erkenschwick
+Offenbach am Main
+Offenburg
+Öhringen
+Oldenburg
+Olpe
+Olsberg
+Oranienburg
+Osnabrück
+Osterholz-Scharmbeck
+Osterode am Harz
+Ostfildern
+Ottobrunn
+Overath
+Paderborn
+Papenburg
+Parchim
+Passau
+Peine
+Petershagen
+Pfaffenhofen an der Ilm
+Pforzheim
+Pfungstadt
+Pinneberg
+Pirmasens
+Pirna
+Plauen
+Plettenberg
+Plochingen
+Porta Westfalica
+Potsdam
+Puchheim
+Pulheim
+Quedlinburg
+Quickborn
+Radebeul
+Radevormwald
+Radolfzell am Bodensee
+Rahden
+Rastatt
+Rastede
+Rathenow
+Ratingen
+Ravensburg
+Recklinghausen
+Rees
+Regensburg
+Reichenbach im Vogtland
+Reinbek
+Remscheid
+Remseck am Neckar
+Rendsburg
+Reutlingen
+Rheda-Wiedenbrück
+Rheinbach
+Rheinberg
+Rheine
+Rheinfelden (Baden)
+Rheinstetten
+Riedstadt
+Riesa
+Rietberg
+Rinteln
+Rödermark
+Rodgau
+Ronnenberg
+Rosenheim
+Rösrath
+Rostock
+Rotenburg (Wümme)
+Roth
+Rottenburg am Neckar
+Rottweil
+Rudolstadt
+Rüsselsheim am Main
+Saalfeld/Saale
+Saarbrücken
+Saarlouis
+Salzgitter
+Salzkotten
+Salzwedel
+Sangerhausen
+Sankt Augustin
+Sankt Ingbert
+Sankt Wendel
+Sassenburg
+Schifferstadt
+Schkeuditz
+Schleswig
+Schloß Holte-Stukenbrock
+Schmallenberg
+Schmalkalden
+Schönebeck
+Schöningen
+Schopfheim
+Schorndorf
+Schortens
+Schramberg
+Schwabach
+Schwäbisch Gmünd
+Schwäbisch Hall
+Schwalmstadt
+Schwandorf
+Schwanewede
+Schwedt/Oder
+Schweinfurt
+Schwelm
+Schwerin
+Schwerte
+Schwetzingen
+Seefeld
+Seelze
+Seevetal
+Sehnde
+Selb
+Seligenstadt
+Selm
+Senden
+Senden
+Senftenberg
+Siegburg
+Siegen
+Sigmaringen
+Simmern/Hunsrück
+Sindelfingen
+Singen
+Sinsheim
+Soest
+Solingen
+Soltau
+Sondershausen
+Sonneberg
+Sonthofen
+Speyer
+Spremberg
+Sprockhövel
+St. Georgen im Schwarzwald
+St. Ingbert
+St. Wendel
+Stade
+Stadtallendorf
+Stadthagen
+Stadtlohn
+Starnberg
+Stassfurt
+Steinfurt
+Steinhagen
+Stendal
+Stolberg
+Stralsund
+Straubing
+Strausberg
+Stuhr
+Stutensee
+Stuttgart
+Suhl
+Sundern
+Syke
+Taunusstein
+Teltow
+Tönisvorst
+Torgau
+Traunreut
+Traunstein
+Trier
+Troisdorf
+Trossingen
+Tübingen
+Tuttlingen
+Übach-Palenberg
+Überlingen
+Uelzen
+Uetze
+Ulm
+Unna
+Unterhaching
+Unterschleißheim
+Vaihingen an der Enz
+Varel
+Vaterstetten
+Vechelde
+Vechta
+Velbert
+Verden
+Verl
+Versmold
+Viernheim
+Viersen
+Villingen-Schwenningen
+Voerde
+Völklingen
+Vreden
+Wachtberg
+Waghäusel
+Waiblingen
+Waldkirch
+Waldkraiburg
+Waldshut-Tiengen
+Wallenhorst
+Walsrode
+Waltrop
+Wandlitz
+Wangen im Allgäu
+Warburg
+Waren
+Warendorf
+Warstein
+Wedel
+Wedemark
+Wegberg
+Weiden in der Oberpfalz
+Weil am Rhein
+Weilheim in Oberbayern
+Weimar
+Weinheim
+Weinstadt
+Weingarten
+Weißenfels
+Weiterstadt
+Werdau
+Werder
+Werl
+Wermelskirchen
+Werne
+Werneck
+Wernigerode
+Wertheim
+Wesel
+Wesseling
+Westerstede
+Westoverledingen
+Wetter
+Wetzlar
+Weyhe
+Wiehl
+Wiesbaden
+Wiesloch
+Wilhelmshaven
+Willich
+Wilnsdorf
+Winnenden
+Winsen
+Winterberg
+Witten
+Wittenberg
+Wittlich
+Wittmund
+Witzenhausen
+Wolfenbüttel
+Wolfsburg
+Worms
+Wülfrath
+Wunstorf
+Wuppertal
+Würselen
+Würzburg
+Xanten
+Zeitz
+Zerbst/Anhalt
+Zirndorf
+Zittau
+Zülpich
+Zweibrücken
+Zwickau
