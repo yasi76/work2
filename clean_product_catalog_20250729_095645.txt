@@ -1,0 +1,38 @@
+DIGITAL HEALTH PRODUCT CATALOG
+==================================================
+
+
+Apheris
+-------
+  • Apheris Platform (platform)
+  URL: https://www.apheris.com
+  Method: ground_truth
+
+Climedo
+-------
+  • Climedo Platform (platform)
+  URL: https://www.climedo.de
+  Method: ground_truth
+
+Acalta
+------
+  • Acalta (software)
+  URL: https://www.acalta.de
+  Method: ground_truth
+
+Actimi
+------
+  • Actimi Herzinsuffizienz Set (kit)
+  • Actimi Notaufnahme-Set (kit)
+  URL: https://www.actimi.com
+  Method: ground_truth
+
+Teladoc
+-------
+  • Get the app (app)
+  • Apple App store (app)
+  • Virtual Care Platform (platform)
+  • Get started Get the app (app)
+  • Apple App store Google Play store (app)
+  URL: https://www.teladoc.com
+  Method: scraped

@@ -1,0 +1,89 @@
+[
+  {
+    "url": "https://www.apheris.com",
+    "company_name": "Apheris",
+    "product_names": [
+      "Apheris Platform"
+    ],
+    "product_types": {
+      "Apheris Platform": "platform"
+    },
+    "extraction_method": "ground_truth"
+  },
+  {
+    "url": "https://www.climedo.de",
+    "company_name": "Climedo",
+    "product_names": [
+      "Climedo Platform"
+    ],
+    "product_types": {
+      "Climedo Platform": "platform"
+    },
+    "extraction_method": "ground_truth"
+  },
+  {
+    "url": "https://www.acalta.de",
+    "company_name": "Acalta",
+    "product_names": [
+      "Acalta"
+    ],
+    "product_types": {
+      "Acalta": "software"
+    },
+    "extraction_method": "ground_truth"
+  },
+  {
+    "url": "https://www.actimi.com",
+    "company_name": "Actimi",
+    "product_names": [
+      "Actimi Herzinsuffizienz Set",
+      "Actimi Notaufnahme-Set"
+    ],
+    "product_types": {
+      "Actimi Herzinsuffizienz Set": "kit",
+      "Actimi Notaufnahme-Set": "kit"
+    },
+    "extraction_method": "ground_truth"
+  },
+  {
+    "url": "https://www.teladoc.com",
+    "company_name": "Teladoc",
+    "product_names": [
+      "Get the app",
+      "Apple App store",
+      "Virtual Care Platform",
+      "Get started Get the app",
+      "Apple App store Google Play store"
+    ],
+    "product_types": {
+      "Get the app": "app",
+      "Apple App store": "app",
+      "Virtual Care Platform": "platform",
+      "Get started Get the app": "app",
+      "Apple App store Google Play store": "app"
+    },
+    "extraction_method": "scraped"
+  },
+  {
+    "url": "https://www.betterhelp.com",
+    "company_name": "BetterHelp",
+    "product_names": [],
+    "product_types": {},
+    "extraction_method": "none"
+  },
+  {
+    "url": "https://www.doctolib.de",
+    "company_name": "Doctolib",
+    "product_names": [],
+    "product_types": {},
+    "extraction_method": "none",
+    "error": "403 Client Error: Forbidden for url: https://www.doctolib.de/"
+  },
+  {
+    "url": "https://www.ada.com",
+    "company_name": "Ada Health",
+    "product_names": [],
+    "product_types": {},
+    "extraction_method": "none"
+  }
+]

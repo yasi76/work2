@@ -1,0 +1,36 @@
+{
+  "urls": [
+    {
+      "url": "https://www.apheris.com",
+      "company_name": "Apheris"
+    },
+    {
+      "url": "https://www.acalta.de",
+      "company_name": "Acalta"
+    },
+    {
+      "url": "https://www.actimi.com",
+      "company_name": "Actimi"
+    },
+    {
+      "url": "https://www.climedo.de",
+      "company_name": "Climedo"
+    },
+    {
+      "url": "https://www.betterhelp.com",
+      "company_name": "BetterHelp"
+    },
+    {
+      "url": "https://www.teladoc.com",
+      "company_name": "Teladoc"
+    },
+    {
+      "url": "https://www.doctolib.de",
+      "company_name": "Doctolib"
+    },
+    {
+      "url": "https://www.ada.com",
+      "company_name": "Ada Health"
+    }
+  ]
+}

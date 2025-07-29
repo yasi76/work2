@@ -1,0 +1,9 @@
+company_name,url,product_names,product_types,extraction_method,error
+Apheris,https://www.apheris.com,Apheris Platform,"{""Apheris Platform"": ""platform""}",ground_truth,
+Climedo,https://www.climedo.de,Climedo Platform,"{""Climedo Platform"": ""platform""}",ground_truth,
+Acalta,https://www.acalta.de,Acalta,"{""Acalta"": ""software""}",ground_truth,
+Actimi,https://www.actimi.com,Actimi Herzinsuffizienz Set; Actimi Notaufnahme-Set,"{""Actimi Herzinsuffizienz Set"": ""kit"", ""Actimi Notaufnahme-Set"": ""kit""}",ground_truth,
+Teladoc,https://www.teladoc.com,Get the app; Apple App store; Virtual Care Platform; Get started Get the app; Apple App store Google Play store,"{""Get the app"": ""app"", ""Apple App store"": ""app"", ""Virtual Care Platform"": ""platform"", ""Get started Get the app"": ""app"", ""Apple App store Google Play store"": ""app""}",scraped,
+BetterHelp,https://www.betterhelp.com,,{},none,
+Doctolib,https://www.doctolib.de,,{},none,403 Client Error: Forbidden for url: https://www.doctolib.de/
+Ada Health,https://www.ada.com,,{},none,
