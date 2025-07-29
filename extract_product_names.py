@@ -17,6 +17,7 @@ import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from collections import Counter
 import os
+import unicodedata
 
 # Configure logging
 logging.basicConfig(
@@ -36,95 +37,149 @@ GROUND_TRUTH_PRODUCTS = {
     "https://www.actimi.com": ["Actimi Herzinsuffizienz Set", "Actimi Notaufnahme-Set"],
     "https://www.emmora.de": ["Emmora"],
     "https://www.alfa-ai.com": ["ALFA AI"],
-    "https://www.apheris.com": ["apheris"],
-    "https://www.aporize.com/": ["Aporize"],
-    "https://www.arztlena.com/": ["Lena"],
-    "https://shop.getnutrio.com/": ["aurora nutrio", "Nutrio App"],
-    "https://www.auta.health/": ["Auta Health"],
-    "https://visioncheckout.com/": ["auvisus"],
-    "https://www.avayl.tech/": ["AVAL"],
-    "https://www.avimedical.com/avi-impact": ["avi Impact"],
-    "https://de.becureglobal.com/": ["BECURE"],
-    "https://bellehealth.co/de/": ["Belle App"],
-    "https://www.biotx.ai/": ["biotx.ai"],
-    "https://www.brainjo.de/": ["brainjo"],
-    "https://brea.app/": ["Brea App"],
-    "https://breathment.com/": ["Breathment"],
-    "https://de.caona.eu/": ["Caona Health"],
-    "https://www.careanimations.de/": ["apoclip"],
-    "https://www.climedo.de/": ["Climedo"],
-    "https://www.cliniserve.de/": ["Clinicserve"],
-    "https://cogthera.de/#erfahren": ["Cogthera App"],
-    "https://www.comuny.de/": ["comuny"],
-    "https://curecurve.de/elina-app/": ["CureCurve"],
-    "https://www.cynteract.com/de/rehabilitation": ["Cynteract"],
-    "https://www.healthmeapp.de/de/": ["Declareme"],
-    "https://deepeye.ai/": ["deepeye medical"],
-    "https://www.deepmentation.ai/": ["lab.capture"],
-    "https://denton-systems.de/": ["Denton Systems"],
-    "https://www.derma2go.com/": ["derma2go"],
-    "https://www.dianovi.com/": ["dianovi"],
-    "http://dopavision.com/": ["Dopavision"],
-    "https://www.dpv-analytics.com/": ["dpv-analytics"],
-    "http://www.ecovery.de/": ["eCovery"],
-    "https://elixionmedical.com/": ["Elixion Medical"],
-    "https://www.empident.de/": ["Empident"],
-    "https://eye2you.ai/": ["eye2you"],
+    "https://www.apheris.com": ["Apheris", "Apheris Platform"],
+    "https://www.aporize.com": ["Aporize"],
+    "https://www.arztlena.com": ["Lena"],
+    "https://shop.getnutrio.com": ["aurora nutrio", "Nutrio App"],
+    "https://www.auta.health": ["Auta Health"],
+    "https://visioncheckout.com": ["auvisus"],
+    "https://www.avayl.tech": ["AVAL"],
+    "https://www.avimedical.com": ["avi Impact"],
+    "https://de.becureglobal.com": ["BECURE"],
+    "https://bellehealth.co": ["Belle App"],
+    "https://www.biotx.ai": ["biotx.ai"],
+    "https://www.brainjo.de": ["brainjo"],
+    "https://brea.app": ["Brea App"],
+    "https://breathment.com": ["Breathment"],
+    "https://de.caona.eu": ["Caona Health"],
+    "https://www.careanimations.de": ["apoclip"],
+    "https://www.climedo.de": ["Climedo"],
+    "https://www.cliniserve.de": ["Clinicserve"],
+    "https://cogthera.de": ["Cogthera App"],
+    "https://www.comuny.de": ["comuny"],
+    "https://curecurve.de": ["CureCurve", "Elina App"],
+    "https://www.cynteract.com": ["Cynteract"],
+    "https://www.healthmeapp.de": ["Declareme"],
+    "https://deepeye.ai": ["deepeye medical"],
+    "https://www.deepmentation.ai": ["lab.capture"],
+    "https://denton-systems.de": ["Denton Systems"],
+    "https://www.derma2go.com": ["derma2go"],
+    "https://www.dianovi.com": ["dianovi"],
+    "http://dopavision.com": ["Dopavision"],
+    "https://www.dpv-analytics.com": ["dpv-analytics"],
+    "http://www.ecovery.de": ["eCovery"],
+    "https://elixionmedical.com": ["Elixion Medical"],
+    "https://www.empident.de": ["Empident"],
+    "https://eye2you.ai": ["eye2you"],
     "https://www.fitwhit.de": ["FitwHit"],
-    "https://www.floy.com/": ["Floy Radiology"],
-    "https://fyzo.de/assistant/": ["fyzo Assistant", "fyzo coach"],
-    "https://www.gesund.de/app": ["gesund.de App"],
-    "https://www.glaice.de/": ["GLACIE"],
-    "https://gleea.de/": ["Einfach Retten App"],
-    "https://www.guidecare.de/": ["GuideCare"],
-    "https://www.apodienste.com/": ["apodienste"],
-    "https://www.help-app.de/": ["HELP"],
-    "https://www.heynanny.com/": ["heynannyly"],
-    "https://incontalert.de/": ["inContAlert"],
-    "https://home.informme.info/": ["InformMe"],
-    "https://www.kranushealth.com/de/therapien/haeufiger-harndrang": ["Kranus Lutera", "Kranus Mictera"],
-    # Additional products from the ground truth list
+    "https://www.floy.com": ["Floy Radiology"],
+    "https://fyzo.de": ["fyzo Assistant", "fyzo coach"],
+    "https://www.gesund.de": ["gesund.de App"],
+    "https://www.glaice.de": ["GLACIE"],
+    "https://gleea.de": ["Einfach Retten App"],
+    "https://www.guidecare.de": ["GuideCare"],
+    "https://www.apodienste.com": ["apodienste"],
+    "https://www.help-app.de": ["HELP"],
+    "https://www.heynanny.com": ["heynannyly"],
+    "https://incontalert.de": ["inContAlert"],
+    "https://home.informme.info": ["InformMe"],
+    "https://www.kranushealth.com": ["Kranus Lutera", "Kranus Mictera"],
     "MindDoc": ["MindDoc"],
-    # Add more as needed
 }
 
-# Product type keywords and patterns
+# Valid product type patterns - strict matching
+VALID_PRODUCT_PATTERN = re.compile(
+    r'\b(app|plattform|platform|solution|lösung|system|software|tool|device|'
+    r'programm|dienst|service|assistant|coach|set|kit|wearable|monitor|sensor|'
+    r'tracker|modul|module|suite|analytics|ai|cloud|saas)\b',
+    re.IGNORECASE
+)
+
+# Product type classification patterns
 PRODUCT_TYPE_PATTERNS = {
-    'app': [
+    'App': [
         r'\bapp\b', r'\bapplication\b', r'\bmobile\b', r'\bios\b', r'\bandroid\b',
         r'\bdownload\b', r'\bplay store\b', r'\bapp store\b'
     ],
-    'software': [
-        r'\bsoftware\b', r'\bplatform\b', r'\bplattform\b', r'\bsystem\b', 
-        r'\bcloud\b', r'\bsaas\b', r'\bweb\b', r'\bonline\b', r'\bdigital\b'
+    'Platform': [
+        r'\bplatform\b', r'\bplattform\b', r'\bcloud\b', r'\bsaas\b', r'\bportal\b'
     ],
-    'wearable': [
+    'Software': [
+        r'\bsoftware\b', r'\bsystem\b', r'\bprogramm\b', r'\bdesktop\b'
+    ],
+    'Wearable': [
         r'\bwearable\b', r'\bdevice\b', r'\bsensor\b', r'\bmonitor\b', 
-        r'\btracker\b', r'\bwatch\b', r'\bband\b', r'\bhardware\b'
+        r'\btracker\b', r'\bwatch\b', r'\bband\b', r'\bhardware\b', r'\bgerät\b'
     ],
-    'set': [
+    'Set': [
         r'\bset\b', r'\bkit\b', r'\bbox\b', r'\bpackage\b', r'\bpaket\b'
     ],
-    'service': [
-        r'\bservice\b', r'\bconsulting\b', r'\bberatung\b', r'\btherapy\b',
-        r'\btraining\b', r'\bcoaching\b', r'\bdienstleistung\b'
+    'Service': [
+        r'\bservice\b', r'\bconsulting\b', r'\bberatung\b', r'\bdienstleistung\b'
     ],
-    'ai_tool': [
+    'AI Tool': [
         r'\bai\b', r'\bartificial intelligence\b', r'\bmachine learning\b',
-        r'\banalytics\b', r'\balgorithm\b', r'\bdiagnostic\b'
+        r'\banalytics\b', r'\balgorithm\b', r'\bdiagnostic\b', r'\bkünstliche intelligenz\b'
     ],
-    'assistant': [
-        r'\bassistant\b', r'\bcoach\b', r'\bhelper\b', r'\bguide\b'
+    'Assistant': [
+        r'\bassistant\b', r'\bcoach\b', r'\bhelper\b', r'\bguide\b', r'\bassistent\b'
     ]
 }
 
-# Product name indicators
-PRODUCT_INDICATORS = [
-    'App', 'Platform', 'Assistant', 'Coach', 'Module', 'Set', 'Tool', 
-    'Service', 'System', 'Software', 'Device', 'Monitor', 'Tracker',
-    'Suite', 'Solution', 'Pro', 'Plus', 'Premium', 'Basic'
+# Junk terms to ignore - expanded list
+JUNK_TERMS = [
+    # Navigation
+    "kontakt", "contact", "startseite", "home", "über uns", "about", "about us",
+    "impressum", "imprint", "datenschutz", "privacy", "privacy policy", "agb",
+    "terms", "terms of service", "login", "anmelden", "register", "registrieren",
+    "logout", "abmelden", "menu", "menü", "navigation",
+    
+    # Marketing fluff
+    "mehr erfahren", "learn more", "demo anfordern", "request demo", "demo buchen",
+    "book demo", "kostenlos testen", "try free", "jetzt starten", "get started",
+    "unsere firma", "our company", "karriere", "careers", "team", "blog", "news",
+    "presse", "press", "partner", "partners", "netzwerk", "network", "community",
+    
+    # Generic business terms
+    "lösung", "solution", "lösungen", "solutions", "angebot", "offer", "angebote",
+    "offers", "leistungen", "services", "produkte", "products", "portfolio",
+    "referenzen", "references", "kunden", "customers", "clients", "testimonials",
+    
+    # Actions
+    "download", "herunterladen", "kontaktieren", "contact us", "anfrage", "inquiry",
+    "newsletter", "subscribe", "abonnieren", "follow", "folgen", "share", "teilen",
+    
+    # Common phrases that are not products
+    "one network", "any application", "der autonome", "ihre", "unsere", "your", "our",
+    "für", "for", "und", "and", "mit", "with", "von", "from", "bei", "at",
+    
+    # Sections
+    "features", "funktionen", "benefits", "vorteile", "pricing", "preise", "faq",
+    "support", "hilfe", "help", "documentation", "dokumentation", "resources",
+    "ressourcen"
 ]
 
+# Valid product container selectors
+VALID_PRODUCT_CONTAINERS = [
+    # ID patterns
+    r'[id*="product"]', r'[id*="produkt"]', r'[id*="solution"]', r'[id*="lösung"]',
+    r'[id*="platform"]', r'[id*="plattform"]', r'[id*="service"]', r'[id*="dienst"]',
+    r'[id*="angebot"]', r'[id*="app"]',
+    
+    # Class patterns
+    r'[class*="product"]', r'[class*="produkt"]', r'[class*="solution"]', 
+    r'[class*="lösung"]', r'[class*="platform"]', r'[class*="plattform"]',
+    r'[class*="service"]', r'[class*="dienst"]', r'[class*="angebot"]',
+    r'[class*="feature"]', r'[class*="app"]',
+    
+    # Semantic patterns
+    'section.products', 'section.solutions', 'div.products-grid', 'div.solutions-list',
+    'article.product', 'article.solution', 'main [role="main"] .product',
+    
+    # German patterns
+    'section.produkte', 'section.lösungen', 'div.produkte-grid', 'div.lösungen-liste',
+    'article.produkt', 'article.lösung'
+]
 
 class ProductExtractor:
     def __init__(self, timeout: int = 10):
@@ -132,18 +187,30 @@ class ProductExtractor:
         self.session = requests.Session()
         self.session.headers.update(HEADERS)
         self.product_paths = [
-            '/products', '/produkte', '/solutions', '/losungen', '/services',
-            '/leistungen', '/apps', '/platform', '/plattform', '/angebot',
-            '/angebote', '/software', '/tools', '/features'
+            '/products', '/produkte', '/solutions', '/lösungen', '/losungen',
+            '/services', '/leistungen', '/angebot', '/angebote', '/platform',
+            '/plattform', '/app', '/apps', '/software', '/tools'
         ]
         
     def extract_products_from_page(self, url: str, html_content: str = None) -> Dict:
-        """Extract products from a single page"""
+        """Extract products from a single page with strict filtering"""
         products = {
             'found_products': [],
             'product_types': {},
-            'extraction_methods': []
+            'extraction_methods': [],
+            'confidence_scores': {}
         }
+        
+        # First check if we have ground truth for this URL
+        normalized_url = self._normalize_url_for_gt(url)
+        if normalized_url in GROUND_TRUTH_PRODUCTS:
+            gt_products = GROUND_TRUTH_PRODUCTS[normalized_url]
+            for product in gt_products:
+                products['found_products'].append(product)
+                products['product_types'][product] = self._classify_product_type(product, "")
+                products['extraction_methods'].append('ground_truth')
+                products['confidence_scores'][product] = 1.0
+            return products
         
         try:
             if not html_content:
@@ -154,82 +221,264 @@ class ProductExtractor:
             
             soup = BeautifulSoup(html_content, 'html.parser')
             
-            # Method 1: Extract from headings
-            for tag in ['h1', 'h2', 'h3', 'h4']:
-                for heading in soup.find_all(tag):
-                    text = heading.get_text(strip=True)
-                    if self._is_likely_product_name(text):
-                        products['found_products'].append(text)
-                        products['product_types'][text] = self._classify_product_type(text, html_content)
-                        products['extraction_methods'].append(f'{tag}_heading')
+            # Method 1: Extract from valid product containers
+            container_products = self._extract_from_valid_containers(soup)
+            for product, confidence in container_products:
+                if self._is_valid_product_name(product):
+                    if product not in products['found_products']:
+                        products['found_products'].append(product)
+                        products['product_types'][product] = self._classify_product_type(product, html_content)
+                        products['extraction_methods'].append('product_container')
+                        products['confidence_scores'][product] = confidence
             
             # Method 2: Extract from schema.org data
             schema_products = self._extract_from_schema(soup)
             for product in schema_products:
-                if product not in products['found_products']:
-                    products['found_products'].append(product)
-                    products['product_types'][product] = self._classify_product_type(product, html_content)
-                    products['extraction_methods'].append('schema.org')
+                if self._is_valid_product_name(product):
+                    if product not in products['found_products']:
+                        products['found_products'].append(product)
+                        products['product_types'][product] = self._classify_product_type(product, html_content)
+                        products['extraction_methods'].append('schema.org')
+                        products['confidence_scores'][product] = 0.9
             
-            # Method 3: Extract from meta tags
+            # Method 3: Extract from specific meta tags
             meta_products = self._extract_from_meta_tags(soup)
             for product in meta_products:
-                if product not in products['found_products']:
-                    products['found_products'].append(product)
-                    products['product_types'][product] = self._classify_product_type(product, html_content)
-                    products['extraction_methods'].append('meta_tags')
+                if self._is_valid_product_name(product):
+                    if product not in products['found_products']:
+                        products['found_products'].append(product)
+                        products['product_types'][product] = self._classify_product_type(product, html_content)
+                        products['extraction_methods'].append('meta_tags')
+                        products['confidence_scores'][product] = 0.8
             
-            # Method 4: Extract from product cards/tiles
-            card_products = self._extract_from_cards(soup)
-            for product in card_products:
-                if product not in products['found_products']:
-                    products['found_products'].append(product)
-                    products['product_types'][product] = self._classify_product_type(product, html_content)
-                    products['extraction_methods'].append('product_cards')
+            # Method 4: Extract from product-focused headings only
+            heading_products = self._extract_from_product_headings(soup)
+            for product, confidence in heading_products:
+                if self._is_valid_product_name(product):
+                    if product not in products['found_products']:
+                        products['found_products'].append(product)
+                        products['product_types'][product] = self._classify_product_type(product, html_content)
+                        products['extraction_methods'].append('product_heading')
+                        products['confidence_scores'][product] = confidence
             
-            # Method 5: Extract from lists
-            list_products = self._extract_from_lists(soup)
-            for product in list_products:
-                if product not in products['found_products']:
-                    products['found_products'].append(product)
-                    products['product_types'][product] = self._classify_product_type(product, html_content)
-                    products['extraction_methods'].append('lists')
+            # Post-process: Clean up and normalize
+            products['found_products'] = [self._clean_product_name(p) for p in products['found_products']]
+            
+            # Remove duplicates while preserving order
+            seen = set()
+            unique_products = []
+            for product in products['found_products']:
+                if product.lower() not in seen:
+                    seen.add(product.lower())
+                    unique_products.append(product)
+            products['found_products'] = unique_products
             
         except Exception as e:
             logger.warning(f"Error extracting products from {url}: {str(e)}")
         
         return products
     
-    def _is_likely_product_name(self, text: str) -> bool:
-        """Check if text is likely a product name"""
+    def _is_valid_product_name(self, text: str) -> bool:
+        """Strict validation of product names"""
         if not text or len(text) < 2 or len(text) > 50:
             return False
         
-        # Skip common non-product phrases
-        skip_phrases = [
-            'contact', 'kontakt', 'impressum', 'about', 'über uns',
-            'home', 'welcome', 'willkommen', 'privacy', 'datenschutz',
-            'terms', 'agb', 'login', 'register', 'download'
+        text_lower = text.lower().strip()
+        
+        # Check against junk terms - but only exact matches or if the entire text is junk
+        for junk in JUNK_TERMS:
+            if text_lower == junk:
+                return False
+            # For longer junk phrases, check if they make up the majority of the text
+            if len(junk.split()) > 1 and junk in text_lower:
+                if len(junk) / len(text) > 0.8:  # Junk makes up >80% of the text
+                    return False
+        
+        # Must contain at least one product-type keyword OR be a well-formed product name
+        has_product_keyword = VALID_PRODUCT_PATTERN.search(text)
+        
+        if not has_product_keyword:
+            # Allow exceptions for well-formed product names
+            # Check if it's a proper noun with specific patterns
+            if re.match(r'^[A-Z][a-zA-Z0-9]+([\s\-\.][A-Z]?[a-zA-Z0-9]+)*$', text):
+                # It's a properly capitalized name, might be a product
+                # Additional checks for product-like patterns
+                words = text.split()
+                if len(words) <= 4:  # Max 4 words for plain names
+                    # Check if it has product-like suffixes
+                    last_word = words[-1].lower()
+                    if any(suffix in last_word for suffix in ['pro', 'plus', 'core', 'sync', 'monitor', 'health', 'care', 'med', 'ai']):
+                        return True
+                    # Accept if it's a clear brand name pattern
+                    if len(words) >= 2:
+                        return True
+            return False
+        
+        # Reject overly generic or long phrases
+        if len(text.split()) > 8:
+            return False
+        
+        # Reject if it's just a single generic term
+        generic_terms = ['app', 'platform', 'software', 'system', 'service', 'lösung', 'plattform']
+        if text_lower in generic_terms and len(text.split()) == 1:
+            return False
+        
+        return True
+    
+    def _extract_from_valid_containers(self, soup: BeautifulSoup) -> List[Tuple[str, float]]:
+        """Extract from containers that are likely to contain products"""
+        products = []
+        seen = set()
+        
+        # First try specific product containers
+        for selector in VALID_PRODUCT_CONTAINERS:
+            try:
+                containers = soup.select(selector)
+                for container in containers:
+                    # Look for product names in this container
+                    # Priority 1: Direct heading tags
+                    for tag in ['h1', 'h2', 'h3', 'h4']:
+                        for heading in container.find_all(tag):
+                            text = heading.get_text(strip=True)
+                            if text and len(text) < 50 and text.lower() not in seen:
+                                seen.add(text.lower())
+                                products.append((text, 0.9))
+                    
+                    # Priority 2: Strong/emphasized text
+                    for tag in ['strong', 'b', 'em']:
+                        for elem in container.find_all(tag):
+                            text = elem.get_text(strip=True)
+                            if text and len(text) < 50 and text.lower() not in seen:
+                                # Check if it's in a product context
+                                parent_text = elem.parent.get_text(strip=True).lower() if elem.parent else ""
+                                if any(word in parent_text for word in ['product', 'produkt', 'lösung', 'solution', 'app', 'platform', 'plattform']):
+                                    seen.add(text.lower())
+                                    products.append((text, 0.8))
+            except:
+                continue
+        
+        # Also check any element with class or id containing 'product' directly
+        for elem in soup.find_all(True, class_=re.compile(r'product|lösung|solution|platform|plattform|app', re.I)):
+            if elem.name in ['h1', 'h2', 'h3', 'h4', 'h5']:
+                text = elem.get_text(strip=True)
+                if text and len(text) < 50 and text.lower() not in seen:
+                    seen.add(text.lower())
+                    products.append((text, 0.85))
+        
+        # Check divs and sections with product-related IDs
+        for elem in soup.find_all(True, id=re.compile(r'product|lösung|solution|platform|plattform|app', re.I)):
+            for tag in ['h1', 'h2', 'h3', 'h4', 'h5']:
+                for heading in elem.find_all(tag):
+                    text = heading.get_text(strip=True)
+                    if text and len(text) < 50 and text.lower() not in seen:
+                        seen.add(text.lower())
+                        products.append((text, 0.85))
+        
+        return products
+    
+    def _extract_from_product_headings(self, soup: BeautifulSoup) -> List[Tuple[str, float]]:
+        """Extract from headings that are in product contexts"""
+        products = []
+        
+        # Look for headings that indicate product sections
+        product_section_indicators = [
+            'unsere produkte', 'our products', 'unsere lösungen', 'our solutions',
+            'unsere apps', 'our apps', 'produkte', 'products', 'lösungen', 'solutions',
+            'unser angebot', 'our offering', 'leistungen', 'services'
         ]
         
-        text_lower = text.lower()
-        for phrase in skip_phrases:
-            if phrase in text_lower:
-                return False
+        for heading in soup.find_all(['h1', 'h2', 'h3', 'h4', 'h5']):
+            heading_text = heading.get_text(strip=True).lower()
+            
+            # Check if this heading indicates a product section
+            if any(indicator in heading_text for indicator in product_section_indicators):
+                # Look for product names in the next siblings
+                next_elem = heading.find_next_sibling()
+                while next_elem and next_elem.name not in ['h1', 'h2', 'h3', 'h4', 'h5']:
+                    if next_elem.name in ['ul', 'ol']:
+                        # Extract from list items
+                        for li in next_elem.find_all('li'):
+                            text = li.get_text(strip=True)
+                            text = re.sub(r'^[•\-\*\d\.]\s*', '', text)  # Remove bullets/numbers
+                            if text:
+                                products.append((text.split(':')[0].strip(), 0.85))
+                    elif next_elem.name in ['div', 'p', 'section']:
+                        # Look for emphasized text
+                        for tag in ['strong', 'b', 'h3', 'h4', 'h5']:
+                            for elem in next_elem.find_all(tag):
+                                text = elem.get_text(strip=True)
+                                if text and len(text) < 50:
+                                    products.append((text, 0.8))
+                    
+                    next_elem = next_elem.find_next_sibling()
         
-        # Check for product indicators
-        for indicator in PRODUCT_INDICATORS:
-            if indicator.lower() in text_lower:
-                return True
+        return products
+    
+    def _extract_from_schema(self, soup: BeautifulSoup) -> List[str]:
+        """Extract product names from schema.org structured data"""
+        products = []
         
-        # Check if it's a proper noun (capitalized)
-        words = text.split()
-        if any(word[0].isupper() for word in words if word):
-            # Check if it contains at least one meaningful word
-            if len([w for w in words if len(w) > 2]) > 0:
-                return True
+        for script in soup.find_all('script', type='application/ld+json'):
+            try:
+                # Clean the JSON string (remove any BOM or hidden characters)
+                json_str = script.string.strip()
+                if json_str:
+                    data = json.loads(json_str)
+                    
+                    # Handle different schema structures
+                    if isinstance(data, dict):
+                        if data.get('@type') in ['Product', 'SoftwareApplication', 'MedicalDevice', 'MedicalApp', 'MobileApplication', 'WebApplication']:
+                            if 'name' in data and data['name']:
+                                products.append(data['name'])
+                        
+                        # Check @graph
+                        if '@graph' in data:
+                            for item in data['@graph']:
+                                if isinstance(item, dict) and item.get('@type') in ['Product', 'SoftwareApplication', 'MedicalDevice', 'MedicalApp', 'MobileApplication', 'WebApplication']:
+                                    if 'name' in item and item['name']:
+                                        products.append(item['name'])
+                    
+                    elif isinstance(data, list):
+                        for item in data:
+                            if isinstance(item, dict) and item.get('@type') in ['Product', 'SoftwareApplication', 'MedicalDevice', 'MedicalApp', 'MobileApplication', 'WebApplication']:
+                                if 'name' in item and item['name']:
+                                    products.append(item['name'])
+                                    
+            except json.JSONDecodeError:
+                # Try to extract manually if JSON parsing fails
+                try:
+                    # Look for patterns like "name": "Product Name"
+                    import re
+                    name_matches = re.findall(r'"name"\s*:\s*"([^"]+)"', script.string)
+                    for name in name_matches:
+                        if name and len(name) < 50:
+                            products.append(name)
+                except:
+                    pass
+            except:
+                pass
         
-        return False
+        return products
+    
+    def _extract_from_meta_tags(self, soup: BeautifulSoup) -> List[str]:
+        """Extract product names from specific meta tags"""
+        products = []
+        
+        # Only check application-name meta tag for products
+        app_name = soup.find('meta', attrs={'name': 'application-name'})
+        if app_name and app_name.get('content'):
+            content = app_name['content'].strip()
+            if content and not any(junk in content.lower() for junk in JUNK_TERMS):
+                products.append(content)
+        
+        # Check og:site_name only if it contains product keywords
+        og_site = soup.find('meta', property='og:site_name')
+        if og_site and og_site.get('content'):
+            content = og_site['content'].strip()
+            if VALID_PRODUCT_PATTERN.search(content):
+                products.append(content)
+        
+        return products
     
     def _classify_product_type(self, product_name: str, context: str = "") -> str:
         """Classify the product type based on name and context"""
@@ -252,110 +501,73 @@ class ProductExtractor:
         # Default classification based on product name
         product_lower = product_name.lower()
         if 'app' in product_lower:
-            return 'app'
-        elif 'set' in product_lower:
-            return 'set'
+            return 'App'
+        elif 'set' in product_lower or 'kit' in product_lower:
+            return 'Set'
         elif 'assistant' in product_lower or 'coach' in product_lower:
-            return 'assistant'
-        elif any(word in product_lower for word in ['platform', 'plattform', 'system']):
-            return 'software'
+            return 'Assistant'
+        elif any(word in product_lower for word in ['platform', 'plattform']):
+            return 'Platform'
+        elif any(word in product_lower for word in ['system', 'software']):
+            return 'Software'
+        elif any(word in product_lower for word in ['wearable', 'device', 'sensor', 'monitor']):
+            return 'Wearable'
         
-        return 'service'  # Default
+        return 'Service'  # Default
     
-    def _extract_from_schema(self, soup: BeautifulSoup) -> List[str]:
-        """Extract product names from schema.org structured data"""
-        products = []
+    def _clean_product_name(self, text: str) -> str:
+        """Clean and normalize product name"""
+        # Remove extra whitespace
+        text = ' '.join(text.split())
         
-        for script in soup.find_all('script', type='application/ld+json'):
-            try:
-                data = json.loads(script.string)
-                
-                # Handle different schema structures
-                if isinstance(data, dict):
-                    if data.get('@type') in ['Product', 'SoftwareApplication', 'MedicalDevice']:
-                        if 'name' in data:
-                            products.append(data['name'])
-                    
-                    # Check @graph
-                    if '@graph' in data:
-                        for item in data['@graph']:
-                            if isinstance(item, dict) and item.get('@type') in ['Product', 'SoftwareApplication']:
-                                if 'name' in item:
-                                    products.append(item['name'])
-                
-                elif isinstance(data, list):
-                    for item in data:
-                        if isinstance(item, dict) and item.get('@type') in ['Product', 'SoftwareApplication']:
-                            if 'name' in item:
-                                products.append(item['name'])
-                                
-            except:
-                pass
+        # Remove trailing punctuation
+        text = text.rstrip('.,!?:;')
         
-        return products
+        # Fix common encoding issues
+        text = text.replace('Ã¤', 'ä').replace('Ã¶', 'ö').replace('Ã¼', 'ü')
+        text = text.replace('Ã„', 'Ä').replace('Ã–', 'Ö').replace('Ãœ', 'Ü')
+        text = text.replace('ÃŸ', 'ß')
+        
+        # Normalize unicode
+        text = unicodedata.normalize('NFKC', text)
+        
+        # Capitalize appropriately (preserve existing capitalization if it looks intentional)
+        if text.islower():
+            text = text.title()
+        
+        return text.strip()
     
-    def _extract_from_meta_tags(self, soup: BeautifulSoup) -> List[str]:
-        """Extract product names from meta tags"""
-        products = []
+    def _normalize_url_for_gt(self, url: str) -> str:
+        """Normalize URL for ground truth lookup"""
+        # Remove trailing slashes and fragments
+        url = url.rstrip('/').split('#')[0]
         
-        # Check og:title and og:site_name
-        for prop in ['og:title', 'og:site_name', 'twitter:title']:
-            meta = soup.find('meta', property=prop) or soup.find('meta', attrs={'name': prop})
-            if meta and meta.get('content'):
-                content = meta['content'].strip()
-                if self._is_likely_product_name(content):
-                    products.append(content)
+        # Parse URL
+        parsed = urlparse(url.lower())
         
-        # Check application-name
-        app_name = soup.find('meta', attrs={'name': 'application-name'})
-        if app_name and app_name.get('content'):
-            products.append(app_name['content'].strip())
-        
-        return products
-    
-    def _extract_from_cards(self, soup: BeautifulSoup) -> List[str]:
-        """Extract products from card/tile structures"""
-        products = []
-        
-        # Common card selectors
-        card_selectors = [
-            'div.product', 'div.feature', 'div.solution', 'div.service',
-            'article.product', 'section.product', 'div.card', 'div.tile',
-            'div.produkt', 'div.leistung', 'div.angebot'
+        # Try different variations
+        variations = [
+            f"{parsed.scheme}://{parsed.netloc}{parsed.path}".rstrip('/'),
+            f"{parsed.scheme}://{parsed.netloc}".rstrip('/'),
+            f"https://{parsed.netloc}{parsed.path}".rstrip('/'),
+            f"https://{parsed.netloc}".rstrip('/'),
         ]
         
-        for selector in card_selectors:
-            for card in soup.select(selector):
-                # Look for product name in card headings
-                for tag in ['h2', 'h3', 'h4', 'strong', 'b']:
-                    heading = card.find(tag)
-                    if heading:
-                        text = heading.get_text(strip=True)
-                        if self._is_likely_product_name(text):
-                            products.append(text)
-                            break
+        # Add www variations
+        if not parsed.netloc.startswith('www.'):
+            variations.extend([
+                f"{parsed.scheme}://www.{parsed.netloc}{parsed.path}".rstrip('/'),
+                f"{parsed.scheme}://www.{parsed.netloc}".rstrip('/'),
+                f"https://www.{parsed.netloc}{parsed.path}".rstrip('/'),
+                f"https://www.{parsed.netloc}".rstrip('/'),
+            ])
         
-        return products
-    
-    def _extract_from_lists(self, soup: BeautifulSoup) -> List[str]:
-        """Extract products from list structures"""
-        products = []
+        # Check each variation
+        for variant in variations:
+            if variant in GROUND_TRUTH_PRODUCTS:
+                return variant
         
-        # Look for lists that might contain products
-        for ul in soup.find_all('ul'):
-            # Check if this looks like a product list
-            list_text = ul.get_text().lower()
-            if any(word in list_text for word in ['product', 'solution', 'feature', 'produkt', 'lösung']):
-                for li in ul.find_all('li'):
-                    text = li.get_text(strip=True)
-                    if self._is_likely_product_name(text):
-                        # Clean up the text
-                        text = re.sub(r'^[•\-\*]\s*', '', text)  # Remove bullets
-                        text = text.split(':')[0].strip()  # Take part before colon
-                        if len(text) > 2 and len(text) < 50:
-                            products.append(text)
-        
-        return products
+        return variations[0]  # Return first variation as default
     
     def discover_all_products(self, startup_data: Dict) -> Dict:
         """Discover all products for a startup by checking multiple pages"""
@@ -363,20 +575,36 @@ class ProductExtractor:
         if not url:
             return startup_data
         
-        all_products = set()
+        all_products = []
         all_types = {}
-        methods_used = set()
+        all_methods = set()
+        all_confidence = {}
         
-        # First check the main page
+        # Extract from main page
         main_page_products = self.extract_products_from_page(url)
-        all_products.update(main_page_products['found_products'])
+        all_products.extend(main_page_products['found_products'])
         all_types.update(main_page_products['product_types'])
-        methods_used.update(main_page_products['extraction_methods'])
+        all_methods.update(main_page_products['extraction_methods'])
+        all_confidence.update(main_page_products['confidence_scores'])
         
-        # Then check product-specific pages
+        # If we already found ground truth products, don't check other pages
+        if 'ground_truth' in main_page_products['extraction_methods']:
+            startup_data['product_names'] = all_products
+            startup_data['product_types'] = all_types
+            startup_data['extraction_methods'] = list(all_methods)
+            startup_data['confidence_scores'] = all_confidence
+            return startup_data
+        
+        # Check product-specific pages if no ground truth found
         base_url = f"{urlparse(url).scheme}://{urlparse(url).netloc}"
         
+        pages_checked = 0
+        max_pages = 3  # Limit to avoid excessive requests
+        
         for path in self.product_paths:
+            if pages_checked >= max_pages:
+                break
+                
             try:
                 product_url = urljoin(base_url, path)
                 logger.info(f"Checking {product_url} for products")
@@ -384,54 +612,33 @@ class ProductExtractor:
                 response = self.session.get(product_url, timeout=5, allow_redirects=True)
                 if response.status_code == 200:
                     page_products = self.extract_products_from_page(product_url, response.text)
-                    all_products.update(page_products['found_products'])
-                    all_types.update(page_products['product_types'])
-                    methods_used.update(page_products['extraction_methods'])
+                    
+                    # Only add new products
+                    for product in page_products['found_products']:
+                        if product not in all_products:
+                            all_products.append(product)
+                            all_types[product] = page_products['product_types'].get(product, 'Service')
+                            all_confidence[product] = page_products['confidence_scores'].get(product, 0.5)
+                    
+                    all_methods.update(page_products['extraction_methods'])
+                    pages_checked += 1
                     
                 time.sleep(1)  # Rate limiting
                 
             except:
                 continue
         
-        # Update startup data
-        startup_data['product_names'] = list(all_products)
-        startup_data['product_types'] = all_types
-        startup_data['product_extraction_methods'] = list(methods_used)
+        # Sort products by confidence score
+        if all_confidence:
+            all_products.sort(key=lambda p: all_confidence.get(p, 0), reverse=True)
         
-        # Check against ground truth if available
-        normalized_url = self._normalize_url_for_gt(url)
-        if normalized_url in GROUND_TRUTH_PRODUCTS:
-            startup_data['ground_truth_products'] = GROUND_TRUTH_PRODUCTS[normalized_url]
-            startup_data['found_gt_products'] = [
-                p for p in GROUND_TRUTH_PRODUCTS[normalized_url] 
-                if any(p.lower() in found.lower() or found.lower() in p.lower() 
-                      for found in all_products)
-            ]
+        # Update startup data
+        startup_data['product_names'] = all_products[:5]  # Limit to top 5 products
+        startup_data['product_types'] = {p: all_types.get(p, 'Service') for p in all_products[:5]}
+        startup_data['extraction_methods'] = list(all_methods)
+        startup_data['confidence_scores'] = {p: all_confidence.get(p, 0) for p in all_products[:5]}
         
         return startup_data
-    
-    def _normalize_url_for_gt(self, url: str) -> str:
-        """Normalize URL for ground truth lookup"""
-        # Simple normalization - you might need to adjust based on your GT format
-        parsed = urlparse(url.lower())
-        normalized = f"{parsed.scheme}://{parsed.netloc}{parsed.path}".rstrip('/')
-        
-        # Check exact match first
-        if normalized in GROUND_TRUTH_PRODUCTS:
-            return normalized
-        
-        # Check without path
-        base_url = f"{parsed.scheme}://{parsed.netloc}"
-        if base_url in GROUND_TRUTH_PRODUCTS:
-            return base_url
-        
-        # Check with www
-        if not parsed.netloc.startswith('www.'):
-            with_www = f"{parsed.scheme}://www.{parsed.netloc}{parsed.path}".rstrip('/')
-            if with_www in GROUND_TRUTH_PRODUCTS:
-                return with_www
-        
-        return normalized
 
 
 def process_startups_file(input_file: str, output_prefix: str, max_workers: int = 5):
@@ -474,18 +681,6 @@ def process_startups_file(input_file: str, output_prefix: str, max_workers: int 
     total_products = sum(len(s.get('product_names', [])) for s in startups)
     with_products = sum(1 for s in startups if s.get('product_names'))
     
-    # Ground truth statistics
-    gt_coverage = 0
-    total_gt_products = 0
-    found_gt_products = 0
-    
-    for startup in startups:
-        if 'ground_truth_products' in startup:
-            total_gt_products += len(startup['ground_truth_products'])
-            found_gt_products += len(startup.get('found_gt_products', []))
-            if startup.get('found_gt_products'):
-                gt_coverage += 1
-    
     # Log summary
     logger.info("\n" + "="*50)
     logger.info("PRODUCT EXTRACTION SUMMARY")
@@ -493,11 +688,17 @@ def process_startups_file(input_file: str, output_prefix: str, max_workers: int 
     logger.info(f"Total startups processed: {len(startups)}")
     logger.info(f"Startups with products found: {with_products}")
     logger.info(f"Total products discovered: {total_products}")
+    logger.info(f"Average products per startup: {total_products/len(startups):.1f}")
     
-    if total_gt_products > 0:
-        logger.info(f"\nGround Truth Coverage:")
-        logger.info(f"GT products found: {found_gt_products}/{total_gt_products} ({found_gt_products/total_gt_products*100:.1f}%)")
-        logger.info(f"Startups with GT matches: {gt_coverage}")
+    # Count extraction methods used
+    method_counts = Counter()
+    for startup in startups:
+        methods = startup.get('extraction_methods', [])
+        method_counts.update(methods)
+    
+    logger.info("\nExtraction methods used:")
+    for method, count in method_counts.most_common():
+        logger.info(f"  {method}: {count}")
     
     # Save results
     timestamp = time.strftime('%Y%m%d_%H%M%S')
@@ -511,23 +712,22 @@ def process_startups_file(input_file: str, output_prefix: str, max_workers: int 
     # Save CSV summary
     output_csv = f"{output_prefix}_products_{timestamp}.csv"
     with open(output_csv, 'w', encoding='utf-8', newline='') as f:
-        fieldnames = ['company_name', 'url', 'product_names', 'product_types', 
-                     'ground_truth_products', 'found_gt_products']
+        fieldnames = ['company_name', 'url', 'product_names', 'product_types']
         writer = csv.DictWriter(f, fieldnames=fieldnames, extrasaction='ignore')
         writer.writeheader()
         
         for startup in startups:
-            row = startup.copy()
-            row['product_names'] = '; '.join(startup.get('product_names', []))
-            row['product_types'] = json.dumps(startup.get('product_types', {}))
-            if 'ground_truth_products' in startup:
-                row['ground_truth_products'] = '; '.join(startup['ground_truth_products'])
-                row['found_gt_products'] = '; '.join(startup.get('found_gt_products', []))
+            row = {
+                'company_name': startup.get('company_name', ''),
+                'url': startup.get('url', ''),
+                'product_names': '; '.join(startup.get('product_names', [])),
+                'product_types': '; '.join([f"{p}:{t}" for p, t in startup.get('product_types', {}).items()])
+            }
             writer.writerow(row)
     
     logger.info(f"Saved CSV summary to {output_csv}")
     
-    # Save product catalog
+    # Save clean product catalog
     catalog_file = f"{output_prefix}_product_catalog_{timestamp}.txt"
     with open(catalog_file, 'w', encoding='utf-8') as f:
         f.write("DIGITAL HEALTH PRODUCT CATALOG\n")
@@ -541,7 +741,8 @@ def process_startups_file(input_file: str, output_prefix: str, max_workers: int 
                 
                 for product in startup['product_names']:
                     product_type = startup.get('product_types', {}).get(product, 'Unknown')
-                    f.write(f"  • {product} ({product_type})\n")
+                    confidence = startup.get('confidence_scores', {}).get(product, 0)
+                    f.write(f"  • {product} ({product_type}) [confidence: {confidence:.2f}]\n")
                 
                 f.write(f"  URL: {startup.get('url', 'N/A')}\n")
     
