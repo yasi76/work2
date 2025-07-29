@@ -1,0 +1,55 @@
+
+Digital Health Startup Discovery - Summary Report
+Generated: 2025-07-29 13:02:54
+================================================
+
+Total URLs discovered: 93
+
+Data Coverage:
+- URLs with company names: 83 (89.2%)
+- URLs with product names: 53 (57.0%)
+- URLs with locations: 18 (19.4%)
+
+Ground Truth Coverage:
+- GT companies included: 53
+- GT products included: 53
+- URLs found in GT: 53 (57.0%)
+
+Data Sources:
+- Hardcoded URLs: 53
+- Ground Truth URLs: 53
+- Additional discovered: -13
+
+Location Distribution:
+  - Berlin: 3
+  - München: 2
+  - Bonn: 2
+  - Essen: 1
+  - Information Securityiso: 1
+  - Klosterlechfeld
+Deutschland: 1
+  - Moers
+ 
+
+Seitenkarriere
+Über Uns
+Urinanalyse
+Wozu Urinanalyse
+Produkt
+Presse
+Kontakt
+Blog
+
+
+
+Gefördert Und Unterstützt Durch: 1
+  - Rostock: 1
+  - Heidelberg: 1
+  - Regensburg: 1
+  - Stuttgart: 1
+  - Friedberg: 1
+  - Jena: 1
+  - Hamburg
+Rufen Sie Uns An: 1
+
+Unknown locations: 75
