@@ -1,0 +1,107 @@
+[
+  {
+    "company_name": "Ada Health",
+    "url": "https://www.ada.com",
+    "category": "Digital Health",
+    "product": "AI Health Assistant",
+    "founded": "2011"
+  },
+  {
+    "company_name": "Kaia Health",
+    "url": "https://www.kaia-health.com",
+    "category": "Digital Therapeutics",
+    "product": "Motion Coach",
+    "founded": "2016"
+  },
+  {
+    "company_name": "TeleClinic",
+    "url": "https://www.teleclinic.com",
+    "category": "Telemedicine",
+    "product": "Digital Doctor Visits",
+    "founded": "2015"
+  },
+  {
+    "company_name": "Doctolib",
+    "url": "https://www.doctolib.de",
+    "category": "Appointment Booking",
+    "product": "Medical Appointment Platform",
+    "founded": "2013"
+  },
+  {
+    "company_name": "Jameda",
+    "url": "https://www.jameda.de",
+    "category": "Doctor Search",
+    "product": "Doctor Rating Platform",
+    "founded": "2007"
+  },
+  {
+    "company_name": "Amboss",
+    "url": "https://www.amboss.com",
+    "category": "Medical Education",
+    "product": "Medical Knowledge Platform",
+    "founded": "2012"
+  },
+  {
+    "company_name": "Clue",
+    "url": "https://www.clue.com",
+    "category": "Women's Health",
+    "product": "Period Tracking App",
+    "founded": "2012"
+  },
+  {
+    "company_name": "Mediteo",
+    "url": "https://www.mediteo.com",
+    "category": "Medication Management",
+    "product": "Medication Reminder App",
+    "founded": "2015"
+  },
+  {
+    "company_name": "Vivy",
+    "url": "https://www.vivy.com",
+    "category": "Health Records",
+    "product": "Digital Health Assistant",
+    "founded": "2017"
+  },
+  {
+    "company_name": "Zanadio",
+    "url": "https://www.zanadio.de",
+    "category": "Weight Management",
+    "product": "Digital Weight Loss App",
+    "founded": "2019"
+  },
+  {
+    "company_name": "Medgate",
+    "url": "https://www.medgate.ch",
+    "category": "Telemedicine",
+    "product": "Digital Healthcare Platform",
+    "founded": "1999"
+  },
+  {
+    "company_name": "Babylon Health",
+    "url": "https://www.babylonhealth.com",
+    "category": "Digital Health",
+    "product": "AI Health Service",
+    "founded": "2013"
+  },
+  {
+    "company_name": "Heartbeat Labs",
+    "url": "https://www.heartbeat-labs.com",
+    "category": "Digital Health Incubator",
+    "product": "Health Startup Builder",
+    "founded": "2016"
+  },
+  {
+    "company_name": "Ottonova",
+    "url": "https://www.ottonova.de",
+    "category": "Digital Insurance",
+    "product": "Digital Health Insurance",
+    "founded": "2015"
+  },
+  {
+    "company_name": "Mimi Hearing",
+    "url": "https://www.mimi.io",
+    "category": "Hearing Health",
+    "product": "Hearing Test App",
+    "founded": "2014"
+  }
+]

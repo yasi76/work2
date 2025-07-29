@@ -1,6 +1,6 @@
 # Ort (City) Finding Scripts
 
-This repository contains two scripts for finding and extracting city (Ort) information from German startup URLs.
+This repository contains three scripts for finding and extracting city (Ort) information from German startup URLs.
 
 ## Scripts Overview
 
@@ -35,6 +35,21 @@ An optimized version with parallel processing and better error handling.
 python3 finding_ort_parallel.py
 ```
 
+### 3. `finding_ort_auto.py` - Auto-detecting Version
+An intelligent version that automatically finds and uses the latest startups_products JSON file.
+
+**Features:**
+- All features from the basic version
+- Automatically detects latest `startups_products_*.json` file
+- Prioritizes the specified file: `startups_products_20250729_132707.json`
+- Generates timestamped output files
+- Maintains backward compatibility with standard output filenames
+
+**Usage:**
+```bash
+python3 finding_ort_auto.py
+```
+
 ## Input JSON Format
 
 The scripts can handle various JSON structures:
@@ -62,6 +77,17 @@ The scripts can handle various JSON structures:
 }
 ```
 
+## Input Files Priority
+
+The scripts look for JSON files in the following order:
+1. `startups_products_20250729_132707.json` (latest comprehensive file)
+2. Latest `startups_products_*.json` file (auto-detected in `finding_ort_auto.py`)
+3. `ultimate_startup_discovery_20250722_102338.json`
+4. `enhanced_fixed_products.json`
+5. `enhanced_products.json`
+6. `products.json`
+7. Other standard filenames
+
 ## Output Files
 
 ### 1. `finding_ort.json`
@@ -88,6 +114,12 @@ Results in CSV format with columns:
 
 ### 3. `failed_ort_urls.json`
 URLs that failed to return city information for later retry.
+
+### 4. Timestamped Files (Auto version)
+The auto-detecting version also creates timestamped files:
+- `finding_ort_YYYYMMDD_HHMMSS.json`
+- `finding_ort_YYYYMMDD_HHMMSS.csv`
+- `failed_ort_urls_YYYYMMDD_HHMMSS.json`
 
 ## Customization
 

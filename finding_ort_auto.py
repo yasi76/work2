@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """
-Enhanced parallel version of the Ort-finding script.
-Features parallel processing, better error handling, and retry logic.
+Auto-detecting Ort-finding script that finds and uses the latest startups_products JSON file.
 """
 
 import json
@@ -14,36 +13,7 @@ from urllib.parse import urlparse, urljoin
 from collections import defaultdict
 import os
 from datetime import datetime
-from concurrent.futures import ThreadPoolExecutor, as_completed
-import threading
-from typing import Dict, List, Tuple, Optional
-import logging
-
-# Set up logging
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s'
-)
-logger = logging.getLogger(__name__)
-
-# Thread-safe rate limiter
-class RateLimiter:
-    def __init__(self, max_per_second=2):
-        self.max_per_second = max_per_second
-        self.min_interval = 1.0 / max_per_second
-        self.last_call = 0
-        self.lock = threading.Lock()
-    
-    def wait_if_needed(self):
-        with self.lock:
-            current_time = time.time()
-            time_since_last = current_time - self.last_call
-            if time_since_last < self.min_interval:
-                time.sleep(self.min_interval - time_since_last)
-            self.last_call = time.time()
-
-# Global rate limiter
-rate_limiter = RateLimiter(max_per_second=2)
+import glob
 
 # Hardcoded URL to city mappings
 url_to_ort = {
@@ -90,7 +60,31 @@ german_cities = {
     "Jena", "Remscheid", "Erlangen", "Moers", "Siegen", "Hildesheim", "Salzgitter"
 }
 
-def normalize_url(url: str) -> str:
+def find_latest_startups_file():
+    """Find the latest startups_products JSON file"""
+    # Pattern to match startups_products files
+    pattern = "startups_products_*.json"
+    files = glob.glob(pattern)
+    
+    if not files:
+        print("No startups_products_*.json files found")
+        return None
+    
+    # Sort by modification time or by filename (which includes timestamp)
+    files.sort(reverse=True)
+    
+    latest_file = files[0]
+    print(f"Found latest startups file: {latest_file}")
+    
+    # Extract timestamp from filename if possible
+    match = re.search(r'(\d{8}_\d{6})', latest_file)
+    if match:
+        timestamp = match.group(1)
+        print(f"  Timestamp: {timestamp}")
+    
+    return latest_file
+
+def normalize_url(url):
     """Normalize URL for consistent comparison"""
     if not url:
         return ""
@@ -105,7 +99,7 @@ def normalize_url(url: str) -> str:
     
     return url
 
-def extract_city_from_text(text: str, city_set: set) -> Optional[str]:
+def extract_city_from_text(text, city_set):
     """Extract city name from text using the provided city set"""
     if not text:
         return None
@@ -130,10 +124,8 @@ def extract_city_from_text(text: str, city_set: set) -> Optional[str]:
     
     return None
 
-def scrape_page(url: str, timeout: int = 10) -> Optional[str]:
+def scrape_page(url, timeout=10):
     """Scrape a single page and return its text content"""
-    rate_limiter.wait_if_needed()
-    
     try:
         headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
@@ -159,17 +151,11 @@ def scrape_page(url: str, timeout: int = 10) -> Optional[str]:
         
         return text
         
-    except requests.exceptions.Timeout:
-        logger.warning(f"Timeout scraping {url}")
-        return None
-    except requests.exceptions.RequestException as e:
-        logger.warning(f"Request error scraping {url}: {str(e)}")
-        return None
     except Exception as e:
-        logger.error(f"Unexpected error scraping {url}: {str(e)}")
+        print(f"Error scraping {url}: {str(e)}")
         return None
 
-def find_city_for_url(base_url: str, city_set: set) -> Optional[str]:
+def find_city_for_url(base_url, city_set):
     """Try to find city information for a URL by checking various pages"""
     # Pages to check for city information
     pages_to_check = [
@@ -189,73 +175,57 @@ def find_city_for_url(base_url: str, city_set: set) -> Optional[str]:
     
     for page in pages_to_check:
         full_url = urljoin(base_url, page)
-        logger.debug(f"Checking: {full_url}")
+        print(f"  Checking: {full_url}")
         
         text = scrape_page(full_url)
         if text:
             city = extract_city_from_text(text, city_set)
             if city:
-                logger.info(f"Found city {city} at {full_url}")
+                print(f"  Found city: {city}")
                 return city
+        
+        # Rate limiting
+        time.sleep(0.5)
     
     return None
 
-def process_url_batch(url_batch: List[Tuple[str, str]], city_set: set) -> List[Dict]:
-    """Process a batch of URLs and return results"""
-    results = []
-    
-    for url, company_name in url_batch:
-        normalized_url = normalize_url(url)
-        
-        # Check if we have a hardcoded mapping
-        ort = None
-        for hardcoded_url, hardcoded_ort in url_to_ort.items():
-            if normalize_url(hardcoded_url) == normalized_url:
-                ort = hardcoded_ort
-                logger.info(f"Found hardcoded mapping for {company_name}: {ort}")
-                break
-        
-        # If not found in hardcoded mappings, try to scrape
-        if not ort:
-            logger.info(f"Scraping city for {company_name} ({url})")
-            ort = find_city_for_url(url, city_set)
-            
-            if ort:
-                logger.info(f"Successfully scraped city for {company_name}: {ort}")
-            else:
-                logger.warning(f"Could not find city for {company_name}")
-                ort = "Unknown"
-        
-        # Store result
-        result = {
-            "company_name": company_name,
-            "url": url,
-            "normalized_url": normalized_url,
-            "ort": ort,
-            "source": "hardcoded" if ort in url_to_ort.values() else "scraped"
-        }
-        results.append(result)
-    
-    return results
-
-def load_urls_from_json_files() -> Dict[str, str]:
+def load_urls_from_json_files():
     """Load all URLs from available JSON files"""
     all_urls = {}
     
-    # List of JSON files to check
-    json_files = [
-        'startups_products_20250729_132707.json',  # Latest comprehensive file
+    # First, try to find the latest startups_products file
+    latest_file = find_latest_startups_file()
+    
+    # Build list of JSON files to check
+    json_files = []
+    
+    if latest_file:
+        json_files.append(latest_file)
+    
+    # Add other standard files
+    json_files.extend([
+        'startups_products_20250729_132707.json',  # Specific file mentioned
         'ultimate_startup_discovery_20250722_102338.json',
         'enhanced_fixed_products.json',
         'enhanced_products.json',
         'products.json',
         'startups.json',
         'companies.json'
-    ]
+    ])
+    
+    # Remove duplicates while preserving order
+    seen = set()
+    unique_files = []
+    for f in json_files:
+        if f not in seen:
+            seen.add(f)
+            unique_files.append(f)
+    
+    json_files = unique_files
     
     for json_file in json_files:
         if os.path.exists(json_file):
-            logger.info(f"Loading URLs from {json_file}...")
+            print(f"\nLoading URLs from {json_file}...")
             try:
                 with open(json_file, 'r', encoding='utf-8') as f:
                     data = json.load(f)
@@ -288,109 +258,131 @@ def load_urls_from_json_files() -> Dict[str, str]:
                                     # Simple key-value mapping
                                     all_urls[value] = key
                                         
-                logger.info(f"Loaded {len(all_urls)} unique URLs so far")
+                print(f"  Loaded {len(all_urls)} unique URLs so far")
                         
             except Exception as e:
-                logger.error(f"Error loading {json_file}: {str(e)}")
+                print(f"  Error loading {json_file}: {str(e)}")
         else:
-            logger.debug(f"File not found: {json_file}")
+            if json_file != latest_file:  # Don't warn about auto-detected file
+                print(f"  File not found: {json_file}")
     
     return all_urls
 
 def main():
     """Main function to find and save city information for all URLs"""
-    start_time = time.time()
-    
-    logger.info("Starting Ort (city) finding process...")
-    logger.info(f"Timestamp: {datetime.now().strftime('%Y%m%d_%H%M%S')}")
+    print("Starting Ort (city) finding process (Auto-detecting version)...")
+    print(f"Timestamp: {datetime.now().strftime('%Y%m%d_%H%M%S')}")
     
     # Load all URLs from JSON files
-    logger.info("Loading URLs from JSON files...")
+    print("\n1. Loading URLs from JSON files...")
     url_to_company = load_urls_from_json_files()
     
     if not url_to_company:
-        logger.warning("No URLs found in JSON files. Creating sample data...")
+        print("No URLs found in JSON files. Creating sample data...")
         # Add some sample URLs if no files found
         url_to_company = {
             "https://www.ada.com": "Ada Health",
             "https://www.kaia-health.com": "Kaia Health",
-            "https://www.teleclinic.com": "TeleClinic",
-            "https://www.doctolib.de": "Doctolib",
-            "https://www.jameda.de": "Jameda"
+            "https://www.teleclinic.com": "TeleClinic"
         }
     
-    logger.info(f"Total unique URLs to process: {len(url_to_company)}")
+    print(f"\nTotal unique URLs to process: {len(url_to_company)}")
     
-    # Convert to list for batch processing
-    url_list = list(url_to_company.items())
-    
-    # Process URLs in parallel
+    # Results storage
     results = []
-    batch_size = 5
-    max_workers = 10
-    
-    logger.info(f"Processing URLs with {max_workers} parallel workers...")
-    
-    with ThreadPoolExecutor(max_workers=max_workers) as executor:
-        # Submit tasks in batches
-        futures = []
-        for i in range(0, len(url_list), batch_size):
-            batch = url_list[i:i+batch_size]
-            future = executor.submit(process_url_batch, batch, german_cities)
-            futures.append(future)
-        
-        # Collect results with progress tracking
-        completed = 0
-        for future in as_completed(futures):
-            try:
-                batch_results = future.result()
-                results.extend(batch_results)
-                completed += len(batch_results)
-                logger.info(f"Progress: {completed}/{len(url_list)} URLs processed")
-            except Exception as e:
-                logger.error(f"Error processing batch: {str(e)}")
-    
-    # Calculate statistics
     city_distribution = defaultdict(int)
-    for result in results:
-        city_distribution[result['ort']] += 1
+    
+    # Process each URL
+    print("\n2. Processing URLs...")
+    for i, (url, company_name) in enumerate(url_to_company.items(), 1):
+        print(f"\n[{i}/{len(url_to_company)}] Processing {company_name}: {url}")
+        
+        normalized_url = normalize_url(url)
+        
+        # Check if we have a hardcoded mapping
+        ort = None
+        for hardcoded_url, hardcoded_ort in url_to_ort.items():
+            if normalize_url(hardcoded_url) == normalized_url:
+                ort = hardcoded_ort
+                print(f"  Found hardcoded mapping: {ort}")
+                break
+        
+        # If not found in hardcoded mappings, try to scrape
+        if not ort:
+            print(f"  No hardcoded mapping, attempting to scrape...")
+            ort = find_city_for_url(url, german_cities)
+            
+            if ort:
+                print(f"  Successfully scraped city: {ort}")
+            else:
+                print(f"  Could not find city information")
+                ort = "Unknown"
+        
+        # Store result
+        result = {
+            "company_name": company_name,
+            "url": url,
+            "normalized_url": normalized_url,
+            "ort": ort,
+            "source": "hardcoded" if ort in url_to_ort.values() else "scraped"
+        }
+        results.append(result)
+        city_distribution[ort] += 1
+        
+        # Rate limiting between URLs
+        if i < len(url_to_company):
+            time.sleep(1)
     
     # Save results to JSON
-    logger.info("Saving results...")
-    json_output_file = 'finding_ort.json'
+    print("\n3. Saving results...")
+    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+    
+    json_output_file = f'finding_ort_{timestamp}.json'
     with open(json_output_file, 'w', encoding='utf-8') as f:
         json.dump(results, f, ensure_ascii=False, indent=2)
-    logger.info(f"Saved JSON results to {json_output_file}")
+    print(f"  Saved JSON results to {json_output_file}")
+    
+    # Also save to standard filename for compatibility
+    with open('finding_ort.json', 'w', encoding='utf-8') as f:
+        json.dump(results, f, ensure_ascii=False, indent=2)
+    print(f"  Saved JSON results to finding_ort.json")
     
     # Save results to CSV
-    csv_output_file = 'finding_ort.csv'
+    csv_output_file = f'finding_ort_{timestamp}.csv'
     with open(csv_output_file, 'w', newline='', encoding='utf-8') as f:
         writer = csv.DictWriter(f, fieldnames=['company_name', 'url', 'normalized_url', 'ort', 'source'])
         writer.writeheader()
         writer.writerows(results)
-    logger.info(f"Saved CSV results to {csv_output_file}")
+    print(f"  Saved CSV results to {csv_output_file}")
+    
+    # Also save to standard filename
+    with open('finding_ort.csv', 'w', newline='', encoding='utf-8') as f:
+        writer = csv.DictWriter(f, fieldnames=['company_name', 'url', 'normalized_url', 'ort', 'source'])
+        writer.writeheader()
+        writer.writerows(results)
+    print(f"  Saved CSV results to finding_ort.csv")
     
     # Print summary statistics
-    logger.info("Summary Statistics:")
-    logger.info(f"  Total URLs processed: {len(results)}")
-    logger.info(f"  Cities found: {sum(1 for r in results if r['ort'] != 'Unknown')}")
-    logger.info(f"  Unknown locations: {sum(1 for r in results if r['ort'] == 'Unknown')}")
+    print("\n4. Summary Statistics:")
+    print(f"  Total URLs processed: {len(results)}")
+    print(f"  Cities found: {sum(1 for r in results if r['ort'] != 'Unknown')}")
+    print(f"  Unknown locations: {sum(1 for r in results if r['ort'] == 'Unknown')}")
     
-    logger.info("City Distribution:")
-    for city, count in sorted(city_distribution.items(), key=lambda x: x[1], reverse=True)[:10]:
-        logger.info(f"  {city}: {count}")
+    print("\n  City Distribution:")
+    for city, count in sorted(city_distribution.items(), key=lambda x: x[1], reverse=True):
+        print(f"    {city}: {count}")
     
     # Save failed URLs for retry
     failed_urls = [r for r in results if r['ort'] == 'Unknown']
     if failed_urls:
-        failed_file = 'failed_ort_urls.json'
+        failed_file = f'failed_ort_urls_{timestamp}.json'
         with open(failed_file, 'w', encoding='utf-8') as f:
             json.dump(failed_urls, f, ensure_ascii=False, indent=2)
-        logger.info(f"Saved {len(failed_urls)} failed URLs to {failed_file} for later retry")
-    
-    # Execution time
-    elapsed_time = time.time() - start_time
-    logger.info(f"Total execution time: {elapsed_time:.2f} seconds")
+        print(f"\n  Saved {len(failed_urls)} failed URLs to {failed_file} for later retry")
+        
+        # Also save to standard filename
+        with open('failed_ort_urls.json', 'w', encoding='utf-8') as f:
+            json.dump(failed_urls, f, ensure_ascii=False, indent=2)
 
 if __name__ == "__main__":
     main()

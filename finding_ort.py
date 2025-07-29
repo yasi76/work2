@@ -172,6 +172,7 @@ def load_urls_from_json_files():
     
     # List of JSON files to check
     json_files = [
+        'startups_products_20250729_132707.json',  # Latest comprehensive file
         'ultimate_startup_discovery_20250722_102338.json',
         'enhanced_fixed_products.json',
         'enhanced_products.json',
