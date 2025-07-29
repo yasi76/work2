@@ -1,0 +1,34 @@
+{
+  "urls": [
+    {
+      "url": "https://www.betterhelp.com",
+      "company_name": "BetterHelp",
+      "discovery_method": "manual",
+      "category": "mental health"
+    },
+    {
+      "url": "https://www.teladoc.com",
+      "company_name": "Teladoc",
+      "discovery_method": "manual",
+      "category": "telemedicine"
+    },
+    {
+      "url": "https://www.babylonhealth.com",
+      "company_name": "Babylon Health",
+      "discovery_method": "manual",
+      "category": "ai health"
+    },
+    {
+      "url": "https://www.doctolib.de",
+      "company_name": "Doctolib",
+      "discovery_method": "manual",
+      "category": "appointment booking"
+    },
+    {
+      "url": "https://www.ada.com",
+      "company_name": "Ada Health",
+      "discovery_method": "manual",
+      "category": "symptom checker"
+    }
+  ]
+}
