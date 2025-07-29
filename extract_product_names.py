@@ -156,7 +156,41 @@ JUNK_TERMS = [
     # Sections
     "features", "funktionen", "benefits", "vorteile", "pricing", "preise", "faq",
     "support", "hilfe", "help", "documentation", "dokumentation", "resources",
-    "ressourcen"
+    "ressourcen",
+    
+    # UI/UX elements and slogans
+    "how it works", "wie es funktioniert", "get started now", "jetzt anfangen",
+    "start now", "view details", "details anzeigen", "learn more about",
+    "erfahren sie mehr", "discover our", "entdecken sie", "your data", "ihre daten",
+    "our platform", "unsere plattform", "fits right in", "passt perfekt",
+    "proprietary data", "proprietäre daten", "built in", "eingebaut",
+    "differentiator", "unterscheidungsmerkmal", "experience", "erfahrung",
+    "empower", "befähigen", "transform", "transformieren", "revolutionize",
+    "revolutionieren", "innovate", "innovieren"
+]
+
+# Banned patterns for slogan-like phrases
+BANNED_PATTERNS = [
+    # Action-oriented slogans
+    r'^\b(how|why|when|where|discover|empower|experience|learn|explore|transform|revolutionize|innovate|choose|start|get|try|view|see|check)\b',
+    # Possessive phrases
+    r'\b(your way|our way|your data|our data|your solution|our solution|your platform|our platform)\b',
+    # Marketing phrases
+    r'\b(fits right in|built in|get started|start now|learn more|view details|find out|check out|sign up|try now|demo now)\b',
+    # Feature descriptions
+    r'\b(how it works|wie es funktioniert|what we do|was wir tun|why choose|warum wählen)\b',
+    # Generic differentiators
+    r'\b(differentiator|game changer|breakthrough|revolutionary|innovative solution|next generation|cutting edge)\b',
+    # Imperatives and calls to action
+    r'^(see|try|get|start|learn|discover|explore|find|check|view|download|request|book|contact)\s',
+    # "X is Y" patterns
+    r'\b(is the new|is the future|is the answer|is the solution)\b',
+    # Superlatives and marketing language
+    r'\b(the best|the only|the first|the most|the ultimate|the perfect|the ideal)\b',
+    # Process descriptions
+    r'\b(preprocess|process|analyze|optimize|streamline|automate|integrate)\s+(your|the|our)\s+way\b',
+    # Vision statements
+    r"(blind man's view|bird's eye view|new perspective|fresh approach|unique approach)"
 ]
 
 # Valid product container selectors
@@ -285,6 +319,11 @@ class ProductExtractor:
         
         text_lower = text.lower().strip()
         
+        # First check against banned patterns for slogans
+        for pattern in BANNED_PATTERNS:
+            if re.search(pattern, text_lower, re.IGNORECASE):
+                return False
+        
         # Check against junk terms - but only exact matches or if the entire text is junk
         for junk in JUNK_TERMS:
             if text_lower == junk:
@@ -293,6 +332,12 @@ class ProductExtractor:
             if len(junk.split()) > 1 and junk in text_lower:
                 if len(junk) / len(text) > 0.8:  # Junk makes up >80% of the text
                     return False
+        
+        # Reject if text contains too many "marketing" words
+        marketing_words = ['your', 'our', 'new', 'best', 'ultimate', 'perfect', 'revolutionary', 'innovative']
+        marketing_count = sum(1 for word in marketing_words if word in text_lower)
+        if marketing_count >= 2:  # Two or more marketing words = likely a slogan
+            return False
         
         # Must contain at least one product-type keyword OR be a well-formed product name
         has_product_keyword = VALID_PRODUCT_PATTERN.search(text)
@@ -304,24 +349,34 @@ class ProductExtractor:
                 # It's a properly capitalized name, might be a product
                 # Additional checks for product-like patterns
                 words = text.split()
-                if len(words) <= 4:  # Max 4 words for plain names
+                if len(words) <= 3:  # Reduced to max 3 words for plain names
                     # Check if it has product-like suffixes
                     last_word = words[-1].lower()
-                    if any(suffix in last_word for suffix in ['pro', 'plus', 'core', 'sync', 'monitor', 'health', 'care', 'med', 'ai']):
+                    if any(suffix in last_word for suffix in ['pro', 'plus', 'core', 'sync', 'monitor', 'health', 'care', 'med', 'ai', 'hub', 'lab', 'box']):
                         return True
-                    # Accept if it's a clear brand name pattern
-                    if len(words) >= 2:
+                    # Only accept multi-word names if they look like real product names
+                    if len(words) == 2 and not any(w in ['the', 'a', 'an', 'your', 'our', 'my'] for w in [w.lower() for w in words]):
+                        return True
+                    # Single word proper nouns need to be very specific
+                    if len(words) == 1 and len(text) >= 4:
                         return True
             return False
         
         # Reject overly generic or long phrases
-        if len(text.split()) > 8:
+        if len(text.split()) > 6:  # Reduced from 8 to 6
             return False
         
         # Reject if it's just a single generic term
-        generic_terms = ['app', 'platform', 'software', 'system', 'service', 'lösung', 'plattform']
+        generic_terms = ['app', 'platform', 'software', 'system', 'service', 'lösung', 'plattform', 'solution']
         if text_lower in generic_terms and len(text.split()) == 1:
             return False
+        
+        # Final check: does it sound like a product or a sentence/slogan?
+        # Products typically don't have verbs (except in compound forms like "TrackIt")
+        verb_patterns = [r'\b(is|are|was|were|will|can|could|should|must|may|might|do|does|did|make|makes|made)\b']
+        for pattern in verb_patterns:
+            if re.search(pattern, text_lower):
+                return False
         
         return True
     
@@ -628,15 +683,36 @@ class ProductExtractor:
             except:
                 continue
         
+        # Filter by minimum confidence threshold (except ground truth)
+        min_confidence = 0.85
+        filtered_products = []
+        
+        if 'ground_truth' in all_methods:
+            # If we have ground truth, keep all GT products regardless of confidence
+            filtered_products = all_products
+        else:
+            # Apply confidence threshold
+            for product in all_products:
+                if all_confidence.get(product, 0) >= min_confidence:
+                    filtered_products.append(product)
+        
         # Sort products by confidence score
-        if all_confidence:
-            all_products.sort(key=lambda p: all_confidence.get(p, 0), reverse=True)
+        if all_confidence and filtered_products:
+            filtered_products.sort(key=lambda p: all_confidence.get(p, 0), reverse=True)
+        
+        # Limit to top 2 products
+        max_products = 2
+        top_products = filtered_products[:max_products]
+        
+        # Log warning if too many products were initially found
+        if len(all_products) > 5:
+            logger.warning(f"{url} initially found {len(all_products)} products, filtered to {len(top_products)}")
         
         # Update startup data
-        startup_data['product_names'] = all_products[:5]  # Limit to top 5 products
-        startup_data['product_types'] = {p: all_types.get(p, 'Service') for p in all_products[:5]}
+        startup_data['product_names'] = top_products
+        startup_data['product_types'] = {p: all_types.get(p, 'Service') for p in top_products}
         startup_data['extraction_methods'] = list(all_methods)
-        startup_data['confidence_scores'] = {p: all_confidence.get(p, 0) for p in all_products[:5]}
+        startup_data['confidence_scores'] = {p: all_confidence.get(p, 0) for p in top_products}
         
         return startup_data
 
