@@ -25,61 +25,91 @@ class GoogleSearchStartupFinder:
         self.found_urls = set()
         
     def search_google(self, query: str, num_results: int = 20) -> List[str]:
-        """Search Google and extract URLs from results"""
+        """Search Google and extract startup-like result URLs using current HTML structure"""
         print(f"🔍 Searching Google for: '{query}'")
-        
+
         try:
-            # URL encode the query
+            from urllib.parse import unquote  # Local import to avoid changing top-level imports
+
+            # Build search URL
             encoded_query = quote_plus(query)
-            search_url = f"https://www.google.com/search?q={encoded_query}&num={num_results}"
-            
+            search_url = f"https://www.google.com/search?q={encoded_query}&num={num_results}&hl=en"
+
+            # Respect delay before request
             time.sleep(self.delay)
-            response = self.session.get(search_url, timeout=15)
+
+            # Perform request
+            response = self.session.get(search_url, timeout=20, allow_redirects=True)
+
+            # Handle Google consent page by setting consent cookie and retrying once
+            if 'consent.google.com' in response.url:
+                self.session.cookies.set("CONSENT", "YES+cb", domain=".google.com")
+                response = self.session.get(search_url, timeout=20, allow_redirects=True)
+
             response.raise_for_status()
-            
-            soup = BeautifulSoup(response.content, 'html.parser')
-            
-            # Find search result links
-            urls = []
-            
-            # Google search result selectors (these may change)
-            result_selectors = [
-                'div.g a[href^="http"]',
-                'div.r a[href^="http"]',
-                'h3 a[href^="http"]',
-                'a[href^="http"]:has(h3)'
-            ]
-            
-            for selector in result_selectors:
-                links = soup.select(selector)
-                for link in links:
-                    href = link.get('href')
-                    if href and href.startswith('http'):
-                        # Clean URL
-                        clean_url = href.split('&')[0]  # Remove Google tracking parameters
-                        if clean_url not in urls:
-                            urls.append(clean_url)
-            
-            # Filter out Google, YouTube, and other non-startup URLs
-            startup_urls = []
+
+            # Parse HTML
+            soup = BeautifulSoup(response.text, 'html.parser')
+
+            # Collect candidate URLs from /url?q= links
+            candidate_urls: List[str] = []
+            anchors = soup.select('a[href^="/url?q="] , a[href^="https://www.google.com/url?q="]')
+
+            for anchor in anchors:
+                href = anchor.get('href')
+                if not href:
+                    continue
+
+                # Normalize absolute Google redirector to the path form for regex
+                if href.startswith('https://www.google.com/'):
+                    idx = href.find('/url?')
+                    if idx != -1:
+                        href = href[idx:]
+
+                match = re.search(r"/url\\?q=([^&]+)", href)
+                if not match:
+                    continue
+
+                real_url = unquote(match.group(1))
+                if not real_url.startswith('http'):
+                    continue
+
+                candidate_urls.append(real_url)
+
+            # Filter obvious non-startup domains
+            filtered_urls: List[str] = []
             exclude_domains = [
-                'google.com', 'youtube.com', 'facebook.com', 'twitter.com', 'linkedin.com',
+                'google.', 'youtube.com', 'facebook.com', 'twitter.com', 'linkedin.com',
                 'wikipedia.org', 'crunchbase.com', 'angel.co', 'techcrunch.com',
                 'forbes.com', 'reuters.com', 'bloomberg.com'
             ]
-            
-            for url in urls:
+
+            for url in candidate_urls:
                 domain = urlparse(url).netloc.lower()
-                if not any(excluded in domain for excluded in exclude_domains):
-                    # Check if it looks like a company website
-                    if any(tld in domain for tld in ['.com', '.de', '.io', '.ai', '.health', '.tech', '.app', '.eu', '.co']):
-                        startup_urls.append(url)
-            
-            print(f"  ✅ Found {len(startup_urls)} potential startup URLs")
-            return startup_urls[:15]  # Limit results
-            
+                domain = domain[4:] if domain.startswith('www.') else domain
+                if any(excluded in domain for excluded in exclude_domains):
+                    continue
+                filtered_urls.append(url)
+
+            # Deduplicate by domain, keep first occurrence
+            seen_domains: Set[str] = set()
+            unique_urls: List[str] = []
+            for url in filtered_urls:
+                domain = urlparse(url).netloc.lower()
+                domain = domain[4:] if domain.startswith('www.') else domain
+                if domain in seen_domains:
+                    continue
+                seen_domains.add(domain)
+                unique_urls.append(url)
+
+            # Limit results to 15
+            final_results = unique_urls[:15]
+
+            print(f"✅ Found {len(final_results)} potential startup URLs")
+            return final_results
+
         except Exception as e:
-            print(f"  ⚠️ Error searching Google: {str(e)}")
+            print(f"⚠️ Error searching Google: {str(e)}")
             return []
 
     def discover_german_health_startups(self) -> List[Dict]:
