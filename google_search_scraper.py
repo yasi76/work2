@@ -37,7 +37,9 @@ class GoogleSearchStartupFinder:
         # Respectful randomized delay window between requests
         self.delay = (8, 15)
         self.found_urls = set()
-        
+        # Track last HTTP status to inform fallback logic
+        self.last_http_status = None
+    
     def _ensure_consent_cookie(self, resp):
         """
         If Google redirects to consent.google.com or the page contains a consent form,
@@ -100,8 +102,10 @@ class GoogleSearchStartupFinder:
 
                 try:
                     resp = self.session.get(base_url, params=params, headers=headers, timeout=20)
+                    self.last_http_status = getattr(resp, "status_code", None)
                 except requests.RequestException as e:
                     # Network error; apply backoff and retry
+                    self.last_http_status = None
                     if attempt < max_retries - 1:
                         sleep_s = base_backoff * (2 ** attempt) + random.uniform(0, 3)
                         sleep_s += random.uniform(*self.delay)
@@ -127,6 +131,7 @@ class GoogleSearchStartupFinder:
 
                 status = getattr(resp, "status_code", 0)
                 if status in (429, 503):
+                    self.last_http_status = status
                     if attempt < max_retries - 1:
                         sleep_s = base_backoff * (2 ** attempt) + random.uniform(0, 3)
                         sleep_s += random.uniform(*self.delay)
@@ -179,6 +184,7 @@ class GoogleSearchStartupFinder:
                         startup_urls.append(url)
 
                 print(f"  ✅ Found {len(startup_urls)} potential startup URLs")
+                self.last_http_status = 200
                 return startup_urls[:10]
 
             # If we get here, retries exhausted
@@ -207,13 +213,27 @@ class GoogleSearchStartupFinder:
         results: List[Dict] = []
         for idx, query in enumerate(german_queries):
             urls = self.search_google(query, num_results=10)
+            # Fallback to DDG on rate-limit or empty results
+            if not urls or getattr(self, "last_http_status", None) in (429, 503):
+                sleep_s = random.uniform(10, 20)
+                print(f"  🔁 Google empty or rate-limited. Sleeping {sleep_s:.1f}s then trying DuckDuckGo…")
+                time.sleep(sleep_s)
+                try:
+                    ddg = DuckDuckGoSearchStartupFinder()
+                    urls = ddg.search_ddg(query, num_results=20)
+                    source_label = f"DDG: {query}"
+                except Exception:
+                    urls = []
+                    source_label = f"DDG: {query}"
+            else:
+                source_label = f"Google: {query}"
             if urls:
                 for url in urls:
                     if url not in self.found_urls:
                         self.found_urls.add(url)
                         results.append({
                             'url': url,
-                            'source': f'Google: {query}',
+                            'source': source_label,
                             'confidence': 7,
                             'category': 'German Health Tech',
                             'country': 'Germany'
@@ -243,13 +263,26 @@ class GoogleSearchStartupFinder:
         results: List[Dict] = []
         for idx, query in enumerate(european_queries):
             urls = self.search_google(query, num_results=10)
+            if not urls or getattr(self, "last_http_status", None) in (429, 503):
+                sleep_s = random.uniform(10, 20)
+                print(f"  🔁 Google empty or rate-limited. Sleeping {sleep_s:.1f}s then trying DuckDuckGo…")
+                time.sleep(sleep_s)
+                try:
+                    ddg = DuckDuckGoSearchStartupFinder()
+                    urls = ddg.search_ddg(query, num_results=20)
+                    source_label = f"DDG: {query}"
+                except Exception:
+                    urls = []
+                    source_label = f"DDG: {query}"
+            else:
+                source_label = f"Google: {query}"
             if urls:
                 for url in urls:
                     if url not in self.found_urls:
                         self.found_urls.add(url)
                         results.append({
                             'url': url,
-                            'source': f'Google: {query}',
+                            'source': source_label,
                             'confidence': 6,
                             'category': 'European Health Tech',
                             'country': 'Europe'
@@ -278,13 +311,26 @@ class GoogleSearchStartupFinder:
         results: List[Dict] = []
         for idx, query in enumerate(domain_queries):
             urls = self.search_google(query, num_results=10)
+            if not urls or getattr(self, "last_http_status", None) in (429, 503):
+                sleep_s = random.uniform(10, 20)
+                print(f"  🔁 Google empty or rate-limited. Sleeping {sleep_s:.1f}s then trying DuckDuckGo…")
+                time.sleep(sleep_s)
+                try:
+                    ddg = DuckDuckGoSearchStartupFinder()
+                    urls = ddg.search_ddg(query, num_results=20)
+                    source_label = f"DDG: {query}"
+                except Exception:
+                    urls = []
+                    source_label = f"DDG: {query}"
+            else:
+                source_label = f"Google: {query}"
             if urls:
                 for url in urls:
                     if url not in self.found_urls:
                         self.found_urls.add(url)
                         results.append({
                             'url': url,
-                            'source': f'Google: {query}',
+                            'source': source_label,
                             'confidence': 6,
                             'category': 'Domain Specific',
                             'country': 'Various'
@@ -309,6 +355,19 @@ class GoogleSearchStartupFinder:
         results: List[Dict] = []
         for idx, query in enumerate(directory_queries):
             urls = self.search_google(query, num_results=10)
+            if not urls or getattr(self, "last_http_status", None) in (429, 503):
+                sleep_s = random.uniform(10, 20)
+                print(f"  🔁 Google empty or rate-limited. Sleeping {sleep_s:.1f}s then trying DuckDuckGo…")
+                time.sleep(sleep_s)
+                try:
+                    ddg = DuckDuckGoSearchStartupFinder()
+                    urls = ddg.search_ddg(query, num_results=20)
+                    source_label = f"DDG: {query}"
+                except Exception:
+                    urls = []
+                    source_label = f"DDG: {query}"
+            else:
+                source_label = f"Google: {query}"
             if urls:
                 for url in urls:
                     if url not in self.found_urls:
@@ -316,7 +375,7 @@ class GoogleSearchStartupFinder:
                         # These might be directories, so lower confidence
                         results.append({
                             'url': url,
-                            'source': f'Google: {query}',
+                            'source': source_label,
                             'confidence': 5,
                             'category': 'Directory Listed',
                             'country': 'Various'
@@ -527,6 +586,88 @@ class GoogleSearchStartupFinder:
         print(f"  • JSON: {json_filename}")
         
         return csv_filename, json_filename
+
+class DuckDuckGoSearchStartupFinder:
+    """Simple HTML DuckDuckGo fallback client using the /html endpoint."""
+
+    def __init__(self) -> None:
+        self.session = requests.Session()
+        self.ua_pool = [
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X 13_5) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.5 Safari/605.1.15",
+            "Mozilla/5.0 (X11; Linux x86_64; rv:124.0) Gecko/20100101 Firefox/124.0",
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:124.0) Gecko/20100101 Firefox/124.0",
+        ]
+        self.static_headers = {
+            "Accept": "text/html,application/xhtml+xml",
+            "Accept-Language": "en-US,en;q=0.9",
+            "Referer": "https://duckduckgo.com/",
+        }
+        self.delay = (6, 12)
+
+    def _filter_urls(self, urls: List[str]) -> List[str]:
+        exclude_domains = {
+            "duckduckgo.com", "google.com", "news.google.com", "youtube.com", "m.youtube.com",
+            "facebook.com", "twitter.com", "linkedin.com", "wikipedia.org",
+            "crunchbase.com", "angel.co", "techcrunch.com", "reuters.com", "bloomberg.com",
+            "webcache.googleusercontent.com"
+        }
+        allowed_tlds = (".com", ".de", ".io", ".ai", ".health", ".tech", ".app", ".eu", ".co")
+        kept: List[str] = []
+        for url in urls:
+            try:
+                domain = urlparse(url).netloc.lower()
+            except Exception:
+                continue
+            if any(excl in domain for excl in exclude_domains):
+                continue
+            if any(tld in domain for tld in allowed_tlds):
+                kept.append(url)
+        return kept
+
+    def search_ddg(self, query: str, num_results: int = 20) -> List[str]:
+        print(f"🔎 Fallback: DuckDuckGo for: '{query}'")
+        try:
+            time.sleep(random.uniform(*self.delay))
+            ua = random.choice(self.ua_pool)
+            headers = {"User-Agent": ua, **self.static_headers}
+            url = f"https://duckduckgo.com/html/?q={quote_plus(query)}"
+            resp = self.session.get(url, headers=headers, timeout=20)
+            if getattr(resp, "status_code", 0) in (429, 503):
+                print("  ⚠️  DDG rate-limited; returning empty.")
+                return []
+            resp.raise_for_status()
+            soup = BeautifulSoup(resp.text, "html.parser")
+            raw_urls: List[str] = []
+            for a in soup.select("a.result__a"):
+                href = a.get("href", "")
+                if not href:
+                    continue
+                # DDG HTML often uses /l/?uddg=<encoded_target>
+                if href.startswith("/l/?") or href.startswith("https://duckduckgo.com/l/?"):
+                    try:
+                        from urllib.parse import parse_qs
+                        qs = parse_qs(urlparse(href).query)
+                        target = qs.get("uddg", [""])[0]
+                        if target:
+                            raw_urls.append(unquote(target))
+                    except Exception:
+                        continue
+                elif href.startswith("http"):
+                    raw_urls.append(href)
+            # Dedupicate and filter
+            seen = set()
+            deduped: List[str] = []
+            for u in raw_urls:
+                if u not in seen:
+                    seen.add(u)
+                    deduped.append(u)
+            filtered = self._filter_urls(deduped)
+            print(f"  ✅ DDG extracted {len(filtered)} URLs")
+            return filtered[: min(15, int(num_results or 20))]
+        except Exception as exc:
+            print(f"  ⚠️  Error searching DuckDuckGo: {exc}")
+            return []
 
 def main():
     """Main function"""
