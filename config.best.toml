@@ -1,6 +1,3 @@
-ini
-Copy
-Edit
 output_dir = "outputs_best"
 include_hardcoded = true
 use_enhanced = true
