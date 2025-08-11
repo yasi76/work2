@@ -1,11 +1,14 @@
+ini
+Copy
+Edit
+country_filters = ["Germany", "Europe", "EU", "European Union"]
+category_filters = []
 output_dir = "outputs_best"
 include_hardcoded = true
 use_enhanced = true
 use_google = true
 
 min_confidence = 8
-category_filters = []
-country_filters = []
 
 block_domains = [
   "linkedin.com","facebook.com","medium.com","crunchbase.com",
