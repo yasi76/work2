@@ -1,0 +1,20 @@
+output_dir = "outputs_wide"
+include_hardcoded = true
+use_enhanced = true
+use_google = true
+min_confidence = 3
+category_filters = []
+country_filters = []
+block_domains = [
+  "linkedin.com","facebook.com","medium.com","crunchbase.com",
+  "vercel.app","netlify.app","github.io","herokuapp.com",
+  "siemens-healthineers.com","philips.com/healthcare","bayer.com","roche.com","novartis.com",
+  "sanofi.com","gsk.com","astrazeneca.com","fresenius.com","merckgroup.com","iqvia.com","getinge.com","elekta.com"
+]
+[method_priority]
+Hardcoded = 100
+"Manual Curation" = 80
+"Google Search" = 60
+"Enhanced Discovery" = 50
+log_level = "INFO"
+json_logs = false
