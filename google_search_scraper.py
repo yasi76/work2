@@ -19,10 +19,23 @@ from typing import List, Dict, Set
 class GoogleSearchStartupFinder:
     def __init__(self):
         self.session = requests.Session()
-        self.session.headers.update({
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
-        })
-        self.delay = 3  # Respectful delay between searches
+        # Polite, persistent headers; UA will be rotated per request
+        self.static_headers = {
+            "Accept": "text/html,application/xhtml+xml",
+            "Accept-Language": "en-US,en;q=0.9",
+            "Referer": "https://www.google.com/",
+        }
+        self.ua_pool = [
+            # 6 modern desktop UAs
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X 13_5) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.5 Safari/605.1.15",
+            "Mozilla/5.0 (X11; Linux x86_64; rv:124.0) Gecko/20100101 Firefox/124.0",
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:124.0) Gecko/20100101 Firefox/124.0",
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X 14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64; Trident/7.0; rv:11.0) like Gecko Edge/124.0",
+        ]
+        # Respectful randomized delay window between requests
+        self.delay = (8, 15)
         self.found_urls = set()
         
     def _ensure_consent_cookie(self, resp):
@@ -40,116 +53,137 @@ class GoogleSearchStartupFinder:
 
     def _extract_result_urls(self, html):
         """
-        Extract real result URLs from Google HTML using the canonical /url?q=... links.
-        Also supports a fallback for standard result container <div class="yuRUbf"><a ...>
+        Extract real result URLs from Google HTML using tightened selectors only:
+        - anchors that contain an <h3> (a:has(h3)) with http hrefs
         """
         soup = BeautifulSoup(html, "html.parser")
-        urls = []
+        urls: List[str] = []
 
-        # Primary: /url?q=… links (both relative and absolute forms) and /url?url=
-        for a in soup.select('a[href^="/url?"], a[href^="https://www.google.com/url?"]'):
-            href = a.get("href", "")
-            # Handle absolute Google redirect hrefs by stripping the domain
-            if href.startswith("https://www.google.com/"):
-                idx = href.find("/url?")
-                if idx != -1:
-                    href = href[idx:]
-            # /url?q=<REAL_URL>&... or /url?url=<REAL_URL>&...
-            m = re.search(r"/url\\?(?:q|url)=([^&]+)", href)
-            if not m:
-                continue
-            real = unquote(m.group(1))
-            if real.startswith("http"):
-                urls.append(real)
-
-        # Fallback: direct anchors under result container
-        for a in soup.select("div.yuRUbf > a[href^='http']"):
+        # Tight modern selector: anchors that contain an <h3>
+        for a in soup.select('a:has(h3)[href^="http"]'):
             href = a.get("href", "")
             if href and href.startswith("http"):
                 urls.append(href)
 
         # Deduplicate while keeping order
         seen = set()
-        deduped = []
+        deduped: List[str] = []
         for u in urls:
             if u not in seen:
                 seen.add(u)
                 deduped.append(u)
         return deduped
 
-    def search_google(self, query: str, num_results: int = 20) -> List[str]:
-        """Search Google and extract URLs from results"""
+    def search_google(self, query: str, num_results: int = 10) -> List[str]:
+        """Search Google and extract URLs from results with rate-limit awareness"""
         print(f"🔍 Searching Google for: '{query}'")
         try:
-            from urllib.parse import quote_plus, urlparse
-        except Exception:
-            pass  # already imported at top in this file, but safe
-
-        try:
-            # URL encode the query & add de-personalization params
-            encoded_query = quote_plus(query)
-            search_url = (
-                f"https://www.google.com/search?q={encoded_query}"
-                f"&num={num_results}&hl=en&gl=de&pws=0&udm=14"
-            )
-
-            # Randomized polite delay
-            import random  # ensure available even if top import removed later
-            time.sleep(self.delay + random.uniform(1.0, 3.0))
-
-            # Request + simple backoff on 429 once
-            response = self.session.get(search_url, timeout=15)
-            if response.status_code == 429:
-                wait = 30 + random.uniform(10, 40)
-                print(f"  ⚠️  Rate limited (429). Sleeping {int(wait)}s…")
-                time.sleep(wait)
-                response = self.session.get(search_url, timeout=15)
-
-            response.raise_for_status()
-
-            soup = BeautifulSoup(response.content, 'html.parser')
-
-            urls: List[str] = []
-            seen = set()
-
-            # Primary modern desktop selector:
-            # <div class="yuRUbf"><a href="https://example.com"><h3>...</h3></a></div>
-            for a in soup.select('div.yuRUbf > a[href^="http"]'):
-                href = a.get('href')
-                if href and href.startswith('http') and href not in seen:
-                    urls.append(href); seen.add(href)
-
-            # Fallback: any <a> containing an <h3>
-            if not urls:
-                for a in soup.find_all('a', href=True):
-                    if a.find('h3'):
-                        href = a['href']
-                        if href.startswith('http') and href not in seen:
-                            urls.append(href); seen.add(href)
-
-            # Last resort: legacy patterns
-            if not urls:
-                for a in soup.select('div.g a[href^="http"], div.r a[href^="http"], h3 a[href^="http"]'):
-                    href = a.get('href')
-                    if href and href.startswith('http') and href not in seen:
-                        urls.append(href); seen.add(href)
-
-            # Filter out obviously irrelevant/giant aggregators
-            exclude_domains = {
-                'google.com','youtube.com','facebook.com','twitter.com','linkedin.com',
-                'wikipedia.org','crunchbase.com','angel.co','techcrunch.com',
-                'forbes.com','reuters.com','bloomberg.com'
+            params = {
+                "q": query,
+                "num": max(1, min(int(num_results or 10), 10)),
+                "hl": "en",
+                "gl": "de",
+                "pws": "0",
             }
-            startup_urls: List[str] = []
-            for url in urls:
-                domain = urlparse(url).netloc.lower()
-                if any(x in domain for x in exclude_domains):
-                    continue
-                if any(tld in domain for tld in ['.com','.de','.io','.ai','.health','.tech','.app','.eu','.co']):
-                    startup_urls.append(url)
 
-            print(f"  ✅ Found {len(startup_urls)} potential startup URLs")
-            return startup_urls[:15]
+            base_url = "https://www.google.com/search"
+            max_retries = 5
+            base_backoff = 5.0
+
+            # Initial polite delay
+            time.sleep(random.uniform(*self.delay))
+
+            for attempt in range(max_retries):
+                # Rotate UA per attempt
+                ua = random.choice(self.ua_pool)
+                headers = {"User-Agent": ua, **self.static_headers}
+
+                try:
+                    resp = self.session.get(base_url, params=params, headers=headers, timeout=20)
+                except requests.RequestException as e:
+                    # Network error; apply backoff and retry
+                    if attempt < max_retries - 1:
+                        sleep_s = base_backoff * (2 ** attempt) + random.uniform(0, 3)
+                        sleep_s += random.uniform(*self.delay)
+                        print(f"  ⚠️  Network error: {e}. Backing off {sleep_s:.1f}s…")
+                        time.sleep(sleep_s)
+                        self.session.cookies.clear()
+                        continue
+                    else:
+                        print("  ⚠️  Network error and retries exhausted; returning empty.")
+                        return []
+
+                # Handle consent interstitial once by setting cookie and retrying immediately
+                if self._ensure_consent_cookie(resp):
+                    self.session.cookies.clear()
+                    if attempt < max_retries - 1:
+                        sleep_s = random.uniform(*self.delay)
+                        print(f"  ⚠️  Consent flow detected. Sleeping {sleep_s:.1f}s and retrying…")
+                        time.sleep(sleep_s)
+                        continue
+                    else:
+                        print("  ⚠️  Consent flow and retries exhausted; returning empty.")
+                        return []
+
+                status = getattr(resp, "status_code", 0)
+                if status in (429, 503):
+                    if attempt < max_retries - 1:
+                        sleep_s = base_backoff * (2 ** attempt) + random.uniform(0, 3)
+                        sleep_s += random.uniform(*self.delay)
+                        print(f"  ⚠️  Rate limited ({status}). Sleeping {sleep_s:.1f}s and rotating UA…")
+                        time.sleep(sleep_s)
+                        self.session.cookies.clear()
+                        continue
+                    else:
+                        print("  ⚠️  Rate-limited, try later. Returning empty.")
+                        return []
+
+                try:
+                    resp.raise_for_status()
+                except Exception as e:
+                    print(f"  ⚠️  HTTP error: {e}")
+                    return []
+
+                soup = BeautifulSoup(resp.content, "html.parser")
+
+                # Extract URLs via tightened selectors only
+                urls: List[str] = []
+                seen: Set[str] = set()
+                for a in soup.select('a:has(h3)[href^="http"]'):
+                    href = a.get("href")
+                    if href and href.startswith("http") and href not in seen:
+                        urls.append(href)
+                        seen.add(href)
+
+                # Filter domains
+                exclude_domains = {
+                    "google.com", "google.de", "news.google.com", "youtube.com", "m.youtube.com",
+                    "facebook.com", "twitter.com", "linkedin.com", "wikipedia.org",
+                    "crunchbase.com", "angel.co", "techcrunch.com", "reuters.com", "bloomberg.com",
+                    "webcache.googleusercontent.com"
+                }
+
+                allowed_tlds = (".com", ".de", ".io", ".ai", ".health", ".tech", ".app", ".eu", ".co")
+
+                startup_urls: List[str] = []
+                for url in urls:
+                    try:
+                        domain = urlparse(url).netloc.lower()
+                    except Exception:
+                        continue
+                    if any(excl in domain for excl in exclude_domains):
+                        continue
+                    if domain.endswith(".google"):
+                        continue
+                    if any(tld in domain for tld in allowed_tlds):
+                        startup_urls.append(url)
+
+                print(f"  ✅ Found {len(startup_urls)} potential startup URLs")
+                return startup_urls[:10]
+
+            # If we get here, retries exhausted
+            print("  ⚠️  Rate-limited, try later. Returning empty.")
+            return []
 
         except Exception as e:
             print(f"  ⚠️  Error searching Google: {str(e)}")
@@ -170,19 +204,23 @@ class GoogleSearchStartupFinder:
             "medtech company Germany innovation"
         ]
         
-        results = []
-        for query in german_queries:
-            urls = self.search_google(query)
-            for url in urls:
-                if url not in self.found_urls:
-                    self.found_urls.add(url)
-                    results.append({
-                        'url': url,
-                        'source': f'Google: {query}',
-                        'confidence': 7,
-                        'category': 'German Health Tech',
-                        'country': 'Germany'
-                    })
+        results: List[Dict] = []
+        for idx, query in enumerate(german_queries):
+            urls = self.search_google(query, num_results=10)
+            if urls:
+                for url in urls:
+                    if url not in self.found_urls:
+                        self.found_urls.add(url)
+                        results.append({
+                            'url': url,
+                            'source': f'Google: {query}',
+                            'confidence': 7,
+                            'category': 'German Health Tech',
+                            'country': 'Germany'
+                        })
+                break  # Short-circuit after first successful query
+            # Throttle between queries
+            time.sleep(random.uniform(10, 20))
                     
         print(f"🇩🇪 Found {len(results)} German startup URLs")
         return results
@@ -202,19 +240,22 @@ class GoogleSearchStartupFinder:
             "health app startup Europe"
         ]
         
-        results = []
-        for query in european_queries:
-            urls = self.search_google(query)
-            for url in urls:
-                if url not in self.found_urls:
-                    self.found_urls.add(url)
-                    results.append({
-                        'url': url,
-                        'source': f'Google: {query}',
-                        'confidence': 6,
-                        'category': 'European Health Tech',
-                        'country': 'Europe'
-                    })
+        results: List[Dict] = []
+        for idx, query in enumerate(european_queries):
+            urls = self.search_google(query, num_results=10)
+            if urls:
+                for url in urls:
+                    if url not in self.found_urls:
+                        self.found_urls.add(url)
+                        results.append({
+                            'url': url,
+                            'source': f'Google: {query}',
+                            'confidence': 6,
+                            'category': 'European Health Tech',
+                            'country': 'Europe'
+                        })
+                break  # Short-circuit after first successful query
+            time.sleep(random.uniform(10, 20))
                     
         print(f"🇪🇺 Found {len(results)} European startup URLs")
         return results
@@ -234,19 +275,22 @@ class GoogleSearchStartupFinder:
             "pharmacy automation startup"
         ]
         
-        results = []
-        for query in domain_queries:
-            urls = self.search_google(query)
-            for url in urls:
-                if url not in self.found_urls:
-                    self.found_urls.add(url)
-                    results.append({
-                        'url': url,
-                        'source': f'Google: {query}',
-                        'confidence': 6,
-                        'category': 'Domain Specific',
-                        'country': 'Various'
-                    })
+        results: List[Dict] = []
+        for idx, query in enumerate(domain_queries):
+            urls = self.search_google(query, num_results=10)
+            if urls:
+                for url in urls:
+                    if url not in self.found_urls:
+                        self.found_urls.add(url)
+                        results.append({
+                            'url': url,
+                            'source': f'Google: {query}',
+                            'confidence': 6,
+                            'category': 'Domain Specific',
+                            'country': 'Various'
+                        })
+                break  # Short-circuit after first successful query
+            time.sleep(random.uniform(10, 20))
                     
         print(f"🎯 Found {len(results)} domain-specific startup URLs")
         return results
@@ -262,20 +306,23 @@ class GoogleSearchStartupFinder:
             "medical technology startup database"
         ]
         
-        results = []
-        for query in directory_queries:
-            urls = self.search_google(query)
-            for url in urls:
-                if url not in self.found_urls:
-                    self.found_urls.add(url)
-                    # These might be directories, so lower confidence
-                    results.append({
-                        'url': url,
-                        'source': f'Google: {query}',
-                        'confidence': 5,
-                        'category': 'Directory Listed',
-                        'country': 'Various'
-                    })
+        results: List[Dict] = []
+        for idx, query in enumerate(directory_queries):
+            urls = self.search_google(query, num_results=10)
+            if urls:
+                for url in urls:
+                    if url not in self.found_urls:
+                        self.found_urls.add(url)
+                        # These might be directories, so lower confidence
+                        results.append({
+                            'url': url,
+                            'source': f'Google: {query}',
+                            'confidence': 5,
+                            'category': 'Directory Listed',
+                            'country': 'Various'
+                        })
+                break  # Short-circuit after first successful query
+            time.sleep(random.uniform(10, 20))
                     
         print(f"📁 Found {len(results)} directory URLs")
         return results
@@ -519,10 +566,16 @@ def main():
     return csv_file, json_file
 
 if __name__ == "__main__":
-    try:
-        csv_file, json_file = main()
-        print(f"\n🎊 Google search discovery completed successfully!")
-    except KeyboardInterrupt:
-        print(f"\n⚠️ Discovery interrupted by user")
-    except Exception as e:
-        print(f"\n❌ Error during discovery: {str(e)}")
+    import sys
+    if len(sys.argv) > 1:
+        # Single query test mode for debugging
+        q = " ".join(sys.argv[1:]) or "digital health startup Germany site:.de"
+        print(GoogleSearchStartupFinder().search_google(q, 10))
+    else:
+        try:
+            csv_file, json_file = main()
+            print(f"\n🎊 Google search discovery completed successfully!")
+        except KeyboardInterrupt:
+            print(f"\n⚠️ Discovery interrupted by user")
+        except Exception as e:
+            print(f"\n❌ Error during discovery: {str(e)}")

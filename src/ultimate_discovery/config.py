@@ -85,6 +85,11 @@ def load_config(path: str) -> Config:
         run_id=(str(data.get("run_id")) if data.get("run_id") is not None else None),
     )
 
+    # Env override: allow USE_GOOGLE=false to disable Google source
+    env_use_google = os.getenv("USE_GOOGLE")
+    if env_use_google is not None:
+        cfg.use_google = env_use_google.strip().lower() not in {"0", "false", "no", "off"}
+
     # Ensure output directory exists
     os.makedirs(cfg.output_dir, exist_ok=True)
     return cfg
