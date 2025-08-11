@@ -34,3 +34,11 @@ Your 53 hardcoded URLs are included with highest priority (confidence 10).
 3. Use high-confidence URLs (8-10) for your startup database
 
 **🎯 From 53 to 218 startup URLs - ready to scale!**
+
+### New modular pipeline
+
+Use the new CLI for configurable, deterministic runs:
+
+```bash
+ultimate-discovery run --config config.example.toml --output-dir ./out
+```

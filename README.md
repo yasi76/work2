@@ -287,3 +287,35 @@ This Ultimate Startup Discovery System transforms your manual URL list into a co
 Your original 53 URLs remain the high-quality foundation, now enhanced with 165 additional discoveries to create the most comprehensive European health tech startup database available.
 
 **Ready to scale your startup discovery! 🚀**
+
+## Ultimate Discovery (modular CLI)
+
+A modular, testable toolchain to discover digital health startup URLs and export CSV/JSON/report.
+
+Install (editable):
+
+```bash
+pip install -e .
+```
+
+Run:
+
+```bash
+ultimate-discovery run --config config.example.toml --output-dir ./out
+```
+
+Validate a prior JSON output:
+
+```bash
+ultimate-discovery validate --input ./out/<run-id>/ultimate_discovery_<run-id>.json
+```
+
+Config reference: see `config.example.toml`.
+
+Outputs are written under `output_dir/<run-id>/` with deterministic filenames (override with `--run-id`).
+
+Tests:
+
+```bash
+pytest -q
+```

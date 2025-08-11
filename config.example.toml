@@ -1,0 +1,37 @@
+# Example configuration for ultimate-discovery
+
+output_dir = "./out"
+country_filters = []
+category_filters = []
+min_confidence = 0
+
+rate_limit_per_sec = 2.0
+max_retries = 2
+timeout_s = 15.0
+
+include_curated = true
+include_hardcoded = true
+
+use_enhanced = true
+use_google = true
+
+# Optional module import path overrides
+[optional_module_paths]
+# enhanced = "/path/to/enhanced_startup_discovery.py"
+# google = "/path/to/google_search_scraper.py"
+
+allow_domains = []
+block_domains = []
+
+[method_priority]
+Hardcoded = 5
+"Manual Curation" = 4
+"Google Search" = 3
+"Enhanced Discovery" = 2
+Generated = 1
+
+log_level = "INFO"
+json_logs = false
+
+# Optional deterministic run id (overrides timestamp)
+# run_id = "20250101_120000"
