@@ -8,7 +8,7 @@ Scrapes search results for real startup URLs
 import requests
 import time
 import re
-from urllib.parse import urljoin, urlparse, quote_plus
+from urllib.parse import urljoin, urlparse, quote_plus, unquote
 from bs4 import BeautifulSoup
 import json
 import csv
@@ -24,92 +24,138 @@ class GoogleSearchStartupFinder:
         self.delay = 3  # Respectful delay between searches
         self.found_urls = set()
         
+    def _ensure_consent_cookie(self, resp):
+        """
+        If Google redirects to consent.google.com or the page contains a consent form,
+        set a permissive CONSENT cookie and signal caller to retry once.
+        """
+        url = str(getattr(resp, "url", ""))
+        text = resp.text if hasattr(resp, "text") else ""
+        if "consent.google.com" in url or 'action="https://consent.google.com' in text:
+            # Set a permissive consent cookie and tell caller to retry the search once
+            self.session.cookies.set("CONSENT", "YES+cb", domain=".google.com")
+            return True
+        return False
+
+    def _extract_result_urls(self, html):
+        """
+        Extract real result URLs from Google HTML using the canonical /url?q=... links.
+        Also supports a fallback for standard result container <div class="yuRUbf"><a ...>
+        """
+        soup = BeautifulSoup(html, "html.parser")
+        urls = []
+
+        # Primary: /url?q=… links
+        for a in soup.select('a[href^="/url?q="]'):
+            href = a.get("href", "")
+            # /url?q=<REAL_URL>&...
+            m = re.search(r"/url\\?q=([^&]+)", href)
+            if not m:
+                continue
+            real = unquote(m.group(1))
+            if real.startswith("http"):
+                urls.append(real)
+
+        # Fallback: direct anchors under result container
+        for a in soup.select("div.yuRUbf > a[href^='http']"):
+            href = a.get("href", "")
+            if href and href.startswith("http"):
+                urls.append(href)
+
+        # Deduplicate while keeping order
+        seen = set()
+        deduped = []
+        for u in urls:
+            if u not in seen:
+                seen.add(u)
+                deduped.append(u)
+        return deduped
+
     def search_google(self, query: str, num_results: int = 20) -> List[str]:
-        """Search Google and extract startup-like result URLs using current HTML structure"""
+        """Search Google and extract URLs from results."""
         print(f"🔍 Searching Google for: '{query}'")
-
         try:
-            from urllib.parse import unquote  # Local import to avoid changing top-level imports
+            # Respectful delay
+            time.sleep(self.delay if getattr(self, "delay", None) else 2)
 
-            # Build search URL
-            encoded_query = quote_plus(query)
-            search_url = f"https://www.google.com/search?q={encoded_query}&num={num_results}&hl=en"
+            # Use params that yield a simpler markup; add hl/gl for consistency
+            params = {
+                "q": query,
+                "num": str(num_results),
+                "hl": "en",
+                "gl": "de",   # preference for DE results (tune if needed)
+                "pws": "0",   # disable personalized search
+                "udm": "14",  # simplified web results layout
+            }
 
-            # Respect delay before request
-            time.sleep(self.delay)
+            headers = {
+                "User-Agent": self.session.headers.get("User-Agent", "Mozilla/5.0"),
+                "Accept-Language": "en-US,en;q=0.9",
+                "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+                "Referer": "https://www.google.com/",
+            }
 
-            # Perform request
-            response = self.session.get(search_url, timeout=20, allow_redirects=True)
+            # First request
+            resp = self.session.get(
+                "https://www.google.com/search",
+                params=params,
+                headers=headers,
+                timeout=20,
+                allow_redirects=True,
+            )
+            resp.raise_for_status()
 
-            # Handle Google consent page by setting consent cookie and retrying once
-            if 'consent.google.com' in response.url:
-                self.session.cookies.set("CONSENT", "YES+cb", domain=".google.com")
-                response = self.session.get(search_url, timeout=20, allow_redirects=True)
+            # Handle consent gate once
+            if self._ensure_consent_cookie(resp):
+                time.sleep(1.0)
+                resp = self.session.get(
+                    "https://www.google.com/search",
+                    params=params,
+                    headers=headers,
+                    timeout=20,
+                    allow_redirects=True,
+                )
+                resp.raise_for_status()
 
-            response.raise_for_status()
+            # Basic bot/CAPTCHA page detection
+            text = resp.text
+            if "unusual traffic from your computer network" in text.lower():
+                print("  ⚠️  Google blocked the request (CAPTCHA). Returning empty list.")
+                return []
 
-            # Parse HTML
-            soup = BeautifulSoup(response.text, 'html.parser')
+            # Extract URLs
+            urls = self._extract_result_urls(text)
 
-            # Collect candidate URLs from /url?q= links
-            candidate_urls: List[str] = []
-            anchors = soup.select('a[href^="/url?q="] , a[href^="https://www.google.com/url?q="]')
+            # Filter obvious non-startup / aggregator domains
+            exclude_domains = {
+                "google.", "youtube.com", "facebook.com", "twitter.com", "linkedin.com",
+                "wikipedia.org", "crunchbase.com", "angel.co", "techcrunch.com",
+                "forbes.com", "reuters.com", "bloomberg.com",
+            }
 
-            for anchor in anchors:
-                href = anchor.get('href')
-                if not href:
+            def domain(u: str) -> str:
+                try:
+                    return urlparse(u).netloc.lower()
+                except Exception:
+                    return ""
+
+            filtered = []
+            seen_domains = set()
+            for u in urls:
+                d = domain(u)
+                if not d or any(ex in d for ex in exclude_domains):
                     continue
+                # Keep one URL per domain to avoid spammy duplicates
+                if d not in seen_domains:
+                    seen_domains.add(d)
+                    filtered.append(u)
 
-                # Normalize absolute Google redirector to the path form for regex
-                if href.startswith('https://www.google.com/'):
-                    idx = href.find('/url?')
-                    if idx != -1:
-                        href = href[idx:]
-
-                match = re.search(r"/url\\?q=([^&]+)", href)
-                if not match:
-                    continue
-
-                real_url = unquote(match.group(1))
-                if not real_url.startswith('http'):
-                    continue
-
-                candidate_urls.append(real_url)
-
-            # Filter obvious non-startup domains
-            filtered_urls: List[str] = []
-            exclude_domains = [
-                'google.', 'youtube.com', 'facebook.com', 'twitter.com', 'linkedin.com',
-                'wikipedia.org', 'crunchbase.com', 'angel.co', 'techcrunch.com',
-                'forbes.com', 'reuters.com', 'bloomberg.com'
-            ]
-
-            for url in candidate_urls:
-                domain = urlparse(url).netloc.lower()
-                domain = domain[4:] if domain.startswith('www.') else domain
-                if any(excluded in domain for excluded in exclude_domains):
-                    continue
-                filtered_urls.append(url)
-
-            # Deduplicate by domain, keep first occurrence
-            seen_domains: Set[str] = set()
-            unique_urls: List[str] = []
-            for url in filtered_urls:
-                domain = urlparse(url).netloc.lower()
-                domain = domain[4:] if domain.startswith('www.') else domain
-                if domain in seen_domains:
-                    continue
-                seen_domains.add(domain)
-                unique_urls.append(url)
-
-            # Limit results to 15
-            final_results = unique_urls[:15]
-
-            print(f"✅ Found {len(final_results)} potential startup URLs")
-            return final_results
+            limited = filtered[:15]
+            print(f"  ✅ Found {len(limited)} potential startup URLs")
+            return limited
 
         except Exception as e:
-            print(f"⚠️ Error searching Google: {str(e)}")
+            print(f"  ⚠️  Error searching Google: {str(e)}")
             return []
 
     def discover_german_health_startups(self) -> List[Dict]:
