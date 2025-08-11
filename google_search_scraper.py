@@ -8,7 +8,7 @@ Scrapes search results for real startup URLs
 import requests
 import time
 import re
-from urllib.parse import urljoin, urlparse, quote_plus
+from urllib.parse import urljoin, urlparse, quote_plus, parse_qs, parse_qsl, urlencode, urlunparse, unquote
 from bs4 import BeautifulSoup
 import json
 import csv
@@ -82,6 +82,77 @@ class GoogleSearchStartupFinder:
             print(f"  ⚠️ Error searching Google: {str(e)}")
             return []
 
+    def search_duckduckgo(self, query: str, max_results: int = 30) -> List[str]:
+        """Fallback: Search DuckDuckGo HTML endpoint and extract URLs"""
+        print(f"🔎 Falling back to DuckDuckGo for: '{query}'")
+        try:
+            encoded_query = quote_plus(query)
+            search_url = f"https://html.duckduckgo.com/html/?q={encoded_query}"
+
+            # Respectful delay consistent with existing backoff
+            time.sleep(self.delay)
+
+            response = self.session.get(search_url, timeout=15)
+            response.raise_for_status()
+
+            soup = BeautifulSoup(response.content, 'html.parser')
+
+            urls: List[str] = []
+            seen: Set[str] = set()
+
+            # Parse result links
+            for link in soup.select('a.result__a'):
+                href = link.get('href')
+                if not href:
+                    continue
+
+                # Handle DuckDuckGo redirect links like /l/?uddg=...
+                if href.startswith('/l/?') or 'duckduckgo.com/l/?' in href:
+                    parsed_redirect = urlparse(href if href.startswith('http') else 'https://duckduckgo.com' + href)
+                    uddg = parse_qs(parsed_redirect.query).get('uddg', [None])[0]
+                    if uddg:
+                        href = unquote(uddg)
+
+                # Only accept http(s)
+                if not href.startswith('http'):
+                    continue
+
+                parsed = urlparse(href)
+                if parsed.scheme not in ('http', 'https'):
+                    continue
+
+                domain = parsed.netloc.lower()
+
+                # Exclude obvious directories/social
+                exclude_domains = [
+                    'duckduckgo.com', 'linkedin.com', 'angel.co', 'crunchbase.com', 'facebook.com',
+                    'twitter.com', 'youtube.com', 'medium.com', 'reddit.com'
+                ]
+                if any(excluded in domain for excluded in exclude_domains):
+                    continue
+
+                # Strip common tracking params
+                filtered_qs = [
+                    (k, v) for (k, v) in parse_qsl(parsed.query, keep_blank_values=True)
+                    if not (k.startswith('utm_') or k in {'ref', 'fbclid', 'gclid', 'igshid', 'mc_cid', 'mc_eid'})
+                ]
+                cleaned_query = urlencode(filtered_qs, doseq=True)
+                clean_url = urlunparse((parsed.scheme, parsed.netloc, parsed.path, '', cleaned_query, ''))
+
+                if clean_url not in seen:
+                    seen.add(clean_url)
+                    urls.append(clean_url)
+
+                if len(urls) >= max_results:
+                    break
+
+            print(f"  🦆 DuckDuckGo found {len(urls)} URLs")
+            return urls
+
+        except Exception as e:
+            print(f"  ⚠️ DuckDuckGo error: {str(e)}")
+            return []
+
     def discover_german_health_startups(self) -> List[Dict]:
         """Discover German digital health startups"""
         print("🇩🇪 Discovering German digital health startups...")
@@ -110,6 +181,19 @@ class GoogleSearchStartupFinder:
                         'category': 'German Health Tech',
                         'country': 'Germany'
                     })
+            # Fallback to DuckDuckGo when Google yields no results
+            if not urls:
+                ddg_urls = self.search_duckduckgo(query)
+                for url in ddg_urls:
+                    if url not in self.found_urls:
+                        self.found_urls.add(url)
+                        results.append({
+                            'url': url,
+                            'source': f'DuckDuckGo: {query}',
+                            'confidence': 7,
+                            'category': 'German Health Tech',
+                            'country': 'Germany'
+                        })
                     
         print(f"🇩🇪 Found {len(results)} German startup URLs")
         return results
@@ -142,6 +226,19 @@ class GoogleSearchStartupFinder:
                         'category': 'European Health Tech',
                         'country': 'Europe'
                     })
+            # Fallback to DuckDuckGo when Google yields no results
+            if not urls:
+                ddg_urls = self.search_duckduckgo(query)
+                for url in ddg_urls:
+                    if url not in self.found_urls:
+                        self.found_urls.add(url)
+                        results.append({
+                            'url': url,
+                            'source': f'DuckDuckGo: {query}',
+                            'confidence': 6,
+                            'category': 'European Health Tech',
+                            'country': 'Europe'
+                        })
                     
         print(f"🇪🇺 Found {len(results)} European startup URLs")
         return results
@@ -174,6 +271,19 @@ class GoogleSearchStartupFinder:
                         'category': 'Domain Specific',
                         'country': 'Various'
                     })
+            # Fallback to DuckDuckGo when Google yields no results
+            if not urls:
+                ddg_urls = self.search_duckduckgo(query)
+                for url in ddg_urls:
+                    if url not in self.found_urls:
+                        self.found_urls.add(url)
+                        results.append({
+                            'url': url,
+                            'source': f'DuckDuckGo: {query}',
+                            'confidence': 6,
+                            'category': 'Domain Specific',
+                            'country': 'Various'
+                        })
                     
         print(f"🎯 Found {len(results)} domain-specific startup URLs")
         return results
@@ -203,6 +313,19 @@ class GoogleSearchStartupFinder:
                         'category': 'Directory Listed',
                         'country': 'Various'
                     })
+            # Fallback to DuckDuckGo when Google yields no results
+            if not urls:
+                ddg_urls = self.search_duckduckgo(query)
+                for url in ddg_urls:
+                    if url not in self.found_urls:
+                        self.found_urls.add(url)
+                        results.append({
+                            'url': url,
+                            'source': f'DuckDuckGo: {query}',
+                            'confidence': 5,
+                            'category': 'Directory Listed',
+                            'country': 'Various'
+                        })
                     
         print(f"📁 Found {len(results)} directory URLs")
         return results
