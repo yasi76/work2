@@ -1,0 +1,21 @@
+{
+  "discovery_timestamp": "132703",
+  "total_urls_discovered": 0,
+  "analysis": {
+    "total_urls": 0,
+    "method_counts": {},
+    "confidence_distribution": {},
+    "category_counts": {},
+    "country_counts": {},
+    "quality_metrics": {
+      "high_confidence": 0,
+      "medium_confidence": 0,
+      "low_confidence": 0,
+      "quality_score": 0.0,
+      "per_method_precision_proxy": {}
+    },
+    "duplicates_removed": 0,
+    "invalid_urls_skipped": 0
+  },
+  "urls": []
+}

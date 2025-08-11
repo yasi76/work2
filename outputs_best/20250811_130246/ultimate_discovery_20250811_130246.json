@@ -1,0 +1,1208 @@
+{
+  "discovery_timestamp": "130246",
+  "total_urls_discovered": 129,
+  "analysis": {
+    "total_urls": 129,
+    "method_counts": {
+      "Hardcoded": 53,
+      "Google Search": 31,
+      "Manual Curation": 45
+    },
+    "confidence_distribution": {
+      "10": 53,
+      "9": 1,
+      "8": 75
+    },
+    "category_counts": {
+      "Verified Health Tech": 53,
+      "German Health Tech": 29,
+      "Curated Health Tech": 42,
+      "Enterprise/Non-Startup": 3,
+      "European Health Tech": 1,
+      "Domain Specific": 1
+    },
+    "country_counts": {
+      "Germany/Europe": 53,
+      "Germany": 29,
+      "Europe/International": 45,
+      "Europe": 1,
+      "Various": 1
+    },
+    "quality_metrics": {
+      "high_confidence": 129,
+      "medium_confidence": 0,
+      "low_confidence": 0,
+      "quality_score": 3.0,
+      "per_method_precision_proxy": {
+        "Hardcoded": 1.0,
+        "Google Search": 1.0,
+        "Manual Curation": 1.0
+      }
+    },
+    "duplicates_removed": 118,
+    "invalid_urls_skipped": 0
+  },
+  "urls": [
+    {
+      "url": "https://www.acalta.de/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://www.actimi.com/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://www.emmora.de/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://www.alfa-ai.com/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://www.apheris.com/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://www.aporize.com/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://www.arztlena.com/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://shop.getnutrio.com/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://www.auta.health/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://visioncheckout.com/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://www.avayl.tech/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://www.avimedical.com/avi-impact",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://de.becureglobal.com/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://bellehealth.co/de",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://www.biotx.ai/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://www.brainjo.de/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://brea.app/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://breathment.com/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://de.caona.eu/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://www.careanimations.de/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://sfs-healthcare.com/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://www.climedo.de/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://www.cliniserve.de/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://cogthera.de/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://www.comuny.de/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://curecurve.de/elina-app",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://www.cynteract.com/de/rehabilitation",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://www.healthmeapp.de/de",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://deepeye.ai/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://www.deepmentation.ai/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://denton-systems.de/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://www.derma2go.com/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://www.dianovi.com/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "http://dopavision.com/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://www.dpv-analytics.com/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "http://www.ecovery.de/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://elixionmedical.com/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://www.empident.de/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://eye2you.ai/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://www.fitwhit.de/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://www.floy.com/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://fyzo.de/assistant",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://www.gesund.de/app",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://www.glaice.de/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://gleea.de/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://www.guidecare.de/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://www.apodienste.com/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://www.help-app.de/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://www.heynanny.com/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://incontalert.de/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://home.informme.info/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://www.kranushealth.com/de/therapien/haeufiger-harndrang",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://www.kranushealth.com/de/therapien/inkontinenz",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://e-health-com.de/details-unternehmensnews/neues-innovationszentrum-fuer-digital-health-allianz-aus-gesundheitswirtschaft-investoren-und-polit",
+      "source": "Google: e-health startup Deutschland site:.de",
+      "confidence": 9,
+      "category": "German Health Tech",
+      "country": "Germany",
+      "method": "Google Search",
+      "notes": null
+    },
+    {
+      "url": "https://www.ada.com/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.doctolib.de/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.kaia-health.com/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.teleclinic.com/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.zavamed.com/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.medwing.com/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.felmo.de/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.viomedo.de/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.caresyntax.com/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.merantix.com/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.contextflow.com/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.heartkinetics.com/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.samedi.de/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.medigene.com/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.smartpatient.eu/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.doctolib.fr/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.livi.co.uk/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.babylon.com/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.echo.co.uk/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.accurx.com/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.zava.com/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.medgate.ch/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.kry.se/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.medadom.com/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.qare.fr/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.1177.se/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.netdoktor.dk/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.opensafely.org/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.owkin.com/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.benevolent.ai/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.exscientia.ai/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.healx.io/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.insilico.com/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.braun.com/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Enterprise/Non-Startup",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.boehringer-ingelheim.com/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Enterprise/Non-Startup",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.qiagen.com/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Enterprise/Non-Startup",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.mindmaze.com/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.sophia-genetics.com/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.veracyte.com/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.tempus.com/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.flatiron.com/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.paige.ai/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.path.ai/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.viz.ai/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.arterys.com/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://healthcare-startups.de/startups",
+      "source": "Google: telemedicine startup Deutschland",
+      "confidence": 8,
+      "category": "German Health Tech",
+      "country": "Germany",
+      "method": "Google Search",
+      "notes": null
+    },
+    {
+      "url": "https://www.flyinghealth.com/de",
+      "source": "Google: telemedicine startup Deutschland",
+      "confidence": 8,
+      "category": "German Health Tech",
+      "country": "Germany",
+      "method": "Google Search",
+      "notes": null
+    },
+    {
+      "url": "https://www.eucalyptus.health/careers/kundenbetreuerin-mwd-support-im-telehealth-startup-4502575005",
+      "source": "Google: telemedicine startup Deutschland",
+      "confidence": 8,
+      "category": "German Health Tech",
+      "country": "Germany",
+      "method": "Google Search",
+      "notes": null
+    },
+    {
+      "url": "https://roxhealth.com/",
+      "source": "Google: telemedicine startup Deutschland",
+      "confidence": 8,
+      "category": "German Health Tech",
+      "country": "Germany",
+      "method": "Google Search",
+      "notes": null
+    },
+    {
+      "url": "https://www.gtai.de/en/invest/industries/healthcare-market-germany/medical-technology",
+      "source": "Google: medtech company Germany innovation",
+      "confidence": 8,
+      "category": "German Health Tech",
+      "country": "Germany",
+      "method": "Google Search",
+      "notes": null
+    },
+    {
+      "url": "https://medtech-innovation-germany.com/",
+      "source": "Google: medtech company Germany innovation",
+      "confidence": 8,
+      "category": "German Health Tech",
+      "country": "Germany",
+      "method": "Google Search",
+      "notes": null
+    },
+    {
+      "url": "https://innovations-medical.de/en",
+      "source": "Google: medtech company Germany innovation",
+      "confidence": 8,
+      "category": "German Health Tech",
+      "country": "Germany",
+      "method": "Google Search",
+      "notes": null
+    },
+    {
+      "url": "https://medtech-innovation-germany.com/company",
+      "source": "Google: medtech company Germany innovation",
+      "confidence": 8,
+      "category": "German Health Tech",
+      "country": "Germany",
+      "method": "Google Search",
+      "notes": null
+    },
+    {
+      "url": "https://www.medicaltechnologygermany.com/",
+      "source": "Google: medtech company Germany innovation",
+      "confidence": 8,
+      "category": "German Health Tech",
+      "country": "Germany",
+      "method": "Google Search",
+      "notes": null
+    },
+    {
+      "url": "https://www.gtai.de/en/invest/service/publications/medical-technology-clusters-in-germany-2568",
+      "source": "Google: medtech company Germany innovation",
+      "confidence": 8,
+      "category": "German Health Tech",
+      "country": "Germany",
+      "method": "Google Search",
+      "notes": null
+    },
+    {
+      "url": "https://www.wmc-healthcare.de/en/shaping-the-future-of-ai-in-medicine-wmc-healthcare-is-a-founding-member-of-kimed-e-v",
+      "source": "Google: medical AI startup Germany",
+      "confidence": 8,
+      "category": "German Health Tech",
+      "country": "Germany",
+      "method": "Google Search",
+      "notes": null
+    },
+    {
+      "url": "https://www.aignostics.com/",
+      "source": "Google: medical AI startup Germany",
+      "confidence": 8,
+      "category": "German Health Tech",
+      "country": "Germany",
+      "method": "Google Search",
+      "notes": null
+    },
+    {
+      "url": "https://ai4healthcro.eu/",
+      "source": "Google: medical AI Europe startup",
+      "confidence": 8,
+      "category": "European Health Tech",
+      "country": "Europe",
+      "method": "Google Search",
+      "notes": null
+    },
+    {
+      "url": "https://visionhealthpioneers.de/",
+      "source": "Google: healthtech startup Berlin",
+      "confidence": 8,
+      "category": "German Health Tech",
+      "country": "Germany",
+      "method": "Google Search",
+      "notes": null
+    },
+    {
+      "url": "https://healthcare-startups.de/category/berlin",
+      "source": "Google: healthtech startup Berlin",
+      "confidence": 8,
+      "category": "German Health Tech",
+      "country": "Germany",
+      "method": "Google Search",
+      "notes": null
+    },
+    {
+      "url": "https://www.exakthealth.com/de/physio-blog/us-expansion",
+      "source": "Google: healthtech startup Berlin",
+      "confidence": 8,
+      "category": "German Health Tech",
+      "country": "Germany",
+      "method": "Google Search",
+      "notes": null
+    },
+    {
+      "url": "https://www.wellsterhealth.com/",
+      "source": "Google: health tech company Berlin Munich",
+      "confidence": 8,
+      "category": "German Health Tech",
+      "country": "Germany",
+      "method": "Google Search",
+      "notes": null
+    },
+    {
+      "url": "https://health.tech/",
+      "source": "Google: health tech company Berlin Munich",
+      "confidence": 8,
+      "category": "German Health Tech",
+      "country": "Germany",
+      "method": "Google Search",
+      "notes": null
+    },
+    {
+      "url": "https://www.thefutureofhealth.co/p/5-german-health-tech-startups-with",
+      "source": "Google: health tech company Berlin Munich",
+      "confidence": 8,
+      "category": "German Health Tech",
+      "country": "Germany",
+      "method": "Google Search",
+      "notes": null
+    },
+    {
+      "url": "https://www.kranushealth.com/",
+      "source": "Google: health tech company Berlin Munich",
+      "confidence": 8,
+      "category": "German Health Tech",
+      "country": "Germany",
+      "method": "Google Search",
+      "notes": null
+    },
+    {
+      "url": "https://healthanalytics.com/",
+      "source": "Google: health data analytics company",
+      "confidence": 8,
+      "category": "Domain Specific",
+      "country": "Various",
+      "method": "Google Search",
+      "notes": null
+    },
+    {
+      "url": "https://gaia-group.com/",
+      "source": "Google: digital therapeutics Germany",
+      "confidence": 8,
+      "category": "German Health Tech",
+      "country": "Germany",
+      "method": "Google Search",
+      "notes": null
+    },
+    {
+      "url": "https://www.healthcaredebugged.com/the-pulse-of-germanys-digital-health-market",
+      "source": "Google: digital therapeutics Germany",
+      "confidence": 8,
+      "category": "German Health Tech",
+      "country": "Germany",
+      "method": "Google Search",
+      "notes": null
+    },
+    {
+      "url": "https://deep-dive.pharmaphorum.com/magazine/digital-health-innovation-2020/germanys-digital-health-changes-will-boost-digital-therapeutics",
+      "source": "Google: digital therapeutics Germany",
+      "confidence": 8,
+      "category": "German Health Tech",
+      "country": "Germany",
+      "method": "Google Search",
+      "notes": null
+    },
+    {
+      "url": "https://bmchealthservres.biomedcentral.com/articles/10.1186/s12913-025-12656-2",
+      "source": "Google: digital therapeutics Germany",
+      "confidence": 8,
+      "category": "German Health Tech",
+      "country": "Germany",
+      "method": "Google Search",
+      "notes": null
+    },
+    {
+      "url": "https://www.allied-clinical.com/diga-digital-therapeutic-health-application",
+      "source": "Google: digital therapeutics Germany",
+      "confidence": 8,
+      "category": "German Health Tech",
+      "country": "Germany",
+      "method": "Google Search",
+      "notes": null
+    },
+    {
+      "url": "https://healthcare-startups.de/",
+      "source": "Google: digital health startup Germany site:.de",
+      "confidence": 8,
+      "category": "German Health Tech",
+      "country": "Germany",
+      "method": "Google Search",
+      "notes": null
+    },
+    {
+      "url": "https://www.medical-valley-emn.de/en/finished-projects/digital-health-hub",
+      "source": "Google: digital health startup Germany site:.de",
+      "confidence": 8,
+      "category": "German Health Tech",
+      "country": "Germany",
+      "method": "Google Search",
+      "notes": null
+    },
+    {
+      "url": "https://www.gtai.de/en/invest/industries/healthcare-market-germany/digital-health",
+      "source": "Google: digital health startup Germany site:.de",
+      "confidence": 8,
+      "category": "German Health Tech",
+      "country": "Germany",
+      "method": "Google Search",
+      "notes": null
+    },
+    {
+      "url": "https://www.healthcapital.de/medizintechnik/digital-health/page",
+      "source": "Google: digital health startup Germany site:.de",
+      "confidence": 8,
+      "category": "German Health Tech",
+      "country": "Germany",
+      "method": "Google Search",
+      "notes": null
+    }
+  ]
+}

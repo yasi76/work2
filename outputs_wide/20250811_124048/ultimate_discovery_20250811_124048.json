@@ -1,0 +1,1845 @@
+{
+  "discovery_timestamp": "124048",
+  "total_urls_discovered": 200,
+  "analysis": {
+    "total_urls": 200,
+    "method_counts": {
+      "Hardcoded": 53,
+      "Manual Curation": 45,
+      "Enhanced Discovery": 102
+    },
+    "confidence_distribution": {
+      "10": 53,
+      "8": 45,
+      "6": 2,
+      "3": 100
+    },
+    "category_counts": {
+      "Verified Health Tech": 53,
+      "Curated Health Tech": 42,
+      "Enterprise/Non-Startup": 3,
+      "GitHub Project": 2,
+      "Potential Domain": 100
+    },
+    "country_counts": {
+      "Germany/Europe": 53,
+      "Europe/International": 45,
+      "": 102
+    },
+    "quality_metrics": {
+      "high_confidence": 98,
+      "medium_confidence": 2,
+      "low_confidence": 100,
+      "quality_score": 1.99,
+      "per_method_precision_proxy": {
+        "Hardcoded": 1.0,
+        "Manual Curation": 1.0,
+        "Enhanced Discovery": 0.0
+      }
+    },
+    "duplicates_removed": 118,
+    "invalid_urls_skipped": 0
+  },
+  "urls": [
+    {
+      "url": "https://www.acalta.de/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://www.actimi.com/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://www.emmora.de/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://www.alfa-ai.com/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://www.apheris.com/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://www.aporize.com/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://www.arztlena.com/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://shop.getnutrio.com/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://www.auta.health/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://visioncheckout.com/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://www.avayl.tech/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://www.avimedical.com/avi-impact",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://de.becureglobal.com/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://bellehealth.co/de",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://www.biotx.ai/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://www.brainjo.de/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://brea.app/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://breathment.com/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://de.caona.eu/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://www.careanimations.de/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://sfs-healthcare.com/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://www.climedo.de/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://www.cliniserve.de/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://cogthera.de/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://www.comuny.de/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://curecurve.de/elina-app",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://www.cynteract.com/de/rehabilitation",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://www.healthmeapp.de/de",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://deepeye.ai/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://www.deepmentation.ai/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://denton-systems.de/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://www.derma2go.com/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://www.dianovi.com/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "http://dopavision.com/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://www.dpv-analytics.com/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "http://www.ecovery.de/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://elixionmedical.com/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://www.empident.de/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://eye2you.ai/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://www.fitwhit.de/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://www.floy.com/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://fyzo.de/assistant",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://www.gesund.de/app",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://www.glaice.de/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://gleea.de/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://www.guidecare.de/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://www.apodienste.com/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://www.help-app.de/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://www.heynanny.com/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://incontalert.de/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://home.informme.info/",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://www.kranushealth.com/de/therapien/haeufiger-harndrang",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://www.kranushealth.com/de/therapien/inkontinenz",
+      "source": "User Verified",
+      "confidence": 10,
+      "category": "Verified Health Tech",
+      "country": "Germany/Europe",
+      "method": "Hardcoded",
+      "notes": null
+    },
+    {
+      "url": "https://www.ada.com/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.doctolib.de/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.kaia-health.com/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.teleclinic.com/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.zavamed.com/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.medwing.com/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.felmo.de/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.viomedo.de/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.caresyntax.com/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.merantix.com/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.contextflow.com/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.heartkinetics.com/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.samedi.de/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.medigene.com/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.smartpatient.eu/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.doctolib.fr/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.livi.co.uk/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.babylon.com/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.echo.co.uk/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.accurx.com/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.zava.com/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.medgate.ch/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.kry.se/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.medadom.com/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.qare.fr/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.1177.se/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.netdoktor.dk/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.opensafely.org/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.owkin.com/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.benevolent.ai/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.exscientia.ai/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.healx.io/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.insilico.com/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.braun.com/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Enterprise/Non-Startup",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.boehringer-ingelheim.com/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Enterprise/Non-Startup",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.qiagen.com/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Enterprise/Non-Startup",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.mindmaze.com/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.sophia-genetics.com/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.veracyte.com/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.tempus.com/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.flatiron.com/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.paige.ai/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.path.ai/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.viz.ai/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "https://www.arterys.com/",
+      "source": "Curated List",
+      "confidence": 8,
+      "category": "Curated Health Tech",
+      "country": "Europe/International",
+      "method": "Manual Curation",
+      "notes": null
+    },
+    {
+      "url": "http://proxectos.citius.usc.es/servando",
+      "source": "GitHub: telemedicine platform",
+      "confidence": 6,
+      "category": "GitHub Project",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://zipprr.com/practo-clone",
+      "source": "GitHub: telemedicine platform",
+      "confidence": 6,
+      "category": "GitHub Project",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://meddigital.io/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://clinic-smart.io/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://health-tech.de/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://clinicapp.com/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://doc-app.io/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://clinicsmart.com/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://caredigital.io/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://healthai.com/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://care-smart.com/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://caredigital.de/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://clinic-digital.io/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://med-tech.io/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://caresmart.de/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://medapp.io/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://healthai.io/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://healthdigital.com/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://clinic-tech.io/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://clinicai.io/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://clinic-tech.com/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://docsmart.de/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://doc-tech.de/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://health-tech.com/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://med-digital.de/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://clinicdigital.com/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://clinic-ai.de/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://clinic-app.io/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://doctech.com/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://health-ai.de/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://care-ai.com/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://careai.com/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://doc-digital.de/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://docai.de/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://healthapp.de/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://doc-app.de/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://healthdigital.io/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://medapp.com/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://medtech.de/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://caredigital.com/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://medai.com/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://health-app.io/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://health-app.de/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://caretech.de/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://clinicdigital.de/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://care-ai.io/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://med-smart.de/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://health-smart.com/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://doc-digital.io/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://doc-digital.com/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://clinic-app.de/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://care-smart.io/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://healthtech.io/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://health-smart.de/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://doc-ai.com/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://caresmart.io/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://healthsmart.io/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://clinic-app.com/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://clinictech.com/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://medsmart.io/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://clinicapp.de/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://care-tech.com/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://medapp.de/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://med-app.de/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://med-ai.io/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://caretech.io/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://care-ai.de/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://docai.io/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://careapp.io/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://med-app.com/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://doc-tech.io/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://doctech.de/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://docai.com/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://healthdigital.de/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://docapp.io/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://clinic-digital.com/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://meddigital.com/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://careapp.com/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://clinicapp.io/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://caresmart.com/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://med-digital.io/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://docapp.de/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://clinictech.io/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://clinic-ai.com/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://med-ai.com/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://clinic-smart.de/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://med-tech.com/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://healthai.de/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://healthapp.io/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://clinicsmart.de/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://care-digital.de/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://med-app.io/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://doc-smart.io/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://medsmart.de/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://med-digital.com/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://clinicdigital.io/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://health-app.com/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://medsmart.com/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://clinictech.de/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://care-app.de/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://med-tech.de/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    },
+    {
+      "url": "https://care-app.com/",
+      "source": "Generated Pattern",
+      "confidence": 3,
+      "category": "Potential Domain",
+      "country": "",
+      "method": "Enhanced Discovery",
+      "notes": null
+    }
+  ]
+}

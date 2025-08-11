@@ -1,0 +1,23 @@
+🚀 ULTIMATE STARTUP DISCOVERY REPORT
+============================================================
+
+Discovery Run ID: 20250811_133124
+Total URLs Discovered: 0
+
+📊 DISCOVERY METHODS:
+
+🎯 QUALITY METRICS:
+  • High Confidence (8-10): 0 URLs
+  • Medium Confidence (5-7): 0 URLs
+  • Low Confidence (1-4): 0 URLs
+  • Overall Quality Score: 0.00/3.0
+
+🏷️ CATEGORIES:
+
+🌍 GEOGRAPHIC DISTRIBUTION:
+
+🧹 DATA HYGIENE:
+  • Duplicates removed: 0
+  • Invalid URLs skipped: 0
+
+🔝 TOP 20 HIGHEST CONFIDENCE URLs:

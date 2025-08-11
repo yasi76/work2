@@ -1,0 +1,50 @@
+🚀 ULTIMATE STARTUP DISCOVERY REPORT
+============================================================
+
+Discovery Date: 2025-08-11 12:05:21
+Total URLs Discovered: 218
+
+📊 DISCOVERY METHODS:
+  • Hardcoded: 53 URLs
+  • Manual Curation: 47 URLs
+  • Enhanced Discovery: 118 URLs
+
+🎯 QUALITY METRICS:
+  • High Confidence (8-10): 112 URLs
+  • Medium Confidence (5-7): 6 URLs
+  • Low Confidence (1-4): 100 URLs
+  • Overall Quality Score: 2.06/3.0
+
+🏷️ CATEGORIES:
+  • Verified Health Tech: 53 URLs
+  • Curated Health Tech: 47 URLs
+  • Conference Exhibitor: 12 URLs
+  • GitHub Project: 6 URLs
+  • Potential Domain: 100 URLs
+
+🌍 GEOGRAPHIC DISTRIBUTION:
+  • Germany/Europe: 53 URLs
+  • Europe/International: 47 URLs
+  • Unknown: 118 URLs
+
+🔝 TOP 20 HIGHEST CONFIDENCE URLs:
+   1. https://www.acalta.de (confidence: 10)
+   2. https://www.actimi.com (confidence: 10)
+   3. https://www.emmora.de (confidence: 10)
+   4. https://www.alfa-ai.com (confidence: 10)
+   5. https://www.apheris.com (confidence: 10)
+   6. https://www.aporize.com/ (confidence: 10)
+   7. https://www.arztlena.com/ (confidence: 10)
+   8. https://shop.getnutrio.com/ (confidence: 10)
+   9. https://www.auta.health/ (confidence: 10)
+  10. https://visioncheckout.com/ (confidence: 10)
+  11. https://www.avayl.tech/ (confidence: 10)
+  12. https://www.avimedical.com/avi-impact (confidence: 10)
+  13. https://de.becureglobal.com/ (confidence: 10)
+  14. https://bellehealth.co/de/ (confidence: 10)
+  15. https://www.biotx.ai/ (confidence: 10)
+  16. https://www.brainjo.de/ (confidence: 10)
+  17. https://brea.app/ (confidence: 10)
+  18. https://breathment.com/ (confidence: 10)
+  19. https://de.caona.eu/ (confidence: 10)
+  20. https://www.careanimations.de/ (confidence: 10)
