@@ -7,6 +7,7 @@ Scrapes search results for real startup URLs
 
 import requests
 import time
+import random
 import re
 from urllib.parse import urljoin, urlparse, quote_plus, unquote
 from bs4 import BeautifulSoup
@@ -77,87 +78,78 @@ class GoogleSearchStartupFinder:
         return deduped
 
     def search_google(self, query: str, num_results: int = 20) -> List[str]:
-        """Search Google and extract URLs from results."""
+        """Search Google and extract URLs from results"""
         print(f"🔍 Searching Google for: '{query}'")
         try:
-            # Respectful delay
-            time.sleep(self.delay if getattr(self, "delay", None) else 2)
+            from urllib.parse import quote_plus, urlparse
+        except Exception:
+            pass  # already imported at top in this file, but safe
 
-            # Use params that yield a simpler markup; add hl/gl for consistency
-            params = {
-                "q": query,
-                "num": str(num_results),
-                "hl": "en",
-                "gl": "de",   # preference for DE results (tune if needed)
-                "pws": "0",   # disable personalized search
-                "udm": "14",  # simplified web results layout
-            }
-
-            headers = {
-                "User-Agent": self.session.headers.get("User-Agent", "Mozilla/5.0"),
-                "Accept-Language": "en-US,en;q=0.9",
-                "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-                "Referer": "https://www.google.com/",
-            }
-
-            # First request
-            resp = self.session.get(
-                "https://www.google.com/search",
-                params=params,
-                headers=headers,
-                timeout=20,
-                allow_redirects=True,
+        try:
+            # URL encode the query & add de-personalization params
+            encoded_query = quote_plus(query)
+            search_url = (
+                f"https://www.google.com/search?q={encoded_query}"
+                f"&num={num_results}&hl=en&gl=de&pws=0&udm=14"
             )
-            resp.raise_for_status()
 
-            # Handle consent gate once
-            if self._ensure_consent_cookie(resp):
-                time.sleep(1.0)
-                resp = self.session.get(
-                    "https://www.google.com/search",
-                    params=params,
-                    headers=headers,
-                    timeout=20,
-                    allow_redirects=True,
-                )
-                resp.raise_for_status()
+            # Randomized polite delay
+            import random  # ensure available even if top import removed later
+            time.sleep(self.delay + random.uniform(1.0, 3.0))
 
-            # Basic bot/CAPTCHA page detection
-            text = resp.text
-            if "unusual traffic from your computer network" in text.lower():
-                print("  ⚠️  Google blocked the request (CAPTCHA). Returning empty list.")
-                return []
+            # Request + simple backoff on 429 once
+            response = self.session.get(search_url, timeout=15)
+            if response.status_code == 429:
+                wait = 30 + random.uniform(10, 40)
+                print(f"  ⚠️  Rate limited (429). Sleeping {int(wait)}s…")
+                time.sleep(wait)
+                response = self.session.get(search_url, timeout=15)
 
-            # Extract URLs
-            urls = self._extract_result_urls(text)
+            response.raise_for_status()
 
-            # Filter obvious non-startup / aggregator domains
+            soup = BeautifulSoup(response.content, 'html.parser')
+
+            urls: List[str] = []
+            seen = set()
+
+            # Primary modern desktop selector:
+            # <div class="yuRUbf"><a href="https://example.com"><h3>...</h3></a></div>
+            for a in soup.select('div.yuRUbf > a[href^="http"]'):
+                href = a.get('href')
+                if href and href.startswith('http') and href not in seen:
+                    urls.append(href); seen.add(href)
+
+            # Fallback: any <a> containing an <h3>
+            if not urls:
+                for a in soup.find_all('a', href=True):
+                    if a.find('h3'):
+                        href = a['href']
+                        if href.startswith('http') and href not in seen:
+                            urls.append(href); seen.add(href)
+
+            # Last resort: legacy patterns
+            if not urls:
+                for a in soup.select('div.g a[href^="http"], div.r a[href^="http"], h3 a[href^="http"]'):
+                    href = a.get('href')
+                    if href and href.startswith('http') and href not in seen:
+                        urls.append(href); seen.add(href)
+
+            # Filter out obviously irrelevant/giant aggregators
             exclude_domains = {
-                "google.", "youtube.com", "facebook.com", "twitter.com", "linkedin.com",
-                "wikipedia.org", "crunchbase.com", "angel.co", "techcrunch.com",
-                "forbes.com", "reuters.com", "bloomberg.com",
+                'google.com','youtube.com','facebook.com','twitter.com','linkedin.com',
+                'wikipedia.org','crunchbase.com','angel.co','techcrunch.com',
+                'forbes.com','reuters.com','bloomberg.com'
             }
-
-            def domain(u: str) -> str:
-                try:
-                    return urlparse(u).netloc.lower()
-                except Exception:
-                    return ""
-
-            filtered = []
-            seen_domains = set()
-            for u in urls:
-                d = domain(u)
-                if not d or any(ex in d for ex in exclude_domains):
+            startup_urls: List[str] = []
+            for url in urls:
+                domain = urlparse(url).netloc.lower()
+                if any(x in domain for x in exclude_domains):
                     continue
-                # Keep one URL per domain to avoid spammy duplicates
-                if d not in seen_domains:
-                    seen_domains.add(d)
-                    filtered.append(u)
+                if any(tld in domain for tld in ['.com','.de','.io','.ai','.health','.tech','.app','.eu','.co']):
+                    startup_urls.append(url)
 
-            limited = filtered[:15]
-            print(f"  ✅ Found {len(limited)} potential startup URLs")
-            return limited
+            print(f"  ✅ Found {len(startup_urls)} potential startup URLs")
+            return startup_urls[:15]
 
         except Exception as e:
             print(f"  ⚠️  Error searching Google: {str(e)}")
