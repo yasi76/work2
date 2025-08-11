@@ -6,7 +6,6 @@ include_hardcoded = true
 use_enhanced = true
 use_google = true
 
-# Stricter for cleaner results
 min_confidence = 8
 category_filters = []
 country_filters = []
