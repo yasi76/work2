@@ -45,11 +45,16 @@ class GoogleSearchStartupFinder:
         soup = BeautifulSoup(html, "html.parser")
         urls = []
 
-        # Primary: /url?q=… links
-        for a in soup.select('a[href^="/url?q="]'):
+        # Primary: /url?q=… links (both relative and absolute forms) and /url?url=
+        for a in soup.select('a[href^="/url?"], a[href^="https://www.google.com/url?"]'):
             href = a.get("href", "")
-            # /url?q=<REAL_URL>&...
-            m = re.search(r"/url\\?q=([^&]+)", href)
+            # Handle absolute Google redirect hrefs by stripping the domain
+            if href.startswith("https://www.google.com/"):
+                idx = href.find("/url?")
+                if idx != -1:
+                    href = href[idx:]
+            # /url?q=<REAL_URL>&... or /url?url=<REAL_URL>&...
+            m = re.search(r"/url\\?(?:q|url)=([^&]+)", href)
             if not m:
                 continue
             real = unquote(m.group(1))
